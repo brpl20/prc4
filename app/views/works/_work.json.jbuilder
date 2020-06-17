@@ -1,0 +1,2 @@
+json.extract! work, :id, :tipo, :materia, :acao, :numero, :honorariosp, :honorariosp_exfield, :honorariosf, :honorariosf_exfield, :honorarios_trab_x_exito, :honorarios_parcelamento, :escritorio, :poderes, :indicacao, :indicacao_comissao, :pasta, :atendimento_inicial, :advogado_responsavel, :advogado_procuracao, :estagiarios_procuracao, :paralegais_procuracao, :advogado_parceiro, :notas, :checklist, :checklist_documentos, :documentos_pendentes, :created_at, :updated_at
+json.url work_url(work, format: :json)

@@ -1,0 +1,92 @@
+<%= simple_form_for @client do |f| %>
+  <div class="form-group">
+      <div class="d-inline-flex">
+        <%= f.input :nome, label: 'Nome', error: 'O nome do cliente é obrigatório' %>
+      </div>
+      <div class="d-inline-flex row-sm-10">
+        <%= f.input :sobrenome, label: 'Sobrenome' %>
+      </div>
+    </div>
+
+  <%= f.input :genero, label: 'Gênero', as: :radio_buttons, collection: [['Masculino', 1], ['Feminino', 2]], hint: 'Escolha o sexo',  error: 'É necessário escolher o gênero do seu cliente para o aplicativo funcionar corretamente' %>
+
+  <%= f.input :nacionalidade, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
+
+  <%= f.input :estadocivil, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
+
+  <%= f.input :capacidade, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :profissao, label: 'Profissão' %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :empresa_atual, label: 'Empresa Atual' %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :nascimento, label: 'Data de Nascimento', :as => :string, format: "%d/%m/%Y" %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :mae, label: 'Nome da Mãe' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :nb, label: 'Número de Benefício' %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :rg, label: 'Número de RG' %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :cpf, label: 'CPF' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :cep, label: 'CEP' %>
+    </div>
+    <div class="d-inline-flex">
+    <%= f.input :endereco, label: 'Endereço' %>
+    </div>
+    <div class="d-inline-flex">
+    <%= f.input :cidade, label: 'Cidade' %>
+    </div>
+    <div class="d-inline-flex">
+    <%= f.input :estado, label: 'Estado' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :email, label: 'E-mail', class: "aria-required" %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :banco %>
+    </div>
+   <div class="d-inline-flex">
+      <%= f.input :agencia %>
+    </div>
+   <div class="d-inline-flex">
+      <%= f.input :conta %>
+    </div>
+
+    <div class="d-inline-flex">
+      <%= f.input :telefone, label: 'Telefone' %>
+    </div>
+
+   <div class="d-inline-flex">
+      <%= f.input :escolha, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
+   </div>
+  </div>
+
+  <%#= yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
+
+  <%= f.button :submit, "Criar Cliente", class: "btn btn-primary" %>
+
+<% end %>
+
+
+
+

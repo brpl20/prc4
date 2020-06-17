@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @atendimento.nome %>
+</p>
+
+<p>
+  <strong>Sobrenome:</strong>
+  <%= @atendimento.sobrenome %>
+</p>
+
+<p>
+  <strong>Origem:</strong>
+  <%= @atendimento.origem %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <% case @atendimento.status %>
+    <% when 0 %>
+      <%= "0 - Pendente" %>
+    <% when 1 %>
+      <%= "1 - Concluído" %>
+    <% when 2 %>
+      <%= " 2 - Fechado" %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Responsavel:</strong>
+  <%= @atendimento.responsavel %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @atendimento.telefone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @atendimento.email %>
+</p>
+
+<p>
+  <strong>Assunto:</strong>
+  <%= @atendimento.assunto %>
+</p>
+
+<p>
+  <strong>Canal:</strong>
+  <%= @atendimento.canal %>
+</p>
+
+<p>
+  <strong>Notas:</strong>
+  <%= @atendimento.notas %>
+</p>
+
+<%= link_to 'Edit', edit_atendimento_path(@atendimento) %> |
+<%= link_to 'Back', atendimentos_path %>

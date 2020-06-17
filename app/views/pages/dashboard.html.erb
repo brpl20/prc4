@@ -1,0 +1,23 @@
+<h1>Pages#dashboard</h1>
+<p>Find me in app/views/pages/dashboard.html.erb</p>
+
+
+
+<h1><%= link_to "Novo Atendimento", new_atendimento_path, class: "btn btn-secondary" %> </h1>
+
+<h1><%= link_to "Novo Cliente", new_client_path, class: "btn btn-secondary" %></h1>
+
+<h1><%= link_to "Novo Atendimento", new_atendimento_path, class: "btn btn-secondary" %></h1>
+
+<h1><%= link_to "Novo Job", new_job_path, class: "btn btn-secondary" %></h1>
+
+<h1><%= link_to "Novo Procedimento (work)", new_work_path, class: "btn btn-secondary" %></h1>
+
+<% if current_user.lawyer_role? || current_user.paralegal_role? %>
+  <p>Visible only for lawyer and paralegal </p>
+<% end %>
+
+<h1><%= link_to "Novo Advogado", new_lawyer_path, class: "btn btn-secondary" %></h1>
+
+<h1><%= link_to "Novo Escritório", new_escritorio_path, class: "btn btn-secondary" %></h1>
+

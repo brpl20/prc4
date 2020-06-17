@@ -1,0 +1,81 @@
+# == Schema Information
+#
+# Table name: clients
+#
+#  id            :bigint           not null, primary key
+#  genero        :integer
+#  nome          :string
+#  sobrenome     :string
+#  nacionalidade :string
+#  estadocivil   :string
+#  capacidade    :string
+#  profissao     :string
+#  empresa_atual :string
+#  nascimento    :date
+#  mae           :string
+#  nb            :integer
+#  rg            :string
+#  cpf           :bigint
+#  email         :string
+#  endereco      :string
+#  cidade        :string
+#  estado        :string
+#  banco         :integer
+#  agencia       :integer
+#  conta         :integer
+#  cep           :bigint
+#  telefone      :bigint
+#  documentos    :json
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#
+
+one:
+  genero: 1
+  nome: MyString
+  sobrenome: MyString
+  nacionalidade: MyString
+  estadocivil: MyString
+  capacidade: MyString
+  profissao: MyString
+  empresa_atual: MyString
+  nascimento: 2020-06-10
+  mae: MyString
+  nb: 1
+  rg: MyString
+  cpf: 1
+  email: MyString
+  endereco: MyString
+  cidade: MyString
+  estado: MyString
+  banco: 1
+  agencia: 1
+  conta: 1
+  cep: 1
+  telefone: 1
+  documentos: 
+
+two:
+  genero: 1
+  nome: MyString
+  sobrenome: MyString
+  nacionalidade: MyString
+  estadocivil: MyString
+  capacidade: MyString
+  profissao: MyString
+  empresa_atual: MyString
+  nascimento: 2020-06-10
+  mae: MyString
+  nb: 1
+  rg: MyString
+  cpf: 1
+  email: MyString
+  endereco: MyString
+  cidade: MyString
+  estado: MyString
+  banco: 1
+  agencia: 1
+  conta: 1
+  cep: 1
+  telefone: 1
+  documentos: 

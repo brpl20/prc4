@@ -1,0 +1,132 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Genero:</strong>
+  <%= @client.genero %>
+</p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @client.nome %>
+</p>
+
+<p>
+  <strong>Sobrenome:</strong>
+  <%= @client.sobrenome %>
+</p>
+
+<p>
+  <strong>Nacionalidade:</strong>
+  <%= @client.nacionalidade %>
+</p>
+
+<p>
+  <strong>Estadocivil:</strong>
+  <%= @client.estadocivil %>
+</p>
+
+<p>
+  <strong>Capacidade:</strong>
+  <%= @client.capacidade %>
+</p>
+
+<p>
+  <strong>Profissao:</strong>
+  <%= @client.profissao %>
+</p>
+
+<p>
+  <strong>Empresa atual:</strong>
+  <%= @client.empresa_atual %>
+</p>
+
+<p>
+  <strong>Nascimento:</strong>
+  <%= @client.nascimento %>
+</p>
+
+<p>
+  <strong>Mae:</strong>
+  <%= @client.mae %>
+</p>
+
+<p>
+  <strong>Nb:</strong>
+  <%= @client.nb %>
+</p>
+
+<p>
+  <strong>Rg:</strong>
+  <%= @client.rg %>
+</p>
+
+<p>
+  <strong>Cpf:</strong>
+  <%= @client.cpf %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @client.email %>
+</p>
+
+<p>
+  <strong>Endereco:</strong>
+  <%= @client.endereco %>
+</p>
+
+<p>
+  <strong>Cidade:</strong>
+  <%= @client.cidade %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @client.estado %>
+</p>
+
+<p>
+  <strong>Banco:</strong>
+  <%= @client.banco %>
+
+  <strong>Agencia:</strong>
+  <%= @client.agencia %>
+
+  <strong>Conta:</strong>
+  <%= @client.conta %>
+</p>
+
+<p>
+  <strong>Cep:</strong>
+  <%= @client.cep %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @client.telefone %>
+</p>
+
+<p>
+  <strong>Documentos:</strong>
+  <%= @client.documentos["document_type"] %>
+</p>
+
+<p>
+  <strong>Documentos Link:</strong>
+  <%= @client.documentos["aws_link"] %>
+</p>
+
+<p>
+  <%= link_to "Baixar Procuração", @url, class: "btn btn-warning" %>
+</p>
+
+
+<h1>Jobs Pendentes</h1>
+<p>
+  <%= "client jobs" %>
+</p>
+<%= link_to 'New Work', new_work_path(@client) %>
+<%= link_to 'New Job', new_job_path(@client) %>
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>
