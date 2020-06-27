@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.6'
 
 #   Authentication and Authorization
+gem 'dotenv-rails', groups: [:development, :test]
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
@@ -13,7 +14,6 @@ gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form'
 gem 'aws-sdk-s3', require: false
 gem 's3'
-gem 'dotenv-rails', groups: [:development, :test]
 gem 'pry-rails', :group => :development
 gem 'docx', :require => ["docx"]
 

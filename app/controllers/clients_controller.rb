@@ -8,8 +8,9 @@ class ClientsController < ApplicationController
   def show
     require 's3'
     service = S3::Service.new(
-     :access_key_id => Rails.application.credentials.dig(:aws, :access_key_id),
-     :secret_access_key => Rails.application.credentials.dig(:aws, :secret_access_key))
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
+     )
     @client = Client.find(params[:id])
     doc_link = @client.documentos["document_name"]
     @client.documentos[:aws_link]
@@ -82,8 +83,8 @@ class ClientsController < ApplicationController
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        Rails.application.credentials.dig(:aws, :access_key_id),
-        Rails.application.credentials.dig(:aws, :secret_access_key)
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -239,8 +240,8 @@ class ClientsController < ApplicationController
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        Rails.application.credentials.dig(:aws, :access_key_id),
-        Rails.application.credentials.dig(:aws, :secret_access_key)
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
