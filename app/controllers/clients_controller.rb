@@ -177,8 +177,9 @@ class ClientsController < ApplicationController
     end
     bucket = 'prcstudio3herokubucket'
     nome_correto = client[:nome].downcase.gsub(/\s+/, "")
-    ch_save = doc.save(Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
-    ch_file = Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s
+
+    ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+    ch_file = "tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx"
     obj = @s3.bucket(bucket).object(ch_file)
 
     #backup
