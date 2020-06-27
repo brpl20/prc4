@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
     @meta2 = []
     #criar objeto
     @bucket = service.buckets.find("prcstudio3herokubucket")
-    @object = @bucket.objects.find("public/files/#{doc_link}")
+    @object = @bucket.objects.find("tmp/#{doc_link}")
     @url = @object.temporary_url(Time.now + 1800)
     @meta << @object
   end
