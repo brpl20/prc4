@@ -187,7 +187,7 @@ GEM
       pry (>= 0.10.4)
     public_suffix (4.0.5)
     puma (3.12.6)
-    rack (2.2.2)
+    rack (2.2.3)
     rack-pjax (1.1.0)
       nokogiri (~> 1.5)
       rack (>= 1.1)
@@ -336,6 +336,7 @@ DEPENDENCIES
   pg (>= 0.18, < 2.0)
   pry-rails
   puma (~> 3.11)
+  rack (>= 2.2.3)
   rails (~> 5.2.4, >= 5.2.4.3)
   rails_admin (~> 2.0)
   s3

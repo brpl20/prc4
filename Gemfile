@@ -18,6 +18,10 @@ gem 'pry-rails', :group => :development
 gem 'docx', :require => ["docx"]
 gem 'webpacker', '~> 5.x'
 
+# Rack - Adiconado para resolver problema de vulnerabilidade
+# Eh uma Gem Dependente
+gem "rack", ">= 2.2.3"
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
 # Use postgresql as the database for Active Record
