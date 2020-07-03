@@ -9,21 +9,35 @@ gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
-gem 'autoprefixer-rails'
-gem 'font-awesome-sass', '~> 5.6.1'
-gem 'simple_form'
+
+# Amazon AWS S3
 gem 'aws-sdk-s3', require: false
 gem 's3'
-gem 'pry-rails', :group => :development
+
+# FrontEnd
+gem 'font-awesome-sass', '~> 5.6.1'
+gem 'simple_form'
+
+# Docx
 gem 'docx', :require => ["docx"]
+
+# Diversos
+gem 'autoprefixer-rails'
+gem 'pry-rails', :group => :development
 gem 'webpacker', '~> 5.x'
+
+# Google Omni
+gem 'omniauth-google-oauth2'
+
+# BRzuca
+gem 'extensobr'
 
 # Rack - Adiconado para resolver problema de vulnerabilidade
 # Eh uma Gem Dependente
 gem "rack", ">= 2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.2.4', '>= 5.2.4.3'
+gem 'rails', '6.0.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server

@@ -9,7 +9,7 @@
 *.ENV*
 # Shell Scripts
 *.sh*
-
+/lib/tasks/extenso.rake
 # Ignore bundler config.
 /.bundle
 
