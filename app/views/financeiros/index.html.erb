@@ -1,0 +1,73 @@
+<p id="notice"><%= notice %></p>
+
+
+
+<h1>Clients</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Genero</th>
+      <th>Nome</th>
+      <th>Sobrenome</th>
+      <th>Nacionalidade</th>
+      <th>Estadocivil</th>
+      <th>Capacidade</th>
+      <th>Profissao</th>
+      <th>Empresa atual</th>
+      <th>Nascimento</th>
+      <th>Mae</th>
+      <th>Nb</th>
+      <th>Rg</th>
+      <th>Cpf</th>
+      <th>Email</th>
+      <th>Endereco</th>
+      <th>Cidade</th>
+      <th>Estado</th>
+      <th>Banco</th>
+      <th>Agencia</th>
+      <th>Conta</th>
+      <th>Cep</th>
+      <th>Telefone</th>
+      <th>Documentos</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @clients.each do |client| %>
+      <tr>
+        <td><%= client.genero %></td>
+        <td><%= client.nome %></td>
+        <td><%= client.sobrenome %></td>
+        <td><%= client.nacionalidade %></td>
+        <td><%= client.estadocivil %></td>
+        <td><%= client.capacidade %></td>
+        <td><%= client.profissao %></td>
+        <td><%= client.empresa_atual %></td>
+        <td><%= client.nascimento %></td>
+        <td><%= client.mae %></td>
+        <td><%= client.nb %></td>
+        <td><%= client.rg %></td>
+        <td><%= client.cpf %></td>
+        <td><%= client.email %></td>
+        <td><%= client.endereco %></td>
+        <td><%= client.cidade %></td>
+        <td><%= client.estado %></td>
+        <td><%= client.banco %></td>
+        <td><%= client.agencia %></td>
+        <td><%= client.conta %></td>
+        <td><%= client.cep %></td>
+        <td><%= client.telefone %></td>
+        <td><%= client.documentos %></td>
+        <td><%= link_to 'Show', client %></td>
+        <td><%= link_to 'Edit', edit_client_path(client) %></td>
+        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Client', new_client_path %>

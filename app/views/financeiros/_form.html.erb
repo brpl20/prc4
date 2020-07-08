@@ -1,0 +1,21 @@
+<%= simple_form_for @financeiro do |f| %>
+  <div class="form-group">
+      <div class="d-inline-flex">
+        <%= f.input :name, label: 'Nome', error: 'O nome do Financeiro' %>
+      </div>
+
+      <div class="d-inline-flex">
+        <%= f.association :clients %>
+      </div>
+
+      <div class="d-inline-flex">
+        <%= f.association Clients.works %>
+      </div>
+
+  <%= f.button :submit, "Criar Financeiro ", class: "btn btn-primary" %>
+  </div>
+<% end %>
+
+
+
+
