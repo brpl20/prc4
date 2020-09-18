@@ -1,4 +1,4 @@
-class CreateBasics < ActiveRecord::Migration[5.2]
+class CreateBasics < ActiveRecord::Migration[6.0]
   def change
     create_table :basics do |t|
       t.string :checklist

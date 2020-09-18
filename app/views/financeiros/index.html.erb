@@ -37,29 +37,29 @@
   <tbody>
     <% @clients.each do |client| %>
       <tr>
-        <td><%= client.genero %></td>
-        <td><%= client.nome %></td>
-        <td><%= client.sobrenome %></td>
-        <td><%= client.nacionalidade %></td>
-        <td><%= client.estadocivil %></td>
-        <td><%= client.capacidade %></td>
-        <td><%= client.profissao %></td>
-        <td><%= client.empresa_atual %></td>
-        <td><%= client.nascimento %></td>
-        <td><%= client.mae %></td>
-        <td><%= client.nb %></td>
-        <td><%= client.rg %></td>
-        <td><%= client.cpf %></td>
+        <td><%= client.gender %></td>
+        <td><%= client.name %></td>
+        <td><%= client.lastname %></td>
+        <td><%= client.citizenship %></td>
+        <td><%= client.civilstatus %></td>
+        <td><%= client.capacity %></td>
+        <td><%= client.profession %></td>
+        <td><%= client.company %></td>
+        <td><%= client.birth %></td>
+        <td><%= client.mothername %></td>
+        <td><%= client.number_benefit %></td>
+        <td><%= client.general_register %></td>
+        <td><%= client.social_number %></td>
         <td><%= client.email %></td>
-        <td><%= client.endereco %></td>
-        <td><%= client.cidade %></td>
-        <td><%= client.estado %></td>
-        <td><%= client.banco %></td>
-        <td><%= client.agencia %></td>
-        <td><%= client.conta %></td>
-        <td><%= client.cep %></td>
-        <td><%= client.telefone %></td>
-        <td><%= client.documentos %></td>
+        <td><%= client.adress %></td>
+        <td><%= client.city %></td>
+        <td><%= client.state %></td>
+        <td><%= client.bank %></td>
+        <td><%= client.agency %></td>
+        <td><%= client.account %></td>
+        <td><%= client.zip %></td>
+        <td><%= client.telephone %></td>
+        <td><%= client.documents %></td>
         <td><%= link_to 'Show', client %></td>
         <td><%= link_to 'Edit', edit_client_path(client) %></td>
         <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -71,3 +71,5 @@
 <br>
 
 <%= link_to 'New Client', new_client_path %>
+
+

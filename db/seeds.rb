@@ -36,9 +36,8 @@
 #     ]
 #     )
 
-a = Lawyer.create(nome: "Marcos", sobrenome: "Aurélio Ciello", oab: "54.837 PR", email: "marcos@pellizzetti.adv.br")
-b = Lawyer.create(nome: "Bruno", sobrenome: "Pellizzetti", oab: "54.159 PR", email: "marcos@pellizzetti.adv.br")
-
+a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
+b = Lawyer.create(name: "Bruno", lastname: "Pellizzetti", oab_number: "54.159 PR", email: "marcos@pellizzetti.adv.br")
 
 
 a1 = User.create(email: "marcos@pellizzetti.adv.br", password: 123456, lawyer_role: true)

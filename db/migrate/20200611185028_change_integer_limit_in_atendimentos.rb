@@ -1,5 +1,0 @@
-class ChangeIntegerLimitInAtendimentos < ActiveRecord::Migration[5.2]
-  def change
-    change_column :atendimentos, :telefone, :bigint
-  end
-end

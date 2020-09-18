@@ -63,10 +63,38 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
     @work = Work.find(params[:id])
   end
 
+  # TODO Tirar vários campos do plural
   def work_params
-    params.require(:work).permit(:tipo, :materia, :acao, :numero, :honorariosp, :honorariosp_exfield, :honorariosf, :honorariosf_exfield, :honorarios_trab_x_exito, :honorarios_parcelamento,
-      :escritorio, :poderes, :indicacao, :indicacao_comissao, :pasta, :atendimento_inicial, :advogado_responsavel, :estagiarios_procuracao, :paralegais_procuracao, :advogado_parceiro,
-      :checklist, :checklist_documentos, :documentos_pendentes, :lawyer_id)
+    params.require(:work).permit(
+      :type,
+      :subject,
+      :action,
+      :number,
+      :rate_percentage,
+      :rate_percentage_exfield,
+      :rate_fixed,
+      :rate_fixed_exfield,
+      :rate_work,
+      :rate_parceled,
+      :powers,
+      :recommendation,
+      :recommendation_comission,
+      :folder,
+      :initial_atendee,
+      :responsible_lawyer,
+      :procuration_lawyer,
+      :procuration_intern,
+      :procuration_paralegal,
+      :partner_lawyer,
+      :notes,
+      :checklist,
+      :checklist_documents,
+      :documento_pendent,
+      :lawyer_id)
   end
 
 end
+
+
+
+

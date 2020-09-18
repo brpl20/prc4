@@ -9,9 +9,11 @@ Rails.application.routes.draw do
   resources :jobs
   resources :works
   devise_for :users
-  resources :clients
-  resources :escritorios
-  resources :atendimentos
-  resources :financeiros
+  resources :clients do
+    get 'receipt'
+  end
+  resources :offices
+  resources :attendances
+  resources :finances
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

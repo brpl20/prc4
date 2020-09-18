@@ -1,0 +1,43 @@
+<%= simple_form_for client_receipt_path(@client) do |f| %>
+  <div class="form-group">
+      <div class="d-inline-flex">
+        <%= f.input :benefits, label: 'Recebimento Total' %>
+      </div>
+      <div class="d-inline-flex">
+        <%= f.input :mensal_income, label: 'Renda Mensal (RMI)' %>
+      </div>
+
+  </div>
+
+  <div class="form-group">
+      <div class="d-inline-flex">
+        <%= f.input :rate_percentage, label: 'Honorários Variáveis' %>
+      </div>
+      <div class="d-inline-flex">
+        <%= f.input :rate_fixed, label: 'Honorários Fixos' %>
+      </div>
+      <div class="d-inline-flex">
+        <%= f.input :rate_fixed, label: 'Benefícios Fixos' %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="d-inline-flex">
+        <%= f.input :succumb, label: 'Honorários de Sucumbência' %>
+      </div>
+      <div class="d-inline-flex">
+        <%= f.input :expense_office, label: 'Despesas do Escritório' %>
+      </div>
+      <div class="d-inline-flex">
+        <%= f.input :expenses_justice, label: 'Custas e Despesas Judicias' %>
+      </div>
+  </div>
+
+
+  <%= f.button :submit, "Criar Recibo", class: "btn btn-primary" %>
+
+<% end %>
+
+
+
+

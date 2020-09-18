@@ -1,0 +1,8 @@
+<h1>Editando Atendimento: <%= @attendance.name %> <% @attendance.lastname %> (<%= @attendance.id %>) </h1>
+
+<%= render 'form', attendance: @attendance %>
+
+<%= link_to 'Show', @attendance %> |
+<%= link_to 'Back', attendances_path %>
+
+

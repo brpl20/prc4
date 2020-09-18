@@ -1,0 +1,61 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @attendance.nome %>
+</p>
+
+<p>
+  <strong>Sobrenome:</strong>
+  <%= @attendance.sobrenome %>
+</p>
+
+<p>
+  <strong>Origem:</strong>
+  <%= @attendance.origem %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <% case @attendance.status %>
+    <% when 0 %>
+      <%= "0 - Pendente" %>
+    <% when 1 %>
+      <%= "1 - Concluído" %>
+    <% when 2 %>
+      <%= " 2 - Fechado" %>
+  <% end %>
+</p>
+
+<p>
+  <strong>Responsavel:</strong>
+  <%= @attendance.responsible %>
+</p>
+
+<p>
+  <strong>Telefone:</strong>
+  <%= @attendance.telephone %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @attendance.email %>
+</p>
+
+<p>
+  <strong>Assunto:</strong>
+  <%= @attendance.subject %>
+</p>
+
+<p>
+  <strong>Canal:</strong>
+  <%= @attendance.channel %>
+</p>
+
+<p>
+  <strong>Notas:</strong>
+  <%= @attendance.notes %>
+</p>
+
+<%= link_to 'Edit', edit_attendance_path(@attendance) %> |
+<%= link_to 'Back', attendances_path %>

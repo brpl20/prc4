@@ -2,39 +2,38 @@
   <%= f.error_notification %>
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
 
-  <%= f.input :tipo, as: :radio_buttons, collection: [["Administrativo", "Administrativo"], ["Judicial", "Judicial"]], wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :materia, as: :radio_buttons, collection: [["Previdenciário", "Previdenciário"], ["Cível", "Cível"]], wrapper_html: {class: 'd-inline-flex'}%>
-  <%= f.input :acao %>
+  <%= f.input :type, as: :radio_buttons, collection: [["Administrativo", "Administrativo"], ["Judicial", "Judicial"]], wrapper_html: {class: 'd-inline-flex'} %>
+  <%= f.input :subject, as: :radio_buttons, collection: [["Previdenciário", "Previdenciário"], ["Cível", "Cível"]], wrapper_html: {class: 'd-inline-flex'}%>
+  <%= f.input :action %>
   <%#= f.input :rito TODO ADD THIS FIELDS TO WORKS MODELS %>
   <%#= f.input :ajg %>
-  <%= f.input :numero %>
-  <%= f.input :honorariosp, label: "Honorários Percentual", as: :radio_buttons, collection: [["Sim", "true"], ["Não", "false"]] %>
-  <%= f.input :honorariosp_exfield, label: "Valor em %"%>
-  <%= f.input :honorariosf, label: "Honorários Fixos", as: :radio_buttons, collection: [["Sim", "true"], ["Não", "false"]] %>
-  <%= f.input :honorariosf_exfield, label: "Valor de Honorários Fixos" %>
-  <%= f.input :honorarios_trab_x_exito, label: "Honorários De Trabalho ou Êxito", as: :radio_buttons, collection: [["Trabalho", "Trabalho"], ["Êxito", "Êxito"]] %>
-  <%= f.input :honorarios_parcelamento, label: "Parcelamento" %>
-  <%= f.input :escritorio, disabled: true %>
-  <%= f.input :poderes, as: :check_boxes, collection: [
+  <%= f.input :number %>
+  <%= f.input :rate_percentage, label: "Honorários Percentual", as: :radio_buttons, collection: [["Sim", "true"], ["Não", "false"]] %>
+  <%= f.input :rate_percentage_exfield, label: "Valor em %"%>
+  <%= f.input :rate_fixed, label: "Honorários Fixos", as: :radio_buttons, collection: [["Sim", "true"], ["Não", "false"]] %>
+  <%= f.input :rate_fixed_exfield, label: "Valor de Honorários Fixos" %>
+  <%= f.input :rate_work, label: "Honorários De Trabalho ou Êxito", as: :radio_buttons, collection: [["Trabalho", "Trabalho"], ["Êxito", "Êxito"]] %>
+  <%= f.input :rate_parceled, label: "Parcelamento" %>
+  <%= f.input :office, disabled: true %>
+  <%= f.input :powers, as: :check_boxes, collection: [
               ["Ad Judicia", "Ad Judicia"],
               ["Citação", "Citação"]
                 ] %>
-  <%= f.input :indicacao %>
-  <%= f.input :indicacao_comissao %>
+  <%= f.input :recommendation %>
+  <%= f.input :recommendation_comission %>
   <% ultimoplusone = Client.last.id+1 %>
-  <%= f.input :pasta, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :atendimento_inicial, wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :advogado_responsavel, wrapper_html: {class: 'd-inline-flex' } %>
+  <%= f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
+  <%= f.input :initial_atendee, wrapper_html: {class: 'd-inline-flex'} %>
+  <%= f.input :responsible_lawyer, wrapper_html: {class: 'd-inline-flex' } %>
   <%#= f.input :outros_responsavel %>
-  <%= f.input :estagiarios_procuracao , wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :paralegais_procuracao, wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :advogado_parceiro %>
+  <%= f.input :procuration_intern , wrapper_html: {class: 'd-inline-flex'} %>
+  <%= f.input :procuration_paralegal, wrapper_html: {class: 'd-inline-flex'} %>
+  <%= f.input :partner_lawyer %>
   <%= f.input :checklist %>
-  <%= f.input :checklist_documentos %>
-  <%= f.input :documentos_pendentes %>
-  <%= f.input :notas %>
+  <%= f.input :checklist_documents %>
+  <%= f.input :document_pendent %>
+  <%= f.input :notes %>
   <%= f.button :submit, "Criar Trabalho", class: "btn btn-primary" %>
 
 
 <% end %>
-

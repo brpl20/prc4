@@ -2,67 +2,67 @@
 
 <p>
   <strong>Genero:</strong>
-  <%= @client.genero %>
+  <%= @client.gender %>
 </p>
 
 <p>
   <strong>Nome:</strong>
-  <%= @client.nome %>
+  <%= @client.name %>
 </p>
 
 <p>
   <strong>Sobrenome:</strong>
-  <%= @client.sobrenome %>
+  <%= @client.lastname %>
 </p>
 
 <p>
   <strong>Nacionalidade:</strong>
-  <%= @client.nacionalidade %>
+  <%= @client.citizenship %>
 </p>
 
 <p>
   <strong>Estadocivil:</strong>
-  <%= @client.estadocivil %>
+  <%= @client.civilstatus %>
 </p>
 
 <p>
   <strong>Capacidade:</strong>
-  <%= @client.capacidade %>
+  <%= @client.capacity %>
 </p>
 
 <p>
   <strong>Profissao:</strong>
-  <%= @client.profissao %>
+  <%= @client.profession %>
 </p>
 
 <p>
   <strong>Empresa atual:</strong>
-  <%= @client.empresa_atual %>
+  <%= @client.company %>
 </p>
 
 <p>
   <strong>Nascimento:</strong>
-  <%= @client.nascimento %>
+  <%= @client.birth %>
 </p>
 
 <p>
   <strong>Mae:</strong>
-  <%= @client.mae %>
+  <%= @client.mothername %>
 </p>
 
 <p>
   <strong>Nb:</strong>
-  <%= @client.nb %>
+  <%= @client.number_benefit %>
 </p>
 
 <p>
   <strong>Rg:</strong>
-  <%= @client.rg %>
+  <%= @client.general_register %>
 </p>
 
 <p>
   <strong>Cpf:</strong>
-  <%= @client.cpf %>
+  <%= @client.social_number %>
 </p>
 
 <p>
@@ -72,53 +72,56 @@
 
 <p>
   <strong>Endereco:</strong>
-  <%= @client.endereco %>
+  <%= @client.adress %>
 </p>
 
 <p>
   <strong>Cidade:</strong>
-  <%= @client.cidade %>
+  <%= @client.city %>
 </p>
 
 <p>
   <strong>Estado:</strong>
-  <%= @client.estado %>
+  <%= @client.state %>
 </p>
 
 <p>
   <strong>Banco:</strong>
-  <%= @client.banco %>
+  <%= @client.bank %>
 
   <strong>Agencia:</strong>
-  <%= @client.agencia %>
+  <%= @client.agency %>
 
   <strong>Conta:</strong>
-  <%= @client.conta %>
+  <%= @client.account %>
 </p>
 
 <p>
   <strong>Cep:</strong>
-  <%= @client.cep %>
+  <%= @client.zip %>
 </p>
 
 <p>
   <strong>Telefone:</strong>
-  <%= @client.telefone %>
+  <%= @client.telephone %>
 </p>
 
 <p>
   <strong>Documentos:</strong>
-  <%= @client.documentos["document_type"] %>
+  <%= @client.documents["document_type"] %>
 </p>
 
 <p>
   <strong>Documentos Link:</strong>
-  <%= @client.documentos["aws_link"] %>
+  <%= @client.documents["aws_link"] %>
 </p>
 
 <p>
-  <%= link_to "Baixar Procuração", @url, class: "btn btn-warning" %>
+  <%= link_to "Baixar Procuração", @client.documents["aws_link"], class: "btn btn-warning" %>
 </p>
+
+<h1>Recibo </h1>
+<%= link_to 'Gerar Recibo', client_receipt_path(@client) %>
 
 
 <h1>Jobs Pendentes</h1>

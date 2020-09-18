@@ -1,60 +1,60 @@
 <%= simple_form_for @client do |f| %>
   <div class="form-group">
       <div class="d-inline-flex">
-        <%= f.input :nome, label: 'Nome', error: 'O nome do cliente é obrigatório' %>
+        <%= f.input :name, label: 'Nome', error: 'O nome do cliente é obrigatório' %>
       </div>
       <div class="d-inline-flex row-sm-10">
-        <%= f.input :sobrenome, label: 'Sobrenome' %>
+        <%= f.input :lastname, label: 'Sobrenome' %>
       </div>
     </div>
 
-  <%= f.input :genero, label: 'Gênero', as: :radio_buttons, collection: [['Masculino', 1], ['Feminino', 2]], hint: 'Escolha o sexo',  error: 'É necessário escolher o gênero do seu cliente para o aplicativo funcionar corretamente' %>
+  <%= f.input :gender, label: 'Gênero', as: :radio_buttons, collection: [['Masculino', 1], ['Feminino', 2]], hint: 'Escolha o sexo',  error: 'É necessário escolher o gênero do seu cliente para o aplicativo funcionar corretamente' %>
 
-  <%= f.input :nacionalidade, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
+  <%= f.input :citizenship, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
 
-  <%= f.input :estadocivil, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
+  <%= f.input :civilstatus, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
 
-  <%= f.input :capacidade, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
+  <%= f.input :capacity, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.input :profissao, label: 'Profissão' %>
+      <%= f.input :profession, label: 'Profissão' %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :empresa_atual, label: 'Empresa Atual' %>
+      <%= f.input :company, label: 'Empresa Atual' %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :nascimento, label: 'Data de Nascimento', :as => :string, format: "%d/%m/%Y" %>
+      <%= f.input :birth, label: 'Data de Nascimento', :as => :string, format: "%d/%m/%Y" %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :mae, label: 'Nome da Mãe' %>
+      <%= f.input :mothername, label: 'Nome da Mãe' %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.input :nb, label: 'Número de Benefício' %>
+      <%= f.input :number_benefit, label: 'Número de Benefício' %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :rg, label: 'Número de RG' %>
+      <%= f.input :general_register, label: 'Número de RG' %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :cpf, label: 'CPF' %>
+      <%= f.input :social_number, label: 'CPF' %>
     </div>
   </div>
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.input :cep, label: 'CEP' %>
+      <%= f.input :zip, label: 'CEP' %>
     </div>
     <div class="d-inline-flex">
-    <%= f.input :endereco, label: 'Endereço' %>
+    <%= f.input :adress, label: 'Endereço' %>
     </div>
     <div class="d-inline-flex">
-    <%= f.input :cidade, label: 'Cidade' %>
+    <%= f.input :city, label: 'Cidade' %>
     </div>
     <div class="d-inline-flex">
-    <%= f.input :estado, label: 'Estado' %>
+    <%= f.input :state, label: 'Estado' %>
     </div>
   </div>
 
@@ -63,21 +63,21 @@
       <%= f.input :email, label: 'E-mail', class: "aria-required" %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :banco %>
+      <%= f.input :bank %>
     </div>
    <div class="d-inline-flex">
-      <%= f.input :agencia %>
+      <%= f.input :agency %>
     </div>
    <div class="d-inline-flex">
-      <%= f.input :conta %>
+      <%= f.input :account %>
     </div>
 
     <div class="d-inline-flex">
-      <%= f.input :telefone, label: 'Telefone' %>
+      <%= f.input :telephone, label: 'Telefone' %>
     </div>
 
    <div class="d-inline-flex">
-      <%= f.input :escolha, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
+      <%= f.input :choice, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
    </div>
   </div>
 

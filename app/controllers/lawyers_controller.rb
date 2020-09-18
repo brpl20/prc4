@@ -70,6 +70,27 @@ class LawyersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def lawyer_params
-      params.require(:lawyer).permit(:genero, :rg, :cpf, :oab, :nome, :sobrenome, :nacionalidade, :estadocivil, :nascimento, :mae, :email, :endereco, :cidade, :estado, :telefone, :email, :banco, :telefone, :agencia, :conta, :cep)
+      params.require(:lawyer).permit(
+        :gender,
+        :general_register,
+        :social_number,
+        :oab_number,
+        :name,
+        :lastname,
+        :citizenship,
+        :civilstatus,
+        :birth,
+        :mothername,
+        :email,
+        :adress,
+        :city,
+        :state,
+        :telephone,
+        :email,
+        :bank,
+        :agency,
+        :account,
+        :zip
+        )
     end
 end

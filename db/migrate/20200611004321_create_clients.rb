@@ -1,29 +1,29 @@
-class CreateClients < ActiveRecord::Migration[5.2]
+class CreateClients < ActiveRecord::Migration[6.0]
   def change
     create_table :clients do |t|
-      t.integer :genero
-      t.string :nome
-      t.string :sobrenome
-      t.string :nacionalidade
-      t.string :estadocivil
-      t.string :capacidade
-      t.string :profissao
-      t.string :empresa_atual
-      t.date :nascimento
-      t.string :mae
-      t.integer :nb
-      t.string :rg
-      t.integer :cpf
+      t.integer :gender
+      t.string :name
+      t.string :lastname
+      t.string :citizenship
+      t.string :civilstatus
+      t.string :capacity
+      t.string :profession
+      t.string :company
+      t.date :birth
+      t.string :mothername
+      t.string :number_benefit
+      t.string :general_register
+      t.string :social_number
       t.string :email
-      t.string :endereco
-      t.string :cidade
-      t.string :estado
-      t.integer :banco
-      t.integer :agencia
-      t.integer :conta
-      t.integer :cep
-      t.integer :telefone
-      t.json :documentos
+      t.string :adress
+      t.string :city
+      t.string :state
+      t.string :bank
+      t.string :agency
+      t.string :account
+      t.string :zip
+      t.string :telephone
+      t.json :documents
 
       t.timestamps
     end

@@ -1,9 +1,9 @@
-class CreateJobs < ActiveRecord::Migration[5.2]
+class CreateJobs < ActiveRecord::Migration[6.0]
   def change
     create_table :jobs do |t|
-      t.text :descricao
-      t.string :prazo
-      t.string :responsavel
+      t.text :description
+      t.string :deadline
+      t.string :responsable
       t.string :status
 
       t.timestamps

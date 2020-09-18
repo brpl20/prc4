@@ -1,31 +1,30 @@
-class CreateWorks < ActiveRecord::Migration[5.2]
+class CreateWorks < ActiveRecord::Migration[6.0]
   def change
     create_table :works do |t|
-      t.string :tipo
-      t.string :materia
-      t.string :acao
-      t.integer :numero
-      t.string :honorariosp
-      t.string :honorariosp_exfield
-      t.string :honorariosf
-      t.string :honorariosf_exfield
-      t.string :honorarios_trab_x_exito
-      t.string :honorarios_parcelamento
-      t.string :escritorio
-      t.text :poderes
-      t.string :indicacao
-      t.string :indicacao_comissao
-      t.string :pasta
-      t.string :atendimento_inicial
-      t.string :advogado_responsavel
-      t.string :advogado_procuracao
-      t.string :estagiarios_procuracao
-      t.string :paralegais_procuracao
-      t.string :advogado_parceiro
-      t.text :notas
+      t.string :type
+      t.string :subject
+      t.string :action
+      t.string :number
+      t.integer :rate_percentage
+      t.boolean :rate_percentage_exfield
+      t.decimal :rate_fixed
+      t.boolean :rate_fixed_exfield
+      t.decimal :rate_work
+      t.string :rate_parceled
+      t.text :powers
+      t.string :recommendation
+      t.string :recommendation_comission
+      t.string :folder
+      t.string :initial_atendee
+      t.string :responsible_lawyer
+      t.string :procuration_lawyer
+      t.string :procuration_intern
+      t.string :procuration_paralegal
+      t.string :partner_lawyer
+      t.text :notes
       t.string :checklist
-      t.string :checklist_documentos
-      t.string :documentos_pendentes
+      t.string :checklist_documents
+      t.string :document_pendent
 
       t.timestamps
     end

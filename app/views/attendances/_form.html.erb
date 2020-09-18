@@ -1,0 +1,47 @@
+<%= simple_form_for(@attendance) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :name %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :lastname %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :telephone %>
+    </div>
+    <div class="d-inline-flex">
+      <%= f.input :email %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :origin, as: :radio_buttons, collection: [["Indicações (0)", "Indicações"], ["Google (1)", "Google"], ["Parceiros  (2)", "Parceiros"], ["Jusbrasil  (3)", "Jusbrasil"], ["Outros (4)", "Outros"]] %>
+    </div>
+    <div class="d-inline-flex">
+    <%= f.input :status, as: :radio_buttons, collection: [["Pendente (0)", 0], ["Concluído (1)", 1], ["Fechado (2)", 2]] %>
+    </div>
+
+    <div class="d-inline-flex">
+      <%= f.input :channel, as: :radio_buttons, collection: [["Presencial (0)", 0], ["Telefone Fixo (1)", 1], ["Telefone Celular (2)", 2], ["Whats App (3)", 3], ["Email (4)", 4]] %>
+    </div>
+
+    <% #TODO Arrumar Association Belongs or Has Many Aqui %>
+    <div class="d-inline-flex">
+        <%= f.input :responsible, collection: Lawyer.all.map{|s|[s.nome, "#{s.name} #{s.lastname}"]} %>
+    </div>
+
+    <div class="d-inline-flex">
+      <%= f.input :subject, priority: [ "Previdenciário" ], collection: ["Cível", "Consumidor", "Previdenciário", "Trabalhista", "Família"] %>
+    </div>
+  </div>
+
+    <%= f.input :notes, as: :text %>
+
+   <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

@@ -10,122 +10,122 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_010636) do
+ActiveRecord::Schema.define(version: 2020_07_04_004439) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "atendimentos", force: :cascade do |t|
-    t.string "nome"
-    t.string "sobrenome"
-    t.string "origem"
+  create_table "attendances", force: :cascade do |t|
+    t.string "name"
+    t.string "lastname"
+    t.string "origin"
     t.integer "status"
-    t.string "responsavel"
-    t.bigint "telefone"
+    t.string "responsible"
+    t.string "telephone"
     t.string "email"
-    t.string "assunto"
-    t.string "notas"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.string "canal"
+    t.string "subject"
+    t.string "notes"
+    t.string "channel"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "basics", force: :cascade do |t|
     t.string "checklist"
     t.string "poderes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "clients", force: :cascade do |t|
-    t.integer "genero"
-    t.string "nome"
-    t.string "sobrenome"
-    t.string "nacionalidade"
-    t.string "estadocivil"
-    t.string "capacidade"
-    t.string "profissao"
-    t.string "empresa_atual"
-    t.date "nascimento"
-    t.string "mae"
-    t.bigint "nb"
-    t.string "rg"
-    t.bigint "cpf"
+    t.integer "gender"
+    t.string "name"
+    t.string "lastname"
+    t.string "citizenship"
+    t.string "civilstatus"
+    t.string "capacity"
+    t.string "profession"
+    t.string "company"
+    t.date "birth"
+    t.string "mothername"
+    t.string "number_benefit"
+    t.string "general_register"
+    t.string "social_number"
     t.string "email"
-    t.string "endereco"
-    t.string "cidade"
-    t.string "estado"
-    t.integer "banco"
-    t.integer "agencia"
-    t.integer "conta"
-    t.bigint "cep"
-    t.bigint "telefone"
-    t.json "documentos"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.boolean "escolha"
-  end
-
-  create_table "escritorios", force: :cascade do |t|
-    t.string "nome"
-    t.string "oab"
-    t.integer "cnpj"
-    t.integer "tipo"
-    t.date "fundacao"
-    t.string "endereco"
-    t.string "cidade"
-    t.string "estado"
-    t.integer "cep"
-    t.string "site"
-    t.integer "telefone"
-    t.integer "banco"
-    t.integer "agencia"
-    t.integer "conta"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "financeiros", force: :cascade do |t|
-    t.bigint "client_id", null: false
+    t.string "adress"
+    t.string "city"
+    t.string "state"
+    t.string "bank"
+    t.string "agency"
+    t.string "account"
+    t.string "zip"
+    t.string "telephone"
+    t.json "documents"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "name"
-    t.index ["client_id"], name: "index_financeiros_on_client_id"
+    t.boolean "choice"
+  end
+
+  create_table "finances", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_finances_on_client_id"
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.text "descricao"
-    t.string "prazo"
-    t.string "responsavel"
+    t.text "description"
+    t.string "deadline"
+    t.string "responsable"
     t.string "status"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.bigint "clients_id"
     t.index ["clients_id"], name: "index_jobs_on_clients_id"
   end
 
   create_table "lawyers", force: :cascade do |t|
-    t.integer "genero"
-    t.string "rg"
-    t.bigint "cpf"
-    t.string "oab"
-    t.string "nome"
-    t.string "sobrenome"
-    t.string "nacionalidade"
-    t.string "estadocivil"
-    t.date "nascimento"
-    t.string "mae"
+    t.integer "gender"
+    t.string "general_register"
+    t.bigint "social_number"
+    t.string "oab_number"
+    t.string "name"
+    t.string "lastname"
+    t.string "citizenship"
+    t.string "civilstatus"
+    t.date "birth"
+    t.string "mothername"
     t.string "email"
-    t.string "endereco"
-    t.string "cidade"
-    t.string "estado"
-    t.bigint "telefone"
-    t.integer "banco"
-    t.integer "agencia"
-    t.bigint "conta"
-    t.bigint "cep"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "adress"
+    t.string "city"
+    t.string "state"
+    t.string "telephone"
+    t.string "bank"
+    t.string "agency"
+    t.string "account"
+    t.string "zip"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "offices", force: :cascade do |t|
+    t.string "name"
+    t.string "oab"
+    t.string "cnpj_number"
+    t.integer "type"
+    t.date "foundation"
+    t.string "adress"
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "site"
+    t.string "telephone"
+    t.string "bank"
+    t.string "agency"
+    t.string "account"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(version: 2020_07_04_010636) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.boolean "lawyer_role"
     t.boolean "paralegal_role"
     t.boolean "intern_role"
@@ -145,35 +145,34 @@ ActiveRecord::Schema.define(version: 2020_07_04_010636) do
   end
 
   create_table "works", force: :cascade do |t|
-    t.string "tipo"
-    t.string "materia"
-    t.string "acao"
-    t.integer "numero"
-    t.string "honorariosp"
-    t.string "honorariosp_exfield"
-    t.string "honorariosf"
-    t.string "honorariosf_exfield"
-    t.string "honorarios_trab_x_exito"
-    t.string "honorarios_parcelamento"
-    t.string "escritorio"
-    t.text "poderes"
-    t.string "indicacao"
-    t.string "indicacao_comissao"
-    t.string "pasta"
-    t.string "atendimento_inicial"
-    t.string "advogado_responsavel"
-    t.string "advogado_procuracao"
-    t.string "estagiarios_procuracao"
-    t.string "paralegais_procuracao"
-    t.string "advogado_parceiro"
-    t.text "notas"
+    t.string "type"
+    t.string "subject"
+    t.string "action"
+    t.string "number"
+    t.integer "rate_percentage"
+    t.boolean "rate_percentage_exfield"
+    t.decimal "rate_fixed"
+    t.boolean "rate_fixed_exfield"
+    t.decimal "rate_work"
+    t.string "rate_parceled"
+    t.text "powers"
+    t.string "recommendation"
+    t.string "recommendation_comission"
+    t.string "folder"
+    t.string "initial_atendee"
+    t.string "responsible_lawyer"
+    t.string "procuration_lawyer"
+    t.string "procuration_intern"
+    t.string "procuration_paralegal"
+    t.string "partner_lawyer"
+    t.text "notes"
     t.string "checklist"
-    t.string "checklist_documentos"
-    t.string "documentos_pendentes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string "checklist_documents"
+    t.string "document_pendent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "financeiros", "clients"
+  add_foreign_key "finances", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
 end

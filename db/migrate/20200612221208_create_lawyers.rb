@@ -1,27 +1,25 @@
-class CreateLawyers < ActiveRecord::Migration[5.2]
+class CreateLawyers < ActiveRecord::Migration[6.0]
   def change
     create_table :lawyers do |t|
-      t.integer :genero
-      t.string :rg
-      t.bigint :cpf
-      t.string :oab
-      t.string :nome
-      t.string :sobrenome
-      t.string :nacionalidade
-      t.string :estadocivil
-      t.date :nascimento
-      t.string :mae
+      t.integer :gender
+      t.string :general_register
+      t.bigint :social_number
+      t.string :oab_number
+      t.string :name
+      t.string :lastname
+      t.string :citizenship
+      t.string :civilstatus
+      t.date :birth
+      t.string :mothername
       t.string :email
-      t.string :endereco
-      t.string :cidade
-      t.string :estado
-      t.string :telefone
-      t.string :email
-      t.integer :banco
-      t.bigint :telefone
-      t.integer :agencia
-      t.bigint :conta
-      t.bigint :cep
+      t.string :adress
+      t.string :city
+      t.string :state
+      t.string :telephone
+      t.string :bank
+      t.string :agency
+      t.string :account
+      t.string :zip
 
       t.timestamps
     end
