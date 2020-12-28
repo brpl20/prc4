@@ -7,20 +7,20 @@ class ClientsController < ApplicationController
 
   def show
     require 's3'
-    # service = S3::Service.new(
-    #   :access_key_id => ENV['AWS_ID'],
-    #   :secret_access_key => ENV['AWS_SECRET_KEY']
-    #  )
+    service = S3::Service.new(
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
+     )
     @client = Client.find(params[:id])
-    # doc_link = @client.documents["document_name"]
-    # @client.documents[:aws_link]
-    # @meta = []
-    # @meta2 = []
-    # #criar objeto
-    # @bucket = service.buckets.find("prcstudio3herokubucket")
-    # @object = @bucket.objects.find("tmp/#{doc_link}")
-    # @url = @object.temporary_url(Time.now + 1800)
-    # @meta << @object
+    doc_link = @client.documents["document_name"]
+    @client.documents[:aws_link]
+    @meta = []
+    @meta2 = []
+    #criar objeto
+    @bucket = service.buckets.find("prcstudio3herokubucket")
+    @object = @bucket.objects.find("tmp/#{doc_link}")
+    @url = @object.temporary_url(Time.now + 1800)
+    @meta << @object
   end
 
   def new
@@ -187,6 +187,8 @@ class ClientsController < ApplicationController
                  }
     client.documents = metadata
     client.save
+    acl = :public_read
+    # Tetando para ver se funciona no public read mas parece que não da certo
     obj.upload_file(ch_file, metadata: metadata)
   end
 

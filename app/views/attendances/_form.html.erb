@@ -31,7 +31,7 @@
 
     <% #TODO Arrumar Association Belongs or Has Many Aqui %>
     <div class="d-inline-flex">
-        <%= f.input :responsible, collection: Lawyer.all.map{|s|[s.nome, "#{s.name} #{s.lastname}"]} %>
+        <%= f.input :responsible, collection: Lawyer.all.map{|s|[s.name, "#{s.name} #{s.lastname}"]} %>
     </div>
 
     <div class="d-inline-flex">

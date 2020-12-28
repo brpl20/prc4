@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'pages/dashboard'
   get 'pages/help'
   get 'pages/plans'
-  root to: "clients#index"
+  root to: "pages#dashboard"
   resources :jobs
   resources :works
   devise_for :users

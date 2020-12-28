@@ -14,7 +14,7 @@
   <%= f.input :rate_fixed_exfield, label: "Valor de Honorários Fixos" %>
   <%= f.input :rate_work, label: "Honorários De Trabalho ou Êxito", as: :radio_buttons, collection: [["Trabalho", "Trabalho"], ["Êxito", "Êxito"]] %>
   <%= f.input :rate_parceled, label: "Parcelamento" %>
-  <%= f.input :office, disabled: true %>
+  <%#= f.input :office, disabled: true %>
   <%= f.input :powers, as: :check_boxes, collection: [
               ["Ad Judicia", "Ad Judicia"],
               ["Citação", "Citação"]
