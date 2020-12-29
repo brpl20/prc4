@@ -9,6 +9,8 @@ gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
+gem "cocoon"
+
 
 # Amazon AWS S3
 gem 'aws-sdk-s3', require: false

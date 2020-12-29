@@ -58,23 +58,13 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="d-inline-flex">
-      <%= f.input :email, label: 'E-mail', class: "aria-required" %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :bank %>
-    </div>
-   <div class="d-inline-flex">
-      <%= f.input :agency %>
-    </div>
-   <div class="d-inline-flex">
-      <%= f.input :account %>
-    </div>
-
-    <div class="d-inline-flex">
-      <%= f.input :telephone, label: 'Telefone' %>
-    </div>
+  <div class="d-inline-flex">
+    <%= f.simple_fields_for :phones do |ph| %>
+      <%= ph.input :phone %>
+      <%= render 'phone_fields', f: ph %>
+      <% end %>
+      <%= link_to_add_association "Adicionar Telefone", f, :phones %>
+  </div>
 
    <div class="d-inline-flex">
       <%= f.input :choice, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_04_004439) do
+ActiveRecord::Schema.define(version: 2020_12_29_011939) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2020_07_04_004439) do
     t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "bankaccounts", force: :cascade do |t|
+    t.integer "bank"
+    t.integer "account"
+    t.integer "agency"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_bankaccounts_on_client_id"
   end
 
   create_table "basics", force: :cascade do |t|
@@ -64,6 +74,14 @@ ActiveRecord::Schema.define(version: 2020_07_04_004439) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
+  end
+
+  create_table "emails", force: :cascade do |t|
+    t.text "email"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_emails_on_client_id"
   end
 
   create_table "finances", force: :cascade do |t|
@@ -128,6 +146,14 @@ ActiveRecord::Schema.define(version: 2020_07_04_004439) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "phones", force: :cascade do |t|
+    t.text "phone"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_phones_on_client_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -173,6 +199,9 @@ ActiveRecord::Schema.define(version: 2020_07_04_004439) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "bankaccounts", "clients"
+  add_foreign_key "emails", "clients"
   add_foreign_key "finances", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
+  add_foreign_key "phones", "clients"
 end

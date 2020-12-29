@@ -25,6 +25,7 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+    @client.phones.build
   end
 
   def create
@@ -144,7 +145,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
         tr.substitute('_:nb_', (@client[:number_benefit]).to_s)
-        tr.substitute('_:email_', @client[:email])
+        #tr.substitute('_:email_', @client[:email])
         tr.substitute('_:endereco_', @client[:adress])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])
@@ -294,7 +295,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
         tr.substitute('_:nb_', (@client[:number_benefit]).to_s)
-        tr.substitute('_:email_', @client[:email])
+        #tr.substitute('_:email_', @client[:email])
         tr.substitute('_:endereco_', @client[:adress])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])
@@ -386,18 +387,14 @@ class ClientsController < ApplicationController
       :number_benefit,
       :general_register,
       :social_number,
-      :email,
       :adress,
       :city,
       :state,
-      :bank,
-      :agency,
-      :account,
       :zip,
-      :telephone,
       :notes,
       :documents,
-      :choose
+      :choose,
+      phones_attributes: [:phone, :_destroy]
       )
   end
 
