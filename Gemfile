@@ -9,8 +9,9 @@ gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
-gem "cocoon"
 
+# Jquery e JS em Geral
+gem 'jquery-rails'
 
 # Amazon AWS S3
 gem 'aws-sdk-s3', require: false
@@ -19,6 +20,7 @@ gem 's3'
 # FrontEnd
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form'
+gem "cocoon"
 
 # Docx
 gem 'docx', :require => ["docx"]

@@ -380,6 +380,7 @@ DEPENDENCIES
   extensobr
   font-awesome-sass (~> 5.6.1)
   jbuilder (~> 2.5)
+  jquery-rails
   listen (>= 3.0.5, < 3.2)
   omniauth-google-oauth2
   pg (>= 0.18, < 2.0)
