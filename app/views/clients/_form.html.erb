@@ -72,23 +72,20 @@
     </div>
   </div>
 
-
-
-
-
+   <div class="form-group">
+    <div class="d-inline-flex">
+        <%= f.input :choice, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
     </div>
-      <div class="d-flex">
-      </div>
-      <div class="d-flex">
-      </div>
-    </div>
-   <div class="d-inline-flex">
-      <%= f.input :choice, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
-   </div>
+  </div>
   <div class="form-group">
     <div class="d-inline-flex">
       <%= f.button :submit, "Criar Cliente", class: "btn btn-primary" %>
   </div>
+
+
+
+
+
   </div>
   <%#= yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
 

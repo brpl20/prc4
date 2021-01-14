@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.string "telephone"
     t.string "email"
     t.string "subject"
-    t.string "notes"
+    t.string "note"
     t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -171,7 +171,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
   end
 
   create_table "works", force: :cascade do |t|
-    t.string "type"
+    t.string "procedure"
     t.string "subject"
     t.string "action"
     t.string "number"
@@ -181,7 +181,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.boolean "rate_fixed_exfield"
     t.decimal "rate_work"
     t.string "rate_parceled"
-    t.text "powers"
+    t.text "power"
     t.string "recommendation"
     t.string "recommendation_comission"
     t.string "folder"
@@ -191,9 +191,9 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.string "procuration_intern"
     t.string "procuration_paralegal"
     t.string "partner_lawyer"
-    t.text "notes"
+    t.text "note"
     t.string "checklist"
-    t.string "checklist_documents"
+    t.string "checklist_document"
     t.string "document_pendent"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

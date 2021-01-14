@@ -65,7 +65,7 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def work_params
     params.require(:work).permit(
-      :type,
+      :procedure,
       :subject,
       :action,
       :number,
@@ -85,9 +85,9 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
       :procuration_intern,
       :procuration_paralegal,
       :partner_lawyer,
-      :notes,
+      :note,
       :checklist,
-      :checklist_documents,
+      :checklist_document,
       :document_pendent,
       :lawyer_id)
   end

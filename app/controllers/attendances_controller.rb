@@ -89,7 +89,7 @@ class AttendancesController < ApplicationController
         :telephone,
         :email,
         :subject,
-        :notes,
+        :note,
         :channel
         )
     end

@@ -9,7 +9,7 @@ class CreateAttendances < ActiveRecord::Migration[6.0]
       t.string :telephone
       t.string :email
       t.string :subject
-      t.string :notes
+      t.string :note
       t.string :channel
 
       t.timestamps

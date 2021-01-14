@@ -1,7 +1,7 @@
 class CreateWorks < ActiveRecord::Migration[6.0]
   def change
     create_table :works do |t|
-      t.string :type
+      t.string :procedure
       t.string :subject
       t.string :action
       t.string :number
@@ -11,7 +11,7 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.boolean :rate_fixed_exfield
       t.decimal :rate_work
       t.string :rate_parceled
-      t.text :powers
+      t.text :power
       t.string :recommendation
       t.string :recommendation_comission
       t.string :folder
@@ -21,9 +21,9 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.string :procuration_intern
       t.string :procuration_paralegal
       t.string :partner_lawyer
-      t.text :notes
+      t.text :note
       t.string :checklist
-      t.string :checklist_documents
+      t.string :checklist_document
       t.string :document_pendent
 
       t.timestamps

@@ -32,9 +32,9 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     if @client.save
       templater(@client, 'procuracao_simples')
-      if @client[:choose] == true
+      if @client[:choice] == true
         redirect_to @client
-      elsif @client[:choose] == false
+      elsif @client[:choice] == false
         redirect_to new_work_path(
           :lawyer_id => 1,
           :civilstatus => @client[:civilstatus]),
@@ -46,15 +46,6 @@ class ClientsController < ApplicationController
     end
   end
 
-  # FIELD CHECKER
-  # TO KNOW IF IS NIL
-  # AND MAKE A BLANK " " TO REPLACE
-  # INEXISTENT FIELD IN DOCUMENT
-  def fcheck(field)
-  if field.nil?
-    field_replaced = ""
-  end
-  end
 
   # RECIBO
   def receipt
@@ -87,27 +78,39 @@ class ClientsController < ApplicationController
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
 
+    # FIELD CHECKER
+    # TO KNOW IF IS NIL
+    # AND MAKE A BLANK " " TO REPLACE
+    # INEXISTENT FIELD IN DOCUMENT
+    def fcheck(field)
+    if field.nil?
+      field_replaced = ""
+    end
+    end
+
     # NO DB FIELDS CONFIG GENDER
 
     # GENDER LOGIC
     if @client[:gender] == 2
-      estado_civil = genderize(@client[:civilstatus])
-      nacionalita = genderize(@client[:citizenship])
+      civilstatus = genderize(@client[:civilstatus])
+      citizenship = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      estado_civil = @client[:civilstatus]
-      nacionalita = @client[:citizenship]
+      civilstatus = @client[:civilstatus]
+      citizenship = @client[:citizenship]
       porta = "portador"
       inscrito = "inscrito"
       domiciliado = "domiciliado"
     end
 
-    if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
-      capacidade = @client[:capacity]
+    # VERIFICADOR DE CAPACIDADE
+    # FIELDS -> _treated
+    if @client[:capacity] = 'capaz' || @client[:capacity] = nil
+      capacity_treated = @client[:capacity]
     else
-      capacidade = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+      capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
     # ADVOGADOS
@@ -136,11 +139,11 @@ class ClientsController < ApplicationController
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
         # CLIENT
-        tr.substitute('_:nome_', nome_cap)
-        tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', estado_civil)
-        tr.substitute('_:profissao_', @client[:profession].downcase)
-        tr.substitute('_:capacidade_', capacidade.downcase)
+        tr.substitute('_:name_', nome_cap)
+        tr.substitute('_:lastname', sobrenome_cap)
+        tr.substitute('_:civilstatus_', civilstatus)
+        tr.substitute('_:profession_', @client[:profession].downcase)
+        tr.substitute('_:capacity_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
@@ -241,13 +244,13 @@ class ClientsController < ApplicationController
 
     # GENDER LOGIC
     if @client[:gender] == 2
-      estado_civil = genderize(@client[:civilstatus])
-      nacionalita = genderize(@client[:citizenship])
+      civilstatus = genderize(@client[:civilstatus])
+      citizenship = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      estado_civil = @client[:civilstatus]
+      civilstatus = @client[:civilstatus]
       nacionalita = @client[:citizenship]
       porta = "portador"
       inscrito = "inscrito"
@@ -255,9 +258,9 @@ class ClientsController < ApplicationController
     end
 
     if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
-      capacidade = @client[:capacity]
+      capacity_treated = @client[:capacity]
     else
-      capacidade = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+      capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
     # ADVOGADOS
@@ -288,9 +291,9 @@ class ClientsController < ApplicationController
         # CLIENT
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', estado_civil)
+        tr.substitute('_:estado_civil_', civilstatus)
         tr.substitute('_:profissao_', @client[:profession].downcase)
-        tr.substitute('_:capacidade_', capacidade.downcase)
+        tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
@@ -391,14 +394,14 @@ class ClientsController < ApplicationController
       :city,
       :state,
       :zip,
-      :notes,
+      :note,
       :documents,
-      :choose,
-      phones_attributes: [:phone, :_destroy]
+      :choice,
+      phones_attributes: [:id, :phone, :_destroy]
       )
   end
 
-  # TODO : Lembrar que notes e choose não possuem
+  # TODO : Lembrar que note e choose não possuem
   # correspondência no DB
 
   # Use callbacks to share common setup or constraints between actions.

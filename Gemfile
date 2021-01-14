@@ -10,6 +10,9 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'rails_admin', '~> 2.0'
 gem 'cancancan'
 
+# Cookies
+gem 'rails_same_site_cookie'
+
 # Jquery e JS em Geral
 gem 'jquery-rails'
 

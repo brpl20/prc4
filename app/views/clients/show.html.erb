@@ -67,7 +67,7 @@
 
 <p>
   <strong>Email:</strong>
-  <%= #@client.email %>
+  <%#= @client.email %>
 </p>
 
 <p>
@@ -103,7 +103,7 @@
 
 <p>
   <strong>Telefone:</strong>
-  <%= @client.telephone %>
+  <%= @client.phones.each { |x| x }  %>
 </p>
 
 <p>

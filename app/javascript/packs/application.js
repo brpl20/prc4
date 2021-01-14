@@ -14,5 +14,6 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
+//import cocoon
 require ("jquery")
-require ("nathanvda/cocoon")
+require ("@nathanvda/cocoon")
