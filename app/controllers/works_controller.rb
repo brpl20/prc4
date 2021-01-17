@@ -65,7 +65,6 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def work_params
     params.require(:work).permit(
-      :procedure,
       :subject,
       :action,
       :number,
@@ -75,7 +74,6 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
       :rate_fixed_exfield,
       :rate_work,
       :rate_parceled,
-      :power,
       :recommendation,
       :recommendation_comission,
       :folder,
@@ -85,11 +83,15 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
       :procuration_intern,
       :procuration_paralegal,
       :partner_lawyer,
-      :note,
+      :lawyer_id,
+      :client_id,
       :checklist,
       :checklist_document,
       :document_pendent,
-      :lawyer_id)
+      power: [],
+      note: [],
+      procedure: [],
+      )
   end
 
 end

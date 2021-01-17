@@ -6,13 +6,13 @@
       <div class="d-inline-flex row-sm-10">
         <%= f.input :lastname, label: 'Sobrenome' %>
       </div>
-    </div>
+  </div>
 
   <%= f.input :gender, label: 'Gênero', as: :radio_buttons, collection: [['Masculino', 1], ['Feminino', 2]], hint: 'Escolha o sexo',  error: 'É necessário escolher o gênero do seu cliente para o aplicativo funcionar corretamente' %>
 
   <%= f.input :citizenship, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
 
-  <%= f.input :civilstatus, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
+  <%= f.input :civilstatus, label: 'Estado Civil', as: :check_boxes, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
 
   <%= f.input :capacity, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
 

@@ -1,3 +1,3 @@
 class Work < ApplicationRecord
-  belongs_to :clients
+  #belongs_to :client
 end

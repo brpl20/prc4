@@ -5,11 +5,11 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.string :subject
       t.string :action
       t.string :number
-      t.integer :rate_percentage
-      t.boolean :rate_percentage_exfield
-      t.decimal :rate_fixed
-      t.boolean :rate_fixed_exfield
-      t.decimal :rate_work
+      t.string :rate_percentage
+      t.string :rate_percentage_exfield
+      t.string :rate_fixed
+      t.string :rate_fixed_exfield
+      t.string :rate_work
       t.string :rate_parceled
       t.text :power
       t.string :recommendation
