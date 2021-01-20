@@ -4,7 +4,7 @@ class CreateOffices < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :oab
       t.string :cnpj_number
-      t.integer :type
+      t.string :society
       t.date :foundation
       t.string :adress
       t.string :city

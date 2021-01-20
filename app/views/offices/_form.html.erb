@@ -1,84 +1,60 @@
-<%= form_with(model: office, local: true) do |form| %>
-  <% if office.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(office.errors.count, "error") %> prohibited this office from being saved:</h2>
+<%= simple_form_for(@office) do |form| %>
 
-      <ul>
-      <% office.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
 
   <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.input :name %>
   </div>
 
   <div class="field">
-    <%= form.label :oab %>
-    <%= form.text_field :oab %>
+    <%= form.input :oab %>
   </div>
 
   <div class="field">
-    <%= form.label :cnpj_number %>
-    <%= form.number_field :cnpj_number %>
+    <%= form.input :cnpj_number %>
   </div>
 
   <div class="field">
-    <%= form.label :type %>
-    <%= form.number_field :type %>
+    <%= form.input :society %>
   </div>
 
   <div class="field">
-    <%= form.label :foundation %>
-    <%= form.date_select :foundation %>
+    <%= form.input :foundation %>
   </div>
 
   <div class="field">
-    <%= form.label :adress %>
-    <%= form.text_field :adress %>
+    <%= form.input :adress %>
   </div>
 
   <div class="field">
-    <%= form.label :city %>
-    <%= form.text_field :city %>
+    <%= form.input :city %>
   </div>
 
   <div class="field">
-    <%= form.label :state %>
-    <%= form.text_field :state %>
+    <%= form.input :state %>
   </div>
 
   <div class="field">
-    <%= form.label :zip %>
-    <%= form.number_field :zip %>
+    <%= form.input :zip %>
   </div>
 
   <div class="field">
-    <%= form.label :site %>
-    <%= form.text_field :site %>
+    <%= form.input :site %>
   </div>
 
   <div class="field">
-    <%= form.label :telephone %>
-    <%= form.number_field :telephone %>
+    <%= form.input :telephone %>
   </div>
 
   <div class="field">
-    <%= form.label :bank %>
-    <%= form.number_field :bank %>
+    <%= form.input :bank %>
   </div>
 
   <div class="field">
-    <%= form.label :agency %>
-    <%= form.number_field :agency %>
+    <%= form.input :agency %>
   </div>
 
   <div class="field">
-    <%= form.label :account %>
-    <%= form.number_field :account %>
+    <%= form.input :account %>
   </div>
 
   <div class="actions">

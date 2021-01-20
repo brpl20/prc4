@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_29_011939) do
+ActiveRecord::Schema.define(version: 2020_12_29_011857) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,23 +26,6 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.string "subject"
     t.string "note"
     t.string "channel"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "bankaccounts", force: :cascade do |t|
-    t.integer "bank"
-    t.integer "account"
-    t.integer "agency"
-    t.bigint "client_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_bankaccounts_on_client_id"
-  end
-
-  create_table "basics", force: :cascade do |t|
-    t.string "checklist"
-    t.string "poderes"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -84,14 +67,6 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.index ["client_id"], name: "index_emails_on_client_id"
   end
 
-  create_table "finances", force: :cascade do |t|
-    t.bigint "client_id", null: false
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_finances_on_client_id"
-  end
-
   create_table "jobs", force: :cascade do |t|
     t.text "description"
     t.string "deadline"
@@ -131,7 +106,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.string "name"
     t.string "oab"
     t.string "cnpj_number"
-    t.integer "type"
+    t.string "society"
     t.date "foundation"
     t.string "adress"
     t.string "city"
@@ -199,9 +174,7 @@ ActiveRecord::Schema.define(version: 2020_12_29_011939) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "bankaccounts", "clients"
   add_foreign_key "emails", "clients"
-  add_foreign_key "finances", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
   add_foreign_key "phones", "clients"
 end

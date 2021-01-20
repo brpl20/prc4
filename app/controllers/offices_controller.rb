@@ -73,7 +73,7 @@ class OfficesController < ApplicationController
         :name,
         :oab,
         :cnpj_number,
-        :type,
+        :society,
         :foundation,
         :adress,
         :city,

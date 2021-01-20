@@ -50,6 +50,18 @@
   </div>
 </div>
 
+  <div class="conditional" data-cond-option="'work[subject]'" data-cond-value="Tributário" class="d-inline-flex">
+      <%= f.input :action, label: "Cível-Áreas", as: :radio_buttons, collection: [
+        ["Asfalto", "Asfalto"],
+        ["Alfavá", "Alvará"],
+        ["Outros", "Outros"]
+      ]
+        %>
+  </div>
+
+
+
+
   <%= f.input :number, label: "Número do Requerimento ou Processo", hint: "Apenas para casos em que já existe o processo." %>
 
 <div class="form-group" id="conds-rates">

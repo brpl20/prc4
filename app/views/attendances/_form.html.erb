@@ -4,13 +4,13 @@
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.input :name %>
+      <%= f.input :name, label: "Nome" %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :lastname %>
+      <%= f.input :lastname, label: "Sobrenome" %>
     </div>
     <div class="d-inline-flex">
-      <%= f.input :telephone %>
+      <%= f.input :telephone, label: "Telefone" %>
     </div>
     <div class="d-inline-flex">
       <%= f.input :email %>
@@ -19,29 +19,61 @@
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.input :origin, as: :radio_buttons, collection: [["Indicações (0)", "Indicações"], ["Google (1)", "Google"], ["Parceiros  (2)", "Parceiros"], ["Jusbrasil  (3)", "Jusbrasil"], ["Outros (4)", "Outros"]] %>
-    </div>
-    <div class="d-inline-flex">
-    <%= f.input :status, as: :radio_buttons, collection: [["Pendente (0)", 0], ["Concluído (1)", 1], ["Fechado (2)", 2]] %>
-    </div>
-
-    <div class="d-inline-flex">
-      <%= f.input :channel, as: :radio_buttons, collection: [["Presencial (0)", 0], ["Telefone Fixo (1)", 1], ["Telefone Celular (2)", 2], ["Whats App (3)", 3], ["Email (4)", 4]] %>
-    </div>
-
-    <% #TODO Arrumar Association Belongs or Has Many Aqui %>
-    <div class="d-inline-flex">
-        <%= f.input :responsible, collection: Lawyer.all.map{|s|[s.name, "#{s.name} #{s.lastname}"]} %>
-    </div>
-
-    <div class="d-inline-flex">
-      <%= f.input :subject, priority: [ "Previdenciário" ], collection: ["Cível", "Consumidor", "Previdenciário", "Trabalhista", "Família"] %>
+      <%= f.input :origin, label: "Origem", as: :radio_buttons, collection: [
+        ["Indicações (0)", "Indicações"],
+        ["Google (1)", "Google"],
+        ["Parceiros  (2)", "Parceiros"],
+        ["Jusbrasil  (3)", "Jusbrasil"],
+        ["Colméia  (4)", "Colméia"],
+        ["Visitas  (5)", "Visitas"],
+        ["Outros (6)", "Outros"]] %>
     </div>
   </div>
 
-    <%= f.input :note, as: :text %>
-
-   <div class="form-actions">
-    <%= f.button :submit %>
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :status, label: "Status", as: :radio_buttons, collection: [
+        ["Pendente (0)", 0],
+        ["Concluído (1)", 1],
+        ["Fechado (2)", 2]] %>
+    </div>
   </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :channel, label: "Canal", as: :radio_buttons, collection:
+      [["Presencial (0)", 0],
+      ["Telefone Fixo (1)", 1],
+      ["Telefone Celular (2)", 2],
+      ["Whats App (3)", 3],
+      ["Email (4)", 4]] %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :responsible, label: "Advogado Responsável", collection: Lawyer.all.map{|s|[s.name, "#{s.name} #{s.lastname}"]} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :responsible, label: "Usuário Responsável", collection: User.all.map{|s|[s.email, "#{s.email}"]} %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="d-inline-flex">
+      <%= f.input :subject, label: "Assunto Principal", priority: [ "Previdenciário" ], collection: ["Cível", "Consumidor", "Previdenciário", "Trabalhista", "Família", "Tributário", "Tributário - Asfalto"] %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.input :note, as: :text, label: "Notas" %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Finalizar", class: "btn btn-primary" %>
+  </div>
+
 <% end %>

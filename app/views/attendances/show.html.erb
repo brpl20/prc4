@@ -57,5 +57,16 @@
   <%= @attendance.note %>
 </p>
 
+<p>
+  <strong>Criar um Cliente:</strong>
+<%= link_to 'Criar um Cliente', new_client_path(:name => @attendance[:name]) %>
+
+
+<%= link_to 'Link Text', {controller: 'clients', action: 'new', query: params[:name => @attendance[:name]]}, method: 'get' %>
+</p>
+
+
+<p>
 <%= link_to 'Edit', edit_attendance_path(@attendance) %> |
 <%= link_to 'Back', attendances_path %>
+</p>

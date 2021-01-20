@@ -24,26 +24,25 @@
   </thead>
 
   <tbody>
-    <% @escritorios.each do |escritorio| %>
+    <% Office.all.each do |escritoriox| %>
       <tr>
-        <td><%= escritorio.name %></td>
-        <td><%= escritorio.oab %></td>
-        <td><%= escritorio.cnpj_number %></td>
-        <td><%= escritorio.type %></td>
-        <td><%= escritorio.foundation %></td>
-        <td><%= escritorio.adress %></td>
-        <td><%= escritorio.city %></td>
-        <td><%= escritorio.state %></td>
-        <td><%= escritorio.zip %></td>
-        <td><%= escritorio.site %></td>
-        <td><%= escritorio.telephone %></td>
-        <td><%= escritorio.bank %></td>
-        <td><%= escritorio.agency %></td>
-        <td><%= escritorio.account %></td>
-
-        <td><%= link_to 'Show', office %></td>
-        <td><%= link_to 'Edit', edit_office_path(office) %></td>
-        <td><%= link_to 'Destroy', office, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= escritoriox.name %></td>
+        <td><%= escritoriox.oab %></td>
+        <td><%= escritoriox.cnpj_number %></td>
+        <td><%= escritoriox.society %></td>
+        <td><%= escritoriox.foundation %></td>
+        <td><%= escritoriox.adress %></td>
+        <td><%= escritoriox.city %></td>
+        <td><%= escritoriox.state %></td>
+        <td><%= escritoriox.zip %></td>
+        <td><%= escritoriox.site %></td>
+        <td><%= escritoriox.telephone %></td>
+        <td><%= escritoriox.bank %></td>
+        <td><%= escritoriox.agency %></td>
+        <td><%= escritoriox.account %></td>
+        <td><%= link_to 'Show', escritoriox %></td>
+        <td><%= link_to 'Edit', edit_office_path(escritoriox) %></td>
+        <td><%= link_to 'Destroy', escritoriox, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>

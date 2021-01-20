@@ -9,9 +9,8 @@ Rails.application.routes.draw do
   resources :jobs
   resources :works
   devise_for :users
-  resources :clients do
-    get 'receipt'
-  end
+  resources :clients
+  #do get 'receipt' end
   resources :offices
   resources :attendances
   resources :finances

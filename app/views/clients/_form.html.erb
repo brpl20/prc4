@@ -12,7 +12,7 @@
 
   <%= f.input :citizenship, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
 
-  <%= f.input :civilstatus, label: 'Estado Civil', as: :check_boxes, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
+  <%= f.input :civilstatus, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
 
   <%= f.input :capacity, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
 
@@ -63,12 +63,14 @@
 
   <div class="form-group">
     <div class="d-inline-flex">
-      <%= f.simple_fields_for :phones do |ph| %>
+        <%= f.simple_fields_for :phones do |ph| %>
         <%= render 'phone_fields', :f => ph %>
       <% end %>
     </div>
-    <div class='links'>
-      <%= link_to_add_association "Adicionar Telefone", f, :phones %>
+    <div class="d-inline-flex">
+      <div class='links'>
+        <%= link_to_add_association "Adicionar Telefone", f, :phones %>
+      </div>
     </div>
   </div>
 
@@ -87,7 +89,7 @@
 
 
   </div>
-  <%#= yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
+  <%#= TODO: yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
 
 
 <% end %>
