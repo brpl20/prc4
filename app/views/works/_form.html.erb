@@ -18,7 +18,7 @@
 
 <div class="form-group">
   <div class="d-inline-flex row-sm-10">
-     <%= f.input :subject, label: "Assunto", as: :radio_buttons, collection: [["Previdenciário", "Previdenciário"], ["Cível", "Cível"], ["Trabalhista", "Trabalhista"], ["Tributáiro", "Tributário"], ["Criminal", "Criminal"], ["Outros", "Outros"]], hint: "Escolha a área e depois a subarea de atuação." %>
+     <%= f.input :subject, label: "Assunto", as: :radio_buttons, collection: [["Previdenciário", "Previdenciário"], ["Cível", "Cível"], ["Trabalhista", "Trabalhista"], ["Tributáiro", "Tributário"], ["Outros", "Outros"]], hint: "Escolha a área e depois a subarea de atuação." %>
   </div>
 </div>
 
@@ -51,7 +51,7 @@
 </div>
 
   <div class="conditional" data-cond-option="'work[subject]'" data-cond-value="Tributário" class="d-inline-flex">
-      <%= f.input :action, label: "Cível-Áreas", as: :radio_buttons, collection: [
+      <%= f.input :action, label: "Tributário-Áreas", as: :radio_buttons, collection: [
         ["Asfalto", "Asfalto"],
         ["Alfavá", "Alvará"],
         ["Outros", "Outros"]
@@ -59,21 +59,25 @@
         %>
   </div>
 
+  <div class="conditional" data-cond-option="'work[subject]'" data-cond-value="Outros" class="d-inline-flex">
+      <%= f.input :action, label: "Outros-Áreas" %>
+  </div>
 
 
-
-  <%= f.input :number, label: "Número do Requerimento ou Processo", hint: "Apenas para casos em que já existe o processo." %>
+<%= f.input :number, label: "Número do Requerimento ou Processo", hint: "Apenas para casos em que já existe o processo." %>
 
 <div class="form-group" id="conds-rates">
   <%= f.input :rate_work, label: "Honorários De Trabalho ou Êxito", as: :radio_buttons, collection: [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"]]%>
-    <div class="conditional" data-cond-option="'work[rate]'" data-cond-value="Trabalho">
+
+    <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
       <%= f.input :rate_fixed_exfield, label: "Valor de Honorários Fixos" %>
     </div>
-    <div class="conditional" data-cond-option="'work[rate]'" data-cond-value="Êxito">
+
+    <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
       <%= f.input :rate_percentage, label: "Valor de Honorários Percentuais" %>
     </div>
 
-    <div class="conditional" data-cond-option="'work[rate]'" data-cond-value="Ambos">
+    <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
       <%= f.input :rate_fixed_exfield, label: "Valor de Honorários Fixos" %>
       <%= f.input :rate_percentage, label: "Valor de Honorários Percentuais" %>
     </div>
@@ -89,9 +93,8 @@
               ["Desistir do pedido", "Desistir do Pedido"],
               ["Firmar e Declarar Imposto de Renda e Isenções", "Firmar e Declarar Imposto de Renda e Isenções"],
               ["Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico", "Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico"],
-              ["", ""],
+              ["Mais...", "Mais..."],
                 ], :input_html => { :checked => true } %>
-
 
 <%#= TODO f.input :office, disabled: true %>
 <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
@@ -118,26 +121,40 @@
 
 <div class="form-group">
   <div class="d-inline-flex">
-    <%= f.input :initial_atendee, collection: User.order(:email) %>
+    <%= f.input :initial_atendee, label: "Atendimento Inicial", collection: User.order(:email) %>
   </div>
   <div class="d-inline-flex">
-    <%= f.input :responsible_lawyer, collection: Lawyer.order(:name) %>
+    <%= f.input :responsible_lawyer, label:"Advogado Responsável", collection: Lawyer.order(:name) %>
   </div>
 </div>
 
-  <%= f.input :checklist %>
-  <%= f.input :checklist_document %>
+  <%= f.input :checklist, label: "Documentos a serem produzidos", as: :check_boxes, collection: [
+      ["Procuracão", "Procuracão"],
+      ["Termo de Renúncia", "Termo de Renúncia"],
+      ["Declaração de Carência", "Declaração de Carência"],
+      ["Termo de Residência", "Termo de Residência"],
+      ["Declaração Rural", "Declaração Rural"]
+    ]%>
 
-  <%= f.input :procuration_intern , wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :procuration_paralegal, wrapper_html: {class: 'd-inline-flex'} %>
-  <%= f.input :partner_lawyer %>
-  <%= f.input :document_pendent %>
-  <%#= f.input :note, as: :check_boxes, collection: [
-              ["Ad Judicia", "Ad Judicia"],
-              ["Citacao", "Citacao"]
-                ] %>
+  <%= f.input :checklist_document, label: "Documentos Pendentes", as: :check_boxes, collection: [
+              ["Documento de Identidade", "Documento de Identidade"],
+              ["Comprovante de Residência", "Comprovante de Residência"],
+              ["Senha do Meu INSS", "Senha do Meu INSS"],
+              ["Documentos Médicos", "Documentos Médicos"],
+              ["Documentos Rurais", "Documentos Rurais"],
+              ["Cópia de Requerimento(s)", "Cópia de Requerimento(s)"]
+                ]%>
 
+<div class="form-group">
+  <div class="d-inline-flex">
+  <%= f.input :procuration_intern, label: "Estagiários da Procuração" %>
+  <%= f.input :procuration_paralegal, label: "Bacharéis/Paralegais da Procuracão" %>
+  </div>
+</div>
+  <%= f.input :partner_lawyer, label: "Advogado Parceiro", hint: "Caso a procuração seja outorgada também a um advogado parceiro do escritório." %>
 
+  <%= f.input :document_pendent, label: "Outros Documentos Pendentes ou Pendências." %>
+  <%= f.input :note, label: "Notas em geral sobre o caso" %>
   <%= f.button :submit, "Criar Trabalho", class: "btn btn-primary" %>
 
 
