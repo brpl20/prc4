@@ -127,3 +127,53 @@ _Problemas Gerais das Views:_
 ## pages
 ## shared
 
+
+# Organizar
+## ProcStudio
+/index                : Está acessível a lista de clientes para qq pessoa
+/index                : Criar Página Inicial
+
+- pages/dashboard     : Quase não dá para retornar no dashbord
+- pages/dashboard     : Novo advogado  - não está funcionando
+
+- /offices/new        : Não está funcionando direito --- formulário feio
+
+- /attendances        : Botão de Voltar
+- /attendances/new    : Traduções do View
+- /attendances        : Traduções do View
+- /attendences/1      : Criar Jobs a partir deste
+
+- modelos: /base/procuracao_simples.docx : arrumar fontes : advogados e estagiários : configs (?)
+
+- /clients            : Melhorar a view pq está muito confuso
+- /clients            : Traduzir show/edit/destroy (em geral todos eles)
+
+- /clientes/new       : Não vai para view, vai para a Edit
+- /clientes/new       : Não gera procuração complexa, apenas a simples
+
+- /clients/2          : Criar Recibo
+- /clients/2          : Não atualiza a procuração quando atualiza dados - só dá uma mensagem
+- /clients/2          : Ver se data está sendo atualizada - acho que não
+- /clients/2          : Genero está 1/2 -- passar para masculino / feminino
+- /clients/2          : new job não funciona
+- /clients/2          : falta "Works Pendentes"
+- /clients/2          : criar "works" está infernal --- muita coisa para ser melhorada
+- /clients/2          : Adicionar número do cliente
+- /clients/2          : melhorar frontend
+
+- /works               : Não dá pra selecionar a lista de clientes
+
+- /clients/new        : Cep Atualização
+- /clients/new        : Adicionar Js
+- /clients/new        : Adicionar vários fields --- Email e Contatos diversos
+- /clients/new        : Adicionar vários fields --- Capacidade e Ramificações
+- /clients/new        : Traduzir campos de banco
+- Criar Segundo Documento -> Recibo
+- Criar Fluxo de Documentacao
+
+- Send Doc to PDF / Unique and not listed link /
+- Join .docx
+- Novo Contrato .docx
+- Assinador
+- E-Mail Listener (Gmail) do append
+- Session ... -> Check
