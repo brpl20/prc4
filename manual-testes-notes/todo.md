@@ -75,6 +75,44 @@ _Problemas Gerais dos Models:_
 <!-- Comentários Jemison -->
 - Toda a programação deve ser feita nos models, logo, os controllers apenas realizam chamadas e recebem retorno dos models
 
+* **Algo importante a considerar** (tenha a imagem do diagrama aberta para melhor compreenção): quando temos uma relação de N para N como por exemplo de Client pra Works, onde: um Cliente pode ter vários works e um Work pode conter mais de um Cliente, ocorre a chamada relação ternária. Significa então que será necessário criar uma terceira tabela que geralmente tem o nome dado por 'primeiraTabela_segundaTabela'. Esta tabela resultante de Client e Work conterá dados como client_id: integer e work_id: integer, podendo também conter mais atributos que não se encaixem nas duas tabelas de origem. Agora pra programar isso no Rails temos duas formas e elas dependem de como você pretende estruturar essa terceira tabela. Idem para as tabelas work_office e job_user.
+
+**Primeira forma:** a tabela conterá apenas as chaves estrangeiras **client_id** e **work_id**
+Nesta situação você cria apenas uma migration para a tabela nova (não haverá um model novo para Client_work): 
+```ruby
+rails g migration clientWork client:references work:references
+rake db:migrate
+```
+em app/models/client.rb
+```ruby
+class Client < ApplicationRecord
+  has_and_belong_to_many :works
+end
+```
+
+em app/models/work.rb
+```ruby
+class Work < ApplicationRecord
+  has_and_belong_to_many :clients
+  accepts_nested_attributes_for :clients, reject_if: :all_blank, allow_destroy: true
+end
+```
+
+em app/controllers/works_controller.rb permita o novo atributo no método work_params:
+``` ruby
+clients_attributes: [:id, :client]
+```
+
+nas suas view de Work pode utilizar o fields_for normalmente para informar quem é o client:
+
+```ruby
+<%= f.fields_for :client_works do |a| %>
+    <%= f.text_field :client_id %>
+<% end %>
+```
+
+**Segunda forma:** você pode criar um model para ClientWork e fazer uma associação has many como já fez em outros modelos. Apenas não gere as views por que não rpecisará delas uma vez que o cliente será informado em um Work.
+
 ## ability (CanCanCan)
 
 ## application_Record
