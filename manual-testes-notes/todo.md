@@ -124,6 +124,7 @@ nas suas view de Work pode utilizar o fields_for normalmente para informar quem 
 ## basic
 
 ## client
+- has_and_belong_to_many :works
 - has_many :phones
 - has_many :emails
 - accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true
@@ -135,6 +136,8 @@ nas suas view de Work pode utilizar o fields_for normalmente para informar quem 
 ## finance
 
 ## job
+- belongs_to :work
+- has_and_belong_to_many :users
 
 ## lawyer
 
@@ -144,9 +147,13 @@ nas suas view de Work pode utilizar o fields_for normalmente para informar quem 
 - belongs_to :client
 
 ## user
+- has_and_belong_to_many :jobs
 
 ## work
-
+- has_many :works
+- has_and_belong_to_many :clients
+- accepts_nested_attributes_for :clients, reject_if: :all_blank, allow_destroy: true
+- accepts_nested_attributes_for :jobs, reject_if: :all_blank, allow_destroy: true
 
 # Views
 _Problemas Gerais das Views:_
