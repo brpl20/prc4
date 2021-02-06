@@ -78,7 +78,7 @@ _Problemas Gerais dos Models:_
 * **Algo importante a considerar** (tenha a imagem do diagrama aberta para melhor compreenção): quando temos uma relação de N para N como por exemplo de Client pra Works, onde: um Cliente pode ter vários works e um Work pode conter mais de um Cliente, ocorre a chamada relação ternária. Significa então que será necessário criar uma terceira tabela que geralmente tem o nome dado por 'primeiraTabela_segundaTabela'. Esta tabela resultante de Client e Work conterá dados como client_id: integer e work_id: integer, podendo também conter mais atributos que não se encaixem nas duas tabelas de origem. Agora pra programar isso no Rails temos duas formas e elas dependem de como você pretende estruturar essa terceira tabela. Idem para as tabelas work_office e job_user.
 
 **Primeira forma:** a tabela conterá apenas as chaves estrangeiras **client_id** e **work_id**
-Nesta situação você cria apenas uma migration para a tabela nova (não haverá um model novo para Client_work): 
+Nesta situação você cria apenas uma migration para a tabela nova (não haverá um model novo para Client_work):
 ```ruby
 rails g migration clientWork client:references work:references
 rake db:migrate

@@ -87,6 +87,7 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
       :client_id,
       :document_pendent,
       :note,
+      clients_attributes: [:id, :client],
       checklist: [],
       checklist_document: [],
       power: [],
