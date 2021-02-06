@@ -85,18 +85,14 @@ before_action :set_work, only: [:show, :edit, :update, :destroy, :templater]
       :partner_lawyer,
       :lawyer_id,
       :client_id,
+      :document_pendent,
+      :note,
       clients_attributes: [:id, :client],
       checklist: [],
       checklist_document: [],
-      document_pendent: [],
       power: [],
-      note: [],
       procedure: [],
       )
   end
 
 end
-
-
-
-
