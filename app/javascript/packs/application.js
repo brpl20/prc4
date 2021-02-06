@@ -17,3 +17,7 @@
 //import cocoon
 require ("jquery")
 require ("@nathanvda/cocoon")
+
+$(document).ready(function(){
+  $('.power-checked').prop('checked', true);
+});
