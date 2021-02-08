@@ -26,16 +26,11 @@ class LawyersController < ApplicationController
   # POST /lawyers.json
   def create
     @lawyer = Lawyer.new(lawyer_params)
-
-    respond_to do |format|
       if @lawyer.save
-        format.html { redirect_to @lawyer, notice: 'Lawyer was successfully created.' }
-        format.json { render :show, status: :created, location: @lawyer }
+        redirect_to @lawyer, notice: 'Lawyer was successfully created.'
       else
-        format.html { render :new }
-        format.json { render json: @lawyer.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /lawyers/1

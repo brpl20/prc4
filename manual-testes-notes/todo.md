@@ -57,8 +57,16 @@ _Problemas Gerais dos Controllers:_
 ## jobs
 
 ## lawyers
+- adicionar UF na OAB --> Campo separado
+- Mais de uma OAB
+- Se pertencer a um escritório ? Relations ?
+- Usar o mesmo endereço do escritório
+- Usar mesmo e-mail do escritório ?
+- Birth - ARrumar campos de idade
+-
 
 ## offices
+- Diminuir campos de Fundação (somente antes de TODAY)
 
 ## pages
 

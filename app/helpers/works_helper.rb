@@ -7,7 +7,7 @@ module WorksHelper
             ["Outros", "Outros"]]
   end
 
-  def options_for_action_previence
+  def options_for_action_previdence
     previdence = [
       ["Aposentadoria Por Tempo de Contribuição", "Aposentadoria Por Tempo de Contribuição"],
       ["Aposentadoria Por Idade", "Aposentadoria Por Idade"],

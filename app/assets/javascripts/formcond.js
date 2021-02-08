@@ -18,7 +18,7 @@ $(document).on('turbolinks:load', function(){
         else if ($(listenTo + ":checked").val() == listenFor) {
           $section.slideDown();
           $section.removeClass("subject-matter");
-          $('.subject-matter').remove();
+          $('.subject-matter').toggle();
 
         }
         else {

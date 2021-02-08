@@ -39,6 +39,7 @@ class ClientsController < ApplicationController
           :lawyer_id => 1,
           :civilstatus => @client[:civilstatus]),
           notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
+          # TODO: Terminar os redirecionamentos aqui
       else
         render :new,
         notice: "Erro!"
@@ -46,7 +47,7 @@ class ClientsController < ApplicationController
     end
   end
 
- # FEMININ x MASCULIN
+ # FEMININ x MASCULIN (TODO: Create Module or Helper)
   def genderize(field)
     case field
     when "Casado"
@@ -70,7 +71,7 @@ class ClientsController < ApplicationController
     require 'aws-sdk-s3'
     require 'docx'
     require 'json'
-    require "time"
+    require 'time'
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
@@ -171,7 +172,9 @@ class ClientsController < ApplicationController
     nome_correto = client[:name].downcase.gsub(/\s+/, "")
 
     ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+
     ch_file = "tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx"
+
     obj = @s3.bucket(bucket).object(ch_file)
 
     #backup
