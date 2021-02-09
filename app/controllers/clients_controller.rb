@@ -35,9 +35,8 @@ class ClientsController < ApplicationController
       if @client[:choice] == true
         redirect_to @client
       elsif @client[:choice] == false
-        redirect_to new_work_path(
-          :lawyer_id => 1,
-          :civilstatus => @client[:civilstatus]),
+        session[:client_id] = @client.id
+        redirect_to new_work_path,
           notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
           # TODO: Terminar os redirecionamentos aqui
       else

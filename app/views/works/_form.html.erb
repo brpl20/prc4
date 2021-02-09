@@ -154,15 +154,21 @@
         <div class="form-group">
           <div class="d-inline-flex">
             <% if Client.first == nil
-            number = "Sem cliente Cadastrado"
+            number = "Sem cliente Cadastrado - Cadastre um Cliente Antes"
             else
             number =  "#{Client.last.name} #{Client.last.lastname} #{Client.last.id}"
             end %>
 
+
+            <%= f.label "teste session" %>
+
+
             <%= f.label "Cliente - Pasta" %>
             <%= f.number_field :folder, disabled: true, placeholder: "#{number}" %>
+            <%= f.collection_select :client_id, Client.order(:name), :id, :name %>
           </div>
         </div>
+
 
         <div class="form-group">
           <div class="d-inline-flex">
@@ -210,6 +216,20 @@
           <%= f.text_field :note %>
 
         </div>
+
+
+    <div class="form-group">
+              <span>
+                TESTE: <p>
+                <%= cliente = session[:client_id]  %>
+                <%= civil_status = session[:civilstatus]  %>
+
+                </p>
+                FIM TESTE
+              </span>
+            </div>
+
+
 
   <button type="submit" class="btn btn-primary">Criar Trabalho</button>
   <%= link_to "voltar", works_path %>

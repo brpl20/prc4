@@ -10,22 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_02_235246) do
+ActiveRecord::Schema.define(version: 2021_02_08_235128) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "attendances", force: :cascade do |t|
-    t.string "name"         # repetido Client
-    t.string "lastname"     # repetido Client
-    t.string "origin"       # --- unico
-    t.integer "status"      # --- unico
-    t.string "responsible"  # --- unico
-    t.string "telephone"    # repetido Client
-    t.string "email"        # repetido Client
-    t.string "subject"      # repetido Work
-    t.string "note"         # repetido Work
-    t.string "channel"      # --- unico
+    t.string "name"
+    t.string "lastname"
+    t.string "origin"
+    t.integer "status"
+    t.string "responsible"
+    t.string "telephone"
+    t.string "email"
+    t.string "subject"
+    t.string "note"
+    t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -172,6 +172,7 @@ ActiveRecord::Schema.define(version: 2021_02_02_235246) do
     t.string "document_pendent"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.json "document"
   end
 
   add_foreign_key "emails", "clients"
