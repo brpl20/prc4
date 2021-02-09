@@ -15,7 +15,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       :secret_access_key => ENV['AWS_SECRET_KEY']
      )
     @work = Work.find(params[:id])
-    doc_link = @work.documents["document_name"] # TODO: arrumar aqui os docs para aparecer o link correto
+    doc_link = @work.document["document_name"]
     @work.documents[:aws_link]
     @meta = []
     @meta2 = []
@@ -76,7 +76,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # FIELD TREAT -- INICIO --
 
-    # TODO: Precisamos instanciar o @Client
+    # client =
 
     # nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
     # nome_cap = "#{@client[:name]}".upcase
