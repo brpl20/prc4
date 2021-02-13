@@ -76,46 +76,44 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # FIELD TREAT -- INICIO --
 
-    # client =
-
-    # nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
-    # nome_cap = "#{@client[:name]}".upcase
-    # sobrenome_cap = "#{@client[:lastname]}".upcase
+    client_ins = # arrumar instancia do cliente
+    nome_completo = "#{client_ins[:name]} #{client_ins[:lastname]}".upcase
+    nome_cap = "#{client_ins[:name]}".upcase
+    sobrenome_cap = "#{client_ins[:lastname]}".upcase
 
     # NO DB FIELDS CONFIG GENDER
 
     # GENDER LOGIC
-    # TODO: Instanciar aqui também
-    # if @client[:gender] == 2
-    #   civilstatus = genderize(@client[:civilstatus])
-    #   citizenship = genderize(@client[:citizenship])
-    #   porta = "portadora"
-    #   inscrito = "inscrita"
-    #   domiciliado = "domiciliada"
-    # else
-    #   civilstatus = @client[:civilstatus]
-    #   nacionalita = @client[:citizenship]
-    #   porta = "portador"
-    #   inscrito = "inscrito"
-    #   domiciliado = "domiciliado"
-    # end
+    if client_ins[:gender] == 2
+      civilstatus = genderize(client_ins[:civilstatus])
+      citizenship = genderize(client_ins[:citizenship])
+      porta = "portadora"
+      inscrito = "inscrita"
+      domiciliado = "domiciliada"
+    else
+      civilstatus = client_ins[:civilstatus]
+      nacionalita = client_ins[:citizenship]
+      porta = "portador"
+      inscrito = "inscrito"
+      domiciliado = "domiciliado"
+    end
 
-    # if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
-    #   capacity_treated = @client[:capacity]
-    # else
-    #   capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
-    # end
+    if client_ins[:capacity] = 'Capaz' || client_ins[:capacity] = nil
+      capacity_treated = client_ins[:capacity]
+    else
+      capacity_treated = "#{client_ins[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+    end
 
     # # ADVOGADOS
-    # laws = [].join("")
-    # Lawyer.all.each do | xopo |
-    #   laws << "#{xopo.name} #{xopo.lastname}, #{xopo.civilstatus}, OAB/PR n #{xopo.oab_number}. ".to_s
-    # end
+    laws = [].join("")
+    Lawyer.all.each do | xopo |
+      laws << "#{xopo.name} #{xopo.lastname}, #{xopo.civilstatus}, OAB/PR n #{xopo.oab_number}. ".to_s
+    end
 
     # ESCRITORIO
 
     # erro no PRC4
-    #esc = Escritorio.pluck(:name, :oab, :city, :state, :email).join(", ")
+    esc = Escritorio.pluck(:name, :oab, :city, :state, :email).join(", ")
 
     # FIELD TREAT -- FIM --
 
@@ -124,7 +122,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     # TIME - HORARIO
     data = Time.now
     data2 = data.strftime("%d, %m, %Y")
-    #data.format("DD, MM, YYYY")
+    data.format("DD, MM, YYYY")
 
 
     # DOCUMENT REPLACES
@@ -132,40 +130,44 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
 
-        # CLIENT
-        # tr.substitute('_:nome_', nome_cap)
-        # tr.substitute('_:sobrenome_', sobrenome_cap)
-        # tr.substitute('_:estado_civil_', civilstatus)
-        # tr.substitute('_:profissao_', @client[:profession].downcase)
-        # tr.substitute('_:capacidade_', capacity_treated.downcase)
+      # CLIENT
+      tr.substitute('_:nome_', nome_cap)
+      tr.substitute('_:sobrenome_', sobrenome_cap)
+      tr.substitute('_:estado_civil_', civilstatus)
+      tr.substitute('_:profissao_', client_ins[:profession].downcase)
+      tr.substitute('_:capacidade_', capacity_treated.downcase)
 
-        # TODO ARRUMAR ISSO
-        # tr.substitute('_:nacionalidade_', nacionalita.downcase)
-        # tr.substitute('_:rg_', @client[:general_register])
-        # tr.substitute('_:cpf_', (@client[:social_number]).to_s)
-        # tr.substitute('_:nb_', (@client[:number_benefit]).to_s)
-        #tr.substitute('_:email_', @client[:email])
-        # tr.substitute('_:endereco_', @client[:adress])
-        # tr.substitute('_:cidade_', @client[:city])
-        # tr.substitute('_:state_', @client[:state])
-        # tr.substitute('_:cep_', (@client[:zip]).to_s)
-        # tr.substitute('_:empresa_atual_', @client[:company])
+      # TODO ARRUMAR ISSO
+      tr.substitute('_:nacionalidade_', nacionalita.downcase)
+      tr.substitute('_:rg_', client_ins[:general_register])
+      tr.substitute('_:cpf_', (client_ins[:social_number]).to_s)
+      tr.substitute('_:nb_', (client_ins[:number_benefit]).to_s)
+      tr.substitute('_:email_', client_ins[:email])
+      tr.substitute('_:endereco_', client_ins[:adress])
+      tr.substitute('_:cidade_', client_ins[:city])
+      tr.substitute('_:state_', client_ins[:state])
+      tr.substitute('_:cep_', (client_ins[:zip]).to_s)
+      # tr.substitute('_:empresa_atual_', client_ins[:company])  Field nao utilizado
 
-        # LAWYER end Society
-        tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:sociedade_', "")
+      # LAWYER AND SOCIETY => @Lawyer & @Office
+      tr.substitute('_:lawyers_', laws)
+      tr.substitute('_:sociedade_', "")
+      tr.substitute('_:accountdetails_', @Office[:accountdetails])
 
-        # NO DB FIELDS CONFIG GENDER
-        # tr.substitute('_:portador_', porta)
-        # tr.substitute('_:inscrito_', inscrito)
-        # tr.substitute('_:domiciliado_', domiciliado)
+      # NO DB FIELDS CONFIG GENDER
+      tr.substitute('_:portador_', porta)
+      tr.substitute('_:inscrito_', inscrito)
+      tr.substitute('_:domiciliado_', domiciliado)
 
-        # WORK FIELDS
+      # WORK FIELDS
+      tr.substitute('_:procedure_', @work[:procedure])
+      tr.substitute('_:acao_', @work[:acao])
+      tr.substitute('_:rates_', @work[:rates])
+      tr.substitute('_:rates_', @work[:rates])
+      tr.substitute('_:rates_', @work[:rates])
 
-
-
-        # DOCUMENT TIME STAMP
-        tr.substitute('_:timestamp_', data2)
+      # DOCUMENT TIME STAMP
+      tr.substitute('_:timestamp_', data2)
       end
     end
     bucket = 'prcstudio3herokubucket'
