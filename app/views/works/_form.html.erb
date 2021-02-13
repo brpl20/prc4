@@ -151,21 +151,23 @@
           </div>
         </div>
 
+            <% # Inicios logica para selecionar o cliente com parametros da sessao ou nao %>
+            <% if Client.first == nil %>
+               <% client_selection = "Sem cliente Cadastrado - Cadastre um Cliente Antes" %>
+              <% elsif  session[:client_id].nil? %>
+                <% client_selection = "#{Client.last.name} #{Client.last.lastname} #{Client.last.id}" %>
+                <%= f.number_field :folder, disabled: true%>
+              <% elsif %>
+                <% client_selection =  Client.find(session[:client_id]).name %>
+                <%= f.number_field :folder, disabled: true, placeholder: "#{client_selection}" %>
+              <% else %>
+                <% f.collection_select :client_id, Client.order(:name), :id, :name # Seleciona Manualmente %>
+            <% end %>
+            <% # Fim da logica para selecionar o cliente com parametros da sessao ou nao %>
+
         <div class="form-group">
           <div class="d-inline-flex">
-            <% if Client.first == nil
-            number = "Sem cliente Cadastrado - Cadastre um Cliente Antes"
-            else
-            number =  "#{Client.last.name} #{Client.last.lastname} #{Client.last.id}"
-            end %>
-
-
-            <%= f.label "teste session" %>
-
-
-            <%= f.label "Cliente - Pasta" %>
-            <%= f.number_field :folder, disabled: true, placeholder: "#{number}" %>
-            <%= f.collection_select :client_id, Client.order(:name), :id, :name %>
+            <%= f.label "Cliente:" %>
           </div>
         </div>
 
@@ -221,7 +223,7 @@
     <div class="form-group">
               <span>
                 TESTE: <p>
-                <%= cliente = session[:client_id]  %>
+                <%= cliente = session[:client_id].nil?  %>
                 <%= civil_status = session[:civilstatus]  %>
 
                 </p>
