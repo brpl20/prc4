@@ -151,25 +151,15 @@
           </div>
         </div>
 
-            <% # Inicios logica para selecionar o cliente com parametros da sessao ou nao %>
-            <% if Client.first == nil %>
-               <% client_selection = "Sem cliente Cadastrado - Cadastre um Cliente Antes" %>
-              <% elsif  session[:client_id].nil? %>
-                <% client_selection = "#{Client.last.name} #{Client.last.lastname} #{Client.last.id}" %>
-                <%= f.number_field :folder, disabled: true%>
-              <% elsif %>
-                <% client_selection =  Client.find(session[:client_id]).name %>
-                <%= f.number_field :folder, disabled: true, placeholder: "#{client_selection}" %>
-              <% else %>
-                <% f.collection_select :client_id, Client.order(:name), :id, :name # Seleciona Manualmente %>
-            <% end %>
-            <% # Fim da logica para selecionar o cliente com parametros da sessao ou nao %>
 
-        <div class="form-group">
-          <div class="d-inline-flex">
-            <%= f.label "Cliente:" %>
-          </div>
-        </div>
+        <%= f.fields_for :client_works do |cw| %>
+          <% if @client == nil %>
+            <%#= cw.collection_select :client_id, Client.order(:name), :id, :name # Seleciona Manualmente %>
+          <% else %>
+            <%= cw.number_field :client_id, value:@client.id , disabled: true%>
+          <% end %>
+        <% end %>
+
 
 
         <div class="form-group">

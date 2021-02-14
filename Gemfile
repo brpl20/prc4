@@ -25,6 +25,9 @@ gem 'cocoon'
 # Docx
 gem 'docx', :require => ["docx"]
 
+# Seeder
+gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
+
 # Diversos
 gem 'autoprefixer-rails'
 gem 'pry-rails', :group => :development
