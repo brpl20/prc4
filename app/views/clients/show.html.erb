@@ -103,7 +103,7 @@
 
 <p>
   <strong>Telefone:</strong>
-  <%= @client.phones.each { |x| x }  %>
+  <%= @client.phones.each { | x | x } %>
 </p>
 
 <p>
@@ -119,9 +119,6 @@
 <p>
   <%= link_to "Baixar Procuração", @url, class: "btn btn-warning" %>
 </p>
-
-<h1>Recibo </h1>
-<%= link_to 'Gerar Recibo', client_receipt_path(@client) %>
 
 
 <h1>Jobs Pendentes</h1>

@@ -245,6 +245,7 @@ class ClientsController < ApplicationController
       :adress,
       :city,
       :state,
+      :email,
       :zip,
       :note,
       :documents,
