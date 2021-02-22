@@ -136,7 +136,12 @@
           end %>
         </div>
 
-        <%#= TODO f.input :office, disabled: true %>
+        <div class="form-group">
+          <div class="d-inline-flex">
+            <%= f.label "Escritório ou Escritórios Associados" %>
+            <%= f.collection_select :office, Office.order(:name), :id, :name %>
+          </div>
+        </div>
         <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
         <%#= TODO f.input :outros_responsavel %>
 
@@ -159,7 +164,6 @@
             <%= cw.number_field :client_id, value:@client.id , disabled: true%>
           <% end %>
         <% end %>
-
 
 
         <div class="form-group">

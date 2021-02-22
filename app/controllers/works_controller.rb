@@ -106,10 +106,10 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     # end
 
     # # ADVOGADOS
-    # laws = [].join("")
-    # Lawyer.all.each do | xopo |
-    #   laws << "#{xopo.name} #{xopo.lastname}, #{xopo.civilstatus}, OAB/PR n #{xopo.oab_number}. ".to_s
-    # end
+     laws = [].join("")
+     Lawyer.all.each do | xopo |
+       laws << "#{xopo.name} #{xopo.lastname}".to_s
+     end
 
     # ESCRITORIO
     # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
@@ -149,9 +149,10 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:empresa_atual_', client_ins[:company])  Field nao utilizado
 
       # LAWYER AND SOCIETY => @Lawyer & @Office
-      # tr.substitute('_:lawyers_', laws)
-      # tr.substitute('_:sociedade_', "")
-      # tr.substitute('_:accountdetails_', @Office[:accountdetails])
+       #tr.substitute('_:lawyers_', laws)
+        tr.substitute('_:society_', Office.find_by(id: 1).name)
+        tr.substitute('_:accountdetails_', "Banco: #{Office.find_by(id: 1).bank}, Agência: #{Office.find_by(id: 1).agency}, Conta: #{Office.find_by(id: 1).account}" )
+
 
       # NO DB FIELDS CONFIG GENDER
       # tr.substitute('_:portador_', porta)
@@ -159,11 +160,11 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-      # tr.substitute('_:procedure_', @work[:procedure])
-      # tr.substitute('_:acao_', @work[:acao])
-      # tr.substitute('_:rates_', @work[:rates])
-      # tr.substitute('_:rates_', @work[:rates])
-      # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:procedure_', @work[:procedure])
+       # tr.substitute('_:acao_', @work[:acao])
+       # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:rates_', @work[:rates])
 
       # DOCUMENT TIME STAMP
       tr.substitute('_:timestamp_', data2)
