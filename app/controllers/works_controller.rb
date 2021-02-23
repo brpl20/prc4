@@ -105,7 +105,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     #   capacity_treated = "#{client_ins[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     # end
 
-    # # ADVOGADOS
+    # ADVOGADOS
      laws = [].join("")
      Lawyer.all.each do | xopo |
        laws << "#{xopo.name} #{xopo.lastname}".to_s
@@ -113,6 +113,22 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # ESCRITORIO
     # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
+
+    # WORK
+
+    # HONORARIOS
+    honorarios = []
+    # if rate_work == "Trabalho" append...rate_work_ex_field
+    # if rate_work == "Êxito" append... rate_percentage_exfield
+    # if rate_work == "Ambos" append... logic
+
+    # t.string "rate_percentage"
+    # t.string "rate_percentage_exfield"
+    # t.string "rate_fixed"
+    # t.string "rate_fixed_exfield"
+    # t.string "rate_work"
+    # t.string "rate_parceled"
+
 
     # FIELD TREAT -- FIM --
 

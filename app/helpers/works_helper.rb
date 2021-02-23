@@ -40,6 +40,15 @@ module WorksHelper
     rate_work = [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"]]
   end
 
+    # t.string "rate_percentage"
+    # t.string "rate_percentage_exfield"
+    # t.string "rate_fixed"
+    # t.string "rate_fixed_exfield"
+    # t.string "rate_work"
+    # t.string "rate_parceled"
+
+
+
   def options_for_rate_parceled
     rate_parceled = [["Sim", "Sim"], ["Não", "Não"]]
   end

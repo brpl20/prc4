@@ -20,6 +20,8 @@
 
         <small class="form-text text-muted">Escolha a área e depois a subarea de atuação.</small>
       </fieldset>
+    </div>
+  </div>
 
 
       <!-- <div class="form-group" id="conds-subject"> -->
@@ -91,6 +93,9 @@
           <small class="form-text text-muted">Apenas para casos em que já existe o processo.</small>
         </div>
 
+
+
+
         <div class="form-group" id="conds-rates" style="display: grid">
 
           <%= f.label "Honorários De Trabalho ou Êxito" %>
@@ -116,10 +121,10 @@
           <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
             <div class="form-group">
               <%= f.label "Valor de Honorários Fixos" %>
-              <%= f.number_field :rate_fixed_exfield %>
+              <%= f.text_field :rate_fixed_exfield %>
 
               <%= f.label "Valor de Honorários Percentuais" %>
-              <%= f.number_field :rate_percentage %>
+              <%= f.text_field :rate_percentage %>
             </div>
           </div>
 
