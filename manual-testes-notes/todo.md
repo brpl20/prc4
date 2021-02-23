@@ -1,5 +1,7 @@
 # TODO GERAL PROJETO PROC STUDIO
 
+* Adicionar rate_parceled_exfield
+
 ## Descrição Geral -- Jemison
 - A ideia principal do gerenciamento do escritório é criar um aplicativo baseado nos clientes, assim gostaria que o Model Works gerasse um trabalho, que poderá ter vários Jobs. Works belongs to Clients . Jobs Belongs to Works. UM exemplo. O cliente Bruno tem 1 Work, um processo por exemplo, neste work temos 5 tarefas a serem realizadas, ou seja, 5 jobs.
 
