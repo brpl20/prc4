@@ -11,8 +11,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def show
     require 's3'
     service = S3::Service.new(
-      :access_key_id => 'AKIAJ74GCVKOS25RX5EQ',
-      :secret_access_key => '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'
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
      )
     @work = Work.find(params[:id])
     #doc_link = @work.document["document_name"]
@@ -65,8 +65,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -118,6 +118,22 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # HONORARIOS
     honorarios = []
+
+    if @work[:rate_work] == "Trabalho"
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]}pelo trabalho realizado"
+      elsif @work[:rate_work] == "Êxito"
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_percentage_exfield]} dos benefícios advindos do processo."
+      else
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]} pelo trabalho realizado e mais #{@work[:rate_percentage_exfield]} sobre os benefícios advindos do processo recebidos no seu decorrer ou acumulativamente".
+    end
+
+
+    def genderize(field)
+      case field
+      when "Casado"
+        field.sub! 'Casado', 'Casada'
+    end
+      
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -176,9 +192,12 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-       # tr.substitute('_:procedure_', @work[:procedure])
-       # tr.substitute('_:acao_', @work[:acao])
-       # tr.substitute('_:rates_', @work[:rates])
+        
+        tr.substitute('_:acao_', @work[:acao])
+        tr.substitute('_:rates_', work_rate)
+        tr.substitute('_:subject_', "#{@work[:acao]} eee #{@work[:subject]}")
+        tr.substitute('_:procedure_', work_rate)
+
        # tr.substitute('_:rates_', @work[:rates])
        # tr.substitute('_:rates_', @work[:rates])
 
@@ -262,8 +281,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
