@@ -13,6 +13,19 @@
 //= require rails-ujs
 //= require jquery
 //= require activestorage
-//= require turbolinks
-//= require_tree .
 //= require formcond.js
+
+$(document).ready(function(){
+
+    $('.phone-cli').each(function(index){
+      $(this).addClass('col-md-12').css('padding', '0');
+      $('.client').css('margin', '0')
+    });
+
+  function timeFunctionLong(input) {
+    setTimeout(function() {
+      input.type = 'text';
+    }, 60000);
+  };
+
+});

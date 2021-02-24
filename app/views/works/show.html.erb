@@ -52,7 +52,7 @@
 
 <p>
   <strong>Escritorio:</strong>
-  <spam>office corrigir ...</spam>
+  <spam>  <%= Office.find_by_id(1).name %> </spam>
 </p>
 
 <p>
@@ -128,6 +128,7 @@
 <p>
   <strong>Documentos pendentes:</strong>
   <%= @work = Work.where(client_id: 1) %>
+
 </p>
 
 <%= link_to 'Edit', edit_work_path(@work) %> |

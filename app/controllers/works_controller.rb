@@ -11,8 +11,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def show
     require 's3'
     service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
+      :access_key_id => 'AKIAJ74GCVKOS25RX5EQ',
+      :secret_access_key => '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'
      )
     @work = Work.find(params[:id])
     #doc_link = @work.document["document_name"]
@@ -65,8 +65,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
+        'AKIAJ74GCVKOS25RX5EQ',
+        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -105,14 +105,30 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     #   capacity_treated = "#{client_ins[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     # end
 
-    # # ADVOGADOS
-    # laws = [].join("")
-    # Lawyer.all.each do | xopo |
-    #   laws << "#{xopo.name} #{xopo.lastname}, #{xopo.civilstatus}, OAB/PR n #{xopo.oab_number}. ".to_s
-    # end
+    # ADVOGADOS
+     laws = [].join("")
+     Lawyer.all.each do | xopo |
+       laws << "#{xopo.name} #{xopo.lastname}".to_s
+     end
 
     # ESCRITORIO
     # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
+
+    # WORK
+
+    # HONORARIOS
+    honorarios = []
+    # if rate_work == "Trabalho" append...rate_work_ex_field
+    # if rate_work == "Êxito" append... rate_percentage_exfield
+    # if rate_work == "Ambos" append... logic
+
+    # t.string "rate_percentage"
+    # t.string "rate_percentage_exfield"
+    # t.string "rate_fixed"
+    # t.string "rate_fixed_exfield"
+    # t.string "rate_work"
+    # t.string "rate_parceled"
+
 
     # FIELD TREAT -- FIM --
 
@@ -149,9 +165,10 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:empresa_atual_', client_ins[:company])  Field nao utilizado
 
       # LAWYER AND SOCIETY => @Lawyer & @Office
-      # tr.substitute('_:lawyers_', laws)
-      # tr.substitute('_:sociedade_', "")
-      # tr.substitute('_:accountdetails_', @Office[:accountdetails])
+       #tr.substitute('_:lawyers_', laws)
+        tr.substitute('_:society_', Office.find_by(id: 1).name)
+        tr.substitute('_:accountdetails_', "Banco: #{Office.find_by(id: 1).bank}, Agência: #{Office.find_by(id: 1).agency}, Conta: #{Office.find_by(id: 1).account}" )
+
 
       # NO DB FIELDS CONFIG GENDER
       # tr.substitute('_:portador_', porta)
@@ -159,11 +176,11 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-      # tr.substitute('_:procedure_', @work[:procedure])
-      # tr.substitute('_:acao_', @work[:acao])
-      # tr.substitute('_:rates_', @work[:rates])
-      # tr.substitute('_:rates_', @work[:rates])
-      # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:procedure_', @work[:procedure])
+       # tr.substitute('_:acao_', @work[:acao])
+       # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:rates_', @work[:rates])
+       # tr.substitute('_:rates_', @work[:rates])
 
       # DOCUMENT TIME STAMP
       tr.substitute('_:timestamp_', data2)
@@ -204,7 +221,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
   def new
     @work = Work.new
-    @client = Client.find(params[:client])
+    # @client = Client.find(params[:client])
   end
 
   # GET /works/1/edit
@@ -245,8 +262,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
+        'AKIAJ74GCVKOS25RX5EQ',
+        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')

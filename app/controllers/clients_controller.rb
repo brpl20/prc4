@@ -2,14 +2,14 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_client, only: [:show, :edit, :update, :destroy]
 
   def index
-    @clients = Client.all
+    @clients = Client.includes(:phones).all
   end
 
   def show
     require 's3'
     service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
+      :access_key_id => 'AKIAJ74GCVKOS25RX5EQ',
+      :secret_access_key => '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'
      )
     @client = Client.find(params[:id])
     doc_link = @client.documents["document_name"]
@@ -74,8 +74,8 @@ class ClientsController < ApplicationController
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
+        'AKIAJ74GCVKOS25RX5EQ',
+        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -214,7 +214,7 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    @clients.destroy
+    @client.destroy
     redirect_to clients_path
   end
 
@@ -245,6 +245,7 @@ class ClientsController < ApplicationController
       :adress,
       :city,
       :state,
+      :email,
       :zip,
       :note,
       :documents,
@@ -264,8 +265,8 @@ class ClientsController < ApplicationController
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
+        'AKIAJ74GCVKOS25RX5EQ',
+        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')

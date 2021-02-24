@@ -1,0 +1,113 @@
+/*
+*= require bootstrap/dist/css/bootstrap
+*= require font-awesome/css/font-awesome
+*= require nprogress/nprogress
+*= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
+*= require custom
+*/
+*{
+  font-size: 14px;
+}
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12{
+   border: solid 1px #DDDDDD;
+   margin-top: 0.6em;
+}
+// Form works
+.grid{
+  display: grid;
+}
+
+
+// Fim form works
+
+.rmk-text{
+  font-size: 0.9em;
+  text-align: justify;
+  line-height: 2rem;
+}
+#logo-bola{
+  width: 3rem;
+}
+.nav-item{
+  height: 29px;
+}
+.nav_title{
+  height: 80px;
+}
+#navbar, .site_title{
+  height: 100px;
+}
+#title-logo{
+  float: right;
+  width: 160px;
+  line-height: initial;
+  text-align: left;
+  padding: 5px 0;
+}
+.main_menu_side h3{
+  text-shadow: none;
+}
+.text-right{
+  text-align: right;
+}
+.inline-radio{
+  width: 100%;
+}
+input[type='radio'],
+input[type='checkbox']{
+  margin-right: 0.3em;
+}
+#gender,
+#citizenship{
+  margin: 0.7rem 0;
+}
+.no-padding{
+  padding: 0;
+}
+.mg-top{
+  margin-top: 0.7rem;
+}
+// datatables
+#datatable-responsive_length > label{
+  display: none;
+}
+.panel_toolbox {
+  min-width: 20px;
+}
+.phone-cli{
+  margin: 0;
+}
+.btn-add-cli{
+  width: 100%;
+}
+.btn-rmv-cli{
+  margin-top: .5em;
+  width: 100%;
+  border: solid 1px #ff6b6b;
+  color: #ff6b6b;
+}
+ #datatable-dash_length label{
+   display: none;
+ }
+
+// footer
+.center{
+  text-align: center;
+}
+.footer{
+  font-size: 1.3em;
+}
+.footer-links a{
+  margin: 10px;
+}

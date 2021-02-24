@@ -8,3 +8,6 @@ class ClientWork < ActiveRecord::Migration[6.0]
     end
   end
 end
+
+# criada com rails g migration ClientWork client:references work:references
+# Depois adicionado o create_table

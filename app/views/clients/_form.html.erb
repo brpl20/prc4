@@ -1,99 +1,171 @@
-<%= simple_form_for @client do |f| %>
-  <div class="form-group">
-      <div class="d-inline-flex">
-        <%= f.input :name, label: 'Nome', error: 'O nome do cliente é obrigatório' %>
-      </div>
-      <div class="d-inline-flex row-sm-10">
-        <%= f.input :lastname, label: 'Sobrenome' %>
-      </div>
-  </div>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
 
-  <%= f.input :gender, label: 'Gênero', as: :radio_buttons, collection: [['Masculino', 1], ['Feminino', 2]], hint: 'Escolha o sexo',  error: 'É necessário escolher o gênero do seu cliente para o aplicativo funcionar corretamente' %>
+    <div class="x_title">
+      <h2>Cadastrando novo cliente</h2>
+      <div class="clearfix"></div>
+    </div>
 
-  <%= f.input :citizenship, label: 'Nacionalidade', as: :radio_buttons, collection: [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]] %>
+    <div class="x_content">
+      <%= form_for(@client, html: {class:"form-horizontal form-label-left"}) do |f| %>
 
-  <%= f.input :civilstatus, label: 'Estado Civil', as: :radio_buttons, collection: [["Casado", "Casado"], ["Solteiro", "Solteiro"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]] %>
+        <div class="col-md-12 col-sm-12">
 
-  <%= f.input :capacity, hint: 'Selecione a capacidade', label: 'Capacidade', as: :radio_buttons, collection: [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]] %>
+          <div class="col-md-6 col-sm-6 ">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :name, class:"form-control" %>
+          </div>
 
-  <div class="form-group">
-    <div class="d-inline-flex">
-      <%= f.input :profession, label: 'Profissão' %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :company, label: 'Empresa Atual' %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :birth, label: 'Data de Nascimento', :as => :string, format: "%d/%m/%Y" %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :mothername, label: 'Nome da Mãe' %>
-    </div>
-  </div>
+          <div class="col-md-6 col-sm-6 ">
+            <b><%= f.label "Sobrenome" %></b>
+            <%= f.text_field :lastname, class:"form-control" %>
+          </div>
 
-  <div class="form-group">
-    <div class="d-inline-flex">
-      <%= f.input :number_benefit, label: 'Número de Benefício' %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :general_register, label: 'Número de RG' %>
-    </div>
-    <div class="d-inline-flex">
-      <%= f.input :social_number, label: 'CPF' %>
-    </div>
-  </div>
+        </div>
 
-  <div class="form-group">
-    <div class="d-inline-flex">
-      <%= f.input :zip, label: 'CEP' %>
-    </div>
-    <div class="d-inline-flex">
-    <%= f.input :adress, label: 'Endereço' %>
-    </div>
-    <div class="d-inline-flex">
-    <%= f.input :city, label: 'Cidade' %>
-    </div>
-    <div class="d-inline-flex">
-    <%= f.input :state, label: 'Estado' %>
-    </div>
-  </div>
+        <div class="col-md-12">
+
+          <div class="col-md-3">
+            <b><%= f.label "Gênero" %></b>
+            <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b|
+            b.label(class:"inline-radio") { b.radio_button + b.text }
+            end %>
+
+            <b><%= f.label "Naturalidade" %></b>
+            <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b|
+            b.label(class:"inline-radio") { b.radio_button + b.text }
+            end %>
+          </div>
+
+          <div class="col-md-3">
+            <b><%= f.label "Estado Civil" %></b>
+            <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus, :second, :first do |b|
+            b.label(class:"inline-radio") { b.radio_button + b.text }
+            end %>
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="col-md-12 no-padding">
+              <b><%= f.label "Data de Nascimento" %></b>
+              <%= f.text_field :birth, label: 'Data de Nascimento', class:"date-picker form-control", type:"text", required:"required", onfocus:"this.type='date'", onmouseover:"this.type='date'", onclick:"this.type='date'", onblur:"this.type='text'", onmouseout:"timeFunctionLong(this)" %>
+            </div>
+
+            <div class="col-md-12 no-padding">
+              <b><%= f.label "Número do RG" %></b>
+              <%= f.text_field :general_register, class:"form-control" %>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Número do CPF" %></b>
+            <%= f.text_field :social_number, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Nome da Mãe" %></b>
+            <%= f.text_field :mothername, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-4 form-group client">
+
+            <div class="phones">
+              <%= f.fields_for :phones do |ph| %>
+                <%= render partial: "phone_fields", locals: {f: ph} %>
+              <% end %>
+            </div>
+
+            <%= link_to_add_association "Adicionar Telefone", f, :phones, class:"btn btn-success btn-add-cli" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Profissão"%></b>
+            <%= f.text_field :profession, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Empresa Atual"%></b>
+            <%= f.text_field :company, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :adress, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Cidade" %></b>
+            <%= f.text_field :city, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Estado" %></b>
+            <%= f.text_field :state, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+           <div class="col-md-3">
+             <b><%= f.label "Capacidade" %></b>
+             <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+             b.label(class:"inline-radio") { b.radio_button + b.text }
+             end %>
+           </div>
+
+          <div class="col-md-3">
+              <b><%= f.label "Consulta" %></b>
+              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text }
+              end %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Número de Benefício" %></b>
+            <%= f.text_field :number_benefit, class:"form-control"%>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
+
+            <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
+        </div>
+
+        <%#= TODO: yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
 
 
-
-
-  <div class="form-group">
-    <div class="d-inline-flex">
-        <%= f.simple_fields_for :phones do |ph| %>
-        <%= render 'phone_fields', :f => ph %>
       <% end %>
-    </div>
-    <div class="d-inline-flex">
-      <div class='links'>
-        <%= link_to_add_association "Adicionar Telefone", f, :phones %>
-      </div>
+
     </div>
   </div>
-
-   <div class="form-group">
-    <div class="d-inline-flex">
-        <%= f.input :choice, label: 'Consulta', as: :radio_buttons , collection: [["Consulta Simples", true], ["Adicionar Trabalho", false]] %>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="d-inline-flex">
-      <%= f.button :submit, "Criar Cliente", class: "btn btn-primary" %>
-  </div>
-
-
-
-
-
-  </div>
-  <%#= TODO: yield depois com o tempo criar um yield aqui para instanciar e utilizar os campos repetidos - alterar no cabeçãlho o @ para uma variábel que corresponda ao model invocado %>
-
-
-<% end %>
-
-
-
-
+</div>
