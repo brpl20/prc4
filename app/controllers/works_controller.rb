@@ -118,6 +118,20 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # HONORARIOS
     honorarios = []
+    if @work[:rate_work] == "Trabalho"
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]}pelo trabalho realizado"
+      elsif @work[:rate_work] == "Êxito"
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_percentage_exfield]} dos benefícios advindos do processo."
+      else
+        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]} pelo trabalho realizado e mais #{@work[:rate_percentage_exfield]} sobre os benefícios advindos do processo recebidos no seu decorrer ou acumulativamente".
+    end
+
+
+    def genderize(field)
+      case field
+      when "Casado"
+        field.sub! 'Casado', 'Casada'
+    end
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -176,9 +190,10 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-       # tr.substitute('_:procedure_', @work[:procedure])
-       # tr.substitute('_:acao_', @work[:acao])
-       # tr.substitute('_:rates_', @work[:rates])
+        tr.substitute('_:acao_', @work[:acao])
+        tr.substitute('_:rates_', work_rate)
+        tr.substitute('_:subject_', "#{@work[:acao]} eee #{@work[:subject]}")
+        tr.substitute('_:procedure_', work_rate)
        # tr.substitute('_:rates_', @work[:rates])
        # tr.substitute('_:rates_', @work[:rates])
 
