@@ -1,144 +1,163 @@
-<%= form_with model:@work do |f| %>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
 
-  <div class="form-group" style="display: grid">
-    <%= f.label "Procedimento" %>
-    <%= f.collection_check_boxes :procedure, options_for_procedure, :second, :first do |cb|
-      cb.label { cb.check_box + cb.text }
-    end %>
-    <small>Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo.</small>
-  </div>
-
-  <div class="form-group">
-    <div class="row-sm-10">
-
-      <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-        <legend class="col-form-label pt-0">Assunto</legend>
-
-        <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
-        b.label { b.radio_button(class:"subject") + b.text }
-        end %>
-
-        <small class="form-text text-muted">Escolha a área e depois a subarea de atuação.</small>
-      </fieldset>
+    <div class="x_title">
+      <h2>Cadastrando novo work</h2>
+      <div class="clearfix"></div>
     </div>
-  </div>
 
+    <div class="x_content">
 
-      <!-- <div class="form-group" id="conds-subject"> -->
+      <%= form_with model:@work do |f| %>
 
-        <div class="conditional subject-matter" data-cond-option="'work[subject]'" data-cond-value="Previdenciário" style="display: grid">
+        <div class="col-md-12">
 
-          <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-            <legend class="col-form-label pt-0">Previdenciário-Áreas</legend>
-
-            <%= f.collection_radio_buttons :action, options_for_action_previdence, :second, :first do |b|
-            b.label { b.radio_button + b.text }
+          <div class="col-md-4 grid">
+            <b><%= f.label "Procedimento" %></b>
+            <%= f.collection_check_boxes :procedure, options_for_procedure, :second, :first do |cb|
+              cb.label { cb.check_box + cb.text }
             end %>
-          </fieldset>
-
-        </div>
-
-        <div class="conditional subject-matter" data-cond-option="'work[subject]'" data-cond-value="Cível" style="display: grid">
-
-          <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-            <legend class="col-form-label pt-0">Cível-Áreas</legend>
-
-            <%= f.collection_radio_buttons :action, options_for_action_civil, :second, :first do |b|
-            b.label { b.radio_button + b.text }
-            end %>
-          </fieldset>
-
-        </div>
-
-        <div class="conditional subject-matter" data-cond-option="'work[subject]'" data-cond-value="Trabalhista" style="display: grid">
-
-          <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-            <legend class="col-form-label pt-0">Trabalhista</legend>
-
-            <%= f.collection_radio_buttons :action, options_for_action_labor, :second, :first do |b|
-            b.label { b.radio_button + b.text }
-            end %>
-          </fieldset>
-
-        </div>
-
-        <div class="conditional subject-matter" data-cond-option="'work[subject]'" data-cond-value="Tributário" style="display: grid">
-
-          <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-            <legend class="col-form-label pt-0">Tributário</legend>
-
-            <%= f.collection_radio_buttons :action, options_for_action_tributary, :second, :first do |b|
-            b.label { b.radio_button + b.text }
-            end %>
-          </fieldset>
-
-        </div>
-
-        <div class="conditional subject-matter" data-cond-option="'work[subject]'" data-cond-value="Outros" style="display: grid">
-
-          <fieldset class="form-group radio_buttons optional work_subject" style="display: grid">
-            <legend class="col-form-label pt-0">Outros</legend>
-
-              <%= f.label "Outras Áreas" %>
-              <%= f.text_field :action%>
-
-          </fieldset>
-
-        </div>
-
-
-        <div class="form-group">
-          <%= f.label "Número do Requerimento ou Processo" %>
-          <%= f.number_field :number, hint: "Apenas para casos em que já existe o processo." %>
-          <small class="form-text text-muted">Apenas para casos em que já existe o processo.</small>
-        </div>
-
-
-
-
-        <div class="form-group" id="conds-rates" style="display: grid">
-
-          <%= f.label "Honorários De Trabalho ou Êxito" %>
-          <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
-          b.label { b.radio_button + b.text }
-          end %>
-
-          <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
-            <div class="form-group">
-              <%= f.label "Valor de Honorários Fixos" %>
-              <%= f.text_field :rate_fixed_exfield%>
-            </div>
           </div>
 
-          <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
-            <div class="form-group">
-              <%= f.label "Valor de Honorários Percentuais" %>
-              <%= f.text_field :rate_percentage%>
-            </div>
+          <div class="col-md-6">
+            <p><small class="rmk-text">* Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo.</small></p>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <fieldset class="col-md-4 radio_buttons optional work_subject grid">
+            <legend class="col-form-label pt-0"><b>Assunto</b></legend>
+
+            <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
+              b.label { b.radio_button(class:"subject") + b.text }
+            end %>
+
+            <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
+          </fieldset>
+
+          <div class="conditional subject-matter col-md-8" data-cond-option="'work[subject]'" data-cond-value="Previdenciário"">
+
+            <fieldset class="radio_buttons optional work_subject grid">
+              <legend class="col-form-label pt-0"><b>Previdenciário-Áreas</b></legend>
+
+              <%= f.collection_radio_buttons :action, options_for_action_previdence, :second, :first do |b|
+                b.label { b.radio_button + b.text }
+              end %>
+            </fieldset>
+
+          </div>
+
+          <div class="conditional subject-matter col-md-8" data-cond-option="'work[subject]'" data-cond-value="Cível">
+
+            <fieldset class="radio_buttons optional work_subject grid">
+              <legend class="col-form-label"><b>Cível-Áreas</b></legend>
+
+              <%= f.collection_radio_buttons :action, options_for_action_civil, :second, :first do |b|
+                b.label { b.radio_button + b.text }
+              end %>
+            </fieldset>
+
+          </div>
+
+          <div class="conditional subject-matter col-md-8" data-cond-option="'work[subject]'" data-cond-value="Trabalhista">
+
+            <fieldset class="radio_buttons optional work_subject grid">
+              <legend class="col-form-label pt-0"><b>Trabalhista</b></legend>
+
+              <%= f.collection_radio_buttons :action, options_for_action_labor, :second, :first do |b|
+                b.label { b.radio_button + b.text }
+              end %>
+            </fieldset>
+
+          </div>
+
+          <div class="conditional subject-matter col-md-8" data-cond-option="'work[subject]'" data-cond-value="Tributário">
+
+            <fieldset class="radio_buttons optional work_subject grid">
+              <legend class="col-form-label pt-0"><b>Tributário</b></legend>
+
+              <%= f.collection_radio_buttons :action, options_for_action_tributary, :second, :first do |b|
+              b.label { b.radio_button + b.text }
+              end %>
+            </fieldset>
+
+          </div>
+
+          <div class="conditional subject-matter col-md-6" data-cond-option="'work[subject]'" data-cond-value="Outros">
+
+            <fieldset class="radio_buttons optional work_subject grid">
+              <legend class="col-form-label pt-0"><b>Outros</b></legend>
+
+                <%= f.label "Outras Áreas" %>
+                <%= f.text_field :action, class:"form-control"%>
+            </fieldset>
+
           </div>
         </div>
 
-          <div class="conditional" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
-            <div class="form-group">
-              <%= f.label "Valor de Honorários Fixos" %>
-              <%= f.text_field :rate_fixed_exfield %>
+        <div class="col-md-12">
 
-              <%= f.label "Valor de Honorários Percentuais" %>
-              <%= f.text_field :rate_percentage %>
+          <div class="col-md-6">
+            <b><%= f.label "Número do Requerimento ou Processo" %></b>
+            <%= f.number_field :number, class:"form-control" %>
+            <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6 grid" id="conds-rates">
+            <b><%= f.label "Honorários De Trabalho ou Êxito" %></b>
+            <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
+            b.label { b.radio_button + b.text }
+            end %>
+          </div>
+
+          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
+            <div class="form-group">
+              <b><%= f.label "Valor de Honorários Fixos"%></b>
+              <%= f.text_field :rate_fixed_exfield, class:"form-control"%>
             </div>
           </div>
 
-        <div class="form-group" id="conds-rates" style="display: grid">
-          <%= f.label "Parcelamento" %>
-          <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
-            b.label { b.radio_button + b.text }
-          end %>
+          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
+            <div class="form-group">
+              <b><%= f.label "Valor de Honorários Percentuais" %></b>
+              <%= f.text_field :rate_percentage, class:"form-control"%>
+            </div>
+          </div>
+
+          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
+            <div class="form-group">
+
+              <b><%= f.label "Valor de Honorários Fixos" %></b>
+              <%= f.number_field :rate_fixed_exfield, class:"form-control"%>
+
+              <b><%= f.label "Valor de Honorários Percentuais" %></b>
+              <%= f.number_field :rate_percentage, class:"form-control"%>
+
+            </div>
+          </div>
         </div>
 
-        <div class="form-group" id="conds-rates" style="display: grid">
-          <%= f.collection_check_boxes :power, options_for_check_boxes, :second, :first do |cb|
-            cb.label { cb.check_box(class:"power-checked") + cb.text }
-          end %>
+        <div class="col-md-12">
+
+          <div class="grid col-md-6" id="conds-rates">
+            <b><%= f.label "Parcelamento" %></b>
+            <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
+              b.label { b.radio_button + b.text }
+            end %>
+          </div>
+
+          <div class="grid col-md-6" id="conds-rates">
+            <%= f.collection_check_boxes :power, options_for_check_boxes, :second, :first do |cb|
+              cb.label { cb.check_box(class:"power-checked") + cb.text }
+            end %>
+          </div>
+
         </div>
 
         <div class="form-group">
@@ -150,89 +169,117 @@
         <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
         <%#= TODO f.input :outros_responsavel %>
 
-        <div class="form-group">
-          <div class="d-inline-flex">
-            <%= f.label "Indicação" %>
-            <%= f.text_field :recommendation %>
+              <%#= TODO f.input :office, disabled: true %>
+              <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
+              <%#= TODO f.input :outros_responsavel %>
+
+          <div class="col-md-6">
+            <b><%= f.label "Indicação" %></b>
+            <%= f.text_field :recommendation, class:"form-control" %>
           </div>
-          <div class="d-inline-flex">
-            <%= f.label "Comissão" %>
-            <%= f.text_field :recommendation_comission %>
+
+          <div class="col-md-6">
+            <b><%= f.label "Comissão" %></b>
+            <%= f.text_field :recommendation_comission, class:"form-control" %>
           </div>
+
         </div>
 
+        <div class="col-md-12">
 
-        <%= f.fields_for :client_works do |cw| %>
-          <% if @client == nil %>
-            <%#= cw.collection_select :client_id, Client.order(:name), :id, :name # Seleciona Manualmente %>
-          <% else %>
-            <%= cw.number_field :client_id, value:@client.id , disabled: true%>
+          <%= f.fields_for :client_works do |cw| %>
+            <% if @client == nil %>
+              <%#= cw.collection_select :client_id, Client.order(:name), :id, :name # Seleciona Manualmente %>
+            <% else %>
+              <%= cw.number_field :client_id, value:@client.id , disabled: true%>
+            <% end %>
           <% end %>
-        <% end %>
 
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Atendimento Inicial" %></b>
+            <%= f.collection_select :initial_atendee, User.order(:email), :id, :email, {}, {class:'form-control'} %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Advogado Responsável" %></b>
+            <%= f.collection_select :responsible_lawyer, Lawyer.order(:name), :id, :name, {}, {class:"form-control"} %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6 grid">
+            <b><%= f.label "Documentos a serem produzidos" %></b>
+            <%= f.collection_check_boxes :checklist, options_for_checklist, :second, :first do |cl|
+              cl.label { cl.check_box + cl.text }
+            end %>
+          </div>
+
+          <div class="col-md-6 grid">
+            <b><%= f.label "Documentos Pendentes" %></b>
+            <%= f.collection_check_boxes :checklist_document, options_for_checklist_document, :second, :first do |cl|
+              cl.label { cl.check_box + cl.text }
+            end %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Estagiários da Procuração" %></b>
+            <%= f.text_field :procuration_intern, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
+            <%= f.text_field :procuration_paralegal, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Advogado Parceiro" %></b>
+            <%= f.text_field :partner_lawyer, class:"form-control" %>
+            <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Outros Documentos Pendentes ou Pendências." %></b>
+            <%= f.text_field :document_pendent, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+          <b><%= f.label "Notas em geral sobre o caso" %></b>
+          <%= f.text_field :note, class:"form-control" %>
+        </div>
 
         <div class="form-group">
-          <div class="d-inline-flex">
-            <%= f.label "Atendimento Inicial" %>
-            <%= f.collection_select :initial_atendee, User.order(:email), :id, :email %>
-          </div>
+          <span>
+            TESTE: <p>
+            <%= cliente = session[:client_id].nil?  %>
+            <%= civil_status = session[:civilstatus]  %>
 
-          <div class="d-inline-flex">
-            <%= f.label "Advogado Responsável" %>
-            <%= f.collection_select :responsible_lawyer, Lawyer.order(:name), :id, :name %>
-          </div>
-        </div>
-
-        <div class="form-group" style="display: grid">
-          <%= f.label "Documentos a serem produzidos" %>
-          <%= f.collection_check_boxes :checklist, options_for_checklist, :second, :first do |cl|
-            cl.label { cl.check_box + cl.text }
-          end %>
-        </div>
-
-        <div class="form-group" style="display: grid">
-          <%= f.label "Documentos Pendentes" %>
-          <%= f.collection_check_boxes :checklist_document, options_for_checklist_document, :second, :first do |cl|
-            cl.label { cl.check_box + cl.text }
-          end %>
-        </div>
-
-        <div class="form-group">
-          <div class="d-inline-flex">
-            <%= f.label "Estagiários da Procuração" %>
-            <%= f.text_field :procuration_intern %>
-
-            <%= f.label "Bacharéis/Paralegais da Procuracão" %>
-            <%= f.text_field :procuration_paralegal %>
-          </div>
-
-          <%= f.label "Advogado Parceiro" %>
-          <%= f.text_field :partner_lawyer %>
-          <small>Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small>
-
-          <%= f.label "Outros Documentos Pendentes ou Pendências." %>
-          <%= f.text_field :document_pendent %>
-
-          <%= f.label "Notas em geral sobre o caso" %>
-          <%= f.text_field :note %>
-
+            </p>
+            FIM TESTE
+          </span>
         </div>
 
 
-    <div class="form-group">
-              <span>
-                TESTE: <p>
-                <%= cliente = session[:client_id].nil?  %>
-                <%= civil_status = session[:civilstatus]  %>
+        <div class="col-md-12">
+          <button type="submit" class="btn btn-primary pull-right">Criar Trabalho</button>
+          <%= link_to "voltar", works_path, class:"btn btn-danger pull-right" %>
+        </div>
 
-                </p>
-                FIM TESTE
-              </span>
-            </div>
-
-
-
-  <button type="submit" class="btn btn-primary">Criar Trabalho</button>
-  <%= link_to "voltar", works_path %>
-
-<% end %>
+      <% end %>
+    </div>
+</div>

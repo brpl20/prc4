@@ -1,73 +1,70 @@
 <p id="notice"><%= notice %></p>
 
+<div class="col-md-12 col-sm-12">
 
+  <h1>Clients</h1>
 
-<h1>Clients</h1>
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="row">
+        <div class="col-sm-12">
 
-<table>
-  <thead>
-    <tr>
-      <th>Genero</th>
-      <th>Nome</th>
-      <th>Sobrenome</th>
-      <th>Nacionalidade</th>
-      <th>Estadocivil</th>
-      <th>Capacidade</th>
-      <th>Profissao</th>
-      <th>Empresa atual</th>
-      <th>Nascimento</th>
-      <th>Mae</th>
-      <th>Nb</th>
-      <th>Rg</th>
-      <th>Cpf</th>
-      <th>Email</th>
-      <th>Endereco</th>
-      <th>Cidade</th>
-      <th>Estado</th>
-      <th>Banco</th>
-      <th>Agencia</th>
-      <th>Conta</th>
-      <th>Cep</th>
-      <th>Telefone</th>
-      <th>Documentos</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+          <table id="datatable-list" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info">
+            <thead>
+              <tr role="row">
+                <th>#</th>
+                <th>Nome</th>
+                <th>RG</th>
+                <th>CPF</th>
+                <th>E-mail</th>
+                <th>Cidade</th>
+                <th>Estado</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @clients.each do |c| %>
+                  <tr role="row">
+                    <td><%= c.id %></td>
+                    <td><%= c.name %> <%= c.lastname %></td>
+                    <td><%= c.general_register %></td>
+                    <td><%= c.social_number %></td>
+                    <td><%= c.email %></td>
+                    <td><%= c.city %></td>
+                    <td><%= c.state %></td>
+                    <td>
+                      <% c.phones.each do |p| %>
+                        <%= p.phone %>
+                      <% end %>
+                    </td>
+                    <td>
 
-  <tbody>
-    <% @clients.each do |client| %>
-      <tr>
-        <td><%= client.gender %></td>
-        <td><%= client.name %></td>
-        <td><%= client.lastname %></td>
-        <td><%= client.citizenship %></td>
-        <td><%= client.civilstatus %></td>
-        <td><%= client.capacity %></td>
-        <td><%= client.profession %></td>
-        <td><%= client.company %></td>
-        <td><%= client.birth %></td>
-        <td><%= client.mothername %></td>
-        <td><%= client.number_benefit %></td>
-        <td><%= client.general_register %></td>
-        <td><%= client.social_number %></td>
-        <td><%= client.email %></td>
-        <td><%= client.adress %></td>
-        <td><%= client.city %></td>
-        <td><%= client.state %></td>
-        <td><%= client.bank %></td>
-        <td><%= client.agency %></td>
-        <td><%= client.account %></td>
-        <td><%= client.zip %></td>
-        <td><%= client.telephone %></td>
-        <td><%= client.documents %></td>
-        <td><%= link_to 'Show', client %></td>
-        <td><%= link_to 'Edit', edit_client_path(client) %></td>
-        <td><%= link_to 'Destroy', client, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+                      <%= link_to new_work_path, class:"btn btn-success" do %>
+                        <i class="fa fa-gavel"></i>
+                      <% end %>
 
-<br>
+                      <%= link_to client_path(c), class:"btn btn-info" do %>
+                        <i class="fa fa-eye"></i>
+                      <% end %>
 
-<%= link_to 'New Client', new_client_path %>
+                      <%= link_to edit_client_path(c), class:"btn btn-primary" do %>
+                        <i class="fa fa-edit"></i>
+                      <% end %>
+
+                      <%= link_to client_path(c), class:"btn btn-danger",
+                          method: :delete, data: {confirm: "Tem certeza que deseja apagar #{c.name} #{c.lastname}"} do %>
+                          <i class="fa fa-times"></i>
+                      <% end %>
+
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<%# <%= link_to 'New Client', new_client_path %>

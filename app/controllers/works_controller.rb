@@ -118,6 +118,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # HONORARIOS
     honorarios = []
+
     if @work[:rate_work] == "Trabalho"
         work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]}pelo trabalho realizado"
       elsif @work[:rate_work] == "Êxito"
@@ -132,6 +133,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       when "Casado"
         field.sub! 'Casado', 'Casada'
     end
+      
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -190,10 +192,12 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
+        
         tr.substitute('_:acao_', @work[:acao])
         tr.substitute('_:rates_', work_rate)
         tr.substitute('_:subject_', "#{@work[:acao]} eee #{@work[:subject]}")
         tr.substitute('_:procedure_', work_rate)
+
        # tr.substitute('_:rates_', @work[:rates])
        # tr.substitute('_:rates_', @work[:rates])
 
@@ -236,7 +240,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
   def new
     @work = Work.new
-    @client = Client.find(params[:client])
+    # @client = Client.find(params[:client])
   end
 
   # GET /works/1/edit
@@ -277,8 +281,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')

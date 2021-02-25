@@ -2,7 +2,7 @@
 * Show/hide fields conditionally
 * * * * * * * * * * * * * * * * * */
 
-$(document).on('turbolinks:load', function(){
+$(document).ready(function(){
 
   (function($) {
     $.fn.conditionize = function(options){
@@ -13,16 +13,16 @@ $(document).on('turbolinks:load', function(){
 
       $.fn.showOrHide = function(listenTo, listenFor, $section) {
         if ($(listenTo).is('select, input[type=text]') && $(listenTo).val() == listenFor ) {
-          $section.slideDown();
+          $section.show();
         }
         else if ($(listenTo + ":checked").val() == listenFor) {
-          $section.slideDown();
+          $section.show();
           $section.removeClass("subject-matter");
           $('.subject-matter').toggle();
 
         }
         else {
-          $section.slideUp();
+          $section.hide();
         }
       }
 
