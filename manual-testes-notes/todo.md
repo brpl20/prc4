@@ -1,4 +1,17 @@
 # TODO GERAL PROJETO PROC STUDIO
+- Dar uma geral no works_controller
+
+- DB: Criar Interns Scaffold
+- DB: Paralegals Scaffold
+- DB: Secretary Scaffold
+  ENUM ?
+
+- DB: Bank
+
+
+# Notas
+ redirect with params
+ redirect_to controller: 'thing', action: 'edit', id: 3, something: 'else'
 
 * Adicionar rate_parceled_exfield
 

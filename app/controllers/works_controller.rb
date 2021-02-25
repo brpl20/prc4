@@ -1,59 +1,22 @@
 class WorksController < ApplicationController
 before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
-# redirect with params
-# redirect_to controller: 'thing', action: 'edit', id: 3, something: 'else'
-
   def index
     @works = Work.all
   end
 
   def show
-    require 's3'
-    service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
-     )
-    @work = Work.find(params[:id])
-    #doc_link = @work.document["document_name"]
-    #@work.documents[:aws_link]
-    @meta = []
-    @meta2 = []
-    #criar objeto
-    #@bucket = service.buckets.find("prcstudio3herokubucket")
-    #@object = @bucket.objects.find("tmp/#{doc_link}")
-    #@url = @object.temporary_url(Time.now + 1800)
-    @meta << @object
     @work = Work.find(params[:id])
   end
 
   def create
     @work = Work.new(work_params)
-
     if @work.save
-      work_templater(@work, 'wdocs') # Cuidar Aqui
+      work_templater(@work, 'wdocs')
       redirect_to @work
     else
       render :new,
       notice: "Erro!!"
-    end
-  end
-
- # FEMININ x MASCULIN (TODO: Create Module or Helper)
-  def genderize(field)
-    case field
-    when "Casado"
-      field.sub! 'Casado', 'Casada'
-    when "Solteiro"
-      field.sub! 'Solteiro', 'Solteira'
-    when "Divorciado"
-      field.sub! 'Divorciado', 'Divorciada'
-    when "Viúvo"
-      field.sub! 'Viúvo', 'Viúva'
-    when "Brasileiro"
-      field.sub! 'Brasileiro', 'Brasileira'
-    when "Estrangeiro"
-      field.sub! 'Estrangeiro', 'Estrangeira'
     end
   end
 
@@ -64,76 +27,25 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     require 'time'
 
     # AWS STUFF -- INICIO --
-    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
-        )})
+    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'], ENV['AWS_SECRET_KEY'])})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
-
     aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/#{document}.docx")
     aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
-    # FIELD TREAT -- INICIO --
-
-    #client_ins = Work.clients.find([:client_id]).name
-    # nome_completo = "#{client_ins[:name]} #{client_ins[:lastname]}".upcase
-    # nome_cap = "#{client_ins[:name]}".upcase
-    # sobrenome_cap = "#{client_ins[:lastname]}".upcase
-
-    # NO DB FIELDS CONFIG GENDER
-
-    # GENDER LOGIC
-    # if client_ins[:gender] == 2
-    #   civilstatus = genderize(client_ins[:civilstatus])
-    #   citizenship = genderize(client_ins[:citizenship])
-    #   porta = "portadora"
-    #   inscrito = "inscrita"
-    #   domiciliado = "domiciliada"
-    # else
-    #   civilstatus = client_ins[:civilstatus]
-    #   nacionalita = client_ins[:citizenship]
-    #   porta = "portador"
-    #   inscrito = "inscrito"
-    #   domiciliado = "domiciliado"
-    # end
-
-    # if client_ins[:capacity] = 'Capaz' || client_ins[:capacity] = nil
-    #   capacity_treated = client_ins[:capacity]
-    # else
-    #   capacity_treated = "#{client_ins[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
-    # end
-
-    # ADVOGADOS
-     laws = [].join("")
-     Lawyer.all.each do | xopo |
-       laws << "#{xopo.name} #{xopo.lastname}".to_s
-     end
+    # ADVOGADOS, ESTAGIARIOS e PARALEGAIS
+    # TODO CORRIGIR ISSO COM BELONGS 2 E HAS MANY NO FUTURO
+    laws = [].join("")
+      Lawyer.all.each do | xopo |
+         laws << "#{xopo.name} #{xopo.lastname}".to_s
+      end
 
     # ESCRITORIO
     # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
 
     # WORK
-
-    # HONORARIOS
-    honorarios = []
-
-    if @work[:rate_work] == "Trabalho"
-        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]}pelo trabalho realizado"
-      elsif @work[:rate_work] == "Êxito"
-        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_percentage_exfield]} dos benefícios advindos do processo."
-      else
-        work_rate = "o cliente pagará ao advogado o valor equivalente a #{@work[:rate_work_ex_field]} pelo trabalho realizado e mais #{@work[:rate_percentage_exfield]} sobre os benefícios advindos do processo recebidos no seu decorrer ou acumulativamente".
-    end
-
-
-    def genderize(field)
-      case field
-      when "Casado"
-        field.sub! 'Casado', 'Casada'
-    end
-
+    work_rate = "oieeeeeee fila da puta"
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -204,15 +116,11 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       tr.substitute('_:timestamp_', data2)
       end
     end
+
     bucket = 'prcstudio3herokubucket'
-
     nome_correto = Client.last[:name].downcase.gsub(/\s+/, "")
-
     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)
-
     ch_file = "tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx"
-
-
     obj = @s3.bucket(bucket).object(ch_file)
 
     #backup
@@ -220,7 +128,6 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
       #obj = @s3.bucket(bucket).object(ch_file)
     #backup
-
     metadata = {
                 :document_key => ch_file,
                 :document_name => "wdocs-#{@work[:id]}.docx",
@@ -280,8 +187,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
+      ENV['AWS_ID'],
+      ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
