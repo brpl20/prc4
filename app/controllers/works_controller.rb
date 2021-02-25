@@ -133,7 +133,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       when "Casado"
         field.sub! 'Casado', 'Casada'
     end
-      
+
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -192,11 +192,10 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-        
-        tr.substitute('_:acao_', @work[:acao])
+        tr.substitute('_:procedure_', work_rate) # Procedimento Adm. ou Judicial
+        tr.substitute('_:subject_', @work[:subject]) # Direito Previdenciario - Pensao Morte
+        tr.substitute('_:acao_', @work[:acao]) # Acao Numero
         tr.substitute('_:rates_', work_rate)
-        tr.substitute('_:subject_', "#{@work[:acao]} eee #{@work[:subject]}")
-        tr.substitute('_:procedure_', work_rate)
 
        # tr.substitute('_:rates_', @work[:rates])
        # tr.substitute('_:rates_', @work[:rates])
