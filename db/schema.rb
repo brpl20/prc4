@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_08_235128) do
+ActiveRecord::Schema.define(version: 2021_02_25_231636) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,20 @@ ActiveRecord::Schema.define(version: 2021_02_08_235128) do
     t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.string "number"
+    t.string "agency"
+    t.bigint "person_id"
+    t.bigint "client_id"
+    t.bigint "office_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_banks_on_client_id"
+    t.index ["office_id"], name: "index_banks_on_office_id"
+    t.index ["person_id"], name: "index_banks_on_person_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -130,6 +144,32 @@ ActiveRecord::Schema.define(version: 2021_02_08_235128) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "adress"
+    t.date "birth"
+    t.integer "capacity"
+    t.string "citizenship"
+    t.string "city"
+    t.string "civilstatus"
+    t.string "company"
+    t.string "email"
+    t.string "first_name"
+    t.string "lastname"
+    t.integer "gender"
+    t.string "general_register"
+    t.string "mothername"
+    t.string "number_benefit"
+    t.string "oab_number"
+    t.string "profession"
+    t.string "social_number"
+    t.string "state"
+    t.string "zip"
+    t.integer "status"
+    t.integer "life"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "phones", force: :cascade do |t|
     t.text "phone"
     t.bigint "client_id", null: false
@@ -184,6 +224,9 @@ ActiveRecord::Schema.define(version: 2021_02_08_235128) do
     t.json "document"
   end
 
+  add_foreign_key "banks", "clients"
+  add_foreign_key "banks", "offices"
+  add_foreign_key "banks", "people"
   add_foreign_key "clients_works", "clients"
   add_foreign_key "clients_works", "works"
   add_foreign_key "emails", "clients"

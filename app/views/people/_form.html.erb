@@ -1,0 +1,45 @@
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
+
+    <div class="x_title">
+      <h2>Cadastrando nova Pessoa</h2>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="x_content">
+      <%= form_for(@person, html: {class:"form-horizontal form-label-left"}) do |f| %>
+
+        <div class="col-md-12 col-sm-12">
+
+          <div class="col-md-6 col-sm-6 ">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :first_name, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6 col-sm-6 ">
+            <b><%= f.label "Sobrenome" %></b>
+            <%= f.text_field :lastname, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-3">
+            <b><%= f.label "Gênero" %></b>
+            <%= f.select :gender, :as => Person.genders.keys %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
+
+        </div>
+
+
+      <% end %>
+
+    </div>
+  </div>
+</div>
+

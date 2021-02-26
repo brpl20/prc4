@@ -8,6 +8,9 @@
 
 - DB: Bank
 
+* rails g scaffold Person adress birth:date capacity:integer citizenship city civilstatus company email first_name lastname gender:integer general_register mothername number_benefit oab_number profession social_number state zip status:integer life:integer email:references
+
+* rails g Bank bank_name bank_number agency account person:references client:references
 
 # Notas
  redirect with params
