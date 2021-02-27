@@ -1,9 +1,6 @@
 class WorksController < ApplicationController
 before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
-# redirect with params
-# redirect_to controller: 'thing', action: 'edit', id: 3, something: 'else'
-
   def index
     @works = Work.all
   end
@@ -48,22 +45,12 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
 
 
- # FEMININ x MASCULIN (TODO: Create Module or Helper)
-  def genderize(field)
-    case field
-    when "Casado"
-      field.sub! 'Casado', 'Casada'
-    when "Solteiro"
-      field.sub! 'Solteiro', 'Solteira'
-    when "Divorciado"
-      field.sub! 'Divorciado', 'Divorciada'
-    when "Viúvo"
-      field.sub! 'Viúvo', 'Viúva'
-    when "Brasileiro"
-      field.sub! 'Brasileiro', 'Brasileira'
-    when "Estrangeiro"
-      field.sub! 'Estrangeiro', 'Estrangeira'
-    end
+  def lip
+    laws = [].join("")
+      Lawyer.all.each do | xopo |
+         laws << "#{xopo.name} #{xopo.lastname}, inscrito na OAB número #{xopo.oab_number}".to_s
+      end
+    return laws
   end
 
   def work_templater(work, document)
@@ -71,6 +58,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     require 'docx'
     require 'json'
     require 'time'
+    require 'rails-i18n'
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
@@ -79,54 +67,19 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
-
     aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/#{document}.docx")
     aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
-    # FIELD TREAT -- INICIO --
+    # ADVOGADOS(lawyer), ESTAGIARIOS(person_intern), PARALEGAIS(paralegals)
+    lip
 
-    #client_ins = Work.clients.find([:client_id]).name
-    # nome_completo = "#{client_ins[:name]} #{client_ins[:lastname]}".upcase
-    # nome_cap = "#{client_ins[:name]}".upcase
-    # sobrenome_cap = "#{client_ins[:lastname]}".upcase
-
-    # NO DB FIELDS CONFIG GENDER
-
-    # GENDER LOGIC
-    # if client_ins[:gender] == 2
-    #   civilstatus = genderize(client_ins[:civilstatus])
-    #   citizenship = genderize(client_ins[:citizenship])
-    #   porta = "portadora"
-    #   inscrito = "inscrita"
-    #   domiciliado = "domiciliada"
-    # else
-    #   civilstatus = client_ins[:civilstatus]
-    #   nacionalita = client_ins[:citizenship]
-    #   porta = "portador"
-    #   inscrito = "inscrito"
-    #   domiciliado = "domiciliado"
-    # end
-
-    # if client_ins[:capacity] = 'Capaz' || client_ins[:capacity] = nil
-    #   capacity_treated = client_ins[:capacity]
-    # else
-    #   capacity_treated = "#{client_ins[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
-    # end
-
-    # ADVOGADOS
-     laws = [].join("")
-     Lawyer.all.each do | xopo |
-       laws << "#{xopo.name} #{xopo.lastname}".to_s
-     end
-
-    # ESCRITORIO
-    # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
+    # ESCRITORIOS(Office)
+    # TODO Criar logica para Office empty? e nil?
+    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :adress, :city, :state, :email).join(", ")
 
     # WORK
-
-    # HONORARIOS
-    honorarios = []
+    work_rate = "oieeeeeee fila da puta"
     # if rate_work == "Trabalho" append...rate_work_ex_field
     # if rate_work == "Êxito" append... rate_percentage_exfield
     # if rate_work == "Ambos" append... logic
@@ -144,10 +97,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     # PODERES
 
     # TIME - HORARIO
-    data = Time.now
-    data2 = data.strftime("%d, %m, %Y")
-    #data.format("DD, MM, YYYY")
-
+    dia = I18n.l(Time.now, format: "%d, %B de %Y")
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
@@ -185,9 +135,11 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:domiciliado_', domiciliado)
 
       # WORK FIELDS
-       # tr.substitute('_:procedure_', @work[:procedure])
-       # tr.substitute('_:acao_', @work[:acao])
-       # tr.substitute('_:rates_', @work[:rates])
+        tr.substitute('_:procedure_', work_rate) # Procedimento Adm. ou Judicial
+        tr.substitute('_:subject_', @work[:subject]) # Direito Previdenciario - Pensao Morte
+        tr.substitute('_:acao_', @work[:acao]) # Acao Numero
+        tr.substitute('_:rates_', work_rate)
+
        # tr.substitute('_:rates_', @work[:rates])
        # tr.substitute('_:rates_', @work[:rates])
 
@@ -195,15 +147,11 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       tr.substitute('_:timestamp_', data2)
       end
     end
+
     bucket = 'prcstudio3herokubucket'
-
     nome_correto = Client.last[:name].downcase.gsub(/\s+/, "")
-
     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)
-
     ch_file = "tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx"
-
-
     obj = @s3.bucket(bucket).object(ch_file)
 
     #backup
@@ -211,7 +159,6 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
       #obj = @s3.bucket(bucket).object(ch_file)
     #backup
-
     metadata = {
                 :document_key => ch_file,
                 :document_name => "wdocs-#{@work[:id]}.docx",

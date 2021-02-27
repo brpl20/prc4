@@ -1,6 +1,27 @@
 # TODO GERAL PROJETO PROC STUDIO
+<!-- - DB: Criar Interns Scaffold
+- DB: Paralegals Scaffold
+- DB: Secretary Scaffold
+-  ENUM ? => Better OK  -->
+<!-- - Traduzir com I18n data = Time.now.strftime("%d, %B, %Y")  -->
+<!-- - Testar se alteração no application.rb deu certo da data => dia/mes/ano : alterou no PUMA pelo menos-->
+- Dar uma geral no works_controller : Field Treats Métodos
+  rails g migration ClientWork client:references work:references
 
-* Adicionar rate_parceled_exfield
+
+- DB: Bank : Único
+  * rails g scaffold Person adress birth:date capacity:integer citizenship city civilstatus company email first_name lastname gender:integer general_register mothername number_benefit oab_number profession social_number state zip status:integer life:integer email:references
+  * rails g Bank bank_name bank_number agency account person:references client:references
+- Arrumar person Model e formulários _form_ para renderizar vários tipos de usuários e adiciona-los na procuração
+- Criar lógica de integração de advogado no escritório: Por exemplo Marcos e Eduardo não são sócios; Podendo utilizar as informações de um advogado integrante da sociedade e outros não, tudo na mesma procuração.
+  -> Select Lawyer: Seleciona o primeiro advogado e depois abre para selecionar a sociedade que ele está vinculado (se estiver vinculado a alguma); Depois abre para adicionar outros advogados cadastrados na sociedade; Depois abre para outros advogados vinculados no sistema e finalmente para advogados externos de outras sociedades cadastradas em parcerias;
+- Adicionar rate_parceled_exfield
+
+
+# Notas
+ redirect with params
+ redirect_to controller: 'thing', action: 'edit', id: 3, something: 'else'
+
 
 ## Descrição Geral -- Jemison
 - A ideia principal do gerenciamento do escritório é criar um aplicativo baseado nos clientes, assim gostaria que o Model Works gerasse um trabalho, que poderá ter vários Jobs. Works belongs to Clients . Jobs Belongs to Works. UM exemplo. O cliente Bruno tem 1 Work, um processo por exemplo, neste work temos 5 tarefas a serem realizadas, ou seja, 5 jobs.

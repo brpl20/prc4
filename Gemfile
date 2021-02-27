@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.5.5'
 
 #   Authentication and Authorization
 gem 'dotenv-rails', groups: [:development, :test]
