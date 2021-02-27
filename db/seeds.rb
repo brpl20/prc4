@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # TODO tr.substitute = sucess
-# TODO Compare adress function sociedade x lawyer - default equals advogado
+# TODO Compare address function sociedade x lawyer - default equals advogado
 #
 
 #arr.each do | base |

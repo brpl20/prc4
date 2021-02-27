@@ -1,132 +1,244 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
 
-<p>
-  <strong>Genero:</strong>
-  <%= @client.gender %>
-</p>
+    <div class="x_title clearfix">
+      <h1 class="pull-left"><%= @client.name + ' ' + @client.lastname%></h1>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
 
-<p>
-  <strong>Nome:</strong>
-  <%= @client.name %>
-</p>
+    <div class="x_content">
 
-<p>
-  <strong>Sobrenome:</strong>
-  <%= @client.lastname %>
-</p>
+      <div class="col-md-12">
 
-<p>
-  <strong>Nacionalidade:</strong>
-  <%= @client.citizenship %>
-</p>
+        <section class="col-md-4">
 
-<p>
-  <strong>Estadocivil:</strong>
-  <%= @client.civilstatus %>
-</p>
+            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações Pessoais</b></h2>
 
-<p>
-  <strong>Capacidade:</strong>
-  <%= @client.capacity %>
-</p>
+            <span class="col-md-12">
+              <b>Genero:</b>
+              <%= gender_name(@client.gender) %>
+            </span>
 
-<p>
-  <strong>Profissao:</strong>
-  <%= @client.profession %>
-</p>
+            <span class="col-md-12">
+              <b>Nacionalidade:</b>
+              <%= @client.citizenship %>
+            </span>
 
-<p>
-  <strong>Empresa atual:</strong>
-  <%= @client.company %>
-</p>
+            <span class="col-md-12">
+              <b>Estado civil:</b>
+              <%= @client.civilstatus %>
+            </span>
 
-<p>
-  <strong>Nascimento:</strong>
-  <%= @client.birth %>
-</p>
+            <span class="col-md-12">
+              <b>Nascimento:</b>
+              <%= @client.birth %>
+            </span>
 
-<p>
-  <strong>Mae:</strong>
-  <%= @client.mothername %>
-</p>
+            <span class="col-md-12">
+              <b>RG:</b>
+              <%= @client.general_register %>
+            </span>
 
-<p>
-  <strong>Nb:</strong>
-  <%= @client.number_benefit %>
-</p>
+            <span class="col-md-12">
+              <b>CPF:</b>
+              <%= @client.social_number %>
+            </span>
 
-<p>
-  <strong>Rg:</strong>
-  <%= @client.general_register %>
-</p>
+            <span class="col-md-12">
+              <strong>Mae:</strong>
+              <%= @client.mothername %>
+            </span>
 
-<p>
-  <strong>Cpf:</strong>
-  <%= @client.social_number %>
-</p>
+            <span class="col-md-12">
+              <strong>Capacidade:</strong>
+              <%= @client.capacity %>
+            </span>
 
-<p>
-  <strong>Email:</strong>
-  <%#= @client.email %>
-</p>
+        </section>
 
-<p>
-  <strong>Endereco:</strong>
-  <%= @client.adress %>
-</p>
+        <section class="col-md-4">
 
-<p>
-  <strong>Cidade:</strong>
-  <%= @client.city %>
-</p>
+            <h2 class="pull-left h-line"> <i class="fa fa-home"></i> <b>Residência</b></h2>
 
-<p>
-  <strong>Estado:</strong>
-  <%= @client.state %>
-</p>
+            <span class="col-md-12">
+              <b>Endereco:</b>
+              <%= @client.address %>
+            </span>
 
-<p>
-  <strong>Banco:</strong>
-  <%= @client.bank %>
+              <span class="col-md-12">
+                <b>Cidade:</b>
+                <%= @client.city %>
+              </span>
 
-  <strong>Agencia:</strong>
-  <%= @client.agency %>
+              <span class="col-md-12">
+                <b>Estado:</b>
+                <%= @client.state %>
+              </span>
 
-  <strong>Conta:</strong>
-  <%= @client.account %>
-</p>
+              <span class="col-md-12">
+                <b>CEP:</b>
+                <%= @client.zip %>
+              </span>
 
-<p>
-  <strong>Cep:</strong>
-  <%= @client.zip %>
-</p>
+        </section>
 
-<p>
-  <strong>Telefone:</strong>
-  <%= @client.phones.each { | x | x } %>
-</p>
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Documentos</b></h2>
 
-<p>
-  <strong>Documentos:</strong>
-  <%= @client.documents["document_type"] %>
-</p>
+          <span class="col-md-12">
+            <b>Documentos:</b>
+            <%= @client.documents["document_type"] %>
+          </span>
 
-<p>
-  <strong>Documentos Link:</strong>
-  <%= @client.documents["aws_link"] %>
-</p>
+          <span class="col-md-12">
+            <b>Documentos Link:</b>
+            <%= @client.documents["aws_link"] %>
+          </span>
 
-<p>
-  <%= link_to "Baixar Procuração", @url, class: "btn btn-warning" %>
-</p>
+          <div class="col-md-12">
+            <%= link_to @url, class: "btn btn-info col-md-6" do %>
+              <i class="fa fa-download"></i> Baixar Procuração
+            <% end %>
+          </div>
+
+          <div class="col-md-12">
+            <%= link_to new_work_path(client: @client), class:"btn btn-success col-md-6" do %>
+              <i class="fa fa-gavel"></i> Novo Work
+            <% end %>
+          </div>
+
+        </section>
+
+      </div>
+
+      <div class="col-md-12">
+
+        <section class="col-md-4">
+
+          <h2 class="pull-left h-line"> <i class="fa fa-phone"></i> <b>Contato</b></h2>
+
+          <% @client.phones.each do |ph| %>
+            <span class="col-md-12">
+              <b>Telefone:</b>
+              <%= ph.phone %>
+            </span>
+          <% end %>
+
+          <% @client.emails.each do |em| %>
+            <span class="col-md-12">
+              <b>E-mail: </b>
+              <%= em.email %>
+            </span>
+          <% end %>
+
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-university"></i> <b>Informações Bancárias</b></h2>
+
+          <span class="col-md-12">
+            <b>Banco:</b>
+            <%= @client.bank %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Agência:</b>
+            <%= @client.agency %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Conta:</b>
+            <%= @client.account %>
+          </span>
+
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-asterisk"></i> <b>Informações Adicionais</b></h2>
+
+          <span class="col-md-12">
+            <strong>Profissao:</strong>
+            <%= @client.profession %>
+          </span>
+
+          <span class="col-md-12">
+            <strong>Empresa atual:</strong>
+            <%= @client.company %>
+          </span>
+
+          <span class="col-md-12">
+            <strong>Número do Benefício:</strong>
+            <%= @client.number_benefit %>
+          </span>
+
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="x_panel">
+
+    <div class="x_title clearfix">
+      <h1 class="pull-left">Jobs Pendentes</h1>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="x_content">
+
+      <div class="col-md-12">
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>
+                <%= link_to new_job_path, class:"btn btn-success" do %>
+                <i class="fa fa-plus"></i>
+                <% end %>
+
+                <%= link_to new_job_path, class:"btn btn-success" do %>
+                  <i class="fa fa-gavel"></i>
+                <% end %>
+
+                <%= link_to job_path(@client), class:"btn btn-info" do %>
+                  <i class="fa fa-eye"></i>
+                <% end %>
+
+                <%= link_to edit_job_path(@client), class:"btn btn-primary" do %>
+                  <i class="fa fa-edit"></i>
+                <% end %>
+
+                <%= link_to job_path(@client), class:"btn btn-danger",
+                    method: :delete, data: {confirm: "Tem certeza que deseja apagar"} do %>
+                    <i class="fa fa-times"></i>
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <%= link_to "Voltar", clients_path, class:"btn btn-danger btn-outline left col-md-1" %>
 
 
-<h1>Jobs Pendentes</h1>
-<p>
-  <%= "client jobs" %>
-</p>
-<%= link_to 'New Work', new_work_path(@client) %>
-<%= link_to 'New Job', new_job_path(@client) %>
-
-<%= link_to 'Edit', edit_client_path(@client) %> |
-<%= link_to 'Back', clients_path %>
+  </div>

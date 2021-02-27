@@ -75,7 +75,7 @@ class OfficesController < ApplicationController
         :cnpj_number,
         :society,
         :foundation,
-        :adress,
+        :address,
         :city,
         :state,
         :zip,
@@ -87,4 +87,3 @@ class OfficesController < ApplicationController
         )
     end
 end
-

@@ -12,7 +12,7 @@ class CreateLawyers < ActiveRecord::Migration[6.0]
       t.date :birth
       t.string :mothername
       t.string :email
-      t.string :adress
+      t.string :address
       t.string :city
       t.string :state
       t.string :telephone

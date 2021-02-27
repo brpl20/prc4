@@ -18,8 +18,9 @@ $(document).ready(function(){
         else if ($(listenTo + ":checked").val() == listenFor) {
           $section.show();
           $section.removeClass("subject-matter");
-          $('.subject-matter').toggle();
-
+          if ($section.hasClass('sub')) {
+            $('.subject-matter').toggle();
+          }
         }
         else {
           $section.hide();

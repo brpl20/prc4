@@ -8,6 +8,12 @@
 *{
   font-size: 14px;
 }
+body {
+  min-height: 100%;
+}
+.body {
+  min-height: 100vh;
+}
 .col-md-1,
 .col-md-2,
 .col-md-3,
@@ -20,14 +26,46 @@
 .col-md-10,
 .col-md-11,
 .col-md-12{
-//   border: solid 1px #DDDDDD;
+   // border: solid 1px #DDDDDD;
    margin-top: 0.6em;
+}
+.body{
+
+}
+.left{
+  float: right;
+}
+.h-line{
+  color: #888;
+}
+.h-line::after{
+  content: '';
+  display: block;
+  width: 65px;
+  height: 2px;
+  background: #AAAAAA;
+  margin-top: .3em;
+}
+.hidden{
+  display: none;
+}
+.block{
+  display: block;
+}
+.btn-new{
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 // Form works
 .grid{
   display: grid;
 }
-
+textarea{
+  resize: none;
+}
+.radio_buttons legend{
+  margin-bottom: -1em;
+}
 
 // Fim form works
 
@@ -40,7 +78,7 @@
   width: 3rem;
 }
 .nav-item{
-  height: 29px;
+  height: 30px;
 }
 .nav_title{
   height: 80px;
@@ -54,6 +92,7 @@
   line-height: initial;
   text-align: left;
   padding: 5px 0;
+  font-size: 1.2em;
 }
 .main_menu_side h3{
   text-shadow: none;
@@ -110,4 +149,10 @@ input[type='checkbox']{
 }
 .footer-links a{
   margin: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  div.nav-item {
+    display: none;
+  }
 }
