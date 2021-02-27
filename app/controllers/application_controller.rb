@@ -3,9 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   layout :layout_by_resource
 
-Time::DATE_FORMATS[:default] = "%d/%m/%Y %H:%M"
-Date::DATE_FORMATS[:default] = "%d/%m/%Y"
-
 def after_sign_in_path_for(resource)
   pages_dashboard_path
 end

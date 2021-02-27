@@ -33,6 +33,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     require 'docx'
     require 'json'
     require 'time'
+    require 'rails-i18n'
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'], ENV['AWS_SECRET_KEY'])})
@@ -68,8 +69,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     # PODERES
 
     # TIME - HORARIO
-    data = Time.now.strftime("%d, %m, %Y")
-
+    dia = I18n.l(Time.now, format: "%d, %B de %Y")
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
