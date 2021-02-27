@@ -1,16 +1,17 @@
 # TODO GERAL PROJETO PROC STUDIO
-- Dar uma geral no works_controller
-
-- DB: Criar Interns Scaffold
+<!-- - DB: Criar Interns Scaffold
 - DB: Paralegals Scaffold
 - DB: Secretary Scaffold
-  ENUM ?
-
-- DB: Bank
-
-* rails g scaffold Person adress birth:date capacity:integer citizenship city civilstatus company email first_name lastname gender:integer general_register mothername number_benefit oab_number profession social_number state zip status:integer life:integer email:references
-
-* rails g Bank bank_name bank_number agency account person:references client:references
+-  ENUM ? => Better OK  -->
+- Dar uma geral no works_controller : Field Treats Métodos
+- DB: Bank : Único
+  * rails g scaffold Person adress birth:date capacity:integer citizenship city civilstatus company email first_name lastname gender:integer general_register mothername number_benefit oab_number profession social_number state zip status:integer life:integer email:references
+  * rails g Bank bank_name bank_number agency account person:references client:references
+- Arrumar person Model e formulários _form_ para renderizar vários tipos de usuários e adiciona-los na procuração
+- Criar lógica de integração de advogado no escritório: Por exemplo Marcos e Eduardo não são sócios; Podendo utilizar as informações de um advogado integrante da sociedade e outros não, tudo na mesma procuração.
+  -> Select Lawyer: Seleciona o primeiro advogado e depois abre para selecionar a sociedade que ele está vinculado (se estiver vinculado a alguma); Depois abre para adicionar outros advogados cadastrados na sociedade; Depois abre para outros advogados vinculados no sistema e finalmente para advogados externos de outras sociedades cadastradas em parcerias;
+  - Traduzir com I18n data = Time.now.strftime("%d, %B, %Y")
+  - Testar se alteração no application controler deu certo da data => dia/mes/ano
 
 # Notas
  redirect with params

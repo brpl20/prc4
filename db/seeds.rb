@@ -28,18 +28,15 @@
 #   end
 # end
 
-# lawyer = Lawyer.create
-#     (
-#     [
-#       { nome: "Marcos", sobrenome: "Aurélio Ciello", oab: "54.837 PR", email: "marcos@pellizzetti.adv.br"  },
-#       { nome: "Bruno", sobrenome: "Pellizzetti", oab: "54.159 PR", email: "marcos@pellizzetti.adv.br"  }
-#     ]
-#     )
 
 a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
 b = Lawyer.create(name: "Bruno", lastname: "Pellizzetti", oab_number: "54.159 PR", email: "marcos@pellizzetti.adv.br")
+b = Lawyer.create(name: "Eduardo", lastname: "Hamilton Walber", oab_number: "106.344 PR", email: "eduardo@pellizzetti.adv.br")
 
-c = Office.create(oab: "4416", cnpj_number: "23.583.964/0001-05", society: "Unipessoal", foundation: "Thu, 24 Mar 2016", adress: "Rua Paraná, 3033, Ed. Formato, 14 Andar", city: "Cascavel", state: "Paraná", zip: "85810-010", site: "www.pellizzetti.adv.br", telephone: "4530355898", bank: "Sicredi (748)", agency: "0710",  account: "7243-4")
+
+
+
+c = Office.create(name: "Pellizzetti Advocacia", oab: "4416", cnpj_number: "23.583.964/0001-05", society: "Unipessoal", foundation: "Thu, 24 Mar 2016", adress: "Rua Paraná, 3033, Ed. Formato, 14 Andar", city: "Cascavel", state: "Paraná", zip: "85810-010", site: "www.pellizzetti.adv.br", telephone: "4530355898", bank: "Sicredi (748)", agency: "0710",  account: "7243-4")
 
 a1 = User.create(email: "marcos@pellizzetti.adv.br", password: 123456, lawyer_role: true)
 b1 = User.create(email: "bruno@pellizzetti.adv.br", password: 123456, lawyer_role: true, paralegal_role: true, intern_role: true, secretary_role: true)
@@ -51,4 +48,5 @@ g1 = User.create(email: "valdirene@pellizzetti.adv.br", password: 123456, secret
 h1 = User.create(email: "joao@pellizzetti.adv.br", password: 123456, intern_role: true)
 i1 = User.create(email: "eduardo@pellizzetti.adv.br", password: 123456, intern_role: true)
 
-
+val_secretaria = Person.create(first_name: "Valdirene", lastname: "Silva", life: 3)
+achp_estagiarai = Person.create(first_name: "Aline", lastname: "Cristina Hoffmann Pereira", life: 1)

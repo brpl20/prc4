@@ -20,6 +20,14 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     end
   end
 
+  def lip
+    laws = [].join("")
+      Lawyer.all.each do | xopo |
+         laws << "#{xopo.name} #{xopo.lastname}, inscrito na OAB número #{xopo.oab_number}".to_s
+      end
+    return laws
+  end
+
   def work_templater(work, document)
     require 'aws-sdk-s3'
     require 'docx'
@@ -34,15 +42,12 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
-    # ADVOGADOS, ESTAGIARIOS e PARALEGAIS
-    # TODO CORRIGIR ISSO COM BELONGS 2 E HAS MANY NO FUTURO
-    laws = [].join("")
-      Lawyer.all.each do | xopo |
-         laws << "#{xopo.name} #{xopo.lastname}".to_s
-      end
+    # ADVOGADOS(lawyer), ESTAGIARIOS(person_intern), PARALEGAIS(paralegals)
+    lip
 
-    # ESCRITORIO
-    # esc = Office.pluck(:name, :oab, :city, :state, :email).join(", ")
+    # ESCRITORIOS(Office)
+    # TODO Criar logica para Office empty? e nil?
+    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :adress, :city, :state, :email).join(", ")
 
     # WORK
     work_rate = "oieeeeeee fila da puta"
@@ -63,9 +68,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     # PODERES
 
     # TIME - HORARIO
-    data = Time.now
-    data2 = data.strftime("%d, %m, %Y")
-    #data.format("DD, MM, YYYY")
+    data = Time.now.strftime("%d, %m, %Y")
 
 
     # DOCUMENT REPLACES
