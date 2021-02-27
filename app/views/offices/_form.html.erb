@@ -1,63 +1,122 @@
-<%= simple_form_for(@office) do |form| %>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
 
+    <div class="x_title">
+      <h2>Cadastrando novo Escritório</h2>
+      <div class="clearfix"></div>
+    </div>
 
-  <div class="field">
-    <%= form.input :name %>
+    <div class="x_content">
+
+      <%= form_with model: @office do |f| %>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :name, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "OAB" %></b>
+            <%= f.text_field :oab, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "CNPJ" %></b>
+            <%= f.text_field :cnpj_number, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Society" %></b>
+            <%= f.text_field :society, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Data de Nascimento" %></b>
+            <%= f.text_field :foundation, class:"date-picker form-control", type:"text", required:"required", onfocus:"this.type='date'",onmouseover:"this.type='date'", onclick:"this.type='date'", onblur:"this.type='text'"%>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :address, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Cidade" %></b>
+            <%= f.text_field :city, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Estado" %></b>
+            <%= f.text_field :state, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Site" %></b>
+            <%= f.text_field :site, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Telefone" %></b>
+            <%= f.text_field :telephone, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Banco" %></b>
+            <%= f.text_field :bank, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Agência" %></b>
+            <%= f.text_field :agency, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Conta" %></b>
+            <%= f.text_field :account, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Escritório</button>
+
+            <%= link_to "Cancelar", offices_path, class:"btn btn-danger btn-outline pull-right" %>
+        </div>
+
+      <% end %>
+
+    </div>
   </div>
-
-  <div class="field">
-    <%= form.input :oab %>
-  </div>
-
-  <div class="field">
-    <%= form.input :cnpj_number %>
-  </div>
-
-  <div class="field">
-    <%= form.input :society %>
-  </div>
-
-  <div class="field">
-    <%= form.input :foundation %>
-  </div>
-
-  <div class="field">
-    <%= form.input :adress %>
-  </div>
-
-  <div class="field">
-    <%= form.input :city %>
-  </div>
-
-  <div class="field">
-    <%= form.input :state %>
-  </div>
-
-  <div class="field">
-    <%= form.input :zip %>
-  </div>
-
-  <div class="field">
-    <%= form.input :site %>
-  </div>
-
-  <div class="field">
-    <%= form.input :telephone %>
-  </div>
-
-  <div class="field">
-    <%= form.input :bank %>
-  </div>
-
-  <div class="field">
-    <%= form.input :agency %>
-  </div>
-
-  <div class="field">
-    <%= form.input :account %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

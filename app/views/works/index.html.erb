@@ -1,8 +1,10 @@
-<%# <p id="notice"><%= notice %><!--/p-->
-
 <div class="col-md-12 col-sm-12">
 
-  <h1><%= t('work') %></h1>
+  <h1 class="pull-left">Works</h1>
+
+  <%= link_to new_work_path, class:"btn btn-success pull-right btn-new" do %>
+    <i class="fa fa-plus"></i> Novo Work
+  <% end %>
 
   <div class="x_panel">
     <div class="x_content">

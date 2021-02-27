@@ -1,8 +1,10 @@
-<p id="notice"><%= notice %></p>
-
 <div class="col-md-12 col-sm-12">
 
-  <h1>Clients</h1>
+  <h1 class="pull-left">Clientes</h1>
+
+  <%= link_to new_client_path, class:"btn btn-success pull-right btn-new" do %>
+    <i class="fa fa-plus"></i> Novo Cliente
+  <% end %>
 
   <div class="x_panel">
     <div class="x_content">
@@ -30,7 +32,11 @@
                     <td><%= c.name %> <%= c.lastname %></td>
                     <td><%= c.general_register %></td>
                     <td><%= c.social_number %></td>
-                    <td><%= c.email %></td>
+                    <td>
+                      <% c.emails.each do |e| %>
+                        <%= e.email %>
+                      <% end %>
+                    </td>
                     <td><%= c.city %></td>
                     <td><%= c.state %></td>
                     <td>
@@ -40,7 +46,7 @@
                     </td>
                     <td>
 
-                      <%= link_to new_work_path, class:"btn btn-success" do %>
+                      <%= link_to new_work_path(client: c), class:"btn btn-success" do %>
                         <i class="fa fa-gavel"></i>
                       <% end %>
 
@@ -66,5 +72,5 @@
       </div>
     </div>
   </div>
+
 </div>
-<%# <%= link_to 'New Client', new_client_path %>

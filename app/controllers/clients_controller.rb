@@ -2,14 +2,58 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_client, only: [:show, :edit, :update, :destroy]
 
   def index
-    @clients = Client.includes(:phones).all
+    @clients = Client.includes(:phones,:emails).all
+  end
+
+  def new
+    @client = Client.new
+    @client.phones.build
+    @client.emails.build
+  end
+
+  def create
+    @client = Client.new(client_params)
+    if @client.save
+      templater(@client, 'procuracao_simples')
+      if @client[:choice] == true
+        redirect_to @client
+      elsif @client[:choice] == false
+        redirect_to new_work_path(client: @client),
+          notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
+          # TODO: Terminar os redirecionamentos aqui
+      else
+        render :new,
+        notice: "Erro!"
+      end
+    end
+  end
+
+  def edit; end
+
+  # PATCH/PUT /clients/1
+  # PATCH/PUT /clients/1.json
+  def update
+    respond_to do |format|
+      if @client.update(client_params)
+        format.html { redirect_to @client, notice: 'Client Atualizado. Cuidado * Procuracão Não Atualizada' }
+        format.json { render :show, status: :ok, location: @client }
+      else
+        format.html { render :edit }
+        format.json { render json: @client.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def destroy
+    @client.destroy
+    redirect_to clients_path
   end
 
   def show
     require 's3'
     service = S3::Service.new(
-      :access_key_id => 'AKIAJ74GCVKOS25RX5EQ',
-      :secret_access_key => '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'
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
      )
     @client = Client.find(params[:id])
     doc_link = @client.documents["document_name"]
@@ -23,28 +67,8 @@ class ClientsController < ApplicationController
     @meta << @object
   end
 
-  def new
-    @client = Client.new
-    @client.phones.build
-  end
 
-  def create
-    @client = Client.new(client_params)
-    if @client.save
-      templater(@client, 'procuracao_simples')
-      if @client[:choice] == true
-        redirect_to @client
-      elsif @client[:choice] == false
-        session[:client_id] = @client.id
-        redirect_to new_work_path(client: @client),
-          notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
-          # TODO: Terminar os redirecionamentos aqui
-      else
-        render :new,
-        notice: "Erro!"
-      end
-    end
-  end
+
 
  # FEMININ x MASCULIN (TODO: Create Module or Helper)
   def genderize(field)
@@ -74,8 +98,8 @@ class ClientsController < ApplicationController
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+      ENV['AWS_ID'],
+      ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -149,7 +173,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
         tr.substitute('_:nb_', (@client[:number_benefit]).to_s)
         #tr.substitute('_:email_', @client[:email])
-        tr.substitute('_:endereco_', @client[:adress])
+        tr.substitute('_:endereco_', @client[:address])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])
         tr.substitute('_:cep_', (@client[:zip]).to_s)
@@ -196,27 +220,9 @@ class ClientsController < ApplicationController
     obj.upload_file(ch_file, metadata: metadata)
   end
 
-  def edit; end
 
 
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
-  def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client Atualizado. Cuidado * Procuracão Não Atualizada' }
-        format.json { render :show, status: :ok, location: @client }
-      else
-        format.html { render :edit }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
-    end
-  end
 
-  def destroy
-    @client.destroy
-    redirect_to clients_path
-  end
 
 
   def docx_upload(bucket='prcstudio3herokubucket', client, document)
@@ -242,15 +248,15 @@ class ClientsController < ApplicationController
       :number_benefit,
       :general_register,
       :social_number,
-      :adress,
+      :address,
       :city,
       :state,
-      :email,
       :zip,
       :note,
       :documents,
       :choice,
-      phones_attributes: [:id, :phone, :_destroy]
+      phones_attributes: [:id, :phone, :_destroy],
+      emails_attributes: [:id, :email, :_destroy]
       )
   end
 
@@ -265,8 +271,8 @@ class ClientsController < ApplicationController
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')

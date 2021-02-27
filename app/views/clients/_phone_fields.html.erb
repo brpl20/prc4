@@ -1,7 +1,7 @@
 <div class='nested-fields col-md-4 clearfix phone-cli'>
   <div class="field">
-    <%= f.label "Telefone" %>
-    <%= f.text_field :phone, class:"form-control" %>
-    <%= link_to_remove_association "Remover Telefone", f, class:"btn btn-anger btn-rmv-cli" %>
+    <b><%= f.label "Telefone" %></b>
+    <%= f.text_field :phone, class:"form-control",'data-mask': '(00) 00000-0000', placeholder:"(00)0 0000-0000" %>
+    <%= link_to_remove_association "Remover", f, class:"btn btn-anger btn-rmv-cli" %>
   </div>
 </div>

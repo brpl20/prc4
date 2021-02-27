@@ -8,11 +8,30 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     @works = Work.all
   end
 
+  def new
+    @work = Work.new
+    if params[:client]
+      @client = Client.find(params[:client])
+    end
+  end
+
+  def create
+    @work = Work.new(work_params)
+
+    if @work.save
+      work_templater(@work, 'wdocs') # Cuidar Aqui
+      redirect_to @work
+    else
+      render :new,
+      notice: "Erro!!"
+    end
+  end
+
   def show
     require 's3'
     service = S3::Service.new(
-      :access_key_id => 'AKIAJ74GCVKOS25RX5EQ',
-      :secret_access_key => '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'
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
      )
     @work = Work.find(params[:id])
     #doc_link = @work.document["document_name"]
@@ -27,17 +46,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     @work = Work.find(params[:id])
   end
 
-  def create
-    @work = Work.new(work_params)
 
-    if @work.save
-      work_templater(@work, 'wdocs') # Cuidar Aqui
-      redirect_to @work
-    else
-      render :new,
-      notice: "Erro!!"
-    end
-  end
 
  # FEMININ x MASCULIN (TODO: Create Module or Helper)
   def genderize(field)
@@ -65,8 +74,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
@@ -158,7 +167,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       # tr.substitute('_:cpf_', (client_ins[:social_number]).to_s)
       # tr.substitute('_:nb_', (client_ins[:number_benefit]).to_s)
       # tr.substitute('_:email_', client_ins[:email])
-      # tr.substitute('_:endereco_', client_ins[:adress])
+      # tr.substitute('_:endereco_', client_ins[:address])
       # tr.substitute('_:cidade_', client_ins[:city])
       # tr.substitute('_:state_', client_ins[:state])
       # tr.substitute('_:cep_', (client_ins[:zip]).to_s)
@@ -218,12 +227,6 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     obj.upload_file(ch_file, metadata: metadata)
   end
 
-
-  def new
-    @work = Work.new
-    # @client = Client.find(params[:client])
-  end
-
   # GET /works/1/edit
   def edit
   end
@@ -262,8 +265,8 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   def amazon_client
    require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        'AKIAJ74GCVKOS25RX5EQ',
-        'fELdKKR5dsGrFRO16enaylHcbRHSB5vmml9Iquab'
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')

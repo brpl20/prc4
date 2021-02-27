@@ -1,4 +1,9 @@
 module WorksHelper
+
+  def options_for_client
+    Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
+  end
+
   def options_for_subject
     work = [["Previdenciário", "Previdenciário"],
             ["Cível", "Cível"],

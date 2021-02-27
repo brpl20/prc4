@@ -1,7 +1,6 @@
 module ClientsHelper
-
-  def gender_select(user, current_gender)
-    user.gender == current_gender ? 'btn-primary' : 'btn-default'
+  def gender_name(gender)
+    gender == 1 ? 'Masculino' : 'Feminino'
   end
 
   def options_for_gender

@@ -7,7 +7,7 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 # TODO tr.substitute = sucess
-# TODO Compare adress function sociedade x lawyer - default equals advogado
+# TODO Compare address function sociedade x lawyer - default equals advogado
 #
 
 #arr.each do | base |
@@ -39,7 +39,7 @@
 a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
 b = Lawyer.create(name: "Bruno", lastname: "Pellizzetti", oab_number: "54.159 PR", email: "marcos@pellizzetti.adv.br")
 
-c = Office.create(oab: "4416", cnpj_number: "23.583.964/0001-05", society: "Unipessoal", foundation: "Thu, 24 Mar 2016", adress: "Rua Paraná, 3033, Ed. Formato, 14 Andar", city: "Cascavel", state: "Paraná", zip: "85810-010", site: "www.pellizzetti.adv.br", telephone: "4530355898", bank: "Sicredi (748)", agency: "0710",  account: "7243-4")
+c = Office.create(oab: "4416", cnpj_number: "23.583.964/0001-05", society: "Unipessoal", foundation: "Thu, 24 Mar 2016", address: "Rua Paraná, 3033, Ed. Formato, 14 Andar", city: "Cascavel", state: "Paraná", zip: "85810-010", site: "www.pellizzetti.adv.br", telephone: "4530355898", bank: "Sicredi (748)", agency: "0710",  account: "7243-4")
 
 a1 = User.create(email: "marcos@pellizzetti.adv.br", password: 123456, lawyer_role: true)
 b1 = User.create(email: "bruno@pellizzetti.adv.br", password: 123456, lawyer_role: true, paralegal_role: true, intern_role: true, secretary_role: true)
@@ -50,5 +50,3 @@ f1 = User.create(email: "aline@pellizzetti.adv.br", password: 123456, lawyer_rol
 g1 = User.create(email: "valdirene@pellizzetti.adv.br", password: 123456, secretary_role: true)
 h1 = User.create(email: "joao@pellizzetti.adv.br", password: 123456, intern_role: true)
 i1 = User.create(email: "eduardo@pellizzetti.adv.br", password: 123456, intern_role: true)
-
-
