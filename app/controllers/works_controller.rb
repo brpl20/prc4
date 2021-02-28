@@ -73,7 +73,7 @@ class WorksController < ApplicationController
     doc = Docx::Document.open(aws_body)
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
-        tr.substitute('_:nome_', nome_cap)
+        #tr.substitute('_:nome_', nome_cap)
         # tr.substitute('_:society_', esc)
         # tr.substitute('_:lawyerresponsible_', lawyer_completo)
         # tr.substitute('_:procedure_', proced)
