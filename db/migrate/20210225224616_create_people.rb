@@ -1,7 +1,7 @@
 class CreatePeople < ActiveRecord::Migration[6.0]
   def change
     create_table :people do |t|
-      t.string :adress
+      t.string :address
       t.date :birth
       t.integer :capacity
       t.string :citizenship

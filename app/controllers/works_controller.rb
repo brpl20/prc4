@@ -2,15 +2,14 @@ class WorksController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def index
-    @works = Work.all
+    @works = Work.includes(:clients).all
   end
 
   def new
     @work = Work.new
+    @work.client_works.build
     if params[:client]
       @client = Client.find(params[:client])
-      @client.phones.build
-      @client.emails.build
     end
   end
 
@@ -53,7 +52,6 @@ class WorksController < ApplicationController
 
     # FIELD TREAT -- INICIO --
     #nome_cap = "#{@client[:name]}".upcase
-
 
     # ESCRITORIOS(Office)
 
@@ -170,14 +168,13 @@ class WorksController < ApplicationController
       :procuration_paralegal,
       :partner_lawyer,
       :lawyer_id,
-      :client_id,
       :note,
       :document_pendent,
-      clients_attributes: [:id, :client],
       checklist: [],
       checklist_document: [],
       power: [],
       procedure: [],
+      client_works_attributes: [:id, :client_id]
       )
   end
 

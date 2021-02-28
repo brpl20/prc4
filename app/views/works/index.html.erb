@@ -15,17 +15,25 @@
             <thead>
               <tr role="row">
                 <th>#</th>
+                <th>Cliente</th>
                 <th>Procedimento</th>
                 <th>Assunto</th>
                 <th>Ação</th>
                 <th>Requerimento/Processo</th>
                 <th>Responsável</th>
                 <th>Parceiro</th>
+                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
                 <% @works.each do |w| %>
                   <tr role="row">
+                    <td><%= w.id %></td>
+                    <td>
+                      <% w.clients.each do |c| %>
+                        <%= c.name %>
+                      <% end %>
+                    </td>
                     <td><%= w.procedure %></td>
                     <td><%= w.subject %></td>
                     <td><%= w.action %></td>

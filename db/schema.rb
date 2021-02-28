@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_27_175409) do
+ActiveRecord::Schema.define(version: 2021_02_28_182308) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,15 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
     t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "client_works", force: :cascade do |t|
+    t.bigint "client_id"
+    t.bigint "work_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_client_works_on_client_id"
+    t.index ["work_id"], name: "index_client_works_on_work_id"
   end
 
   create_table "clients", force: :cascade do |t|
@@ -57,15 +66,6 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-  end
-
-  create_table "clients_works", force: :cascade do |t|
-    t.bigint "client_id"
-    t.bigint "work_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_clients_works_on_client_id"
-    t.index ["work_id"], name: "index_clients_works_on_work_id"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -131,7 +131,7 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string "adress"
+    t.string "address"
     t.date "birth"
     t.integer "capacity"
     t.string "citizenship"
@@ -211,8 +211,9 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
     t.string "rate_parceled_exfield"
   end
 
-  add_foreign_key "clients_works", "clients"
-  add_foreign_key "clients_works", "works"
+  add_foreign_key "client_works", "clients"
+  add_foreign_key "client_works", "works"
+
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
   add_foreign_key "phones", "clients"

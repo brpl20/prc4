@@ -14,7 +14,7 @@ class PeopleTest < ApplicationSystemTestCase
     visit people_url
     click_on "New Person"
 
-    fill_in "Adress", with: @person.adress
+    fill_in "Address", with: @person.address
     fill_in "Birth", with: @person.birth
     fill_in "Capacity", with: @person.capacity
     fill_in "Citizenship", with: @person.citizenship
@@ -45,7 +45,7 @@ class PeopleTest < ApplicationSystemTestCase
     visit people_url
     click_on "Edit", match: :first
 
-    fill_in "Adress", with: @person.adress
+    fill_in "Address", with: @person.address
     fill_in "Birth", with: @person.birth
     fill_in "Capacity", with: @person.capacity
     fill_in "Citizenship", with: @person.citizenship
