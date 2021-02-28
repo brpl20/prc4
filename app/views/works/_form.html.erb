@@ -37,7 +37,7 @@
             <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
           </fieldset>
 
-          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Previdenciário"">
+          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Previdenciário">
 
             <fieldset class="radio_buttons optional work_subject grid">
               <legend class="col-form-label pt-0"><b>Previdenciário-Áreas</b></legend>
@@ -60,39 +60,6 @@
             </fieldset>
 
           </div>
-
-          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Trabalhista">
-
-            <fieldset class="radio_buttons optional work_subject grid">
-              <legend class="col-form-label pt-0"><b>Trabalhista</b></legend>
-
-              <%= f.collection_radio_buttons :action, options_for_action_labor, :second, :first do |b|
-                b.label { b.radio_button + b.text }
-              end %>
-            </fieldset>
-
-          </div>
-
-          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Tributário">
-
-            <fieldset class="radio_buttons optional work_subject grid">
-              <legend class="col-form-label pt-0"><b>Tributário</b></legend>
-
-              <%= f.collection_radio_buttons :action, options_for_action_tributary, :second, :first do |b|
-              b.label { b.radio_button + b.text }
-              end %>
-            </fieldset>
-
-          </div>
-
-          <div class="conditional subject-matter sub col-md-6" data-cond-option="'work[subject]'" data-cond-value="Outros">
-
-            <fieldset class="radio_buttons optional work_subject grid">
-              <legend class="col-form-label pt-0"><b>Outros</b></legend>
-
-                <%= f.label "Outras Áreas" %>
-                <%= f.text_field :action, class:"form-control"%>
-            </fieldset>
 
           </div>
 
@@ -127,7 +94,7 @@
           <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
             <div class="form-group">
               <b><%= f.label "Valor de Honorários Percentuais" %></b>
-              <%= f.text_field :rate_percentage, class:"form-control"%>
+              <%= f.text_field :rate_percentage_exfield, class:"form-control"%>
             </div>
           </div>
 
@@ -138,7 +105,7 @@
               <%= f.number_field :rate_fixed_exfield, class:"form-control"%>
 
               <b><%= f.label "Valor de Honorários Percentuais" %></b>
-              <%= f.number_field :rate_percentage, class:"form-control"%>
+              <%= f.number_field :rate_percentage_exfield, class:"form-control"%>
 
             </div>
           </div>
@@ -165,7 +132,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Escritório ou Escritórios Associados" %></b>
-            <%= f.collection_select :office, Office.order(:name), :id, :name, {}, {class:'form-control'} %>
+            <%#= f.collection_select :office, Office.order(:name), :id, :name, {}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6">
@@ -227,7 +194,7 @@
         <div class="col-md-12">
 
           <div class="col-md-6 grid">
-            <b><%= f.label "Documentos a serem produzidos" %></b>
+            <b><%= f.label "Documentos a serem produzidos * Não está funcionando ainda" %></b>
             <%= f.collection_check_boxes :checklist, options_for_checklist, :second, :first do |cl|
               cl.label { cl.check_box + cl.text }
             end %>
@@ -246,12 +213,14 @@
 
           <div class="col-md-6">
             <b><%= f.label "Estagiários da Procuração" %></b>
-            <%= f.text_field :procuration_intern, class:"form-control" %>
+            <%#= f.collection_select :procuration_intern, Person.order(:first_name), :id, :first_name, {}, {class:"form-control"} %>
+
+
           </div>
 
           <div class="col-md-6">
             <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
-            <%= f.text_field :procuration_paralegal, class:"form-control" %>
+            <%#= f.text_field :procuration_paralegal, class:"form-control" %>
           </div>
 
         </div>

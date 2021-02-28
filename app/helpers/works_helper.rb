@@ -4,6 +4,16 @@ module WorksHelper
     Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
   end
 
+  def rater(rate, trabalho, exito)
+    if rate == "Trabalho"
+      return "o cliente pagará ao advogado o valor de #{trabalho}"
+    elsif rate == "Êxito"
+       return "o cliente pagará ao advogado o valor de #{exito} sobre os benefícios advindos do processo"
+     else
+      return "o cliente pagará ao advogado o valor de #{trabalho} e o total de #{exito} dos benefícios advindos do processo"
+    end
+  end
+
   def options_for_subject
     work = [["Previdenciário", "Previdenciário"],
             ["Cível", "Cível"],
@@ -45,15 +55,6 @@ module WorksHelper
     rate_work = [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"]]
   end
 
-    # t.string "rate_percentage"
-    # t.string "rate_percentage_exfield"
-    # t.string "rate_fixed"
-    # t.string "rate_fixed_exfield"
-    # t.string "rate_work"
-    # t.string "rate_parceled"
-
-
-
   def options_for_rate_parceled
     rate_parceled = [["Sim", "Sim"], ["Não", "Não"]]
   end
@@ -90,9 +91,8 @@ module WorksHelper
             ]
   end
   def options_for_procedure
-    procedure = [ ["Administrativo", "Administrativo"],
+    procedure = ["Administrativo", "Administrativo"],
                   ["Judicial", "Judicial"],
                   ["Extrajudicial", "Extrajudicial"]
-                ]
   end
 end

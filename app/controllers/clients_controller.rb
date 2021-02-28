@@ -14,8 +14,8 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      templater(@client, 'procuracao_simples')
-      if @client[:choice] == true
+      if @client[:choice] == true || nil
+        templater(@client, 'procuracao_simples')
         redirect_to @client
       elsif @client[:choice] == false
         redirect_to new_work_path(client: @client),
@@ -23,7 +23,7 @@ class ClientsController < ApplicationController
           # TODO: Terminar os redirecionamentos aqui
       else
         render :new,
-        notice: "Erro!"
+        notice: "Erro - Renderizando Novo !"
       end
     end
   end
@@ -68,33 +68,12 @@ class ClientsController < ApplicationController
   end
 
 
-
-
- # FEMININ x MASCULIN (TODO: Create Module or Helper)
-  def genderize(field)
-    case field
-    when "Casado"
-      field.sub! 'Casado', 'Casada'
-    when "Solteiro"
-      field.sub! 'Solteiro', 'Solteira'
-    when "Divorciado"
-      field.sub! 'Divorciado', 'Divorciada'
-    when "Viúvo"
-      field.sub! 'Viúvo', 'Viúva'
-    when "Brasileiro"
-      field.sub! 'Brasileiro', 'Brasileira'
-    when "Estrangeiro"
-      field.sub! 'Estrangeiro', 'Estrangeira'
-    end
-  end
-
-
-
   def templater(client, document)
     require 'aws-sdk-s3'
     require 'docx'
     require 'json'
     require 'time'
+    require 'rails-i18n'
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
@@ -109,16 +88,37 @@ class ClientsController < ApplicationController
     # AWS STUFF -- FIM --
 
     # FIELD TREAT -- INICIO --
+
+    # SIMPLE FIELDS
     nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
+    emailx = @client.emails.each { |em| em.email }
+
+    # PHONE METHOD ARRAY
+    def phone
+      @client.phones.each { |tl| return tl.phone }
+    end
+    phonex = phone
+
+    # EMAIL METHOD ARRAY
+    def mail_check
+      @client.emails.each { |em| return em.email }
+    end
+    mailx = "endereço de e-mail: #{mail_check}"
+
+    # NUMERO DE BENEFICIO FIELD
+    if @client[:number_benefit].nil?
+      nb_exist = ""
+    else
+      nb_exist = "número de benefício #{@client[:number_benefit]},"
+    end
 
     # NO DB FIELDS CONFIG GENDER
-
     # GENDER LOGIC
     if @client[:gender] == 2
-      civilstatus = genderize(@client[:civilstatus])
-      citizenship = genderize(@client[:citizenship])
+      civilstatus = helpers.genderize(@client[:civilstatus])
+      nacionalita = helpers.genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
@@ -152,10 +152,7 @@ class ClientsController < ApplicationController
     # PODERES
 
     # TIME - HORARIO
-    data = Time.now
-    data2 = data.strftime("%d, %m, %Y")
-    #data.format("DD, MM, YYYY")
-
+    dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
@@ -167,12 +164,11 @@ class ClientsController < ApplicationController
         tr.substitute('_:estado_civil_', civilstatus)
         tr.substitute('_:profissao_', @client[:profession].downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
-        # TODO ARRUMAR ISSO
-        # tr.substitute('_:nacionalidade_', nacionalita.downcase)
+        tr.substitute('_:nacionalidade_', nacionalita.downcase)
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
-        tr.substitute('_:nb_', (@client[:number_benefit]).to_s)
-        #tr.substitute('_:email_', @client[:email])
+        tr.substitute('_:nb_', nb_exist)
+        tr.substitute('_:email_', mailx)
         tr.substitute('_:endereco_', @client[:address])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])
@@ -188,7 +184,7 @@ class ClientsController < ApplicationController
         # PODERES TODO
 
         # DOCUMENT TIME STAMP
-        tr.substitute('_:timestamp_', data2)
+        tr.substitute('_:timestamp_', dia)
       end
     end
     bucket = 'prcstudio3herokubucket'

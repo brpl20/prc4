@@ -30,20 +30,6 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "banks", force: :cascade do |t|
-    t.string "name"
-    t.string "number"
-    t.string "agency"
-    t.bigint "person_id"
-    t.bigint "client_id"
-    t.bigint "office_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_banks_on_client_id"
-    t.index ["office_id"], name: "index_banks_on_office_id"
-    t.index ["person_id"], name: "index_banks_on_person_id"
-  end
-
   create_table "clients", force: :cascade do |t|
     t.integer "gender"
     t.string "name"
@@ -225,9 +211,6 @@ ActiveRecord::Schema.define(version: 2021_02_27_175409) do
     t.string "rate_parceled_exfield"
   end
 
-  add_foreign_key "banks", "clients"
-  add_foreign_key "banks", "offices"
-  add_foreign_key "banks", "people"
   add_foreign_key "clients_works", "clients"
   add_foreign_key "clients_works", "works"
   add_foreign_key "emails", "clients"

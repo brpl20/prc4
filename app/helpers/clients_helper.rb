@@ -12,7 +12,7 @@ module ClientsHelper
   end
 
   def options_for_civilstatus
-    civilstatus = [["Solteiro", "Solteiro"], ["Casado", "Casado"], ["Divorciado", "Divorciado"], ["Viuvo", "Viuvo"], ["União Estável", "Em Uniao Estavel"]]
+    civilstatus = [["Solteiro", "Solteiro"], ["Casado", "Casado"], ["Divorciado", "Divorciado"], ["Viúvo", "Viúvo"], ["União Estável", "em União Estável"]]
   end
 
   def options_for_capacity

@@ -1,5 +1,5 @@
 class WorksController < ApplicationController
-before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
+  before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def index
     @works = Work.all
@@ -9,41 +9,25 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     @work = Work.new
     if params[:client]
       @client = Client.find(params[:client])
+      @client.phones.build
+      @client.emails.build
     end
+  end
+
+  def show
+    @work = Work.find(params[:id])
   end
 
   def create
     @work = Work.new(work_params)
-
     if @work.save
-      work_templater(@work, 'wdocs') # Cuidar Aqui
+      work_templater(@work, 'wdocs')
       redirect_to @work
     else
       render :new,
       notice: "Erro!!"
     end
   end
-
-  def show
-    require 's3'
-    service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
-     )
-    @work = Work.find(params[:id])
-    #doc_link = @work.document["document_name"]
-    #@work.documents[:aws_link]
-    @meta = []
-    @meta2 = []
-    #criar objeto
-    #@bucket = service.buckets.find("prcstudio3herokubucket")
-    #@object = @bucket.objects.find("tmp/#{doc_link}")
-    #@url = @object.temporary_url(Time.now + 1800)
-    @meta << @object
-    @work = Work.find(params[:id])
-  end
-
-
 
   def lip
     laws = [].join("")
@@ -59,101 +43,52 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
     require 'json'
     require 'time'
     require 'rails-i18n'
-
     # AWS STUFF -- INICIO --
-    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
-        )})
+    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'],ENV['AWS_SECRET_KEY'])})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
     aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/#{document}.docx")
     aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
-    # ADVOGADOS(lawyer), ESTAGIARIOS(person_intern), PARALEGAIS(paralegals)
-    lip
+    # FIELD TREAT -- INICIO --
+    #nome_cap = "#{@client[:name]}".upcase
+
 
     # ESCRITORIOS(Office)
-    # TODO Criar logica para Office empty? e nil?
-    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :adress, :city, :state, :email).join(", ")
 
-    # WORK
-    work_rate = "oieeeeeee fila da puta"
-    # if rate_work == "Trabalho" append...rate_work_ex_field
-    # if rate_work == "Êxito" append... rate_percentage_exfield
-    # if rate_work == "Ambos" append... logic
+    # PODERES - POWERS
 
-    # t.string "rate_percentage"
-    # t.string "rate_percentage_exfield"
-    # t.string "rate_fixed"
-    # t.string "rate_fixed_exfield"
-    # t.string "rate_work"
-    # t.string "rate_parceled"
-
-
-    # FIELD TREAT -- FIM --
-
-    # PODERES
+    # TODO: Criar logica para Office empty? e nil?
+    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :address, :city, :state).join(", ")
+    lawyer = Lawyer.find_by_id(@work[:responsible_lawyer])
+    lawyer_completo = "#{lawyer.name} #{lawyer.lastname} #{lawyer.oab_number}"
+    proced = @work[:procedure]
+    rates = helpers.rater(@work[:rate_work], @work[:rate_work_exfield], @work[:rate_percentage_exfield])
 
     # TIME - HORARIO
-    dia = I18n.l(Time.now, format: "%d, %B de %Y")
+    dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
-
-      # CLIENT
-      # tr.substitute('_:nome_', nome_cap)
-      # tr.substitute('_:sobrenome_', sobrenome_cap)
-      # tr.substitute('_:estado_civil_', civilstatus)
-      # tr.substitute('_:profissao_', client_ins[:profession].downcase)
-      # tr.substitute('_:capacidade_', capacity_treated.downcase)
-
-      # TODO ARRUMAR ISSO
-      # tr.substitute('_:nacionalidade_', nacionalita.downcase)
-      # tr.substitute('_:rg_', client_ins[:general_register])
-      # tr.substitute('_:cpf_', (client_ins[:social_number]).to_s)
-      # tr.substitute('_:nb_', (client_ins[:number_benefit]).to_s)
-      # tr.substitute('_:email_', client_ins[:email])
-      # tr.substitute('_:endereco_', client_ins[:address])
-      # tr.substitute('_:cidade_', client_ins[:city])
-      # tr.substitute('_:state_', client_ins[:state])
-      # tr.substitute('_:cep_', (client_ins[:zip]).to_s)
-      # tr.substitute('_:empresa_atual_', client_ins[:company])  Field nao utilizado
-
-      # LAWYER AND SOCIETY => @Lawyer & @Office
-       #tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:society_', Office.find_by(id: 1).name)
-        tr.substitute('_:accountdetails_', "Banco: #{Office.find_by(id: 1).bank}, Agência: #{Office.find_by(id: 1).agency}, Conta: #{Office.find_by(id: 1).account}" )
-
-
-      # NO DB FIELDS CONFIG GENDER
-      # tr.substitute('_:portador_', porta)
-      # tr.substitute('_:inscrito_', inscrito)
-      # tr.substitute('_:domiciliado_', domiciliado)
-
-      # WORK FIELDS
-        tr.substitute('_:procedure_', work_rate) # Procedimento Adm. ou Judicial
-        tr.substitute('_:subject_', @work[:subject]) # Direito Previdenciario - Pensao Morte
-        tr.substitute('_:acao_', @work[:acao]) # Acao Numero
-        tr.substitute('_:rates_', work_rate)
-
-       # tr.substitute('_:rates_', @work[:rates])
-       # tr.substitute('_:rates_', @work[:rates])
-
-      # DOCUMENT TIME STAMP
-      tr.substitute('_:timestamp_', data2)
+        tr.substitute('_:nome_', nome_cap)
+        # tr.substitute('_:society_', esc)
+        # tr.substitute('_:lawyerresponsible_', lawyer_completo)
+        # tr.substitute('_:procedure_', proced)
+        # tr.substitute('_:subject_', @work[:subject])
+        # tr.substitute('_:action_', @work[:action])
+        # tr.substitute('_:rates_', rates)
+        # All Measures Clause -
+        tr.substitute('_:timestamp_', dia)
       end
     end
-
     bucket = 'prcstudio3herokubucket'
     nome_correto = Client.last[:name].downcase.gsub(/\s+/, "")
     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)
     ch_file = "tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx"
     obj = @s3.bucket(bucket).object(ch_file)
-
     #backup
       #ch_save = doc.save(Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
       #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
@@ -177,12 +112,6 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
   # GET /works/1/edit
   def edit
   end
-
-  def field_list
-  end
-
-
-  def edit; end
 
   # PATCH/PUT /works/1
   # PATCH/PUT /works/1.json
@@ -230,6 +159,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       :rate_fixed_exfield,
       :rate_work,
       :rate_parceled,
+      :rate_parceled_exfield,
       :recommendation,
       :recommendation_comission,
       :folder,
