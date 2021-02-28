@@ -5,8 +5,41 @@
 -  ENUM ? => Better OK  -->
 <!-- - Traduzir com I18n data = Time.now.strftime("%d, %B, %Y")  -->
 <!-- - Testar se alteração no application.rb deu certo da data => dia/mes/ano : alterou no PUMA pelo menos-->
+<!-- - Adicionar rate_parceled_exfield no Work -->
+<!-- - Criar filtro contra 'nil' -->
+
+
+# Alterações 2nd Doc Urgentes
+## First Doc
+- _:nacionaliade_ falta corrigir
+- Viúvo está vindo "nil" ou é algum problema de conversão? Conferir Downcas
+- _:email_ falta corrigir
+- Criar máscara de RG
+- Criar máscara de NB
+- Adicionar data PT-BR
+
+## Second Doc
+- Máscara de Honorários Fixos e ExtensoBR
+- Terminar Declaração de Carencia | TEJ | FICHA(?)
+- Add. Parcelamento Extra Field no Form
+
+
+# ...
+
 - Dar uma geral no works_controller : Field Treats Métodos
   rails g migration ClientWork client:references work:references
+- Arrumar Bug Ausência de Documento
+- Ler N+1 https://videosdeti.com.br/o-que-e-o-problema-de-queries-n1-e-como-resolve-lo-no-rails/
+
+# Março/2021
+- Unificar Clientes com Persons + Enums: Pessoa Jurídica e Representante Legal (Para a Empresa e para o Incapaz)
+- Jobs: Para criar os Jobs precisa arrumar a tabela do banco e refazer a relação entre os objetos. Agora ele está  com 'belongs_to client' mas no novo modelo de banco que criamos ele agora pertencerá ao 'Work'. Então precisa refazer esta parte de relacionamentos e banco dele. (Aí vai  dar pra finalizar o 'show' do client).
+- Dados Bancários -> Criar tabela de relacionamentos;
+-
+
+
+
+
 
 
 - DB: Bank : Único
@@ -15,7 +48,6 @@
 - Arrumar person Model e formulários _form_ para renderizar vários tipos de usuários e adiciona-los na procuração
 - Criar lógica de integração de advogado no escritório: Por exemplo Marcos e Eduardo não são sócios; Podendo utilizar as informações de um advogado integrante da sociedade e outros não, tudo na mesma procuração.
   -> Select Lawyer: Seleciona o primeiro advogado e depois abre para selecionar a sociedade que ele está vinculado (se estiver vinculado a alguma); Depois abre para adicionar outros advogados cadastrados na sociedade; Depois abre para outros advogados vinculados no sistema e finalmente para advogados externos de outras sociedades cadastradas em parcerias;
-- Adicionar rate_parceled_exfield
 
 
 # Notas

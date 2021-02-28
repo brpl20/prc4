@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
 
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
+
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
   add_foreign_key "phones", "clients"

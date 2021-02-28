@@ -7,3 +7,4 @@ yarn add font-awesome@4.6.3
 yarn add metismenu@3.0.3
 yarn add popper.js
 yarn add datatables.net-bs4
+yarn add jquery-mask-plugin
