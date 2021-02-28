@@ -2,14 +2,12 @@ class WorksController < ApplicationController
 before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def index
-    @works = Work.all
+    @works = Work.includes(:clients).all
   end
 
   def new
     @work = Work.new
-    if params[:client]
-      @client = Client.find(params[:client])
-    end
+    @work.client_works.build
   end
 
   def create
@@ -76,7 +74,7 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
 
     # ESCRITORIOS(Office)
     # TODO Criar logica para Office empty? e nil?
-    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :adress, :city, :state, :email).join(", ")
+    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :address, :city, :state, :email).join(", ")
 
     # WORK
     work_rate = "oieeeeeee fila da puta"
@@ -240,14 +238,13 @@ before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edi
       :procuration_paralegal,
       :partner_lawyer,
       :lawyer_id,
-      :client_id,
       :note,
       :document_pendent,
-      clients_attributes: [:id, :client],
       checklist: [],
       checklist_document: [],
       power: [],
       procedure: [],
+      client_works_attributes: [:id, :client_id]
       )
   end
 

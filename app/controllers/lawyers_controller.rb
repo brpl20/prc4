@@ -77,7 +77,7 @@ class LawyersController < ApplicationController
         :birth,
         :mothername,
         :email,
-        :adress,
+        :address,
         :city,
         :state,
         :telephone,

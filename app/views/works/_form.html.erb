@@ -188,25 +188,14 @@
             <%= f.text_field :recommendation_comission, class:"form-control" %>
           </div>
 
-          <%= f.fields_for :client_works do |cw| %>
-
             <div class="col-md-6">
-              <b><%= cw.label "Cliente" %></b>
+              <%= f.fields_for :client_works do |cw| %>
 
-              <% if @client == nil %>
+                <b><%= cw.label "Cliente" %></b>
                 <%= cw.collection_select :client_id, options_for_client, :first, :second, {}, {class:'form-control'} %>
 
-              <% else %>
-
-                <input name="client" value="<%= @client.name + " " + @client.lastname %>" class="form-control" disabled>
-
-                <%= cw.number_field :client_id, value:@client.id, class:"form-control hidden", disabled: true%>
-
               <% end %>
-
             </div>
-
-          <% end %>
 
         </div>
 
