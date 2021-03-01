@@ -28,6 +28,26 @@ class WorksController < ApplicationController
     end
   end
 
+  # FEMININ x MASCULIN (TODO: Create Module or Helper)
+   def genderize(field)
+     case field
+     when "Casado"
+       field.sub! 'Casado', 'Casada'
+     when "Solteiro"
+       field.sub! 'Solteiro', 'Solteira'
+     when "Divorciado"
+       field.sub! 'Divorciado', 'Divorciada'
+     when "Viúvo"
+       field.sub! 'Viúvo', 'Viúva'
+     when "Brasileiro"
+       field.sub! 'Brasileiro', 'Brasileira'
+     when "Estrangeiro"
+       field.sub! 'Estrangeiro', 'Estrangeira'
+     else
+       "em União Estável"
+     end
+   end
+
   def lip
     laws = [].join("")
       Lawyer.all.each do | xopo |
@@ -51,6 +71,69 @@ class WorksController < ApplicationController
     # AWS STUFF -- FIM --
 
     # FIELD TREAT -- INICIO --
+    # SIMPLE FIELDS
+    client_j = Client.last.as_json
+    nome_completo = "#{client_j[:name]} #{client_j[:lastname]}".upcase
+    nome_cap = "#{client_j[:name]}".upcase
+    sobrenome_cap = "#{client_j[:lastname]}".upcase
+    emailx = client_j.emails.each { |em| em.email }
+
+    # PHONE METHOD ARRAY
+    def phone
+      @client.phones.each { |tl| return tl.phone }
+    end
+    phonex = phone
+
+    # EMAIL METHOD ARRAY
+    def mail_check
+      @client.emails.each { |em| return em.email }
+    end
+    mailx = "endereço de e-mail: #{mail_check}"
+
+    # NUMERO DE BENEFICIO FIELD
+    if @client[:number_benefit].nil?
+      nb_exist = ""
+    else
+      nb_exist = "número de benefício #{@client[:number_benefit]},"
+    end
+
+    # NO DB FIELDS CONFIG GENDER
+    # GENDER LOGIC
+    if @client[:gender] == 2
+      civilstatus = genderize(@client[:civilstatus])
+      nacionalita = genderize(@client[:citizenship])
+      porta = "portadora"
+      inscrito = "inscrita"
+      domiciliado = "domiciliada"
+    else
+      civilstatus = @client[:civilstatus]
+      nacionalita = @client[:citizenship]
+      porta = "portador"
+      inscrito = "inscrito"
+      domiciliado = "domiciliado"
+    end
+
+    if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
+      capacity_treated = @client[:capacity]
+    else
+      capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+    end
+
+
+
+    # CLIENT
+
+
+    # clientx = {}
+    # def client_fields(work)
+    #   work.id.clients.each do | key, value |
+    #     key << clientx
+    #     value << clientx
+    #   end
+    # end
+    # client_fields(@work)
+
+
     #nome_cap = "#{@client[:name]}".upcase
 
     # ESCRITORIOS(Office)
@@ -67,11 +150,27 @@ class WorksController < ApplicationController
     # TIME - HORARIO
     dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
+
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
-        #tr.substitute('_:nome_', nome_cap)
+        tr.substitute('_:nome_', nome_cap)
+        tr.substitute('_:sobrenome_', sobrenome_cap)
+        tr.substitute('_:estado_civil_', civilstatus.downcase)
+        tr.substitute('_:profissao_', client_j['profession'].downcase)
+        tr.substitute('_:capacidade_', capacity_treated.downcase)
+        tr.substitute('_:nacionalidade_', nacionalita.downcase)
+        tr.substitute('_:rg_', client_j['general_register'])
+        tr.substitute('_:cpf_', (client_j['social_number']).to_s)
+        tr.substitute('_:nb_', nb_exist)
+        tr.substitute('_:email_', mailx)
+        tr.substitute('_:endereco_', client_j['address'])
+        tr.substitute('_:cidade_', client_j['city'])
+        tr.substitute('_:state_', client_j['state'])
+        tr.substitute('_:cep_', (client_j['zip']).to_s)
+        tr.substitute('_:empresa_atual_', client_j['company'])
+
         # tr.substitute('_:society_', esc)
         # tr.substitute('_:lawyerresponsible_', lawyer_completo)
         # tr.substitute('_:procedure_', proced)

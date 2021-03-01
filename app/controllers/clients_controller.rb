@@ -68,6 +68,27 @@ class ClientsController < ApplicationController
   end
 
 
+  # FEMININ x MASCULIN (TODO: Create Module or Helper)
+   def genderize(field)
+     case field
+     when "Casado"
+       field.sub! 'Casado', 'Casada'
+     when "Solteiro"
+       field.sub! 'Solteiro', 'Solteira'
+     when "Divorciado"
+       field.sub! 'Divorciado', 'Divorciada'
+     when "Viúvo"
+       field.sub! 'Viúvo', 'Viúva'
+     when "Brasileiro"
+       field.sub! 'Brasileiro', 'Brasileira'
+     when "Estrangeiro"
+       field.sub! 'Estrangeiro', 'Estrangeira'
+     else
+      "em União Estável"
+     end
+   end
+
+
   def templater(client, document)
     require 'aws-sdk-s3'
     require 'docx'
@@ -117,8 +138,8 @@ class ClientsController < ApplicationController
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
     if @client[:gender] == 2
-      civilstatus = helpers.genderize(@client[:civilstatus])
-      nacionalita = helpers.genderize(@client[:citizenship])
+      civilstatus = genderize(@client[:civilstatus])
+      nacionalita = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
@@ -139,7 +160,7 @@ class ClientsController < ApplicationController
     # ADVOGADOS
     laws = [].join("")
     Lawyer.all.each do | xopo |
-      laws << "#{xopo.name} #{xopo.lastname}, #{xopo.civilstatus}, OAB/PR n #{xopo.oab_number}. ".to_s
+      laws << "#{xopo.name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
     end
 
     # ESCRITORIO
@@ -161,7 +182,7 @@ class ClientsController < ApplicationController
         # CLIENT
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus)
+        tr.substitute('_:estado_civil_', civilstatus.downcase)
         tr.substitute('_:profissao_', @client[:profession].downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
