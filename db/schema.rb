@@ -68,15 +68,6 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
     t.boolean "choice"
   end
 
-  create_table "clients_works", force: :cascade do |t|
-    t.bigint "client_id"
-    t.bigint "work_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["client_id"], name: "index_clients_works_on_client_id"
-    t.index ["work_id"], name: "index_clients_works_on_work_id"
-  end
-
   create_table "emails", force: :cascade do |t|
     t.text "email"
     t.bigint "client_id", null: false
@@ -140,7 +131,7 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string "adress"
+    t.string "address"
     t.date "birth"
     t.integer "capacity"
     t.string "citizenship"
@@ -222,8 +213,6 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
 
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
-  add_foreign_key "clients_works", "clients"
-  add_foreign_key "clients_works", "works"
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients", column: "clients_id"
   add_foreign_key "phones", "clients"

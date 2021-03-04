@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.5'
+ruby '2.6.6'
 
 #   Authentication and Authorization
 gem 'dotenv-rails', groups: [:development, :test]
@@ -20,7 +20,7 @@ gem 's3'
 # FrontEnd
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form'
-gem 'cocoon'
+gem 'cocoon'  
 
 # Docx
 gem 'docx', :require => ["docx"]
