@@ -48,13 +48,7 @@ class WorksController < ApplicationController
      end
    end
 
-  def lip
-    laws = [].join("")
-      Lawyer.all.each do | xopo |
-         laws << "#{xopo.name} #{xopo.lastname}, inscrito na OAB número #{xopo.oab_number}".to_s
-      end
-    return laws
-  end
+  
 
   def work_templater(work, document)
     require 'aws-sdk-s3'
@@ -62,6 +56,7 @@ class WorksController < ApplicationController
     require 'json'
     require 'time'
     require 'rails-i18n'
+
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'],ENV['AWS_SECRET_KEY'])})
     @aws_client = Aws::S3::Client.new
@@ -72,84 +67,73 @@ class WorksController < ApplicationController
 
     # FIELD TREAT -- INICIO --
     # SIMPLE FIELDS
-    client_j = Client.last.as_json
-    nome_completo = "#{client_j[:name]} #{client_j[:lastname]}".upcase
-    nome_cap = "#{client_j[:name]}".upcase
-    sobrenome_cap = "#{client_j[:lastname]}".upcase
-    emailx = client_j.emails.each { |em| em.email }
-
-    # PHONE METHOD ARRAY
-    def phone
-      @client.phones.each { |tl| return tl.phone }
+    client = work.clients.last
+    nome_cap = client.name.upcase
+    sobrenome_cap = client.lastname.upcase
+    nome_completo = "#{nome_cap} #{sobrenome_cap}"
+    
+    emails = [].join("")
+    client.emails.each do | em |
+      emails << "#{em.email}, "
     end
-    phonex = phone
-
-    # EMAIL METHOD ARRAY
-    def mail_check
-      @client.emails.each { |em| return em.email }
+    
+    phones = [].join("")
+    client.phones.each do | tl |
+      phones << "#{tl.phone}, "
     end
-    mailx = "endereço de e-mail: #{mail_check}"
-
+    
     # NUMERO DE BENEFICIO FIELD
-    if @client[:number_benefit].nil?
+    if client.number_benefit.nil?
       nb_exist = ""
     else
-      nb_exist = "número de benefício #{@client[:number_benefit]},"
+      nb_exist = "número de benefício #{client.number_benefit},"
     end
+
+    # TIME - HORARIO
+    dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
-    if @client[:gender] == 2
-      civilstatus = genderize(@client[:civilstatus])
-      nacionalita = genderize(@client[:citizenship])
+    if client.gender == 2
+      civilstatus = genderize.client.civilstatus
+      nacionalita = genderize.client.citizenship
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      civilstatus = @client[:civilstatus]
-      nacionalita = @client[:citizenship]
+      civilstatus = client.civilstatus
+      nacionalita = client.citizenship
       porta = "portador"
       inscrito = "inscrito"
       domiciliado = "domiciliado"
     end
 
-    if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
-      capacity_treated = @client[:capacity]
+    if client.capacity = 'Capaz' || client.capacity = nil
+      capacity_treated = client.capacity
     else
-      capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+      capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-
-
-    # CLIENT
-
-
-    # clientx = {}
-    # def client_fields(work)
-    #   work.id.clients.each do | key, value |
-    #     key << clientx
-    #     value << clientx
-    #   end
-    # end
-    # client_fields(@work)
-
-
-    #nome_cap = "#{@client[:name]}".upcase
-
-    # ESCRITORIOS(Office)
-
-    # PODERES - POWERS
-
-    # TODO: Criar logica para Office empty? e nil?
-    esc = Office.where(id:1).pluck(:name, :oab, :cnpj_number, :address, :city, :state).join(", ")
-    lawyer = Lawyer.find_by_id(@work[:responsible_lawyer])
-    lawyer_completo = "#{lawyer.name} #{lawyer.lastname} #{lawyer.oab_number}"
-    proced = @work[:procedure]
-    rates = helpers.rater(@work[:rate_work], @work[:rate_work_exfield], @work[:rate_percentage_exfield])
-
-    # TIME - HORARIO
-    dia = I18n.l(Time.now, format: "%d de %B de %Y")
-
+    # LAWYERS E SOCIETY 
+    laws = [].join("")
+    Lawyer.all.each.with_index do | xopo, xopi |
+       if xopo.id.to_s.include?("#{work.responsible_lawyer}")
+        next
+      else
+       laws << "#{xopo.name} #{xopo.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
+      end
+    end
+    lawyer_selected = Lawyer.find(@work.responsible_lawyer.to_i)
+    lawyer_complete = "sendo como advogado responsável da sociedade #{lawyer_selected.name.upcase} #{lawyer_selected.lastname.upcase}, inscrito na OAB número #{lawyer_selected.oab_number}, e demais:".to_s
+    
+    # TODO: Criar logica para ver se e o mesmo endereco dos componentes
+    # TODO: Organizar Office aqui - e multiplos offices
+    office_select = Office.find(1)
+    office = "Escritório de advocacia #{office_select.name.upcase}, inscrito na OAB/PR n #{office_select.oab}, e no CNPJ n #{office_select.cnpj_number}"
+    
+    proced = work.procedure.gsub("[", "")
+    # Antigo metodo usado pluck, nao recomendavel 
+    # Office.pluck(:name, :oab, :cnpj_number).join(", ")<< ','
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
@@ -158,24 +142,31 @@ class WorksController < ApplicationController
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
         tr.substitute('_:estado_civil_', civilstatus.downcase)
-        tr.substitute('_:profissao_', client_j['profession'].downcase)
+        tr.substitute('_:profissao_', client.profession.downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
-        tr.substitute('_:rg_', client_j['general_register'])
-        tr.substitute('_:cpf_', (client_j['social_number']).to_s)
+        tr.substitute('_:rg_', client.general_register)
+        tr.substitute('_:cpf_', client.social_number.to_s)
         tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', mailx)
-        tr.substitute('_:endereco_', client_j['address'])
-        tr.substitute('_:cidade_', client_j['city'])
-        tr.substitute('_:state_', client_j['state'])
-        tr.substitute('_:cep_', (client_j['zip']).to_s)
-        tr.substitute('_:empresa_atual_', client_j['company'])
-
-        # tr.substitute('_:society_', esc)
-        # tr.substitute('_:lawyerresponsible_', lawyer_completo)
-        # tr.substitute('_:procedure_', proced)
-        # tr.substitute('_:subject_', @work[:subject])
-        # tr.substitute('_:action_', @work[:action])
+        tr.substitute('_:email_', emails)
+        tr.substitute('_:phone_', phones)
+        tr.substitute('_:endereco_', client.address)
+        tr.substitute('_:cidade_', client.city)
+        tr.substitute('_:state_', client.state)
+        tr.substitute('_:cep_', client.zip.to_s)
+        tr.substitute('_:empresa_atual_', client.company)
+        # LAWYER end Society
+        tr.substitute('_:lawyers_', laws)
+        tr.substitute('_:society_', office)
+        tr.substitute('_:lawyerresponsible_', lawyer_complete)
+        # NO DB FIELDS CONFIG GENDER
+        tr.substitute('_:portador_', porta)
+        tr.substitute('_:inscrito_', inscrito)
+        tr.substitute('_:domiciliado_', domiciliado)
+        # Procedimentos
+        tr.substitute('_:procedure_', work.procedure)
+        tr.substitute('_:subject_', work.subject)
+         tr.substitute('_:action_', work.action)
         # tr.substitute('_:rates_', rates)
         # All Measures Clause -
         tr.substitute('_:timestamp_', dia)

@@ -29,8 +29,8 @@
 # end
 
 
-a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
 b = Lawyer.create(name: "Bruno", lastname: "Pellizzetti", oab_number: "54.159 PR", email: "marcos@pellizzetti.adv.br")
+a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
 b = Lawyer.create(name: "Eduardo", lastname: "Hamilton Walber", oab_number: "106.344 PR", email: "eduardo@pellizzetti.adv.br")
 
 

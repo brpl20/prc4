@@ -15,11 +15,11 @@ module WorksHelper
   end
 
   def options_for_subject
-    work = [["Previdenciário", "Previdenciário"],
+    work = ["Previdenciário", "Previdenciário"],
             ["Cível", "Cível"],
             ["Trabalhista", "Trabalhista"],
             ["Tributáiro", "Tributário"],
-            ["Outros", "Outros"]]
+            ["Outros", "Outros"]
   end
 
   def options_for_action_previdence
@@ -91,8 +91,8 @@ module WorksHelper
             ]
   end
   def options_for_procedure
-    procedure = ["Administrativo", "Administrativo"],
+    procedure = [["Administrativo", "Administrativo"],
                   ["Judicial", "Judicial"],
-                  ["Extrajudicial", "Extrajudicial"]
+                  ["Extrajudicial", "Extrajudicial"]]
   end
 end
