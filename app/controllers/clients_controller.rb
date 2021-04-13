@@ -16,6 +16,7 @@ class ClientsController < ApplicationController
     if @client.save
       if @client[:choice] == true || nil
         templater(@client, 'procuracao_simples')
+        flash[:notice] = "Cliente Criado" 
         redirect_to @client
       elsif @client[:choice] == false
         redirect_to new_work_path(client: @client),
@@ -118,7 +119,10 @@ class ClientsController < ApplicationController
     nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
-    emailx = @client.emails.each { |em| em.email }
+    emails = [].join("")
+    client.emails.each do | em |
+      emails << "#{em.email}, "
+    end
 
     # NUMERO DE BENEFICIO FIELD
     if @client[:number_benefit].nil?
@@ -181,7 +185,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
         tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', mailx)
+        tr.substitute('_:email_', emails)
         tr.substitute('_:endereco_', @client[:address])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])
