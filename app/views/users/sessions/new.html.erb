@@ -1,20 +1,60 @@
-<h2>Autenticação de Usuário</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: false,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-    <%= f.input :password,
-                required: false,
-                input_html: { autocomplete: "current-password" } %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Entrar" %>
-  </div>
+<% if flash %>
+  <% flash.each do |key, value| %>
+    <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= value %>', {
+        type: 'danger', // (null, 'info', 'danger', 'success')
+        align: 'right', // ('left', 'right', or 'center')
+        width: 'auto', // (integer, or 'auto')
+        allow_dismiss: true, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+    <% end %>
+  <% end %>
 <% end %>
 
-<%= render "users/shared/links" %>
+<div class="row row-line justify-content-center distance-top">
+
+  <div class="col-xl-9 col-lg-11 col-md-8">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10 box-login">
+            <div class="p-5">
+
+              <div class="text-center">
+                <%= image_tag 'logo-proc-estudio.png', class:"devise-logo" %>
+                <h2 class="devise-titles">Seja bem-vindo!</h2>
+              </div>
+
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name), class:"user") do |f| %>
+
+                <div class="form-group">
+                  <%= f.email_field :email, autofocus: true, class:"form-control form-ajs form-control-user field-user", placeholder:"joao@silva.com", autocomplete: "email" %>
+
+                  <%= f.password_field :password, class:"form-control form-ajs form-control-user field-user", id:"senha", placeholder:"***",autocomplete: "current-password" %>
+
+                  <% if devise_mapping.rememberable? %>
+                      <div class="custom-control form-ajs field-user">
+                        <%= f.check_box :remember_me, class:"custom-control-input", id:"customCheck" %>
+                        <%= f.label :remember_me, class:"custom-control-label", for:"customCheck" %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                <%= f.submit "Entrar", class:"btn btn-success btn-user btn-block field-user" %>
+              <% end %>
+
+              <%= render "users/shared/links" %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

@@ -1,18 +1,58 @@
-<h2>Forgot your password?</h2>
-
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= f.error_notification %>
-
-  <div class="form-inputs">
-    <%= f.input :email,
-                required: true,
-                autofocus: true,
-                input_html: { autocomplete: "email" } %>
-  </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Enviar instruções de reset de senha" %>
-  </div>
+<% if flash %>
+  <% flash.each do |key, value| %>
+    <%= javascript_tag do %>
+        $.bootstrapGrowl('<%= value %>', {
+        type: 'danger', // (null, 'info', 'danger', 'success')
+        align: 'right', // ('left', 'right', or 'center')
+        width: 'auto', // (integer, or 'auto')
+        allow_dismiss: true, // If true then will display a cross to close the popup.
+        stackup_spacing: 10 // spacing between consecutively stacked growls.
+        });
+    <% end %>
+  <% end %>
 <% end %>
 
-<%= render "users/shared/links" %>
+<div class="row row-line justify-content-center distance-top">
+
+  <div class="col-xl-9 col-lg-11 col-md-8">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10 box-login">
+            <div class="p-5">
+
+              <div class="text-center">
+                <%= image_tag 'logo-proc-estudio.png', class:"devise-logo" %>
+                <h2 class="devise-titles">Esqueci minha senha!</h2>
+              </div>
+
+
+              <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+                <%= f.error_notification %>
+
+                <div class="form-inputs">
+                  <%= f.input :email,
+                              required: true,
+                              autofocus: true,
+                              input_html: { autocomplete: "email" } %>
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit, "Enviar instruções de recuperação de senha", class:"btn btn-success btn-user btn-block field-user" %>
+                </div>
+              <% end %>
+
+              <%= render "users/shared/links" %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+</div>

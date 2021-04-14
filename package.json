@@ -6,6 +6,7 @@
     "@nathanvda/cocoon": "^1.2.14",
     "@rails/webpacker": "5.1.1",
     "bootstrap": "^4.6.0",
+    "bootstrap-growl-ifightcrime": "^1.1.0",
     "datatables.net-bs4": "^1.10.23",
     "fastclick": "1.0.6",
     "font-awesome": "4.6.3",

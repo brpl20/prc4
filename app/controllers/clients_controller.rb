@@ -56,6 +56,10 @@ class ClientsController < ApplicationController
       :secret_access_key => ENV['AWS_SECRET_KEY']
      )
     @client = Client.find(params[:id])
+    # TODO -> Arrumar aqui pq os clientes que nao sao
+    # Consulta Simples nao estao aparecendo no view
+    # Pq nao existe documento gerado
+
     doc_link = @client.documents["document_name"]
     @client.documents[:aws_link]
     @meta = []
@@ -115,18 +119,6 @@ class ClientsController < ApplicationController
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
     emailx = @client.emails.each { |em| em.email }
-
-    # PHONE METHOD ARRAY
-    def phone
-      @client.phones.each { |tl| return tl.phone }
-    end
-    phonex = phone
-
-    # EMAIL METHOD ARRAY
-    def mail_check
-      @client.emails.each { |em| return em.email }
-    end
-    mailx = "endereço de e-mail: #{mail_check}"
 
     # NUMERO DE BENEFICIO FIELD
     if @client[:number_benefit].nil?
@@ -189,7 +181,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:rg_', @client[:general_register])
         tr.substitute('_:cpf_', (@client[:social_number]).to_s)
         tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', mailx)
+        tr.substitute('_:email_', emails)
         tr.substitute('_:endereco_', @client[:address])
         tr.substitute('_:cidade_', @client[:city])
         tr.substitute('_:state_', @client[:state])

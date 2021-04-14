@@ -1,1 +1,49 @@
 @import "bootstrap/scss/bootstrap";
+
+*{
+  font-size: 14px;
+}
+body {
+  min-height: 100%;
+}
+.body {
+  min-height: 100vh;
+}
+.distance-top{
+  margin-top: 5vh;
+}
+#color-back{
+  background-color: rgba(42,63,84,1.0);
+}
+.field-user{
+  margin-top: 1em;
+}
+.btn-user{
+  color: #EEEEEE;
+  font-weight: bold;
+  margin-bottom: 1em;
+}
+.box-login h2{
+  font-size: 2em;
+  color: #222222;
+}
+.devise-link a{
+  text-decoration: none;
+  color: #111;
+}
+.devise-link a:hover{
+  color: rgba(42,63,84,.5);
+}
+a.btn-user{
+  color: #FFF;
+}
+.devise-link{
+  margin-top: .3em;
+}
+.devise-logo{
+  width: 30%;
+}
+.devise-titles{
+  font-family: roboto;
+  font-size: 1.5em;
+}

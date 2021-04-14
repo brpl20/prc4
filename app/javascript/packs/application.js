@@ -22,6 +22,7 @@ require ("@nathanvda/cocoon")
 require('datatables.net-bs4')
 require("jquery-mask-plugin")
 
+
 import $ from 'jquery';
 global.$ = jQuery;
 $.jMaskGlobals.watchDataMask = true;

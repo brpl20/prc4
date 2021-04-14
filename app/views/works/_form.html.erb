@@ -8,7 +8,7 @@
 
     <div class="x_content">
 
-      <%= form_with model:@work do |f| %>
+      <%= form_with model:@work, local: true do |f| %>
 
         <div class="col-md-12">
 
@@ -37,29 +37,7 @@
             <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
           </fieldset>
 
-          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Previdenciário">
-
-            <fieldset class="radio_buttons optional work_subject grid">
-              <legend class="col-form-label pt-0"><b>Previdenciário-Áreas</b></legend>
-
-              <%= f.collection_radio_buttons :action, options_for_action_previdence, :second, :first do |b|
-                b.label { b.radio_button + b.text }
-              end %>
-            </fieldset>
-
-          </div>
-
-          <div class="conditional subject-matter sub col-md-8" data-cond-option="'work[subject]'" data-cond-value="Cível">
-
-            <fieldset class="radio_buttons optional work_subject grid">
-              <legend class="col-form-label"><b>Cível-Áreas</b></legend>
-
-              <%= f.collection_radio_buttons :action, options_for_action_civil, :second, :first do |b|
-                b.label { b.radio_button + b.text }
-              end %>
-            </fieldset>
-
-          </div>
+          <div id="subject-fields" data-action-for-subject="<%= @work.action %>">
 
           </div>
 
@@ -80,35 +58,39 @@
           <div class="col-md-6 grid" id="conds-rates">
             <b><%= f.label "Honorários De Trabalho ou Êxito" %></b>
             <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
-            b.label { b.radio_button + b.text }
+            b.label { b.radio_button(class:"rate-works") + b.text }
             end %>
           </div>
 
-          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
-            <div class="form-group">
-              <b><%= f.label "Valor de Honorários Fixos"%></b>
-              <%= f.text_field :rate_fixed_exfield, class:"form-control"%>
-            </div>
+          <div id="rate-work-fields" data-action-for-rate-work="<%= @work.action %>">
+
           </div>
 
-          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
+          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
             <div class="form-group">
-              <b><%= f.label "Valor de Honorários Percentuais" %></b>
-              <%= f.text_field :rate_percentage_exfield, class:"form-control"%>
+              <b><%#= f.label "Valor de Honorários Fixos"%></b>
+              <%#= f.text_field :rate_fixed_exfield, class:"form-control"%>
             </div>
-          </div>
+          </div> -->
 
-          <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
+          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
+            <div class="form-group">
+              <b><%#= f.label "Valor de Honorários Percentuais" %></b>
+              <%#= f.text_field :rate_percentage_exfield, class:"form-control"%>
+            </div>
+          </div> -->
+
+          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
             <div class="form-group">
 
-              <b><%= f.label "Valor de Honorários Fixos" %></b>
-              <%= f.number_field :rate_fixed_exfield, class:"form-control"%>
+              <b><%#= f.label "Valor de Honorários Fixos" %></b>
+              <%#= f.number_field :rate_fixed_exfield, class:"form-control"%>
 
-              <b><%= f.label "Valor de Honorários Percentuais" %></b>
-              <%= f.number_field :rate_percentage_exfield, class:"form-control"%>
+              <b><%#= f.label "Valor de Honorários Percentuais" %></b>
+              <%#= f.number_field :rate_percentage_exfield, class:"form-control"%>
 
             </div>
-          </div>
+          </div> -->
         </div>
 
         <div class="col-md-12">
@@ -143,7 +125,6 @@
         </div>
         <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
         <%#= TODO f.input :outros_responsavel %>
-
               <%#= TODO f.input :office, disabled: true %>
               <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
               <%#= TODO f.input :outros_responsavel %>
@@ -160,7 +141,6 @@
 
                 <b><%= cw.label "Cliente" %></b>
                 <%= cw.collection_select :client_id, options_for_client, :first, :second, {}, {class:'form-control'} %>
-
               <% end %>
             </div>
 

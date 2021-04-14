@@ -150,6 +150,13 @@ input[type='checkbox']{
 .footer-links a{
   margin: 10px;
 }
+// Datatables
+.table-actions{
+  width: 250px;
+}
+.table-action-content{
+  text-align: center;
+}
 
 @media only screen and (max-width: 600px) {
   div.nav-item {

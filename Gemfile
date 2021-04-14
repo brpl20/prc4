@@ -20,7 +20,7 @@ gem 's3'
 # FrontEnd
 gem 'font-awesome-sass', '~> 5.6.1'
 gem 'simple_form'
-gem 'cocoon'  
+gem 'cocoon'
 
 # Docx
 gem 'docx', :require => ["docx"]
@@ -44,7 +44,7 @@ gem 'extensobr'
 gem "rack", ">= 2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '6.0.3.1'
+gem 'rails', ">= 6.0.3.5"
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
