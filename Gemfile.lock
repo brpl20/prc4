@@ -207,7 +207,10 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.0.3)
+<<<<<<< HEAD
     mini_portile2 (2.5.0)
+=======
+>>>>>>> beed2b21681792ff17dff1e24552d472a6e4b68a
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -215,9 +218,12 @@ GEM
     multipart-post (2.1.1)
     nested_form (0.3.2)
     nio4r (2.5.7)
+<<<<<<< HEAD
     nokogiri (1.11.2)
       mini_portile2 (~> 2.5.0)
       racc (~> 1.4)
+=======
+>>>>>>> beed2b21681792ff17dff1e24552d472a6e4b68a
     nokogiri (1.11.2-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.4)

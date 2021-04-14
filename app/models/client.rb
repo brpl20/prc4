@@ -9,7 +9,7 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
 
   # Retirar NIL
-  NULL_ATTRS = %w( lastname email bank)
+  NULL_ATTRS = %w( lastname email bank emails phones)
   before_save :fill_if_nil
 
   protected
