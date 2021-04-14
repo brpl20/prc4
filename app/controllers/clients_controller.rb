@@ -7,6 +7,7 @@ class ClientsController < ApplicationController
 
   def new
     @client = Client.new
+    @client.build_bank
     @client.phones.build
     @client.emails.build
   end
@@ -29,7 +30,9 @@ class ClientsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    
+  end
 
   # PATCH/PUT /clients/1
   # PATCH/PUT /clients/1.json
@@ -268,6 +271,7 @@ class ClientsController < ApplicationController
       :note,
       :documents,
       :choice,
+      bank_attributes:   [:id, :name, :agency, :account],
       phones_attributes: [:id, :phone, :_destroy],
       emails_attributes: [:id, :email, :_destroy]
       )

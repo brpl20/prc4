@@ -14,7 +14,6 @@ class CreateClients < ActiveRecord::Migration[6.0]
       t.string :number_benefit
       t.string :general_register
       t.string :social_number
-      t.string :email
       t.string :address
       t.string :city
       t.string :state
@@ -22,7 +21,6 @@ class CreateClients < ActiveRecord::Migration[6.0]
       t.string :agency
       t.string :account
       t.string :zip
-      t.string :telephone
       t.json :documents
 
       t.timestamps

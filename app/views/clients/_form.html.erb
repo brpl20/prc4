@@ -162,23 +162,48 @@
 
         <div class="col-md-12">
 
-           <div class="col-md-3">
-             <b><%= f.label "Capacidade" %></b>
-             <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
-             b.label(class:"inline-radio") { b.radio_button + b.text }
-             end %>
-           </div>
+          <div class="col-md-6">
 
-          <div class="col-md-3">
-              <b><%= f.label "Consulta" %></b>
-              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
-              b.label(class:"inline-radio") { b.radio_button + b.text }
-              end %>
+            <div class="col-md-6">
+               <b><%= f.label "Capacidade" %></b>
+               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+               b.label(class:"inline-radio") { b.radio_button + b.text }
+               end %>
+            </div>
+
+            <div class="col-md-6">
+                <b><%= f.label "Consulta" %></b>
+                <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
+                b.label(class:"inline-radio") { b.radio_button + b.text }
+                end %>
+            </div>
+
           </div>
 
+          <div class="col-md-6">
 
+            <%= f.fields_for :bank do |b| %>
 
-        </div>
+              <div class="col-md-4 no-padding">
+                <b><%= f.label "Banco" %></b>
+                <%= b.text_field :name, class:"form-control" %>
+              </div>
+
+              <div class="col-md-4">
+                <b><%= f.label "Agência" %></b>
+                <%= b.text_field :agency, class:"form-control" %>
+              </div>
+
+              <div class="col-md-4 no-padding">
+                <b><%= f.label "Conta" %></b>
+                <%= b.text_field :account, class:"form-control" %>
+              </div>
+
+            <% end %>
+
+          </div>
+
+      </div>
 
         <div class="col-md-12">
 

@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  agency: MyString
+  account: MyString
+  client: one
+
+two:
+  name: MyString
+  agency: MyString
+  account: MyString
+  client: two

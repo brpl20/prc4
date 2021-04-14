@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_28_182308) do
+ActiveRecord::Schema.define(version: 2021_04_14_045654) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,16 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
     t.string "channel"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "banks", force: :cascade do |t|
+    t.string "name"
+    t.string "agency"
+    t.string "account"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_banks_on_client_id"
   end
 
   create_table "client_works", force: :cascade do |t|
@@ -53,7 +63,6 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
     t.string "number_benefit"
     t.string "general_register"
     t.string "social_number"
-    t.string "email"
     t.string "address"
     t.string "city"
     t.string "state"
@@ -61,7 +70,6 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
     t.string "agency"
     t.string "account"
     t.string "zip"
-    t.string "telephone"
     t.json "documents"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -211,6 +219,7 @@ ActiveRecord::Schema.define(version: 2021_02_28_182308) do
     t.string "rate_parceled_exfield"
   end
 
+  add_foreign_key "banks", "clients"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
   add_foreign_key "emails", "clients"

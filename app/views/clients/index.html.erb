@@ -22,7 +22,7 @@
                 <th>Cidade</th>
                 <th>Estado</th>
                 <th>Telefone</th>
-                <th>Ações</th>
+                <th class="table-actions">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -44,7 +44,7 @@
                         <%= p.phone %>
                       <% end %>
                     </td>
-                    <td>
+                    <td class="table-action-content">
 
                       <%= link_to new_work_path(client: c), class:"btn btn-success" do %>
                         <i class="fa fa-gavel"></i>
