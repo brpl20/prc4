@@ -114,6 +114,21 @@ class WorksController < ApplicationController
       capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
+    # RATE - COBRANCAS 
+    if work.rate_percentage?
+      work.rate_percentage = "remuneração variável #{work.rate_percentage_exfield}"
+    else
+      work.rate_fixed ="remuneração fixa #{work.rate_percentage_fixed}"
+    end
+
+      #       :rate_percentage,
+      # :rate_percentage_exfield,
+      # :rate_fixed,
+      # :rate_fixed_exfield,
+      # :rate_work,
+      # :rate_parceled,
+      # :rate_parceled_exfield,
+
     # LAWYERS E SOCIETY
     laws = [].join("")
     Lawyer.all.each.with_index do | xopo, xopi |
@@ -166,8 +181,12 @@ class WorksController < ApplicationController
         # Procedimentos
         tr.substitute('_:procedure_', work.procedure)
         tr.substitute('_:subject_', work.subject)
-         tr.substitute('_:action_', work.action)
-        # tr.substitute('_:rates_', rates)
+        tr.substitute('_:action_', work.action)
+        tr.substitute('_:number_', work.number)
+        tr.substitute('_:powers_', work.power)
+        tr.substitute('_:prev-powers_', "")
+        # Rates - Valores e Cobrancas 
+        tr.substitute('_:rate_', "rate...")
         # All Measures Clause -
         tr.substitute('_:timestamp_', dia)
       end
