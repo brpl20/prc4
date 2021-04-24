@@ -1,4 +1,7 @@
 class Office < ApplicationRecord
+  has_many :work_offices
+  has_many :works, through: :work_offices
+  
   ## Somente Testes - Relevar
 
   def full_account_details(id)

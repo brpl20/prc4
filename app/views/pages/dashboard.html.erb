@@ -77,9 +77,14 @@
                   <%= localize(w.created_at, :format => :long) %>
 
                 </div>
-                <p class="excerpt"> <%= w.procedure %>
-                  <%= link_to "Ver mais.", work_path(w) %>
-                </p>
+
+                <% w.procedures.each do |p| %>
+                  <p class="excerpt">
+                    <%= p.description %>
+                    <%= link_to "Ver mais.", work_path(w) %>
+                  </p>
+                <% end %>
+                
               </div>
             </div>
           </li>

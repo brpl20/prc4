@@ -1,16 +1,21 @@
 Rails.application.routes.draw do
-  resources :people
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  resources :lawyers
+
   get 'pages/index'
   get 'pages/dashboard'
   get 'pages/help'
   get 'pages/plans'
+  get 'profile', to: 'user_profile#edit'
+  patch 'profile', to: 'user_profile#update'
+
   root to: "pages#dashboard"
+
+  devise_for :users
   resources :jobs
   resources :works
-  devise_for :users
   resources :clients
+  resources :people
+  resources :lawyers
   #do get 'receipt' end
   resources :offices
   resources :attendances

@@ -223,7 +223,7 @@ class WorksController < ApplicationController
   private
 
   def set_work
-    @work = Work.find(params[:id])
+    @work = Work.includes(:work_offices, :offices, :clients, :client_works).find(params[:id])
   end
 
   def amazon_client
@@ -260,11 +260,12 @@ class WorksController < ApplicationController
       :lawyer_id,
       :note,
       :document_pendent,
-      checklist: [],
-      checklist_document: [],
-      power: [],
-      procedure: [],
-      client_works_attributes: [:id, :client_id]
+      checklist_document_ids: [],
+      checklist_ids: [],
+      power_ids: [],
+      procedure_ids: [],
+      client_works_attributes: [:id, :client_id],
+      work_offices_attributes: [:id, :office_id]
       )
   end
 

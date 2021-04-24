@@ -60,39 +60,18 @@ module WorksHelper
   end
 
   def options_for_check_boxes
-    check_boxes = [
-                ["Ad Judicia", "Ad Judicia"],
-                ["Citacao", "Citacao"],
-                ["Desistir do pedido", "Desistir do Pedido"],
-                ["Firmar e Declarar Imposto de Renda e Isenções", "Firmar e Declarar Imposto de Renda e Isenções"],
-                ["Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico", "Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico"],
-                ["Mais...", "Mais..."]
-              ]
+    Power.all
   end
 
   def options_for_checklist
-    checklist = [
-                  ["Procuracão", "Procuracão"],
-                  ["Termo de Renúncia", "Termo de Renúncia"],
-                  ["Declaração de Carência", "Declaração de Carência"],
-                  ["Termo de Residência", "Termo de Residência"],
-                  ["Declaração Rural", "Declaração Rural"]
-                ]
+    Checklist.all
   end
 
   def options_for_checklist_document
-    checklist_document = [
-              ["Documento de Identidade", "Documento de Identidade"],
-              ["Comprovante de Residência", "Comprovante de Residência"],
-              ["Senha do Meu INSS", "Senha do Meu INSS"],
-              ["Documentos Médicos", "Documentos Médicos"],
-              ["Documentos Rurais", "Documentos Rurais"],
-              ["Cópia de Requerimento(s)", "Cópia de Requerimento(s)"]
-            ]
+    ChecklistDocument.all
   end
+  
   def options_for_procedure
-    procedure = [["Administrativo", "Administrativo"],
-                  ["Judicial", "Judicial"],
-                  ["Extrajudicial", "Extrajudicial"]]
+    Procedure.all
   end
 end
