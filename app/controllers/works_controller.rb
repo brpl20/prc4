@@ -228,6 +228,12 @@ class WorksController < ApplicationController
     # Aqui era para um array de documentos que tem no Client
     work.save
     obj.upload_file(ch_file, metadata: metadata)
+    if work.checklist.include?("Termo")
+
+    if work.checklist.include?("Declaração")
+
+    if work.checklist.include?("")
+
   end
 
   # GET /works/1/edit

@@ -4,21 +4,6 @@ module WorksHelper
     Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
   end
 
-  def rater(rate, trabalho, exito)
-    if trabalho < 100
-      trabalho = "#{trabalho} benefícios previdenciários"
-    else
-      trabalho = "R$ #{trabalho}"
-    end
-    if rate == "Trabalho"
-      return "o cliente pagará ao advogado o valor de #{trabalho}"
-    elsif rate == "Êxito"
-       return "o cliente pagará ao advogado o valor de #{exito}\% sobre os benefícios advindos do processo"
-     else
-      return "o cliente pagará ao advogado o valor de #{trabalho} e o total de #{exito}\% dos benefícios advindos do processo"
-    end
-  end
-
   def options_for_subject
     work = ["Previdenciário", "Previdenciário"],
             ["Cível", "Cível"],
