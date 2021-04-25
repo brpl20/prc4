@@ -16,7 +16,6 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.string :recommendation_comission
       t.string :folder
       t.string :initial_atendee
-      t.string :responsible_lawyer
       t.string :procuration_lawyer
       t.string :procuration_intern
       t.string :procuration_paralegal
@@ -25,6 +24,7 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.string :checklist
       t.string :checklist_document
       t.string :document_pendent
+      t.references :user, null: false, foreign_key: true      
 
       t.timestamps
     end

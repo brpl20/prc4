@@ -137,8 +137,8 @@
 
           <div class="col-md-6">
             <b><%= f.label "Advogado Responsável" %></b>
-            <%= f.collection_select :responsible_lawyer, Lawyer.order(:name), :id, :name, {}, {class:"form-control"} %>
-          </div> 
+            <%= f.collection_select :user_id, User.all, :id, :email, {}, {class:"form-control"} %>
+          </div>
 
         </div>
 

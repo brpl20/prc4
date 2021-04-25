@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   get 'pages/dashboard'
   get 'pages/help'
   get 'pages/plans'
-  get 'profile', to: 'user_profile#edit'
-  patch 'profile', to: 'user_profile#update'
 
   root to: "pages#dashboard"
 
@@ -16,6 +14,7 @@ Rails.application.routes.draw do
   resources :clients
   resources :people
   resources :lawyers
+  resources :user_profile, as: 'profile'
   #do get 'receipt' end
   resources :offices
   resources :attendances

@@ -1,0 +1,13 @@
+<div class="col-md-12 col-sm-12 ">
+	<div class="x_panel">
+
+		<div class="x_content">
+
+      <%= form_with url: profile_index_path,  model: @user, local: true, class:"form-horizontal form-label-left" do |form| %>
+
+					<%= render partial: "user_profile/shared/form", locals: {form:form} %>
+
+			<% end %>
+		</div>
+	</div>
+</div>

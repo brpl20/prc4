@@ -1,0 +1,26 @@
+<div class="col-md-12 col-sm-12 ">
+	<div class="x_panel">
+
+		<div class="x_content">
+
+			<% if @user.errors.any? %>
+				<div class="alert alert-danger alert-dismissable">
+					<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+
+					<ul>
+						<% @user.errors.full_messages.each do |message| %>
+							<li> <%= message %> </li>
+						<% end %>
+					</ul>
+					
+				</div>
+			<% end %>
+
+      <%= form_with url: profile_path,  model: @user, local: true, class:"form-horizontal form-label-left" do |form| %>
+
+				<%= render partial: "user_profile/shared/form", locals: {form:form} %>
+
+			<% end %>
+		</div>
+	</div>
+</div>
