@@ -8,7 +8,7 @@
 
     <div class="x_content">
 
-      <%= form_with model: @office do |f| %>
+      <%= form_with model: @office, local: true do |f| %>
 
         <div class="col-md-12">
 
@@ -28,7 +28,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "CNPJ" %></b>
-            <%= f.text_field :cnpj_number, class:"form-control" %>
+            <%= f.text_field :cnpj_number, class:"form-control",'data-mask': '00.000.000/0000-00', placeholder:"00.000.000/0000-00" %>
           </div>
 
           <div class="col-md-6">
@@ -70,7 +70,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "CEP" %></b>
-            <%= f.text_field :zip, class:"form-control" %>
+            <%= f.text_field :zip, class:"form-control",'data-mask': '00.000-000', placeholder:"00.000-000" %>
           </div>
 
           <div class="col-md-6">
@@ -84,7 +84,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Telefone" %></b>
-            <%= f.text_field :telephone, class:"form-control" %>
+            <%= f.text_field :telephone, class:"form-control",'data-mask': '(00) 0 0000-0000', placeholder:"(00) 0 0000-0000" %>
           </div>
 
           <div class="col-md-6">

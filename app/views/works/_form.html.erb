@@ -14,7 +14,7 @@
 
           <div class="col-md-4 grid">
             <b><%= f.label "Procedimento" %></b>
-            <%= f.collection_check_boxes :procedure, options_for_procedure, :second, :first do |cb|
+            <%= f.collection_check_boxes :procedure_ids, options_for_procedure, :id, :description do |cb|
               cb.label { cb.check_box + cb.text }
             end %>
           </div>
@@ -56,41 +56,19 @@
         <div class="col-md-12">
 
           <div class="col-md-6 grid" id="conds-rates">
-            <b><%= f.label "Honorários De Trabalho ou Êxito" %></b>
+
+            <label id="label-rate-work" for="work_Honorários De Trabalho ou Êxito" data-exfield="<%= @work.rate_fixed_exfield %>" data-percentage="<%= @work.rate_percentage_exfield %>" ><b>Honorários De Trabalho ou Êxito</b></label>
+
             <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
-            b.label { b.radio_button(class:"rate-works") + b.text }
+            b.label { b.radio_button(class:"rate-works ") + b.text }
             end %>
+
           </div>
 
           <div id="rate-work-fields" data-action-for-rate-work="<%= @work.action %>">
 
           </div>
 
-          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Trabalho">
-            <div class="form-group">
-              <b><%#= f.label "Valor de Honorários Fixos"%></b>
-              <%#= f.text_field :rate_fixed_exfield, class:"form-control"%>
-            </div>
-          </div> -->
-
-          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Êxito">
-            <div class="form-group">
-              <b><%#= f.label "Valor de Honorários Percentuais" %></b>
-              <%#= f.text_field :rate_percentage_exfield, class:"form-control"%>
-            </div>
-          </div> -->
-
-          <!-- <div class="conditional col-md-6" data-cond-option="'work[rate_work]'" data-cond-value="Ambos">
-            <div class="form-group">
-
-              <b><%#= f.label "Valor de Honorários Fixos" %></b>
-              <%#= f.number_field :rate_fixed_exfield, class:"form-control"%>
-
-              <b><%#= f.label "Valor de Honorários Percentuais" %></b>
-              <%#= f.number_field :rate_percentage_exfield, class:"form-control"%>
-
-            </div>
-          </div> -->
         </div>
 
         <div class="col-md-12">
@@ -103,8 +81,8 @@
           </div>
 
           <div class="grid col-md-6" id="conds-rates">
-            <%= f.collection_check_boxes :power, options_for_check_boxes, :second, :first do |cb|
-              cb.label { cb.check_box(class:"power-checked") + cb.text }
+            <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+              cb.label { cb.check_box + cb.text }
             end %>
           </div>
 
@@ -113,8 +91,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
+
             <b><%= f.label "Escritório ou Escritórios Associados" %></b>
-            <%#= f.collection_select :office, Office.order(:name), :id, :name, {}, {class:'form-control'} %>
+            <%= f.fields_for :work_offices do |wo| %>
+              <%= wo.collection_select(:office_id, options_for_office, :id, :name, {}, {class:'form-control'}) %>
+            <% end %>
+
           </div>
 
           <div class="col-md-6">
@@ -156,7 +138,7 @@
           <div class="col-md-6">
             <b><%= f.label "Advogado Responsável" %></b>
             <%= f.collection_select :responsible_lawyer, Lawyer.order(:name), :id, :name, {}, {class:"form-control"} %>
-          </div>
+          </div> 
 
         </div>
 
@@ -164,14 +146,14 @@
 
           <div class="col-md-6 grid">
             <b><%= f.label "Documentos a serem produzidos * Não está funcionando ainda" %></b>
-            <%= f.collection_check_boxes :checklist, options_for_checklist, :second, :first do |cl|
+            <%= f.collection_check_boxes :checklist_ids, options_for_checklist, :id, :description do |cl|
               cl.label { cl.check_box + cl.text }
             end %>
           </div>
 
           <div class="col-md-6 grid">
             <b><%= f.label "Documentos Pendentes" %></b>
-            <%= f.collection_check_boxes :checklist_document, options_for_checklist_document, :second, :first do |cl|
+            <%= f.collection_check_boxes :checklist_document_ids, options_for_checklist_document, :id, :description do |cl|
               cl.label { cl.check_box + cl.text }
             end %>
           </div>
@@ -182,14 +164,14 @@
 
           <div class="col-md-6">
             <b><%= f.label "Estagiários da Procuração" %></b>
-            <%#= f.collection_select :procuration_intern, Person.order(:first_name), :id, :first_name, {}, {class:"form-control"} %>
+            <%= f.collection_select :procuration_intern, Person.order(:first_name), :id, :first_name, {}, {class:"form-control"} %>
 
 
           </div>
 
           <div class="col-md-6">
             <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
-            <%#= f.text_field :procuration_paralegal, class:"form-control" %>
+            <%= f.text_field :procuration_paralegal, class:"form-control" %>
           </div>
 
         </div>
@@ -215,16 +197,6 @@
             <%= f.text_area(:note, rows: 5, class:"form-control") %>
           </div>
         </div>
-
-        <div class="form-group">
-          <span>
-            TESTE: <p>
-
-            </p>
-            FIM TESTE
-          </span>
-        </div>
-
 
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary pull-right">Criar Trabalho</button>

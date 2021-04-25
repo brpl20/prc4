@@ -1,18 +1,27 @@
 default: &default
   adapter: postgresql
   encoding: unicode
+
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: prc4_development
+  username: rails_dev
+  password: postgres
+  host: localhost
+  port: 5432
 
 test:
   <<: *default
   database: prc4_test
+  host: localhost
+  port: 5432
+  username: rails_dev
+  password: postgres
 
 production:
   <<: *default
   database: prc4_production
   username: prc4
-  password: <%= ENV['PRC4_DATABASE_PASSWORD'] %>
+  password: <%= ENV['MYAPP_DATABASE_PASSWORD'] %>

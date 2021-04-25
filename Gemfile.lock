@@ -153,6 +153,8 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
+    enumerize (2.4.0)
+      activesupport (>= 3.2)
     erubi (1.10.0)
     execjs (2.7.0)
     extensobr (1.0.0)
@@ -211,6 +213,7 @@ GEM
     marcel (1.0.1)
     method_source (1.0.0)
     mini_mime (1.0.3)
+    mini_portile2 (2.5.0)
     minitest (5.14.4)
     msgpack (1.4.2)
     multi_json (1.15.0)
@@ -218,6 +221,12 @@ GEM
     multipart-post (2.1.1)
     nested_form (0.3.2)
     nio4r (2.5.7)
+    nokogiri (1.11.2)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
+    nokogiri (1.11.2-x86_64-linux)
+      racc (~> 1.4)
+    oauth2 (1.4.4)
     nokogiri (1.11.3-x86_64-linux)
       racc (~> 1.4)
     oauth2 (1.4.7)
@@ -398,6 +407,7 @@ DEPENDENCIES
   devise-bootstrap-views (~> 1.0)
   docx
   dotenv-rails
+  enumerize
   extensobr
   faker!
   font-awesome-sass (~> 5.6.1)

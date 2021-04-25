@@ -28,7 +28,7 @@ class OfficesController < ApplicationController
 
     respond_to do |format|
       if @office.save
-        format.html { redirect_to @office, notice: 'Office was successfully created.' }
+        format.html { redirect_to @office, notice: 'Escritório criado com sucesso!' }
         format.json { render :show, status: :created, location: @office }
       else
         format.html { render :new }

@@ -11,7 +11,9 @@
 
 <p>
   <strong>Tipo:</strong>
-  <%= @work.procedure %>
+  <% @work.procedures.each do |p| %>
+    <%= p.description %>
+  <% end %>
 </p>
 
 <p>
@@ -61,12 +63,16 @@
 
 <p>
   <strong>Escritorio:</strong>
-  <spam>  <%= Office.find_by_id(1).name %> </spam>
+  <% @work.offices.each do |o| %>
+    <%= o.name %>
+  <% end %>
 </p>
 
 <p>
   <strong>Poderes:</strong>
-  <%= @work.power %>
+  <% @work.powers.each do |pw| %>
+    <%= pw.description %>
+  <% end %>
 </p>
 
 <p>
@@ -121,12 +127,16 @@
 
 <p>
   <strong>Checklist:</strong>
-  <%= @work.checklist %>
+  <% @work.checklists.each do |ck| %>
+    <%= ck.description %>
+  <% end %>
 </p>
 
 <p>
   <strong>Checklist documentos:</strong>
-  <%= @work.checklist_document %>
+  <% @work.checklist_documents.each do |cd| %>
+    <%= cd.description %>
+  <% end %>
 </p>
 
 <p>

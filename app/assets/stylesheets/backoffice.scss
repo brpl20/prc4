@@ -6,7 +6,7 @@
 *= require custom
 */
 *{
-  font-size: 14px;
+  font-size: 15px;
 }
 body {
   min-height: 100%;
@@ -85,17 +85,21 @@ textarea{
 }
 #navbar, .site_title{
   height: 100px;
+  text-align: center;
 }
 #title-logo{
   float: right;
-  width: 160px;
+  width: 100%;
   line-height: initial;
   text-align: left;
   padding: 5px 0;
-  font-size: 1.2em;
+  font-size: 1em;
 }
 .main_menu_side h3{
   text-shadow: none;
+}
+ul.side-menu li:hover{
+  background-color: rgba(115,135,156,1);
 }
 .text-right{
   text-align: right;
@@ -156,6 +160,9 @@ input[type='checkbox']{
 }
 .table-action-content{
   text-align: center;
+}
+span.section{
+  color: #73879C;
 }
 
 @media only screen and (max-width: 600px) {

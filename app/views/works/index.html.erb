@@ -34,7 +34,11 @@
                         <%= c.name %>
                       <% end %>
                     </td>
-                    <td><%= w.procedure %></td>
+                    <td>
+                      <% w.procedures.each do |p| %>
+                        <%= p.description %>
+                      <% end %>
+                    </td>
                     <td><%= w.subject %></td>
                     <td><%= w.action %></td>
                     <td><%= w.number %></td>
