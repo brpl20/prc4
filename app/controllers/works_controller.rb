@@ -115,6 +115,33 @@ class WorksController < ApplicationController
       capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
+    # RATE - COBRANCAS 
+    # VER RATER 
+    def rater(rate, trabalho, exito)
+      if trabalho.to_i < 100
+        trabalho = "#{trabalho} benefícios previdenciários"
+      else
+        trabalho = "R$ #{trabalho},00 (#{Extenso.moeda(trabalho.to_f).downcase})"
+      end
+      if rate == "Trabalho"
+        return "o cliente pagará ao advogado o valor de #{trabalho}"
+      elsif rate == "Êxito"
+         return "o cliente pagará ao advogado o valor de #{exito}\% sobre os benefícios advindos do processo"
+       else
+        return "o cliente pagará ao advogado o valor de #{trabalho} e o total de #{exito}\% dos benefícios advindos do processo"
+      end
+    end
+
+    rate_final = rater(work.rate_work, work.rate_fixed_exfield, work.rate_percentage_exfield)
+
+      # :rate_percentage,
+      # :rate_percentage_exfield,
+      # :rate_fixed,
+      # :rate_fixed_exfield,
+      # :rate_work,
+      # :rate_parceled,
+      # :rate_parceled_exfield,
+
     # LAWYERS E SOCIETY
     laws = [].join("")
     User.all.each.with_index do | xopo, xopi |
@@ -131,7 +158,7 @@ class WorksController < ApplicationController
     # TODO: Organizar Office aqui - e multiplos offices
     office_select = Office.find(1)
     office = "Escritório de advocacia #{office_select.name.upcase}, inscrito na OAB/PR n #{office_select.oab}, e no CNPJ n #{office_select.cnpj_number}"
-
+    office_bank = "Banco #{office_select.bank} Agência #{office_select.agency}, Conta #{office_select.account}"
     proced = work.procedure.gsub("[", "")
     # Antigo metodo usado pluck, nao recomendavel
     # Office.pluck(:name, :oab, :cnpj_number).join(", ")<< ','
@@ -167,10 +194,16 @@ class WorksController < ApplicationController
         # Procedimentos
         tr.substitute('_:procedure_', work.procedure)
         tr.substitute('_:subject_', work.subject)
-         tr.substitute('_:action_', work.action)
-        # tr.substitute('_:rates_', rates)
-        # All Measures Clause -
+        tr.substitute('_:action_', work.action)
+        tr.substitute('_:number_', work.number)
+        tr.substitute('_:powers_', work.power)
+        tr.substitute('_:prev-powers_', "")
+        # Rates - Valores e Cobrancas 
+        tr.substitute('_:rates_', rate_final)
+        tr.substitute('_:accountdetails_', office_bank)
+        # All Measures Clause - True or False
         tr.substitute('_:timestamp_', dia)
+        tr.substitute('_:sname_', office_select.name)
       end
     end
     bucket = 'prcstudio3herokubucket'
@@ -196,6 +229,12 @@ class WorksController < ApplicationController
     # Aqui era para um array de documentos que tem no Client
     work.save
     obj.upload_file(ch_file, metadata: metadata)
+    if work.checklist.include?("Termo")
+
+    if work.checklist.include?("Declaração")
+
+    if work.checklist.include?("")
+
   end
 
   # GET /works/1/edit

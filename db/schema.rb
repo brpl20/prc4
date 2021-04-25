@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_035545) do
     t.string "number_benefit"
     t.string "general_register"
     t.string "social_number"
+    t.string "email"
     t.string "address"
     t.string "city"
     t.string "state"
@@ -81,6 +82,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_035545) do
     t.string "agency"
     t.string "account"
     t.string "zip"
+    t.string "telephone"
     t.json "documents"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
