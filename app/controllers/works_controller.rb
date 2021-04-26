@@ -56,6 +56,7 @@ class WorksController < ApplicationController
     require 'json'
     require 'time'
     require 'rails-i18n'
+    require 'pdf_forms'
 
     # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'],ENV['AWS_SECRET_KEY'])})
@@ -206,7 +207,7 @@ class WorksController < ApplicationController
       end
     end
     bucket = 'prcstudio3herokubucket'
-    nome_correto = Client.last[:name].downcase.gsub(/\s+/, "")
+    nome_correto = client.name.downcase.gsub(/\s+/, "")
     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)
     ch_file = "tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx"
     obj = @s3.bucket(bucket).object(ch_file)
@@ -219,21 +220,80 @@ class WorksController < ApplicationController
                 :document_key => ch_file,
                 :document_name => "wdocs-#{@work[:id]}.docx",
                 :work_id => "#{@work.id}",
-                :"user_id" => "#{current_user.id}",
+                :user_id => "#{current_user.id}",
                 :document_type => document.to_s,
                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
-                :user => "#{current_user.id}"
+                :user => "#{current_user.email}"
                  }
     #work.documents = metadata ---
     # Aqui era para um array de documentos que tem no Client
     work.save
     obj.upload_file(ch_file, metadata: metadata)
+    
     if work.checklist.include?("Termo")
+    aws_doc_tje = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/tje.docx")
+    aws_body_tje = aws_doc_tje.body
+    doc_tje = Docx::Document.open(aws_body_tje)
+    doc_tje.paragraphs.each do |p|
+      p.each_text_run do |tr|
+        tr.substitute('_:nome_', nome_cap)
+        tr.substitute('_:sobrenome_', sobrenome_cap)
+        tr.substitute('_:estado_civil_', civilstatus.downcase)
+        tr.substitute('_:profissao_', client.profession.downcase)
+        tr.substitute('_:capacidade_', capacity_treated.downcase)
+        tr.substitute('_:nacionalidade_', nacionalita.downcase)
+        tr.substitute('_:rg_', client.general_register)
+        tr.substitute('_:cpf_', client.social_number.to_s)
+        tr.substitute('_:nb_', nb_exist)
+        tr.substitute('_:email_', emails)
+        tr.substitute('_:phone_', phones)
+        tr.substitute('_:timestamp_', dia)
+        tr.substitute('_:sname_', office_select.name)
+      end
+    end
+    ch_save_tje = doc_tje.save(Rails.root.join("tmp/tje-#{nome_correto}_#{@work[:id]}.docx").to_s)
+    ch_file_tje = "tmp/tje-#{nome_correto}_#{@work[:id]}.docx"
+    obj_tje = @s3.bucket(bucket).object(ch_file_tje)
+    obj_tje.upload_file(ch_file_tje)
 
-    if work.checklist.include?("Declaração")
+    end
+    
+    # if work.checklist.include?("Declaração")
+    # end
 
-    if work.checklist.include?("")
+     if work.checklist.include?("Rural")
+       bucket = 'prcstudio3herokubucket'
+       aws_pdf = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/aser1.pdf")
+       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.adress, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => "", "Caixa de texto 3_2" => client.nickname (nao existe), "Caixa de texto 8_3" => client.expedicao (nao existe) # /V (@exp)
+       puts fdf.aws_pdf
+       # write fdf file
+       fdf.save_to 'file.fdf'
+     end
 
+      #           nome_correto = client.name.downcase.gsub(/\s+/, "")
+      #     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)
+      #     ch_file = "tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx"
+      #     obj = @s3.bucket(bucket).object(ch_file)
+      #     #backup
+      #       #ch_save = doc.save(Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+      #       #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
+      #       #obj = @s3.bucket(bucket).object(ch_file)
+      #     #backup
+      #     metadata = {
+      #                 :document_key => ch_file,
+      #                 :document_name => "wdocs-#{@work[:id]}.docx",
+      #                 :work_id => "#{@work.id}",
+      #                 :user_id => "#{current_user.id}",
+      #                 :document_type => document.to_s,
+      #                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
+      #                 :user => "#{current_user.email}"
+      #                  }
+      #     #work.documents = metadata ---
+      #     # Aqui era para um array de documentos que tem no Client
+      #     work.save
+      #     obj.upload_file(ch_file, metadata: metadata)
+      #     end
+      # end
   end
 
   # GET /works/1/edit
