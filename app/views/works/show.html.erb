@@ -97,7 +97,7 @@
 
 <p>
   <strong>Advogado responsavel:</strong>
-  <%= @work.responsible_lawyer %>
+  <%= @work.user.user_profile.full_name %>
 </p>
 
 <p>
@@ -144,11 +144,6 @@
   <%= @work.document_pendent %>
 </p>
 
-<p>
-  <strong>Documentos pendentes:</strong>
-  <%= @work = Work.where(client_id: 1) %>
-
-</p>
 
 <%= link_to 'Edit', edit_work_path(@work) %> |
 <%= link_to 'Back', works_path %>

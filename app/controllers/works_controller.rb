@@ -8,6 +8,7 @@ class WorksController < ApplicationController
   def new
     @work = Work.new
     @work.client_works.build
+    @work.work_offices.build
     if params[:client]
       @client = Client.find(params[:client])
     end
@@ -144,11 +145,11 @@ class WorksController < ApplicationController
 
     # LAWYERS E SOCIETY
     laws = [].join("")
-    Lawyer.all.each.with_index do | xopo, xopi |
-       if xopo.id.to_s.include?("#{work.responsible_lawyer}")
+    User.all.each.with_index do | xopo, xopi |
+       if xopo.id.to_s.include?("#{work.user}")
         next
       else
-       laws << "#{xopo.name} #{xopo.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
+       laws << "#{xopo.user_profile.name} #{xopo.user_profile.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
       end
     end
     lawyer_selected = Lawyer.find(@work.responsible_lawyer.to_i)
@@ -351,7 +352,7 @@ class WorksController < ApplicationController
       :recommendation_comission,
       :folder,
       :initial_atendee,
-      :responsible_lawyer,
+      :user_id,
       :procuration_lawyer,
       :procuration_intern,
       :procuration_paralegal,

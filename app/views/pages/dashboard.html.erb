@@ -66,7 +66,7 @@
 
               <div class="tags">
                 <a href="" class="tag">
-                  <span><%= Lawyer.find(w.responsible_lawyer).name %> </span>
+                  <span><%= w.user.user_profile.full_name %> </span>
                 </a>
               </div>
 
@@ -84,7 +84,7 @@
                     <%= link_to "Ver mais.", work_path(w) %>
                   </p>
                 <% end %>
-                
+
               </div>
             </div>
           </li>

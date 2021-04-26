@@ -1,0 +1,228 @@
+<%= form.fields_for :user_profile do |f| %>
+
+	<span class="section">Dados Pessoais</span>
+
+	<div class="item form-group">
+		<%= f.label "Nome", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :name, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Sobrenome", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :lastname, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Gênero", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b|
+			b.label(class:"inline-radio") { b.radio_button + b.text }
+			end %>
+		</div>
+
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "RG", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :general_register, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "CPF", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :social_number, class:'form-control', 'data-mask': '000.000.000-00', placeholder:"000.000.000-00" %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Nacionalidade", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :citizenship, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Estado Civil", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.collection_radio_buttons :civilstatus, options_for_civilstatus, :second, :first do |b|
+			b.label(class:"inline-radio") { b.radio_button + b.text }
+			end %>
+		</div>
+
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Data de Nascimento", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.date_field :birth, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Nome da Mãe", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :mothername, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "OAB", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :oab, class:'form-control' %>
+		</div>
+	</div>
+
+	<span class="section">Endereço</span>
+
+	<div class="item form-group">
+		<%= f.label "Endereço", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :address, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Cidade", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :city, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Estado", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :state, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "CEP", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :zip, class:'form-control','data-mask': '00.000-00', placeholder:"00.000-00" %>
+		</div>
+	</div>
+
+	<span class="section">Contato</span>
+
+	<div class="item form-group">
+		<%= f.label "Telefone", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :phone, class:'form-control','data-mask': '(00) 00000-0000', placeholder:"(00)0 0000-0000" %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "E-mail", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :email, class:'form-control' %>
+		</div>
+	</div>
+
+	<span class="section">Dados Bancários</span>
+
+	<div class="item form-group">
+		<%= f.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :bank, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Agência", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :agency, class:'form-control' %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Conta", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :account, class:'form-control' %>
+		</div>
+	</div>
+
+	<span class="section">Dados Gerais</span>
+
+	<div class="item form-group">
+		<%= f.label "Status", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.collection_radio_buttons :status, options_for_status, :second, :first do |b|
+			b.label(class:"inline-radio") { b.radio_button + b.text }
+			end %>
+		</div>
+
+	</div>
+
+	<div class="item form-group">
+		<%= f.label "Origin", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :origin, class:'form-control' %>
+		</div>
+	</div>
+
+<% end %>
+
+<div class="item form-group">
+	<%= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+	<div class="col-md-6 col-sm-6 ">
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :lawyer_role, checked_value: true, unchecked_value: false %>
+			<%= form.label "Advogado", for:"user_lawyer_role" %>
+		</div>
+
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :paralegal_role, checked_value: true, unchecked_value: false %>
+			<%= form.label "Paraegal", for:"user_paralegal_role" %>
+		</div>
+
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :intern_role, checked_value: true, unchecked_value: false %>
+			<%= form.label "Estagiário", for:"user_intern_role" %>
+		</div>
+
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :secretary_role, checked_value: true, unchecked_value: false %>
+			<%= form.label "Secretária", for:"user_secretary_role" %>
+		</div>
+	</div>
+
+</div>
+
+<span class="section">Acesso ao Sistema</span>
+
+<div class="item form-group">
+	<%= form.label :email, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+	<div class="col-md-6 col-sm-6 ">
+		<%= form.text_field :email, class:'form-control' %>
+	</div>
+</div>
+
+<div class="item form-group">
+	<%= form.label :password, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+	<div class="col-md-6 col-sm-6 ">
+		<%= form.password_field :password, class:'form-control' %>
+	</div>
+</div>
+
+<div class="item form-group">
+	<%= form.label :password_confirmation, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+	<div class="col-md-6 col-sm-6 ">
+		<%= form.password_field :password_confirmation, class:'form-control' %>
+	</div>
+</div>
+
+<div class="item form-group">
+	<div class="col-md-6 col-sm-6 offset-md-3">
+		<button type="submit" class="btn btn-success">Submit</button>
+	</div>
+</div>
