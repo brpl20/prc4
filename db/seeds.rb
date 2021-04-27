@@ -130,3 +130,28 @@ Person.find_or_create_by!(
   lastname: "Cristina Hoffmann Pereira",
   life: 1
 )
+
+Client.create!(
+  gender: 1,
+  name: "Bruno",
+  lastname: "Pellizzetti",
+  citizenship: "Brasileiro",
+  civilstatus: "1",
+  capacity: "Capaz",
+  profession: "Advogado",
+  company: "Lzt Advocacia",
+  birth: Wed, 01 Jan 1986,
+  mothername: "Ivete Goinski Pellizzetti",
+  number_benefit: "",
+  general_register: "7059987-2",
+  social_number: "058.802.539-96",
+  address: "Rua Alexandre de Gusmão, 712",
+  city: "Cascavel",
+  state: "Paraná",
+  bank: "[Campo Vazio]",
+  agency: nil,
+  account: nil,
+  zip: "85.819-530",
+  documents: nil,
+)
+

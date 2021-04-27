@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_14_045654) do
+ActiveRecord::Schema.define(version: 2021_04_20_035545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,32 @@ ActiveRecord::Schema.define(version: 2021_04_14_045654) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["client_id"], name: "index_banks_on_client_id"
+  end
+
+  create_table "checklist_documents", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "checklist_documents_works", id: false, force: :cascade do |t|
+    t.bigint "checklist_document_id", null: false
+    t.bigint "work_id", null: false
+    t.index ["checklist_document_id"], name: "index_checklist_documents_works_on_checklist_document_id"
+    t.index ["work_id"], name: "index_checklist_documents_works_on_work_id"
+  end
+
+  create_table "checklists", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "checklists_works", id: false, force: :cascade do |t|
+    t.bigint "checklist_id", null: false
+    t.bigint "work_id", null: false
+    t.index ["checklist_id"], name: "index_checklists_works_on_checklist_id"
+    t.index ["work_id"], name: "index_checklists_works_on_work_id"
   end
 
   create_table "client_works", force: :cascade do |t|
@@ -204,8 +230,16 @@ ActiveRecord::Schema.define(version: 2021_04_14_045654) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "work_offices", force: :cascade do |t|
+    t.bigint "work_id", null: false
+    t.bigint "office_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["office_id"], name: "index_work_offices_on_office_id"
+    t.index ["work_id"], name: "index_work_offices_on_work_id"
+  end
+
   create_table "works", force: :cascade do |t|
-    t.string "procedure"
     t.string "subject"
     t.string "action"
     t.string "number"

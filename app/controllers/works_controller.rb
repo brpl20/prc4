@@ -265,7 +265,8 @@ class WorksController < ApplicationController
      if work.checklist.include?("Rural")
        bucket = 'prcstudio3herokubucket'
        aws_pdf = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/aser1.pdf")
-       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.adress, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => "", "Caixa de texto 3_2" => client.nickname (nao existe), "Caixa de texto 8_3" => client.expedicao (nao existe) # /V (@exp)
+       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.adress, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => ""
+       #, "Caixa de texto 3_2" => client.nickname (nao existe), "Caixa de texto 8_3" => client.expedicao (nao existe) # /V (@exp)
        puts fdf.aws_pdf
        # write fdf file
        fdf.save_to 'file.fdf'

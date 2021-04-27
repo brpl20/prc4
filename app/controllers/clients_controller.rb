@@ -15,18 +15,9 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      if @client[:choice] == true || nil
         templater(@client, 'procuracao_simples')
         flash[:notice] = "Cliente Criado"
         redirect_to @client
-      elsif @client[:choice] == false
-        redirect_to new_work_path(client: @client),
-          notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
-          # TODO: Terminar os redirecionamentos aqui
-      else
-        render :new,
-        notice: "Erro - Renderizando Novo !"
-      end
     end
   end
 
@@ -158,8 +149,8 @@ class ClientsController < ApplicationController
 
     # ADVOGADOS
     laws = [].join("")
-    Lawyer.all.each do | xopo |
-      laws << "#{xopo.name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
+    Person.all.lawyer.each do | xopo |
+      laws << "#{xopo.first_name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
     end
 
     # ESCRITORIO
