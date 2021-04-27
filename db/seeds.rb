@@ -155,3 +155,18 @@ Client.create!(
   documents: nil,
 )
 
+Person.create!(
+  adress: "Rua Paraná, 3033, Ed. Formato",
+  birth: nil,
+  capacity: nil,
+  citizenship: "Cascavel",
+  company: nil,
+  city: "Cascavel",
+  civilstatus: "Casado",
+  email: "bruno@pellizzetti.adv.br",
+  first_name: "Bruno",
+  lastname: "Pellizzetti",
+  general_register: "70599872",
+  oab_number: "54.159 PR",
+  life: 3
+)
