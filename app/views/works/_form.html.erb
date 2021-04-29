@@ -81,7 +81,7 @@
           </div>
 
           <div class="grid col-md-6" id="conds-rates">
-            <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+            <%#= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
               cb.label { cb.check_box + cb.text }
             end %>
           </div>

@@ -1,15 +1,19 @@
-<%= simple_form_for(@job) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+<%= form_with model:@job, local: true do |f| %>
+
 
 <div class="form-inputs">
-  <%= f.input :description%>
-  <%= f.input :deadline%>
-  <%= f.association :client_id%>
+  <%= f.text_field :description%>
+  <%= f.text_field :deadline%>
 </div>
 
-<div class="form-actions">
-  <%= f.button :submit, "Job", class: "btn btn-primary" %>
+<div class="col-md-6">
+  <%= f.select :client_id, options_for_select(Client.all.map{|s|[s.name, s.id]}) %>
+</div>
+
+
+<div class="col-md-12">
+  <button type="submit" class="btn btn-primary pull-right">Criar Job</button>
+  <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
 </div>
 
 

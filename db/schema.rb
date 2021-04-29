@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_20_035545) do
+ActiveRecord::Schema.define(version: 2021_04_29_024657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,8 +102,8 @@ ActiveRecord::Schema.define(version: 2021_04_20_035545) do
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "clients_id"
-    t.index ["clients_id"], name: "index_jobs_on_clients_id"
+    t.bigint "client_id"
+    t.index ["client_id"], name: "index_jobs_on_client_id"
   end
 
   create_table "offices", force: :cascade do |t|
@@ -274,7 +274,7 @@ ActiveRecord::Schema.define(version: 2021_04_20_035545) do
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
   add_foreign_key "emails", "clients"
-  add_foreign_key "jobs", "clients", column: "clients_id"
+  add_foreign_key "jobs", "clients"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "work_offices", "offices"

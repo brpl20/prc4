@@ -25,7 +25,6 @@ class JobsController < ApplicationController
   # POST /jobs.json
   def create
     @job = Job.new(job_params)
-
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
@@ -74,6 +73,7 @@ class JobsController < ApplicationController
         :deadline,
         :responsable,
         :status,
-        :client_id)
+        :client_id
+        )
     end
 end

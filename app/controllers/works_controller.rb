@@ -145,22 +145,23 @@ class WorksController < ApplicationController
 
     # LAWYERS E SOCIETY
     laws = [].join("")
-    User.all.each.with_index do | xopo, xopi |
-       if xopo.id.to_s.include?("#{work.user}")
-        next
-      else
-       laws << "#{xopo.user_profile.name} #{xopo.user_profile.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
-      end
-    end
-    lawyer_selected = Lawyer.find(@work.responsible_lawyer.to_i)
-    lawyer_complete = "sendo como advogado responsável da sociedade #{lawyer_selected.name.upcase} #{lawyer_selected.lastname.upcase}, inscrito na OAB número #{lawyer_selected.oab_number}, e demais:".to_s
+    # Person.lawyer.all.each.with_index do | xopo, xopi |
+    #    if xopo.id.to_s.include?("#{work.user}")
+    #     next
+    #   else
+    #    laws << "#{xopo.user_profile.name} #{xopo.user_profile.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
+    #   end
+    # end
+    #lawyer_selected = Person.lawyer.find(@work.responsible_lawyer.to_i)
+    #lawyer_complete = "sendo como advogado responsável da sociedade #{lawyer_selected.name.upcase} #{lawyer_selected.lastname.upcase}, inscrito na OAB número #{lawyer_selected.oab_number}, e demais:".to_s
 
     # TODO: Criar logica para ver se e o mesmo endereco dos componentes
     # TODO: Organizar Office aqui - e multiplos offices
     office_select = Office.find(1)
     office = "Escritório de advocacia #{office_select.name.upcase}, inscrito na OAB/PR n #{office_select.oab}, e no CNPJ n #{office_select.cnpj_number}"
     office_bank = "Banco #{office_select.bank} Agência #{office_select.agency}, Conta #{office_select.account}"
-    proced = work.procedure.gsub("[", "")
+    #proced = work.procedure.gsub("[", "")
+    
     # Antigo metodo usado pluck, nao recomendavel
     # Office.pluck(:name, :oab, :cnpj_number).join(", ")<< ','
 
@@ -187,17 +188,17 @@ class WorksController < ApplicationController
         # LAWYER end Society
         tr.substitute('_:lawyers_', laws)
         tr.substitute('_:society_', office)
-        tr.substitute('_:lawyerresponsible_', lawyer_complete)
+        tr.substitute('_:lawyerresponsible_', 'lawyer responsible --- arrumar codigo')
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
         # Procedimentos
-        tr.substitute('_:procedure_', work.procedure)
-        tr.substitute('_:subject_', work.subject)
-        tr.substitute('_:action_', work.action)
-        tr.substitute('_:number_', work.number)
-        tr.substitute('_:powers_', work.power)
+        # tr.substitute('_:procedure_', work.procedure)
+        # tr.substitute('_:subject_', work.subject)
+        # tr.substitute('_:action_', work.action)
+        # tr.substitute('_:number_', work.number)
+        # tr.substitute('_:powers_', work.power)
         tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas 
         tr.substitute('_:rates_', rate_final)
@@ -262,15 +263,19 @@ class WorksController < ApplicationController
     # if work.checklist.include?("Declaração")
     # end
 
-     if work.checklist.include?("Rural")
+    #if work.checklist.include?("Rural")
        bucket = 'prcstudio3herokubucket'
        aws_pdf = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/aser1.pdf")
-       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.adress, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => ""
+       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.address, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => ""
        #, "Caixa de texto 3_2" => client.nickname (nao existe), "Caixa de texto 8_3" => client.expedicao (nao existe) # /V (@exp)
        puts fdf.aws_pdf
+       pdf_save = fdf_trabalhado.save(Rails.root.join("tmp/rural-fdf.pdf").to_s)
+       pdf_file = "tmp/rural-fdf.pdf"
+       obj_tje = @s3.bucket(bucket).object(pdf_file)
+       obj_tje.upload_file(pdf_file)
        # write fdf file
-       fdf.save_to 'file.fdf'
-     end
+       #fdf.save_to 'file.fdf'
+    #end
 
       #           nome_correto = client.name.downcase.gsub(/\s+/, "")
       #     ch_save = doc.save(Rails.root.join("tmp/wdocs-#{nome_correto}_#{@work[:id]}.docx").to_s)

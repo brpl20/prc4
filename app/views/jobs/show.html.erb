@@ -1,129 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Tipo:</strong>
-  <%= @work.procedure %>
+  <strong>Descrição:</strong>
+  <%= @job.description %>
 </p>
 
 <p>
-  <strong>Materia:</strong>
-  <%= @work.subject %>
+  <strong>Prazo:</strong>
+  <%= @job.deadline %>
 </p>
 
 <p>
-  <strong>Acao:</strong>
-  <%= @work.action %>
+  <strong>Cliente:</strong>
+  <%= @job.client.name %>
 </p>
 
-<p>
-  <strong>Numero/ID:</strong>
-  <%= @work.number %><spam> / </spam><%= @work.id %>
-</p>
 
-<p>
-  <strong>Honorariosp:</strong>
-  <%= @work.rate_percentage %>
-</p>
 
-<p>
-  <strong>Honorariosp exfield:</strong>
-  <%= @work.rate_percentage_exfield %>
-</p>
-
-<p>
-  <strong>Honorariosf:</strong>
-  <%= @work.rate_fixed %>
-</p>
-
-<p>
-  <strong>Honorariosf exfield:</strong>
-  <%= @work.rate_fixed_exfield %>
-</p>
-
-<p>
-  <strong>Honorarios trab x exito:</strong>
-  <%= @work.rate_work %>
-</p>
-
-<p>
-  <strong>Honorarios parcelamento:</strong>
-  <%= @work.rate_parceled %>
-</p>
-
-<p>
-  <strong>Escritorio:</strong>
-  <spam>office corrigir ...</spam>
-</p>
-
-<p>
-  <strong>Poderes:</strong>
-  <%= @work.power %>
-</p>
-
-<p>
-  <strong>Indicacao:</strong>
-  <%= @work.recommendation %>
-</p>
-
-<p>
-  <strong>Indicacao comissao:</strong>
-  <%= @work.recommendation_comission %>
-</p>
-
-<p>
-  <strong>Pasta:</strong>
-  <%= @work.folder %>
-</p>
-
-<p>
-  <strong>Atendimento inicial:</strong>
-  <%= @work.initial_atendee %>
-</p>
-
-<p>
-  <strong>Advogado responsavel:</strong>
-  <%= @work.responsible_lawyer %>
-</p>
-
-<p>
-  <strong>Advogado procuracao:</strong>
-  <%= @work.procuration_lawyer %>
-</p>
-
-<p>
-  <strong>Estagiarios procuracao:</strong>
-  <%= @work.procuration_intern %>
-</p>
-
-<p>
-  <strong>Paralegais procuracao:</strong>
-  <%= @work.procuration_paralegal %>
-</p>
-
-<p>
-  <strong>Advogado parceiro:</strong>
-  <%= @work.partner_lawyer %>
-</p>
-
-<p>
-  <strong>Notas:</strong>
-  <%= @work.note %>
-</p>
-
-<p>
-  <strong>Checklist:</strong>
-  <%= @work.checklist %>
-</p>
-
-<p>
-  <strong>Checklist documentos:</strong>
-  <%= @work.checklist_document %>
-</p>
-
-<p>
-  <strong>Documentos pendentes:</strong>
-  <%= @work.document_pendent %>
-</p>
-
-<%= link_to 'Edit', edit_work_path(@work) %> |
-<%= link_to 'Back', works_path %>
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>

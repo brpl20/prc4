@@ -206,10 +206,10 @@
           <tbody>
             <tr>
               <th scope="row">1</th>
-              <td>Mark</td>
+              <td> <%#= @client.jobs %> </td>
               <td>Otto</td>
               <td>
-                <%= link_to new_job_path, class:"btn btn-success" do %>
+                <%= link_to new_job_path(client: @client), class:"btn btn-success" do %>
                 <i class="fa fa-plus"></i>
                 <% end %>
 
