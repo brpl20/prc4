@@ -1,153 +1,220 @@
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
 
-    <div class="x_title">
-      <h2>Cadastrando novo work</h2>
-      <div class="clearfix"></div>
+    <div class="x_title clearfix">
+      <h1 class="pull-left"><%= @work.subject + ' - ' + @work.action + ' - ' + @work.number  %></h1>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
     </div>
 
     <div class="x_content">
 
+      <div class="col-md-12">
 
-<p>
-  <strong>Tipo:</strong>
-  <% @work.procedures.each do |p| %>
-    <%= p.description %>
-  <% end %>
-</p>
+        <section class="col-md-4">
 
-<p>
-  <strong>Materia:</strong>
-  <%= @work.subject %>
-</p>
+            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações Iniciais</b></h2>
 
-<p>
-  <strong>Acao:</strong>
-  <%= @work.action %>
-</p>
+            <span class="col-md-12">
+              <b>Assunto:</b>
+              <%= @work.subject %>
+            </span>
 
-<p>
-  <strong>Numero/ID:</strong>
-  <%= @work.number %><spam> / </spam><%= @work.id %>
-</p>
+            <span class="col-md-12">
+              <b>Ação:</b>
+              <%= @work.action %>
+            </span>
 
-<p>
-  <strong>Honorariosp:</strong>
-  <%= @work.rate_percentage %>
-</p>
+            <span class="col-md-12">
+              <b>Número:</b>
+              <%= @work.number %>
+            </span>
 
-<p>
-  <strong>Honorariosp exfield:</strong>
-  <%= @work.rate_percentage_exfield %>
-</p>
-
-<p>
-  <strong>Honorariosf:</strong>
-  <%= @work.rate_fixed %>
-</p>
-
-<p>
-  <strong>Honorariosf exfield:</strong>
-  <%= @work.rate_fixed_exfield %>
-</p>
-
-<p>
-  <strong>Honorarios trab x exito:</strong>
-  <%= @work.rate_work %>
-</p>
-
-<p>
-  <strong>Honorarios parcelamento:</strong>
-  <%= @work.rate_parceled %>
-</p>
-
-<p>
-  <strong>Escritorio:</strong>
-  <% @work.offices.each do |o| %>
-    <%= o.name %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Poderes:</strong>
-  <% @work.powers.each do |pw| %>
-    <%= pw.description %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Indicacao:</strong>
-  <%= @work.recommendation %>
-</p>
-
-<p>
-  <strong>Indicacao comissao:</strong>
-  <%= @work.recommendation_comission %>
-</p>
-
-<p>
-  <strong>Pasta:</strong>
-  <%= @work.folder %>
-</p>
-
-<p>
-  <strong>Atendimento inicial:</strong>
-  <%= @work.initial_atendee %>
-</p>
-
-<p>
-  <strong>Advogado responsavel:</strong>
-  <%#= @work.user.user_profile.full_name %>
-</p>
-
-<p>
-  <strong>Advogado procuracao:</strong>
-  <%= @work.procuration_lawyer %>
-</p>
-
-<p>
-  <strong>Estagiarios procuracao:</strong>
-  <%= @work.procuration_intern %>
-</p>
-
-<p>
-  <strong>Paralegais procuracao:</strong>
-  <%= @work.procuration_paralegal %>
-</p>
-
-<p>
-  <strong>Advogado parceiro:</strong>
-  <%= @work.partner_lawyer %>
-</p>
-
-<p>
-  <strong>Notas:</strong>
-  <%= @work.note %>
-</p>
-
-<p>
-  <strong>Checklist:</strong>
-  <% @work.checklists.each do |ck| %>
-    <%= ck.description %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Checklist documentos:</strong>
-  <% @work.checklist_documents.each do |cd| %>
-    <%= cd.description %>
-  <% end %>
-</p>
-
-<p>
-  <strong>Documentos pendentes:</strong>
-  <%= @work.document_pendent %>
-</p>
+            <span class="col-md-12">
+              <b>Número:</b>
+              <%= @work.folder %>
+            </span>
 
 
-<%= link_to 'Edit', edit_work_path(@work) %> |
-<%= link_to 'Back', works_path %>
+        </section>
 
+                <section class="col-md-4">
+
+            <h2 class="pull-left h-line"> <i class="fa fa-home"></i> <b>Documentos e notas:</b></h2>
+
+            <span class="col-md-12">
+              <b>Documentos Checklist:</b>
+              <%= @work.checklist %>
+            </span>
+
+              <span class="col-md-12">
+                <b>Documentos Pendentes:</b>
+                <%= @work.document_pendent %>
+              </span>
+
+              <span class="col-md-12">
+                <b>Notas:</b>
+                <%= @work.note %>
+              </span>
+
+        </section>
+
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Honorários:</b></h2>
+
+          <span class="col-md-12">
+            <b>Honorários Percentual:</b>
+            <%= @work.rate_percentage %>
+          </span>
+
+          <span class="col-md-12">
+            <b>%:</b>
+            <%= @work.rate_percentage_exfield %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Honorários Fixos:</b>
+            <%= @work.rate_fixed %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Honorários Fixos Valor:</b>
+            <%= @work.rate_fixed_exfield %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Honorários Fixos Trabalho:</b>
+            <%= @work.rate_work %>
+          </span>          
+
+          <span class="col-md-12">
+            <b>Honorários Parcelamento:</b>
+            <%= @work.rate_parceled %>
+          </span>          
+
+          <span class="col-md-12">
+            <b>Honorários Parcelamento Detalhes:</b>
+            <%= @work.rate_parceled_exfield %>
+          </span>         
+
+        </section>
+    </div>
+
+      <div class="col-md-12">
+
+        <section class="col-md-4">
+
+          <h2 class="pull-left h-line"> <i class="fa fa-phone"></i> <b>Outras Informações</b></h2>
+
+          <span class="col-md-12">
+            <b>Atendimento Inicial:</b>
+            <%= @work.initial_atendee %>
+          </span>     
+
+          <span class="col-md-12">
+            <b>Recomendação/Indicação/Origem:</b>
+            <%= @work.recommendation %>
+          </span>     
+
+          <span class="col-md-12">
+            <b>Comissão da Recomendação:</b>
+            <%= @work.recommendation_comission %>
+          </span>     
+
+          <span class="col-md-12">
+            <b>Advogado Parceiro:</b>
+            <%= @work.partner_lawyer %>
+          </span>     
+
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-university"></i> <b>...</b></h2>
+
+          <span class="col-md-12">
+            <b>...:</b>
+            <%#= @client.bank.name %>
+          </span>
+
+          <span class="col-md-12">
+            <b>...</b>
+            <%#= @client.bank.agency %>
+          </span>
+
+          <span class="col-md-12">
+            <b>...</b>
+            <%#= @client.bank.account %>
+          </span>
+
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-asterisk"></i> <b>Informações Adicionais</b></h2>
+
+          <span class="col-md-12">
+            <strong>...:</strong>
+            <%##= @client.profession %>
+          </span>
+
+          <span class="col-md-12">
+            <strong>...:</strong>
+            <%#= @client.company %>
+          </span>
+
+          <span class="col-md-12">
+            <strong>...:</strong>
+            <%#= @client.number_benefit %>
+          </span>
+
+        </section>
+
+      </div>
     </div>
   </div>
-</div>
+
+  <div class="x_panel">
+
+    <div class="x_title clearfix">
+      <h1 class="pull-left">Jobs Pendentes</h1>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="x_content">
+
+      <div class="col-md-12">
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Job</th>
+              <th>Descrição</th>
+              <th>...</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td> <%#= @client.jobs %> </td>
+              <td></td>
+              <td>
+                <%= render "shared/links_jobs" %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+  <%= link_to "Voltar", works_path, class:"btn btn-danger btn-outline left col-md-1" %>
+
+
+  </div>

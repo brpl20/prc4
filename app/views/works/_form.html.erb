@@ -114,7 +114,7 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Comissão" %></b>
+            <b><%= f.label "Comissão (da Indicação)" %></b>
             <%= f.text_field :recommendation_comission, class:"form-control" %>
           </div>
 
@@ -132,12 +132,12 @@
 
           <div class="col-md-6">
             <b><%= f.label "Atendimento Inicial" %></b>
-            <%= f.collection_select :initial_atendee, User.order(:email), :id, :email, {}, {class:'form-control'} %>
+            <%= f.collection_select :initial_atendee, UserProfile.order(:email), :id, :email, {}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6">
             <b><%= f.label "Advogado Responsável" %></b>
-            <%= f.collection_select :user_id, User.all, :id, :email, {}, {class:"form-control"} %>
+            <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
           </div>
 
         </div>
@@ -164,14 +164,14 @@
 
           <div class="col-md-6">
             <b><%= f.label "Estagiários da Procuração" %></b>
-            <%= f.collection_select :procuration_intern, Person.order(:first_name), :id, :first_name, {}, {class:"form-control"} %>
+            <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
 
 
           </div>
 
           <div class="col-md-6">
             <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
-            <%= f.text_field :procuration_paralegal, class:"form-control" %>
+            <%= f.collection_select :procuration_paralegal, UserProfile.paralegal.order(:name), :id, :name, {}, {class:"form-control"} %>
           </div>
 
         </div>

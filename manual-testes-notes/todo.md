@@ -8,6 +8,29 @@
 <!-- - Adicionar rate_parceled_exfield no Work -->
 <!-- - Criar filtro contra 'nil' -->
 
+# TODO TODAY
+- Termo de Renúncia
+- Declaração de Carência
+<!-- - Melhorar View do Work -->
+- Arrumar Lógica de Cliente sem Documento na AWS => View Client
+- Arrumar Lógica do Cliente no => View Client 
+- Arrumar Jobs Pendentes "Otto" => View Client
+- Ano formato brasileiro no view/client e user_profile => Criei Initializer "date.display.format.rb" mas nao funcionou
+- Eleger um e-mail e endereço oficial 
+
+
+# TODO FUTURE
+- Rem Persons
+- Add Db Advogados Parceiros + CRUD
+- Preencher PDF Automaticamente - Declaração Rural por Exemplo
+- Arrumar Tabela de Documentos para Armazenar Metadata da Amazon de todos os documentos => Excluir Client.Documents (plural errado) 
+- Hint Button on Forms: OAB (Precisa colocar com o Estado também)
+- Solucionar problema: + de uma OAB
+- Problema de Endereços diferentes - Multiplos Escritórios
+- Problema de nacionalidaides diferentes (todos brasileiros...)
+- Pessoas que querem ter múltiplos e-mails
+- Arrumar Genderize para Paralegals, Estagiários e Advogados
+- Arrumar Fields dos Jobs => Date => Responsável Pré Escolher => Status Boolean
 
 # Alterações 2nd Doc Urgentes
 ## First Doc

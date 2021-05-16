@@ -16,6 +16,7 @@ class WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
+    @client = @work.client_ids
   end
 
   def create
@@ -96,7 +97,7 @@ class WorksController < ApplicationController
 
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
-    if client.gender == 2
+    if client.gender == 1
       civilstatus = genderize.client.civilstatus
       nacionalita = genderize.client.citizenship
       porta = "portadora"
@@ -143,19 +144,67 @@ class WorksController < ApplicationController
       # :rate_parceled,
       # :rate_parceled_exfield,
 
-    # LAWYERS E SOCIETY
-    laws = [].join("")
-    # Person.lawyer.all.each.with_index do | xopo, xopi |
-    #    if xopo.id.to_s.include?("#{work.user}")
-    #     next
-    #   else
-    #    laws << "#{xopo.user_profile.name} #{xopo.user_profile.lastname}, inscrito na OAB número #{xopo.oab_number},".to_s
-    #   end
-    # end
-    #lawyer_selected = Person.lawyer.find(@work.responsible_lawyer.to_i)
-    #lawyer_complete = "sendo como advogado responsável da sociedade #{lawyer_selected.name.upcase} #{lawyer_selected.lastname.upcase}, inscrito na OAB número #{lawyer_selected.oab_number}, e demais:".to_s
+      # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
+      lawyers = UserProfile.lawyer
+      paralegals = UserProfile.paralegal
+      interns = UserProfile.intern
 
-    # TODO: Criar logica para ver se e o mesmo endereco dos componentes
+
+      if lawyers.size > 0.5
+        laws = ["Advogados: "].join("")
+      else
+        laws = [""].join("")
+      end
+
+      if paralegals.size > 0.5
+        parals = ["Paralegais: "].join("")
+      else
+        parals = [""].join("")
+      end
+
+      if interns.size > 0.5
+        inters = ["Estagiários: "].join("")
+      else
+        inters = [""].join("")
+      end    
+
+      lawyers.each_with_index do | x, index |
+        if index == lawyers.size-1
+          laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
+        else
+          laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
+        end
+      end
+      
+      paralegals.each_with_index do | x, index |
+        if index == paralegals.size-1
+          parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+        else
+          parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+        end
+      end
+
+      interns.each_with_index do | x, index |
+        if index == interns.size-1
+          inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+        else
+          inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+        end
+      end
+
+      # ESCRITORIO (importado do Client)
+      # offices = Office.all
+      # if offices.size > 0.5
+      #   office_sel = Office.find_by_id(1)
+      #   office = ["Escritório: "].join("")
+      #   office_email = office_sel.email
+      #   office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
+      #   office << "#{office_sel.name}"
+      # else
+      #   office = [""].join("")
+      #   office_address = "#{lawyers[1]}"
+      # end
+
     # TODO: Organizar Office aqui - e multiplos offices
     office_select = Office.find(1)
     office = "Escritório de advocacia #{office_select.name.upcase}, inscrito na OAB/PR n #{office_select.oab}, e no CNPJ n #{office_select.cnpj_number}"
@@ -193,13 +242,20 @@ class WorksController < ApplicationController
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
-        # Procedimentos
-        # tr.substitute('_:procedure_', work.procedure)
-        # tr.substitute('_:subject_', work.subject)
-        # tr.substitute('_:action_', work.action)
-        # tr.substitute('_:number_', work.number)
-        # tr.substitute('_:powers_', work.power)
-        tr.substitute('_:prev-powers_', "")
+        # PROCEDIMENTOS  - PODERES
+         tr.substitute('_:procedure_', work.procedure)
+         tr.substitute('_:subject_', work.subject)
+         tr.substitute('_:action_', work.action)
+         tr.substitute('_:number_', work.number)
+         tr.substitute('_:powers_', work.power)
+        # PARTE SOCIETARIA - ADVOGADOS - ESCRITORIO - PARALGAIS - ESTAGIARIOS
+         tr.substitute('_:lawyers_', laws)
+         tr.substitute('_:sociedade_', office)
+         tr.substitute('_$parl_', parals)
+         tr.substitute('$es', inters)
+         tr.substitute('_:addressoficial_', office_address)
+         tr.substitute('_:emailoficial_', office_email)
+        #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas 
         tr.substitute('_:rates_', rate_final)
         tr.substitute('_:accountdetails_', office_bank)
@@ -227,52 +283,52 @@ class WorksController < ApplicationController
                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
                 :user => "#{current_user.email}"
                  }
-    #work.documents = metadata ---
-    # Aqui era para um array de documentos que tem no Client
+    work.document = metadata
     work.save
     obj.upload_file(ch_file, metadata: metadata)
-    
-    if work.checklist.include?("Termo")
-    aws_doc_tje = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/tje.docx")
-    aws_body_tje = aws_doc_tje.body
-    doc_tje = Docx::Document.open(aws_body_tje)
-    doc_tje.paragraphs.each do |p|
-      p.each_text_run do |tr|
-        tr.substitute('_:nome_', nome_cap)
-        tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus.downcase)
-        tr.substitute('_:profissao_', client.profession.downcase)
-        tr.substitute('_:capacidade_', capacity_treated.downcase)
-        tr.substitute('_:nacionalidade_', nacionalita.downcase)
-        tr.substitute('_:rg_', client.general_register)
-        tr.substitute('_:cpf_', client.social_number.to_s)
-        tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', emails)
-        tr.substitute('_:phone_', phones)
-        tr.substitute('_:timestamp_', dia)
-        tr.substitute('_:sname_', office_select.name)
-      end
-    end
-    ch_save_tje = doc_tje.save(Rails.root.join("tmp/tje-#{nome_correto}_#{@work[:id]}.docx").to_s)
-    ch_file_tje = "tmp/tje-#{nome_correto}_#{@work[:id]}.docx"
-    obj_tje = @s3.bucket(bucket).object(ch_file_tje)
-    obj_tje.upload_file(ch_file_tje)
+
+    # if work.checklist.include?("Termo")
+    # aws_doc_tje = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/tje.docx")
+    # aws_body_tje = aws_doc_tje.body
+    # doc_tje = Docx::Document.open(aws_body_tje)
+    # doc_tje.paragraphs.each do |p|
+    #   p.each_text_run do |tr|
+    #     tr.substitute('_:nome_', nome_cap)
+    #     tr.substitute('_:sobrenome_', sobrenome_cap)
+    #     tr.substitute('_:estado_civil_', civilstatus.downcase)
+    #     tr.substitute('_:profissao_', client.profession.downcase)
+    #     tr.substitute('_:capacidade_', capacity_treated.downcase)
+    #     tr.substitute('_:nacionalidade_', nacionalita.downcase)
+    #     tr.substitute('_:rg_', client.general_register)
+    #     tr.substitute('_:cpf_', client.social_number.to_s)
+    #     tr.substitute('_:nb_', nb_exist)
+    #     tr.substitute('_:email_', emails)
+    #     tr.substitute('_:phone_', phones)
+    #     tr.substitute('_:timestamp_', dia)
+    #     tr.substitute('_:sname_', office_select.name)
+    #   end
+    # end
+    # ch_save_tje = doc_tje.save(Rails.root.join("tmp/tje-#{nome_correto}_#{@work[:id]}.docx").to_s)
+    # ch_file_tje = "tmp/tje-#{nome_correto}_#{@work[:id]}.docx"
+    # obj_tje = @s3.bucket(bucket).object(ch_file_tje)
+    # obj_tje.upload_file(ch_file_tje)
 
     end
     
     # if work.checklist.include?("Declaração")
     # end
 
-    #if work.checklist.include?("Rural")
-       bucket = 'prcstudio3herokubucket'
-       aws_pdf = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/aser1.pdf")
-       fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.address, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => ""
+    # if work.checklist.include?("Rural")
+    # Elementos de cada arquivo
+       # bucket = 'prcstudio3herokubucket'
+       # aws_pdf = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/aser1.pdf")
+       # fdf = PdfForms::Fdf.new "Caixa de texto1" => "#{client.name} #{client.lastname}", :other_key => 'other value', "Caixa de texto 5" => client.address, "Caixa de texto 6" => client.city, "Caixa de texto 7" => client.state, "Caixa de texto 8" => client.social_number, "Caixa de texto 3" => client.birth, "Caixa de texto 3_3" => ""
        #, "Caixa de texto 3_2" => client.nickname (nao existe), "Caixa de texto 8_3" => client.expedicao (nao existe) # /V (@exp)
-       puts fdf.aws_pdf
-       pdf_save = fdf_trabalhado.save(Rails.root.join("tmp/rural-fdf.pdf").to_s)
-       pdf_file = "tmp/rural-fdf.pdf"
-       obj_tje = @s3.bucket(bucket).object(pdf_file)
-       obj_tje.upload_file(pdf_file)
+       # puts fdf.aws_pdf
+       # pdf_save = fdf_trabalhado.save(Rails.root.join("tmp/rural-fdf.pdf").to_s)
+       # pdf_file = "tmp/rural-fdf.pdf"
+       # obj_tje = @s3.bucket(bucket).object(pdf_file)
+       # obj_tje.upload_file(pdf_file)
        # write fdf file
        #fdf.save_to 'file.fdf'
     #end
@@ -301,7 +357,7 @@ class WorksController < ApplicationController
       #     obj.upload_file(ch_file, metadata: metadata)
       #     end
       # end
-  end
+  #end
 
   # GET /works/1/edit
   def edit

@@ -34,7 +34,7 @@
                       <% @clients.each do |c| %>
                         <tr role="row">
                           <td><%= c.id %></td>
-                          <td><%= c.name + " " + c.lastname%></td>
+                          <td><%= link_to "#{c.name} #{c.lastname}", client_path(c.id)%></td>
                         </tr>
                       <% end %>
                   </tbody>
@@ -66,9 +66,13 @@
 
               <div class="tags">
                 <a href="" class="tag">
-                  <span><%= w.user.user_profile.full_name %> </span>
-                </a>
-              </div>
+                  <% if w.user.user_profile.full_name == nil %>
+                    <span><%= w.user.user_profile.full_name %></span></a>
+                    <% else %>
+                      <span><%= "nil" %></span></a>
+                  <% end %>
+
+
 
               <div class="block_content">
                 <h2 class="title"><%= w.subject %> -

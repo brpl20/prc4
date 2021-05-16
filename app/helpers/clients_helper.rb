@@ -11,7 +11,7 @@ module ClientsHelper
     citizenship = [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]]
   end
 
-  def options_for_civilstatus
+  def options_for_civilstatus_client
     civilstatus = [["Solteiro", "Solteiro"], ["Casado", "Casado"], ["Divorciado", "Divorciado"], ["Viúvo", "Viúvo"], ["União Estável", "em União Estável"]]
   end
 

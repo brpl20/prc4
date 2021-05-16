@@ -93,16 +93,16 @@
             <%= @client.documents["document_type"] %>
           </span>
 
-          <span class="col-md-12">
-            <b>Documentos Link:</b>
-            <%= @client.documents["aws_link"] %>
-          </span>
-
           <div class="col-md-12">
             <%= link_to @url, class: "btn btn-info col-md-6" do %>
               <i class="fa fa-download"></i> Baixar Procuração
             <% end %>
           </div>
+          
+          <span class="col-md-12">
+            <b>Documentos Link:</b>
+            <%= @client.documents["aws_link"] %>
+          </span>
 
           <div class="col-md-12">
             <%= link_to new_work_path(client: @client), class:"btn btn-success col-md-6" do %>
@@ -183,6 +183,51 @@
   <div class="x_panel">
 
     <div class="x_title clearfix">
+      <h1 class="pull-left">Works Pendentes</h1>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="x_content">
+
+      <div class="col-md-12">
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Assunto</th>
+              <th>Link</th>
+              <th>...</th>
+            </tr>
+          </thead>
+          <tbody>
+              <% @url_work.each_with_index do |w, ind| %>
+                <tr></tr>
+                  <th scope="row"><%= ind+1 %></th>
+                  <% wo = Work.find_by_id(w.id) %>
+                  <th><%= wo.subject %></th>              
+                  <th><%= link_to "Link", work_path(wo.id)%></th>
+                  <td> <%#= @client.jobs %> </td>
+                  <td></td>
+                  <td>
+                    <%= render "shared/links_works" %>
+                  </td>
+                </tr>
+              <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+
+
+  <div class="x_panel">
+
+    <div class="x_title clearfix">
       <h1 class="pull-left">Jobs Pendentes</h1>
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -198,37 +243,18 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>First Name</th>
-              <th>Last Name</th>
-              <th>Ações</th>
+              <th>Job</th>
+              <th>Descrição</th>
+              <th>...</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <th scope="row">1</th>
               <td> <%#= @client.jobs %> </td>
-              <td>Otto</td>
+              <td></td>
               <td>
-                <%= link_to new_job_path(client: @client), class:"btn btn-success" do %>
-                <i class="fa fa-plus"></i>
-                <% end %>
-
-                <%= link_to new_job_path, class:"btn btn-success" do %>
-                  <i class="fa fa-gavel"></i>
-                <% end %>
-
-                <%= link_to job_path(@client), class:"btn btn-info" do %>
-                  <i class="fa fa-eye"></i>
-                <% end %>
-
-                <%= link_to edit_job_path(@client), class:"btn btn-primary" do %>
-                  <i class="fa fa-edit"></i>
-                <% end %>
-
-                <%= link_to job_path(@client), class:"btn btn-danger",
-                    method: :delete, data: {confirm: "Tem certeza que deseja apagar"} do %>
-                    <i class="fa fa-times"></i>
-                <% end %>
+                <%= render "shared/links_jobs" %>
               </td>
             </tr>
           </tbody>

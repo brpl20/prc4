@@ -343,6 +343,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
+    similar_text (0.0.4)
     simple_form (5.1.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
@@ -421,6 +422,7 @@ DEPENDENCIES
   s3
   sass-rails (~> 5.0)
   selenium-webdriver
+  similar_text (~> 0.0.4)
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)

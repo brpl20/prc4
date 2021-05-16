@@ -1,0 +1,20 @@
+  <%= link_to new_job_path(client: @client), class:"btn btn-success" do %>
+  <i class="fa fa-plus"></i>
+  <% end %>
+
+  <%= link_to new_job_path, class:"btn btn-success" do %>
+    <i class="fa fa-gavel"></i>
+  <% end %>
+
+  <%= link_to job_path(@client), class:"btn btn-info" do %>
+    <i class="fa fa-eye"></i>
+  <% end %>
+
+  <%= link_to edit_job_path(@client), class:"btn btn-primary" do %>
+    <i class="fa fa-edit"></i>
+  <% end %>
+
+  <%= link_to job_path(@client), class:"btn btn-danger",
+      method: :delete, data: {confirm: "Tem certeza que deseja apagar"} do %>
+      <i class="fa fa-times"></i>
+  <% end %>

@@ -1,10 +1,50 @@
 <%= form_with model:@job, local: true do |f| %>
+    <div class="x_content">
+
+        <div class="col-md-12 col-sm-12">
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Descrição" %></b>
+            <%= f.text_field :description, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Prazo" %></b>
+            <%= f.date_field :deadline, class:"form-control" %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12 col-sm-12">
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Descrição" %></b>
+            <%= f.text_field :responsable, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Prazo" %></b>
+            <%= f.text_field :status, class:"form-control" %>
+          </div>
+
+        </div>
+
+    </div>
 
 
-<div class="form-inputs">
-  <%= f.text_field :description%>
-  <%= f.text_field :deadline%>
-</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="col-md-6">
   <%= f.select :client_id, options_for_select(Client.all.map{|s|[s.name, s.id]}) %>

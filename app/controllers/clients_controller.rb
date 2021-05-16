@@ -44,26 +44,9 @@ class ClientsController < ApplicationController
     redirect_to clients_path
   end
 
-  def show
-    require 's3'
-    service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
-     )
-    @client = Client.find(params[:id])
-    # TODO -> Arrumar aqui pq os clientes que nao sao
-    # Consulta Simples nao estao aparecendo no view
-    # Pq nao existe documento gerado
-
-    doc_link = @client.documents["document_name"]
-    @client.documents[:aws_link]
-    @meta = []
-    @meta2 = []
-    #criar objeto
-    @bucket = service.buckets.find("prcstudio3herokubucket")
-    @object = @bucket.objects.find("tmp/#{doc_link}")
-    @url = @object.temporary_url(Time.now + 1800)
-    @meta << @object
+  def show  
+    @url = @client.documents['aws_link']
+    @url_work = @client.client_works
   end
 
 
@@ -127,7 +110,7 @@ class ClientsController < ApplicationController
 
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
-    if @client[:gender] == 2
+    if @client[:gender] == 1
       civilstatus = genderize(@client[:civilstatus])
       nacionalita = genderize(@client[:citizenship])
       porta = "portadora"
@@ -147,16 +130,73 @@ class ClientsController < ApplicationController
       capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-    # ADVOGADOS
-    laws = [].join("")
-    Person.all.lawyer.each do | xopo |
-      laws << "#{xopo.first_name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
+    # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
+    lawyers = UserProfile.lawyer
+    paralegals = UserProfile.paralegal
+    interns = UserProfile.intern
+
+
+    if lawyers.size > 0.5
+      laws = ["Advogados: "].join("")
+    else
+      laws = [""].join("")
+    end
+
+    if paralegals.size > 0.5
+      parals = ["Paralegais: "].join("")
+    else
+      parals = [""].join("")
+    end
+
+    if interns.size > 0.5
+      inters = ["Estagiários: "].join("")
+    else
+      inters = [""].join("")
+    end    
+
+    lawyers.each_with_index do | x, index |
+      if index == lawyers.size-1
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
+      else
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
+      end
+    end
+   
+    paralegals.each_with_index do | x, index |
+      if index == paralegals.size-1
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
+    end
+
+    interns.each_with_index do | x, index |
+      if index == interns.size-1
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
     end
 
     # ESCRITORIO
+    offices = Office.all
+    if offices.size > 0.5
+      office_sel = Office.find_by_id(1)
+      office = ["Escritório: "].join("")
+      office_email = office_sel.email
+      office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
+      office << "#{office_sel.name}"
+    else
+      office = [""].join("")
+      office_address = "#{lawyers[1]}"
+    end
 
-    # erro no PRC4
-    #esc = Escritorio.pluck(:name, :oab, :city, :state, :email).join(", ")
+
+
+    # Address . similar ? 
+    # if lawyer.address.similar(lawyer.address)
+    #   lawyer.office 
+
 
     # FIELD TREAT -- FIM --
 
@@ -185,9 +225,13 @@ class ClientsController < ApplicationController
         tr.substitute('_:state_', @client[:state])
         tr.substitute('_:cep_', (@client[:zip]).to_s)
         tr.substitute('_:empresa_atual_', @client[:company])
-        # LAWYER end Society
+        # LAWYER - PARALEGALS - INTERNS - SOCIETY
         tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:sociedade_', "")
+        tr.substitute('_:sociedade_', office)
+        tr.substitute('_$parl_', parals)
+        tr.substitute('$es', inters)
+        tr.substitute('_:addressoficial_', office_address)
+        tr.substitute('_:emailoficial_', office_email)
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)

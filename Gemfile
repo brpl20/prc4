@@ -35,6 +35,7 @@ gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'mast
 gem 'autoprefixer-rails'
 gem 'pry-rails', :group => :development
 gem 'webpacker', '~> 5.x'
+gem 'similar_text', '~> 0.0.4' # Ver se o texto e similar especialmente enderecos
 
 # Google Omni
 gem 'omniauth-google-oauth2'

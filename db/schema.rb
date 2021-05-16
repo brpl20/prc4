@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_29_024657) do
+ActiveRecord::Schema.define(version: 2021_05_16_192053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_024657) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
+    t.text "representative"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -123,6 +124,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_024657) do
     t.string "account"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "email"
   end
 
   create_table "people", force: :cascade do |t|
@@ -194,7 +196,7 @@ ActiveRecord::Schema.define(version: 2021_04_29_024657) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.integer "civilstatus"
+    t.string "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"

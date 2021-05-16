@@ -62,9 +62,11 @@
 	<div class="item form-group">
 		<%= f.label "Data de Nascimento", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.date_field :birth, class:'form-control' %>
+			<%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
 		</div>
 	</div>
+
+
 
 	<div class="item form-group">
 		<%= f.label "Nome da Mãe", class:"col-form-label col-md-3 col-sm-3 label-align" %>
