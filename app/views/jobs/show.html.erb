@@ -1,21 +1,58 @@
 <p id="notice"><%= notice %></p>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
+    <div class="x_title clearfix">
+      <h1 class="pull-left"><%= @job.description %></h1>
 
-<p>
-  <strong>Descrição:</strong>
-  <%= @job.description %>
-</p>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
 
-<p>
-  <strong>Prazo:</strong>
-  <%= @job.deadline %>
-</p>
+    <div class="x_content">
 
-<p>
-  <strong>Cliente:</strong>
-  <%= @job.client.name %>
-</p>
+      <div class="col-md-12">
+
+        <section class="col-md-4">
+
+            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações do Jobs</b></h2>
+
+            <span class="col-md-12">
+              <b>Descrição:</b>
+              <%= @job.description %>
+            </span>
+
+            <span class="col-md-12">
+              <b>Prazo:</b>
+              <%= @job.deadline %>
+            </span>
+
+            <span class="col-md-12">
+              <b>Responsável:</b>
+              <%= @job.responsable %>
+            </span>
+
+            <span class="col-md-12">
+              <b>Status:</b>
+              <%= @job.status %>
+            </span>
+
+            <span class="col-md-12">
+              <b>Cliente:</b>
+              <%= @job.client.name %>
+            </span>
+
+        </section>
+
+	  </div>
+
+	</div>
 
 
+    <div class="col-md-12">
+      <%= link_to "Editar", edit_job_path(@job), class:"btn btn-primary pull-right" %>
+      <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
+      <%= link_to "Voltar ao Cliente", client_path(@job.client), class:"btn btn-warning pull-right" %>
+    </div>
 
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>

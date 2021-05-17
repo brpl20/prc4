@@ -98,8 +98,8 @@ class WorksController < ApplicationController
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
     if client.gender == 1
-      civilstatus = genderize.client.civilstatus
-      nacionalita = genderize.client.citizenship
+      civilstatus = genderize(client.civilstatus)
+      nacionalita = genderize(client.citizenship)
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
@@ -152,6 +152,7 @@ class WorksController < ApplicationController
 
       if lawyers.size > 0.5
         laws = ["Advogados: "].join("")
+        lawyerresp = []
       else
         laws = [""].join("")
       end
@@ -237,13 +238,13 @@ class WorksController < ApplicationController
         # LAWYER end Society
         tr.substitute('_:lawyers_', laws)
         tr.substitute('_:society_', office)
-        tr.substitute('_:lawyerresponsible_', 'lawyer responsible --- arrumar codigo')
+        tr.substitute('_:lawyerresponsible_',  @work.user[:name].to_s)
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
         # PROCEDIMENTOS  - PODERES
-         tr.substitute('_:procedure_', work.procedure)
+         #tr.substitute('_:procedure_', work.procedures)
          tr.substitute('_:subject_', work.subject)
          tr.substitute('_:action_', work.action)
          tr.substitute('_:number_', work.number)
@@ -253,8 +254,8 @@ class WorksController < ApplicationController
          tr.substitute('_:sociedade_', office)
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
-         tr.substitute('_:addressoficial_', office_address)
-         tr.substitute('_:emailoficial_', office_email)
+         #tr.substitute('_:addressoficial_', office_address)
+         #tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas 
         tr.substitute('_:rates_', rate_final)

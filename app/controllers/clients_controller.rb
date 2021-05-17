@@ -44,8 +44,13 @@ class ClientsController < ApplicationController
     redirect_to clients_path
   end
 
-  def show  
-    @url = @client.documents['aws_link']
+  def show
+    if @client.documents == nil
+      @url = "Sem Docs Cadastrados"
+      @documents = "Sem Docs Cadastrados"
+    else
+      @url = @client.documents['aws_link']
+    end
     @url_work = @client.client_works
   end
 

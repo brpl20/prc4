@@ -90,7 +90,7 @@
 
           <span class="col-md-12">
             <b>Documentos:</b>
-            <%= @client.documents["document_type"] %>
+            <%= @documents %>
           </span>
 
           <div class="col-md-12">
@@ -101,7 +101,7 @@
           
           <span class="col-md-12">
             <b>Documentos Link:</b>
-            <%= @client.documents["aws_link"] %>
+            <%= @url %>
           </span>
 
           <div class="col-md-12">
@@ -141,17 +141,17 @@
 
           <span class="col-md-12">
             <b>Banco:</b>
-            <%= @client.bank.name %>
+            <%= @client.bank&.name %>
           </span>
 
           <span class="col-md-12">
             <b>Agência:</b>
-            <%= @client.bank.agency %>
+            <%= @client.bank&.agency %>
           </span>
 
           <span class="col-md-12">
             <b>Conta:</b>
-            <%= @client.bank.account %>
+            <%= @client.bank&.account %>
           </span>
 
         </section>
@@ -208,8 +208,7 @@
                 <tr></tr>
                   <th scope="row"><%= ind+1 %></th>
                   <% wo = Work.find_by_id(w.id) %>
-                  <th><%= wo.subject %></th>              
-                  <th><%= link_to "Link", work_path(wo.id)%></th>
+                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>              
                   <td> <%#= @client.jobs %> </td>
                   <td></td>
                   <td>
@@ -245,10 +244,22 @@
               <th>#</th>
               <th>Job</th>
               <th>Descrição</th>
-              <th>...</th>
+              <th>Prazo</th>
+              <th>Responsável</th>
             </tr>
           </thead>
           <tbody>
+            <% @url_job.each_with_index do |w, ind| %>
+              <tr></tr>
+                <th scope="row"><%= ind+1 %></th>
+                <% wo = Job.find_by_id(w.id) %>
+                <th><%= link_to "#{wo.description}", job_path(wo.id) %></th>              
+                <td> <%#= @client.jobs %> </td>
+                <% end %>
+                <td></td>
+                <td>
+                  <%= render "shared/links_works" %>
+
             <tr>
               <th scope="row">1</th>
               <td> <%#= @client.jobs %> </td>
