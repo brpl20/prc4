@@ -52,6 +52,7 @@ class ClientsController < ApplicationController
       @url = @client.documents['aws_link']
     end
     @url_work = @client.client_works
+    @url_job = @client.client_jobs
   end
 
 
