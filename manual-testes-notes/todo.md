@@ -20,6 +20,8 @@
 - Eleger um e-mail e endereço oficial 
 - /views/clients/show => na edição não está aparecendo os campos de telefone/e-mail (não aparece o título)
 - /views/clients/show => na edição não está aparecendo os campos de banco 
+- /views/ criar classe de CSS para STATUS => Concluído na tabela 
+
 
 
 
