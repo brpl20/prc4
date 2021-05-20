@@ -61,6 +61,34 @@
 
         </section>
 
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Documentos</b></h2>
+
+          <span class="col-md-12">
+            <b>Documentos:</b>
+            <%= @document %>
+          </span>
+
+          <div class="col-md-12">
+            <%= link_to @url, class: "btn btn-info col-md-6" do %>
+              <i class="fa fa-download"></i> Baixar Documentos
+            <% end %>
+          </div>
+          
+          <span class="col-md-12">
+            <b>Documentos Link:</b>
+            <%= @url %>
+          </span>
+
+          <div class="col-md-12">
+            <%#= link_to new_work_path(client: @client), class:"btn btn-success col-md-6" do %>
+              <i class="fa fa-gavel"></i> Novo Work
+            <%# end %>
+          </div>
+
+        </section>
 
         <section class="col-md-4">
           <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Honorários:</b></h2>
