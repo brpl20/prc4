@@ -17,7 +17,6 @@ class WorksController < ApplicationController
   def show
     @work = Work.find(params[:id])
     @client = @work.client_ids
-    @document = @work.document
     @url = @work.document['aws_link']
   
   end

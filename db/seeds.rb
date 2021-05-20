@@ -46,6 +46,7 @@ Office.create(
   zip: "85810-010",
   site: "www.pellizzetti.adv.br",
   telephone: "4530355898",
+  email: "contato@pellizzetti.adv.br",
   bank: "Sicredi (748)",
   agency: "0710",
   account: "7243-4"

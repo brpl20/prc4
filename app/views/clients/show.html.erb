@@ -61,7 +61,7 @@
 
         <section class="col-md-4">
 
-            <h2 class="pull-left h-line"> <i class="fa fa-home"></i> <b>Residência</b></h2>
+            <h2 class="pull-left h-line"> <i class="fa fa-home"></i> <b>Enderço</b></h2>
 
             <span class="col-md-12">
               <b>Endereco:</b>
@@ -183,7 +183,11 @@
   <div class="x_panel">
 
     <div class="x_title clearfix">
-      <h1 class="pull-left">Works Pendentes</h1>
+      <h1 class="pull-left">Trabalhos Pendentes</h1>
+      <%= link_to new_work_path(client: @client), class:"btn btn-success" do %>
+        <i class="fa fa-plus"></i>
+      <% end %> 
+
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
         </li>
@@ -198,9 +202,10 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Assunto</th>
-              <th>Link</th>
-              <th>...</th>
+              <th>Matéria - Ação</th>
+              <th>Número</th>
+              <th>Pasta</th>
+              <th>Funções</th>
             </tr>
           </thead>
           <tbody>
@@ -208,12 +213,11 @@
                 <tr></tr>
                   <th scope="row"><%= ind+1 %></th>
                   <% wo = Work.find_by_id(w.id) %>
-                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>              
-                  <td> <%#= @client.jobs %> </td>
+                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>        
+                  <th><%= wo.number %></th>
+                  <th><%= wo.folder %></th>
+                  <th><%= render "shared/links_works" %></th>
                   <td></td>
-                  <td>
-                    <%= render "shared/links_works" %>
-                  </td>
                 </tr>
               <% end %>
           </tbody>
@@ -228,6 +232,9 @@
 
     <div class="x_title clearfix">
       <h1 class="pull-left">Jobs Pendentes</h1>
+      <%= link_to new_job_path(client: @client), class:"btn btn-success" do %>
+        <i class="fa fa-plus"></i>
+      <% end %>
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
         </li>
@@ -243,9 +250,10 @@
             <tr>
               <th>#</th>
               <th>Job</th>
-              <th>Descrição</th>
               <th>Prazo</th>
               <th>Responsável</th>
+              <th>Status</th>
+              <th>Funções</th>
             </tr>
           </thead>
           <tbody>
@@ -253,21 +261,12 @@
               <tr></tr>
                 <th scope="row"><%= ind+1 %></th>
                 <% wo = Job.find_by_id(w.id) %>
-                <th><%= link_to "#{wo.description}", job_path(wo.id) %></th>              
-                <td> <%#= @client.jobs %> </td>
+                <th><%= link_to "#{wo.description}", job_path(wo.id) %></th>
+                <th><%= wo.deadline %></th>
+                <th><%= wo.responsable %></th>
+                <th><%= wo.status %></th>
+                <th><%= render "shared/links_jobs" %></th>
                 <% end %>
-                <td></td>
-                <td>
-                  <%= render "shared/links_works" %>
-
-            <tr>
-              <th scope="row">1</th>
-              <td> <%#= @client.jobs %> </td>
-              <td></td>
-              <td>
-                <%= render "shared/links_jobs" %>
-              </td>
-            </tr>
           </tbody>
         </table>
 

@@ -5,6 +5,7 @@ class Client < ApplicationRecord
 
   has_many :client_works
   has_many :works, through: :client_works
+  has_many :jobs
 
   accepts_nested_attributes_for :bank, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true

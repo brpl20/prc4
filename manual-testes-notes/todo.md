@@ -9,14 +9,19 @@
 <!-- - Criar filtro contra 'nil' -->
 
 # TODO TODAY
-- Termo de Renúncia
-- Declaração de Carência
+<!-- - Termo de Renúncia -->
+<!-- - Declaração de Carência -->
 <!-- - Melhorar View do Work -->
-- Arrumar Lógica de Cliente sem Documento na AWS => View Client
-- Arrumar Lógica do Cliente no => View Client 
-- Arrumar Jobs Pendentes "Otto" => View Client
+<!-- - Arrumar relação Jobs/Clients -->
+<!-- - Arrumar Jobs Pendentes "Otto" => View Client -->
+<!-- - Arrumar Lógica de Cliente sem Documento na AWS => View Client -->
+<!-- - Arrumar Lógica do Cliente no => View Client  -->
 - Ano formato brasileiro no view/client e user_profile => Criei Initializer "date.display.format.rb" mas nao funcionou
 - Eleger um e-mail e endereço oficial 
+- /views/clients/show => na edição não está aparecendo os campos de telefone/e-mail (não aparece o título)
+- /views/clients/show => na edição não está aparecendo os campos de banco 
+
+
 
 
 # TODO FUTURE
