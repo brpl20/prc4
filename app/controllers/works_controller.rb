@@ -55,10 +55,10 @@ class WorksController < ApplicationController
    def fullqual(person)
      person.civilstatus = genderize(person.civilstatus)
      person.citizenship = genderize(person.citizenship)
-     if person.gender == 1
+     if person.gender == 0
        qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
      else
-       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
+       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrita no CPF #{person.social_number} e portadora do RG n #{person.general_register}, residente e domiciliada à #{person.address}, #{person.city} #{person.state}."
      end
    end
 
@@ -98,7 +98,7 @@ class WorksController < ApplicationController
     end
 
     # NUMERO DE BENEFICIO FIELD
-    if client.number_benefit.nil?
+    if client.number_benefit.nil? || client.number_benefit == ""
       nb_exist = ""
     else
       nb_exist = "número de benefício #{client.number_benefit},"
@@ -129,8 +129,26 @@ class WorksController < ApplicationController
       capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-    # RATE - COBRANCAS 
-    # VER RATER 
+    # CLIENT BANK
+    bank = ". Dados bancários: Banco: #{client.bank.name}, Agência #{client.bank.agency}, Conta: #{client.bank.account}"
+
+    # PROCEDIMENTOS 
+
+    proceds = [].join("")
+    work.procedures.each do | des | 
+      proceds << des.description
+    end
+
+
+    # PODERES ESPECIAIS
+
+    powerxx = [].join("")
+    work.powers.each do | pw | 
+      powerxx << pw.description
+    end
+
+    # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO
+    
     def rater(rate, trabalho, exito)
       if trabalho.to_i < 100
         trabalho = "#{trabalho} benefícios previdenciários"
@@ -148,86 +166,78 @@ class WorksController < ApplicationController
 
     rate_final = rater(work.rate_work, work.rate_fixed_exfield, work.rate_percentage_exfield)
 
-      # :rate_percentage,
-      # :rate_percentage_exfield,
-      # :rate_fixed,
-      # :rate_fixed_exfield,
-      # :rate_work,
-      # :rate_parceled,
-      # :rate_parceled_exfield,
+    def rate_parcel(parcel)
+     if parcel.rate_parceled == "Sim"
+      return ". O valor fixo poderá ser parcelado em #{parcel.rate_parceled_exfield}, a critério do cliente."
+      end
+    end 
 
+    rate_parceled_final = rate_parcel(work)
 
+    # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
+    lawyers = UserProfile.lawyer
+    paralegals = UserProfile.paralegal
+    interns = UserProfile.intern
 
-      # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
-      lawyers = UserProfile.lawyer
-      paralegals = UserProfile.paralegal
-      interns = UserProfile.intern
+    if lawyers.size > 0.5
+      laws = ["Advogados: "].join("")
+      lawyerresp = []
+    else
+      laws = [""].join("")
+    end
 
+    if paralegals.size > 0.5
+      parals = ["Paralegais: "].join("")
+    else
+      parals = [""].join("")
+    end
 
-      if lawyers.size > 0.5
-        laws = ["Advogados: "].join("")
-        lawyerresp = []
+    if interns.size > 0.5
+      inters = ["Estagiários: "].join("")
+    else
+      inters = [""].join("")
+    end    
+
+    lawyers.each_with_index do | x, index |
+      if index == lawyers.size-1
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
       else
-        laws = [""].join("")
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
       end
-
-      if paralegals.size > 0.5
-        parals = ["Paralegais: "].join("")
-      else
-        parals = [""].join("")
-      end
-
-      if interns.size > 0.5
-        inters = ["Estagiários: "].join("")
-      else
-        inters = [""].join("")
-      end    
-
-      lawyers.each_with_index do | x, index |
-        if index == lawyers.size-1
-          laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
-        else
-          laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
-        end
-      end
-      
-      paralegals.each_with_index do | x, index |
-        if index == paralegals.size-1
-          parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
-        else
-          parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
-        end
-      end
-
-      interns.each_with_index do | x, index |
-        if index == interns.size-1
-          inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
-        else
-          inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
-        end
-      end
-
-      # ESCRITORIO (importado do Client)
-      # offices = Office.all
-      # if offices.size > 0.5
-      #   office_sel = Office.find_by_id(1)
-      #   office = ["Escritório: "].join("")
-      #   office_email = office_sel.email
-      #   office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
-      #   office << "#{office_sel.name}"
-      # else
-      #   office = [""].join("")
-      #   office_address = "#{lawyers[1]}"
-      # end
-
-    # TODO: Organizar Office aqui - e multiplos offices
-    office_select = Office.find(1)
-    office = "Escritório de advocacia #{office_select.name.upcase}, inscrito na OAB/PR n #{office_select.oab}, e no CNPJ n #{office_select.cnpj_number}"
-    office_bank = "Banco #{office_select.bank} Agência #{office_select.agency}, Conta #{office_select.account}"
-    #proced = work.procedure.gsub("[", "")
+    end
     
-    # Antigo metodo usado pluck, nao recomendavel
-    # Office.pluck(:name, :oab, :cnpj_number).join(", ")<< ','
+    paralegals.each_with_index do | x, index |
+      if index == paralegals.size-1
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
+    end
+
+    interns.each_with_index do | x, index |
+      if index == interns.size-1
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
+    end
+
+
+
+    # ESCRITORIO
+    offices = Office.all
+    if offices.size > 0.5
+      office_sel = Office.find_by_id(1)
+      office = ["Escritório: "].join("")
+      office_email = office_sel.email
+      office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
+      office << "#{office_sel.name}"
+    else
+      office = [""].join("")
+      office_address = "#{lawyers[1]}"
+    end
+    office_bank = "Banco #{office_sel.bank} Agência #{office_sel.agency}, Conta #{office_sel.account}"
+
 
     # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
@@ -249,6 +259,7 @@ class WorksController < ApplicationController
         tr.substitute('_:state_', client.state)
         tr.substitute('_:cep_', client.zip.to_s)
         tr.substitute('_:empresa_atual_', client.company)
+        tr.substitute('_:banco_', bank)
         # LAWYER end Society
         tr.substitute('_:lawyers_', laws)
         tr.substitute('_:society_', office)
@@ -258,25 +269,26 @@ class WorksController < ApplicationController
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
         # PROCEDIMENTOS  - PODERES
-         #tr.substitute('_:procedure_', work.procedures)
+         tr.substitute('_:procedure_', proceds)
          tr.substitute('_:subject_', work.subject)
          tr.substitute('_:action_', work.action)
          tr.substitute('_:number_', work.number)
-         tr.substitute('_:powers_', work.powers.each ###### ) => ONe Liner here
+         tr.substitute('_:powers_', powerxx)
         # PARTE SOCIETARIA - ADVOGADOS - ESCRITORIO - PARALGAIS - ESTAGIARIOS
          tr.substitute('_:lawyers_', laws)
          tr.substitute('_:sociedade_', office)
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
-         #tr.substitute('_:addressoficial_', office_address)
-         #tr.substitute('_:emailoficial_', office_email)
+         tr.substitute('_:addressoficial_', office_address)
+         tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas 
         tr.substitute('_:rates_', rate_final)
+        tr.substitute('_:parcel_', rate_parceled_final)
         tr.substitute('_:accountdetails_', office_bank)
         # All Measures Clause - True or False
         tr.substitute('_:timestamp_', dia)
-        tr.substitute('_:sname_', office_select.name.upcase)
+        tr.substitute('_:sname_', office_sel.name.upcase)
         tr.substitute('_:fullqual_', fullqual(client))
       end
     end

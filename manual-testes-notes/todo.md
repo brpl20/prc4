@@ -24,6 +24,7 @@
 
 # TODO FUTURE
 - Rem Persons
+- Arrumar Prev Powers
 - Add Db Advogados Parceiros + CRUD
 - Preencher PDF Automaticamente - Declaração Rural por Exemplo
 - Arrumar Tabela de Documentos para Armazenar Metadata da Amazon de todos os documentos => Excluir Client.Documents (plural errado) 
@@ -37,7 +38,11 @@
 - Adicionar botão de gerar cliente quando o @work ou @job não tiver @client vinculado (Views)
 - Adicionar textos bonitos de como o sistema funciona nas views: _Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo._
 - Arrumar Power Checkboxes to All-Checked-Selected 
-
+- Criar Alteração no check de procuracao simples:
+  * Consultas Receita(S) Federal-Estadual
+  * Criminal
+  * Trabalhistas
+- Adicionar Pessoas Jurídicas e Lógica do Representante Legal
 
 # Alterações 2nd Doc Urgentes
 ## First Doc

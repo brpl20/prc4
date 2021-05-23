@@ -15,6 +15,9 @@ class JobsController < ApplicationController
   # GET /jobs/new
   def new
     @job = Job.new
+    if params[:client]
+      @client = Client.find(params[:client])
+    end
   end
 
   # GET /jobs/1/edit

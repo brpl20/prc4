@@ -108,7 +108,7 @@ class ClientsController < ApplicationController
     end
 
     # NUMERO DE BENEFICIO FIELD
-    if @client[:number_benefit].nil?
+    if @client[:number_benefit].nil? || @client[:number_benefit] == ""
       nb_exist = ""
     else
       nb_exist = "número de benefício #{@client[:number_benefit]},"
