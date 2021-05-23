@@ -16,6 +16,7 @@ class Client < ApplicationRecord
   NULL_ATTRS = %w( lastname bank)
   before_save :fill_if_nil
 
+
   protected
 
   def fill_if_nil

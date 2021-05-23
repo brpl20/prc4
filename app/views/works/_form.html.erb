@@ -19,10 +19,6 @@
             end %>
           </div>
 
-          <div class="col-md-6">
-            <p><small class="rmk-text">* Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo.</small></p>
-          </div>
-
         </div>
 
         <div class="col-md-12">
@@ -73,16 +69,28 @@
 
         <div class="col-md-12">
 
-          <div class="grid col-md-6" id="conds-rates">
+          <div class="grid col-md-6" id="rate_parceled">
             <b><%= f.label "Parcelamento" %></b>
             <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
               b.label { b.radio_button + b.text }
             end %>
           </div>
 
-          <div class="grid col-md-6" id="conds-rates">
+          <div class="grid col-md-6" id="rate_parceled">
+            <b><%= f.label "Parcelamento" %></b>
+            <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
+          </div>
+
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="grid col-md-12" id="powers">
+            <b><%= f.label "Poderes" %></b>
             <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-              cb.label { cb.check_box + cb.text }
+              cb.label { cb.check_box + cb.text.gsub("[","").gsub("]","")}
+
             end %>
           </div>
 
@@ -100,33 +108,27 @@
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Indicação" %></b>
-            <%= f.text_field :recommendation, class:"form-control" %>
+            <%= f.fields_for :client_works do |cw| %>
+
+              <b><%= cw.label "Cliente" %></b>
+              
+              <% if @client.present? %>
+                <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => @client.id}, {class:'form-control'} %>
+              <% else %>
+                <%= cw.collection_select :client_id, options_for_client, :first, :second, {}, {class:'form-control'} %>
+              <% end %>
+            <% end %>
           </div>
 
         </div>
+
+
         <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
         <%#= TODO f.input :outros_responsavel %>
               <%#= TODO f.input :office, disabled: true %>
               <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
               <%#= TODO f.input :outros_responsavel %>
 
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Comissão (da Indicação)" %></b>
-            <%= f.text_field :recommendation_comission, class:"form-control" %>
-          </div>
-
-            <div class="col-md-6">
-              <%= f.fields_for :client_works do |cw| %>
-
-                <b><%= cw.label "Cliente" %></b>
-                <%= cw.collection_select :client_id, options_for_client, :first, :second, {}, {class:'form-control'} %>
-              <% end %>
-            </div>
-
-        </div>
 
         <div class="col-md-12">
 
@@ -144,8 +146,25 @@
 
         <div class="col-md-12">
 
+          <div class="col-md-6">
+            <b><%= f.label "Indicação" %></b>
+            <%= f.text_field :recommendation, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Comissão (da Indicação)" %></b>
+            <%= f.text_field :recommendation_comission, class:"form-control" %>
+          </div>
+
+
+
+        </div>
+
+
+        <div class="col-md-12">
+
           <div class="col-md-6 grid">
-            <b><%= f.label "Documentos a serem produzidos * Não está funcionando ainda" %></b>
+            <b><%= f.label "Documentos a serem produzidos" %></b>
             <%= f.collection_check_boxes :checklist_ids, options_for_checklist, :id, :description do |cl|
               cl.label { cl.check_box + cl.text }
             end %>

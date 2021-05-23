@@ -22,10 +22,6 @@
 - /views/clients/show => na edição não está aparecendo os campos de banco 
 - /views/ criar classe de CSS para STATUS => Concluído na tabela 
 
-
-
-
-
 # TODO FUTURE
 - Rem Persons
 - Add Db Advogados Parceiros + CRUD
@@ -38,6 +34,10 @@
 - Pessoas que querem ter múltiplos e-mails
 - Arrumar Genderize para Paralegals, Estagiários e Advogados
 - Arrumar Fields dos Jobs => Date => Responsável Pré Escolher => Status Boolean
+- Adicionar botão de gerar cliente quando o @work ou @job não tiver @client vinculado (Views)
+- Adicionar textos bonitos de como o sistema funciona nas views: _Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo._
+- Arrumar Power Checkboxes to All-Checked-Selected 
+
 
 # Alterações 2nd Doc Urgentes
 ## First Doc

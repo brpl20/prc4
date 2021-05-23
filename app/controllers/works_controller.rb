@@ -52,6 +52,16 @@ class WorksController < ApplicationController
      end
    end
 
+   def fullqual(person)
+     person.civilstatus = genderize(person.civilstatus)
+     person.citizenship = genderize(person.citizenship)
+     if person.gender == 1
+       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
+     else
+       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
+     end
+   end
+
 
 
   def work_templater(work, document)
@@ -145,6 +155,8 @@ class WorksController < ApplicationController
       # :rate_work,
       # :rate_parceled,
       # :rate_parceled_exfield,
+
+
 
       # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
       lawyers = UserProfile.lawyer
@@ -250,7 +262,7 @@ class WorksController < ApplicationController
          tr.substitute('_:subject_', work.subject)
          tr.substitute('_:action_', work.action)
          tr.substitute('_:number_', work.number)
-         tr.substitute('_:powers_', work.power)
+         tr.substitute('_:powers_', work.powers.each ###### ) => ONe Liner here
         # PARTE SOCIETARIA - ADVOGADOS - ESCRITORIO - PARALGAIS - ESTAGIARIOS
          tr.substitute('_:lawyers_', laws)
          tr.substitute('_:sociedade_', office)
@@ -264,7 +276,8 @@ class WorksController < ApplicationController
         tr.substitute('_:accountdetails_', office_bank)
         # All Measures Clause - True or False
         tr.substitute('_:timestamp_', dia)
-        tr.substitute('_:sname_', office_select.name)
+        tr.substitute('_:sname_', office_select.name.upcase)
+        tr.substitute('_:fullqual_', fullqual(client))
       end
     end
     bucket = 'prcstudio3herokubucket'
