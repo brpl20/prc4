@@ -43,6 +43,9 @@
   * Criminal
   * Trabalhistas
 - Adicionar Pessoas Jurídicas e Lógica do Representante Legal
+- works/index -> <td><%#= w.user.user_profile.full_name %></td>
+- works/show  -> <%#= @work.user.user_profile.full_name %>
+- jobs => CLIENT_ID não CLIENTS_ID
 
 # Alterações 2nd Doc Urgentes
 ## First Doc
