@@ -53,12 +53,10 @@ class WorksController < ApplicationController
    end
 
    def fullqual(person)
-     person.civilstatus = genderize(person.civilstatus)
-     person.citizenship = genderize(person.citizenship)
-     if person.gender == 0
-       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
-     else
+     if person.gender == 1
        qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrita no CPF #{person.social_number} e portadora do RG n #{person.general_register}, residente e domiciliada à #{person.address}, #{person.city} #{person.state}."
+     else
+       qual = "#{person.name} #{person.lastname}, #{person.citizenship}, #{person.civilstatus}, #{person.profession}, inscrito no CPF #{person.social_number} e portador do RG n #{person.general_register}, residente e domiciliado à #{person.address}, #{person.city} #{person.state}."
      end
    end
 
@@ -169,6 +167,8 @@ class WorksController < ApplicationController
     def rate_parcel(parcel)
      if parcel.rate_parceled == "Sim"
       return ". O valor fixo poderá ser parcelado em #{parcel.rate_parceled_exfield}, a critério do cliente."
+    else
+      return "[configurar parcelamento]"
       end
     end 
 

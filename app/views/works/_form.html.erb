@@ -123,13 +123,6 @@
         </div>
 
 
-        <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
-        <%#= TODO f.input :outros_responsavel %>
-              <%#= TODO f.input :office, disabled: true %>
-              <%#= TODO f.input :folder, label: "Pasta #{ultimoplusone}", disabled: true, wrapper_html: {class: 'd-inline-flex'} %>
-              <%#= TODO f.input :outros_responsavel %>
-
-
         <div class="col-md-12">
 
           <div class="col-md-6">
@@ -209,6 +202,20 @@
           </div>
 
         </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Pasta" %></b>
+            <%= f.text_field :folder, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <%#= f.text_field :document_pendent, class:"form-control" %>
+          </div>
+
+        </div>
+
 
         <div class="col-md-12">
           <div class="col-md-12">
