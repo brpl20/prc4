@@ -46,6 +46,8 @@
 - works/index -> <td><%#= w.user.user_profile.full_name %></td>
 - works/show  -> <%#= @work.user.user_profile.full_name %>
 - jobs => CLIENT_ID não CLIENTS_ID
+- Sistema de geração de "boxes" estilo trello, em que os usuários irão puxar de um frame lateral direito para o frame principal, que seria a petição, os dados necessários, por exemplo, qualificação, fatos, fundamentação (aux. doença - aposentadoria - tempo especial) e montar sua petição e no momento de colocar ele já vai puxar os campos _:_especiais_:_ e fazer o merge com o cliente. Teremos um banco de dados também com as decisões dos juízes sobre o tema, controvérsias de vários tribunais e também os próprios usuários podem editar e reutilizar os arquivos, de modo que fica tipo uma redesocial/github da advocacia.
+- Situação: Sobrestado ... Ag. Tema XyZ => Color ZZZ --> Adicionar no Pop:Setup 
 
 # Alterações 2nd Doc Urgentes
 ## First Doc
