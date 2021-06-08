@@ -1,28 +1,16 @@
 # TODO GERAL PROJETO PROC STUDIO
-<!-- - DB: Criar Interns Scaffold
-- DB: Paralegals Scaffold
-- DB: Secretary Scaffold
--  ENUM ? => Better OK  -->
-<!-- - Traduzir com I18n data = Time.now.strftime("%d, %B, %Y")  -->
-<!-- - Testar se alteração no application.rb deu certo da data => dia/mes/ano : alterou no PUMA pelo menos-->
-<!-- - Adicionar rate_parceled_exfield no Work -->
-<!-- - Criar filtro contra 'nil' -->
+
 
 # TODO TODAY
-<!-- - Termo de Renúncia -->
-<!-- - Declaração de Carência -->
-<!-- - Melhorar View do Work -->
-<!-- - Arrumar relação Jobs/Clients -->
-<!-- - Arrumar Jobs Pendentes "Otto" => View Client -->
-<!-- - Arrumar Lógica de Cliente sem Documento na AWS => View Client -->
-<!-- - Arrumar Lógica do Cliente no => View Client  -->
+- Deploy Personal Use
+
+# TODO FUTURE
 - Ano formato brasileiro no view/client e user_profile => Criei Initializer "date.display.format.rb" mas nao funcionou
 - Eleger um e-mail e endereço oficial 
 - /views/clients/show => na edição não está aparecendo os campos de telefone/e-mail (não aparece o título)
 - /views/clients/show => na edição não está aparecendo os campos de banco 
 - /views/ criar classe de CSS para STATUS => Concluído na tabela 
-
-# TODO FUTURE
+- Arrumar works_controller => works.clients.last => Para ser o client correto e programando corretamente 
 - Rem Persons
 - Arrumar Prev Powers
 - Add Db Advogados Parceiros + CRUD
