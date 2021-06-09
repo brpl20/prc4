@@ -1,5 +1,4 @@
 module WorksHelper
-
   def options_for_client
     Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
   end
@@ -60,7 +59,7 @@ module WorksHelper
   def options_for_checklist_document
     ChecklistDocument.all
   end
-  
+
   def options_for_procedure
     Procedure.all
   end

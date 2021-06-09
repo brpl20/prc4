@@ -127,6 +127,8 @@ class WorksController < ApplicationController
       capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
+    # RATE - COBRANCAS
+    # VER RATER
     # CLIENT BANK
     bank = ". Dados bancários: Banco: #{client.bank.name}, Agência #{client.bank.agency}, Conta: #{client.bank.account}"
 
@@ -268,6 +270,7 @@ class WorksController < ApplicationController
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
+
         # PROCEDIMENTOS  - PODERES
          tr.substitute('_:procedure_', proceds)
          tr.substitute('_:subject_', work.subject)
@@ -283,6 +286,7 @@ class WorksController < ApplicationController
          tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas 
+
         tr.substitute('_:rates_', rate_final)
         tr.substitute('_:parcel_', rate_parceled_final)
         tr.substitute('_:accountdetails_', office_bank)
@@ -315,6 +319,7 @@ class WorksController < ApplicationController
     work.save
     obj.upload_file(ch_file, metadata: metadata)
 
+
     # if work.checklist.include?("Termo")
     # aws_doc_tje = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/tje.docx")
     # aws_body_tje = aws_doc_tje.body
@@ -342,9 +347,10 @@ class WorksController < ApplicationController
     # obj_tje.upload_file(ch_file_tje)
 
     end
-    
+
     # if work.checklist.include?("Declaração")
     # end
+
 
     # if work.checklist.include?("Rural")
     # Elementos de cada arquivo

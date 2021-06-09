@@ -22,7 +22,7 @@ class ClientsController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   # PATCH/PUT /clients/1
@@ -45,6 +45,27 @@ class ClientsController < ApplicationController
   end
 
   def show
+    require 's3'
+    service = S3::Service.new(
+      :access_key_id => ENV['AWS_ID'],
+      :secret_access_key => ENV['AWS_SECRET_KEY']
+     )
+    @client = Client.find(params[:id])
+    # TODO -> Arrumar aqui pq os clientes que nao sao
+    # Consulta Simples nao estao aparecendo no view
+    # Pq nao existe documento gerado
+
+    doc_link = @client.documents["document_name"]
+    @client.documents[:aws_link]
+    @meta = []
+    @meta2 = []
+    #criar objeto
+    @bucket = service.buckets.find("prcstudio3herokubucket")
+    @object = @bucket.objects.find("tmp/#{doc_link}")
+    @url = @object.temporary_url(Time.now + 1800)
+    @meta << @object
+
+    @civilstatus = get_civilstatus(@client.civilstatus)
     if @client.documents == nil
       @url = "Sem Docs Cadastrados"
       @documents = "Sem Docs Cadastrados"
@@ -76,6 +97,20 @@ class ClientsController < ApplicationController
      end
    end
 
+   def get_civilstatus(status)
+     case status
+       when '1'
+         'Solteiro(a)'
+       when '2'
+         'Casado(a)'
+       when '3'
+         'Divorciado(a)'
+       when '4'
+         'Viúvo(a)'
+       when '5'
+         'em União Estável'
+       end
+   end
 
   def templater(client, document)
     require 'aws-sdk-s3'
@@ -116,14 +151,14 @@ class ClientsController < ApplicationController
 
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
-    if @client[:gender] == 1
-      civilstatus = genderize(@client[:civilstatus])
+    if @client[:gender] == 2
+      civilstatus = get_civilstatus(client.civilstatus)
       nacionalita = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      civilstatus = @client[:civilstatus]
+      civilstatus = get_civilstatus(client.civilstatus)
       nacionalita = @client[:citizenship]
       porta = "portador"
       inscrito = "inscrito"
@@ -218,7 +253,7 @@ class ClientsController < ApplicationController
         # CLIENT
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus.downcase)
+        tr.substitute('_:estado_civil_', civilstatus)
         tr.substitute('_:profissao_', @client[:profession].downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
@@ -238,6 +273,7 @@ class ClientsController < ApplicationController
         tr.substitute('$es', inters)
         tr.substitute('_:addressoficial_', office_address)
         tr.substitute('_:emailoficial_', office_email)
+
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)

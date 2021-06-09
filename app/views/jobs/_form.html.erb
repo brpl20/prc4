@@ -1,7 +1,16 @@
 <%= form_with model: @job, local: true do |f| %>
     <div class="x_content">
 
+
+<div class="form-inputs">
+  <%= f.input :description%>
+  <%= f.input :deadline%>
+  <%#= f.association :client_id%>
+  <p><%= @cli.name %></p>
+</div>
+
         <div class="col-md-12 col-sm-12">
+
 
           <div class="col-md-6 col-sm-6">
             <b><%= f.label "Descrição" %></b>

@@ -16,7 +16,7 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     if params[:client]
-      @client = Client.find(params[:client])
+      @cli = Client.find(params[:client])
     end
   end
 
