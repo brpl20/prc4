@@ -31,7 +31,7 @@ class ClientsController < ApplicationController
   end
 
   def edit
-    
+
   end
 
   # PATCH/PUT /clients/1
@@ -73,6 +73,8 @@ class ClientsController < ApplicationController
     @object = @bucket.objects.find("tmp/#{doc_link}")
     @url = @object.temporary_url(Time.now + 1800)
     @meta << @object
+
+    @civilstatus = get_civilstatus(@client.civilstatus)
   end
 
 
@@ -96,6 +98,20 @@ class ClientsController < ApplicationController
      end
    end
 
+   def get_civilstatus(status)
+     case status
+       when '1'
+         'Solteiro(a)'
+       when '2'
+         'Casado(a)'
+       when '3'
+         'Divorciado(a)'
+       when '4'
+         'Viúvo(a)'
+       when '5'
+         'em União Estável'
+       end
+   end
 
   def templater(client, document)
     require 'aws-sdk-s3'
@@ -137,13 +153,13 @@ class ClientsController < ApplicationController
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
     if @client[:gender] == 2
-      civilstatus = genderize(@client[:civilstatus])
+      civilstatus = get_civilstatus(client.civilstatus)
       nacionalita = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      civilstatus = @client[:civilstatus]
+      civilstatus = get_civilstatus(client.civilstatus)
       nacionalita = @client[:citizenship]
       porta = "portador"
       inscrito = "inscrito"
@@ -157,10 +173,10 @@ class ClientsController < ApplicationController
     end
 
     # ADVOGADOS
-    laws = [].join("")
-    Lawyer.all.each do | xopo |
-      laws << "#{xopo.name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
-    end
+    # laws = [].join("")
+    # Lawyer.all.each do | xopo |
+      # laws << "#{xopo.name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
+    # end
 
     # ESCRITORIO
 
@@ -181,7 +197,7 @@ class ClientsController < ApplicationController
         # CLIENT
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus.downcase)
+        tr.substitute('_:estado_civil_', civilstatus)
         tr.substitute('_:profissao_', @client[:profession].downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
@@ -195,7 +211,7 @@ class ClientsController < ApplicationController
         tr.substitute('_:cep_', (@client[:zip]).to_s)
         tr.substitute('_:empresa_atual_', @client[:company])
         # LAWYER end Society
-        tr.substitute('_:lawyers_', laws)
+        # tr.substitute('_:lawyers_', laws)
         tr.substitute('_:sociedade_', "")
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)

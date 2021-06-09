@@ -1,5 +1,4 @@
 module WorksHelper
-
   def options_for_client
     Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
   end
@@ -51,29 +50,29 @@ module WorksHelper
 
   def options_for_check_boxes
     Power.all
-    check_boxes = [
-                ["Ad Judicia", "Ad Judicia"],
-                ["Citacao", "Citacao"],
-                ["Desistir", "Desistir do Pedido"],
-                ["Imposto de Renda", "Firmar e Declarar Imposto de Renda e Isenções"],
-                ["confessar", "confessar"],
-                ["reconhecer o pedido", "reconhecer a procedência do pedido"],
-                ["desistir", "desistir do processo e substabelecer com ou sem reserva de poderes"],
-                ["transigir", "transigir"],
-                ["indicar e-mail", "indicar e-mail do escritório para notificações e intimações"],
-                ["acordos", "firmar compromissos e acordos"],
-                ["desistir", "desistir do processo e incidentes"],
-                ["renunciar", "renunciar ao direito o qual se funda a ação"],
-                ["receber e dar quitação", "receber e dar quitação"], 
-                ["carência", "firmar compromissos e assinar declaração de hipossuficiência econômica"],
-                ["termo renúncia", "firmar termo de renúncia para fins de Juizado Especial"],
-                ["RPV", "renunciar valores superiores à Requisições de Pequeno Valor em Precatórios"],
-                ["representar adm", "representar, assinar, protocolar requerimentos, desistir de pedidos ou de benefícios, fazer carga de processos, ter vistas e acessar documentos"],
-                ["sigilo médico", "acessar documentos resguardados pelo sigilo médico, independente do seue teor"],
-                ["INSS", "Instituto Nacional do Seguro Social - INSS"],
-                ["PRPrev", "Parana Previdência"],
-                ["Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico", "Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico"]
-                ]
+    # check_boxes = [
+    #             ["Ad Judicia", "Ad Judicia"],
+    #             ["Citacao", "Citacao"],
+    #             ["Desistir", "Desistir do Pedido"],
+    #             ["Imposto de Renda", "Firmar e Declarar Imposto de Renda e Isenções"],
+    #             ["confessar", "confessar"],
+    #             ["reconhecer o pedido", "reconhecer a procedência do pedido"],
+    #             ["desistir", "desistir do processo e substabelecer com ou sem reserva de poderes"],
+    #             ["transigir", "transigir"],
+    #             ["indicar e-mail", "indicar e-mail do escritório para notificações e intimações"],
+    #             ["acordos", "firmar compromissos e acordos"],
+    #             ["desistir", "desistir do processo e incidentes"],
+    #             ["renunciar", "renunciar ao direito o qual se funda a ação"],
+    #             ["receber e dar quitação", "receber e dar quitação"],
+    #             ["carência", "firmar compromissos e assinar declaração de hipossuficiência econômica"],
+    #             ["termo renúncia", "firmar termo de renúncia para fins de Juizado Especial"],
+    #             ["RPV", "renunciar valores superiores à Requisições de Pequeno Valor em Precatórios"],
+    #             ["representar adm", "representar, assinar, protocolar requerimentos, desistir de pedidos ou de benefícios, fazer carga de processos, ter vistas e acessar documentos"],
+    #             ["sigilo médico", "acessar documentos resguardados pelo sigilo médico, independente do seue teor"],
+    #             ["INSS", "Instituto Nacional do Seguro Social - INSS"],
+    #             ["PRPrev", "Parana Previdência"],
+    #             ["Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico", "Fazer Pedidos, Requisições, Desistência, Senha Junto ao INSS, inclusive protegidos pelo sigilo médico"]
+    #             ]
   end
 
   def options_for_checklist
@@ -83,7 +82,7 @@ module WorksHelper
   def options_for_checklist_document
     ChecklistDocument.all
   end
-  
+
   def options_for_procedure
     Procedure.all
   end
