@@ -9,7 +9,7 @@ class CreateUserProfiles < ActiveRecord::Migration[6.1]
       t.string :oab
       t.string :social_number
       t.string :citizenship
-      t.integer :civilstatus
+      t.string :civilstatus
       t.date :birth
       t.string :mothername
       t.string :email

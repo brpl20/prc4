@@ -55,7 +55,7 @@
 
             <div class="col-md-6">
               <b><%= f.label "Estado Civil" %></b>
-              <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus, :second, :first do |b|
+              <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b|
               b.label(class:"inline-radio") { b.radio_button + b.text }
               end %>
             </div>
@@ -64,8 +64,9 @@
 
           <div class="col-md-6">
             <b><%= f.label "Data de Nascimento" %></b>
-            <%= f.date_field :birth, class:"form-control", required:"required" %>
+            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
           </div>
+
 
           <div class="col-md-6">
             <b><%= f.label "Número do CPF" %></b>
@@ -170,6 +171,8 @@
                b.label(class:"inline-radio") { b.radio_button + b.text }
                end %>
             </div>
+
+            
 
             <div class="col-md-6">
                 <b><%= f.label "Consulta" %></b>

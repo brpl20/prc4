@@ -1,38 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="col-md-12 col-sm-12">
 
-<h1>Works</h1>
+  <h1 class="pull-left">Jobs</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Tipo</th>
-      <th>Materia</th>
-      <th>Acao</th>
-      <th>Numero</th>
-      <th>Honorariosp</th>
-      <th>Honorariosp exfield</th>
-      <th>Honorariosf</th>
-      <th>Honorariosf exfield</th>
-      <th>Honorarios trab x exito</th>
-      <th>Honorarios parcelamento</th>
-      <th>Escritorio</th>
-      <th>Poderes</th>
-      <th>Indicacao</th>
-      <th>Indicacao comissao</th>
-      <th>Pasta</th>
-      <th>Atendimento inicial</th>
-      <th>Advogado responsavel</th>
-      <th>Advogado procuracao</th>
-      <th>Estagiarios procuracao</th>
-      <th>Paralegais procuracao</th>
-      <th>Advogado parceiro</th>
-      <th>Notas</th>
-      <th>Checklist</th>
-      <th>Checklist documentos</th>
-      <th>Documentos pendentes</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <%= link_to new_job_path, class:"btn btn-success pull-right btn-new" do %>
+    <i class="fa fa-plus"></i> Novo job
+  <% end %>
 
   <tbody>
     <#% @works.each do |work| %>

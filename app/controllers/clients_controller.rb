@@ -15,18 +15,9 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      if @client[:choice] == true || nil
         templater(@client, 'procuracao_simples')
         flash[:notice] = "Cliente Criado"
         redirect_to @client
-      elsif @client[:choice] == false
-        redirect_to new_work_path(client: @client),
-          notice: "Cliente criado com sucesso, redirecionando para Trabalhos"
-          # TODO: Terminar os redirecionamentos aqui
-      else
-        render :new,
-        notice: "Erro - Renderizando Novo !"
-      end
     end
   end
 
@@ -75,6 +66,14 @@ class ClientsController < ApplicationController
     @meta << @object
 
     @civilstatus = get_civilstatus(@client.civilstatus)
+    if @client.documents == nil
+      @url = "Sem Docs Cadastrados"
+      @documents = "Sem Docs Cadastrados"
+    else
+      @url = @client.documents['aws_link']
+    end
+    @url_work = @client.client_works
+    @url_job = @client.jobs
   end
 
 
@@ -144,7 +143,7 @@ class ClientsController < ApplicationController
     end
 
     # NUMERO DE BENEFICIO FIELD
-    if @client[:number_benefit].nil?
+    if @client[:number_benefit].nil? || @client[:number_benefit] == ""
       nb_exist = ""
     else
       nb_exist = "número de benefício #{@client[:number_benefit]},"
@@ -172,16 +171,73 @@ class ClientsController < ApplicationController
       capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-    # ADVOGADOS
-    # laws = [].join("")
-    # Lawyer.all.each do | xopo |
-      # laws << "#{xopo.name} #{xopo.lastname} #{xopo.civilstatus} OAB/PR #{xopo.oab_number}, ".to_s
-    # end
+    # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
+    lawyers = UserProfile.lawyer
+    paralegals = UserProfile.paralegal
+    interns = UserProfile.intern
+
+
+    if lawyers.size > 0.5
+      laws = ["Advogados: "].join("")
+    else
+      laws = [""].join("")
+    end
+
+    if paralegals.size > 0.5
+      parals = ["Paralegais: "].join("")
+    else
+      parals = [""].join("")
+    end
+
+    if interns.size > 0.5
+      inters = ["Estagiários: "].join("")
+    else
+      inters = [""].join("")
+    end    
+
+    lawyers.each_with_index do | x, index |
+      if index == lawyers.size-1
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
+      else
+        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
+      end
+    end
+   
+    paralegals.each_with_index do | x, index |
+      if index == paralegals.size-1
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
+    end
+
+    interns.each_with_index do | x, index |
+      if index == interns.size-1
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      else
+        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      end
+    end
 
     # ESCRITORIO
+    offices = Office.all
+    if offices.size > 0.5
+      office_sel = Office.find_by_id(1)
+      office = ["Escritório: "].join("")
+      office_email = office_sel.email
+      office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
+      office << "#{office_sel.name}"
+    else
+      office = [""].join("")
+      office_address = "#{lawyers[1]}"
+    end
 
-    # erro no PRC4
-    #esc = Escritorio.pluck(:name, :oab, :city, :state, :email).join(", ")
+
+
+    # Address . similar ? 
+    # if lawyer.address.similar(lawyer.address)
+    #   lawyer.office 
+
 
     # FIELD TREAT -- FIM --
 
@@ -210,9 +266,14 @@ class ClientsController < ApplicationController
         tr.substitute('_:state_', @client[:state])
         tr.substitute('_:cep_', (@client[:zip]).to_s)
         tr.substitute('_:empresa_atual_', @client[:company])
-        # LAWYER end Society
-        # tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:sociedade_', "")
+        # LAWYER - PARALEGALS - INTERNS - SOCIETY
+        tr.substitute('_:lawyers_', laws)
+        tr.substitute('_:sociedade_', office)
+        tr.substitute('_$parl_', parals)
+        tr.substitute('$es', inters)
+        tr.substitute('_:addressoficial_', office_address)
+        tr.substitute('_:emailoficial_', office_email)
+
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)

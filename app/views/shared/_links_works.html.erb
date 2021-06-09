@@ -1,0 +1,12 @@
+  <%= link_to work_path(@client), class:"btn btn-info" do %>
+    <i class="fa fa-eye"></i>
+  <% end %>
+
+  <%= link_to edit_work_path(@client), class:"btn btn-primary" do %>
+    <i class="fa fa-edit"></i>
+  <% end %>
+
+  <%= link_to work_path(@client), class:"btn btn-danger",
+      method: :delete, data: {confirm: "Tem certeza que deseja apagar"} do %>
+      <i class="fa fa-times"></i>
+  <% end %>

@@ -88,20 +88,26 @@
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Banco" %></b>
-            <%= f.text_field :bank, class:"form-control" %>
+            <b><%= f.label "Email" %></b>
+            <%= f.text_field :email, class:"form-control" %>
           </div>
+
 
         </div>
 
         <div class="col-md-12">
 
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <b><%= f.label "Banco" %></b>
+            <%= f.text_field :bank, class:"form-control" %>
+          </div>
+
+          <div class="col-md-4">
             <b><%= f.label "Agência" %></b>
             <%= f.text_field :agency, class:"form-control" %>
           </div>
 
-          <div class="col-md-6">
+          <div class="col-md-4">
             <b><%= f.label "Conta" %></b>
             <%= f.text_field :account, class:"form-control" %>
           </div>

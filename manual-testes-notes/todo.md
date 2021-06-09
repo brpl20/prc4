@@ -1,13 +1,41 @@
 # TODO GERAL PROJETO PROC STUDIO
-<!-- - DB: Criar Interns Scaffold
-- DB: Paralegals Scaffold
-- DB: Secretary Scaffold
--  ENUM ? => Better OK  -->
-<!-- - Traduzir com I18n data = Time.now.strftime("%d, %B, %Y")  -->
-<!-- - Testar se alteração no application.rb deu certo da data => dia/mes/ano : alterou no PUMA pelo menos-->
-<!-- - Adicionar rate_parceled_exfield no Work -->
-<!-- - Criar filtro contra 'nil' -->
 
+
+# TODO TODAY
+- Deploy Personal Use
+
+# TODO FUTURE
+- Ano formato brasileiro no view/client e user_profile => Criei Initializer "date.display.format.rb" mas nao funcionou
+- Eleger um e-mail e endereço oficial 
+- /views/clients/show => na edição não está aparecendo os campos de telefone/e-mail (não aparece o título)
+- /views/clients/show => na edição não está aparecendo os campos de banco 
+- /views/ criar classe de CSS para STATUS => Concluído na tabela 
+- Arrumar works_controller => works.clients.last => Para ser o client correto e programando corretamente 
+- Rem Persons
+- Arrumar Prev Powers
+- Add Db Advogados Parceiros + CRUD
+- Preencher PDF Automaticamente - Declaração Rural por Exemplo
+- Arrumar Tabela de Documentos para Armazenar Metadata da Amazon de todos os documentos => Excluir Client.Documents (plural errado) 
+- Hint Button on Forms: OAB (Precisa colocar com o Estado também)
+- Solucionar problema: + de uma OAB
+- Problema de Endereços diferentes - Multiplos Escritórios
+- Problema de nacionalidaides diferentes (todos brasileiros...)
+- Pessoas que querem ter múltiplos e-mails
+- Arrumar Genderize para Paralegals, Estagiários e Advogados
+- Arrumar Fields dos Jobs => Date => Responsável Pré Escolher => Status Boolean
+- Adicionar botão de gerar cliente quando o @work ou @job não tiver @client vinculado (Views)
+- Adicionar textos bonitos de como o sistema funciona nas views: _Escolha o Procedimento, se for um procedimento administrativo e judicial já deixe tudo selecionado. Mas isso é tudo como um trabalho só. Se forem multiplos trabalhos recriar o formulário como um trabalho novo._
+- Arrumar Power Checkboxes to All-Checked-Selected 
+- Criar Alteração no check de procuracao simples:
+  * Consultas Receita(S) Federal-Estadual
+  * Criminal
+  * Trabalhistas
+- Adicionar Pessoas Jurídicas e Lógica do Representante Legal
+- works/index -> <td><%#= w.user.user_profile.full_name %></td>
+- works/show  -> <%#= @work.user.user_profile.full_name %>
+- jobs => CLIENT_ID não CLIENTS_ID
+- Sistema de geração de "boxes" estilo trello, em que os usuários irão puxar de um frame lateral direito para o frame principal, que seria a petição, os dados necessários, por exemplo, qualificação, fatos, fundamentação (aux. doença - aposentadoria - tempo especial) e montar sua petição e no momento de colocar ele já vai puxar os campos _:_especiais_:_ e fazer o merge com o cliente. Teremos um banco de dados também com as decisões dos juízes sobre o tema, controvérsias de vários tribunais e também os próprios usuários podem editar e reutilizar os arquivos, de modo que fica tipo uma redesocial/github da advocacia.
+- Situação: Sobrestado ... Ag. Tema XyZ => Color ZZZ --> Adicionar no Pop:Setup 
 
 # Alterações 2nd Doc Urgentes
 ## First Doc

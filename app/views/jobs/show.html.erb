@@ -1,129 +1,58 @@
 <p id="notice"><%= notice %></p>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
+    <div class="x_title clearfix">
+      <h1 class="pull-left"><%= @job.description %></h1>
 
-<p>
-  <strong>Tipo:</strong>
-  <%= @work.procedure %>
-</p>
+      <ul class="nav navbar-right panel_toolbox">
+        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        </li>
+      </ul>
+    </div>
 
-<p>
-  <strong>Materia:</strong>
-  <%= @work.subject %>
-</p>
+    <div class="x_content">
 
-<p>
-  <strong>Acao:</strong>
-  <%= @work.action %>
-</p>
+      <div class="col-md-12">
 
-<p>
-  <strong>Numero/ID:</strong>
-  <%= @work.number %><spam> / </spam><%= @work.id %>
-</p>
+        <section class="col-md-4">
 
-<p>
-  <strong>Honorariosp:</strong>
-  <%= @work.rate_percentage %>
-</p>
+            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações do Jobs</b></h2>
 
-<p>
-  <strong>Honorariosp exfield:</strong>
-  <%= @work.rate_percentage_exfield %>
-</p>
+            <span class="col-md-12">
+              <b>Descrição:</b>
+              <%= @job.description %>
+            </span>
 
-<p>
-  <strong>Honorariosf:</strong>
-  <%= @work.rate_fixed %>
-</p>
+            <span class="col-md-12">
+              <b>Prazo:</b>
+              <%= @job.deadline %>
+            </span>
 
-<p>
-  <strong>Honorariosf exfield:</strong>
-  <%= @work.rate_fixed_exfield %>
-</p>
+            <span class="col-md-12">
+              <b>Responsável:</b>
+              <%= @job.responsable %>
+            </span>
 
-<p>
-  <strong>Honorarios trab x exito:</strong>
-  <%= @work.rate_work %>
-</p>
+            <span class="col-md-12">
+              <b>Status:</b>
+              <%= @job.status %>
+            </span>
 
-<p>
-  <strong>Honorarios parcelamento:</strong>
-  <%= @work.rate_parceled %>
-</p>
+            <span class="col-md-12">
+              <b>Cliente:</b>
+              <%= @job.client.name %>
+            </span>
 
-<p>
-  <strong>Escritorio:</strong>
-  <spam>office corrigir ...</spam>
-</p>
+        </section>
 
-<p>
-  <strong>Poderes:</strong>
-  <%= @work.power %>
-</p>
+	  </div>
 
-<p>
-  <strong>Indicacao:</strong>
-  <%= @work.recommendation %>
-</p>
+	</div>
 
-<p>
-  <strong>Indicacao comissao:</strong>
-  <%= @work.recommendation_comission %>
-</p>
 
-<p>
-  <strong>Pasta:</strong>
-  <%= @work.folder %>
-</p>
+    <div class="col-md-12">
+      <%= link_to "Editar", edit_job_path(@job), class:"btn btn-primary pull-right" %>
+      <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
+      <%= link_to "Voltar ao Cliente", client_path(@job.client), class:"btn btn-warning pull-right" %>
+    </div>
 
-<p>
-  <strong>Atendimento inicial:</strong>
-  <%= @work.initial_atendee %>
-</p>
-
-<p>
-  <strong>Advogado responsavel:</strong>
-  <%= @work.responsible_lawyer %>
-</p>
-
-<p>
-  <strong>Advogado procuracao:</strong>
-  <%= @work.procuration_lawyer %>
-</p>
-
-<p>
-  <strong>Estagiarios procuracao:</strong>
-  <%= @work.procuration_intern %>
-</p>
-
-<p>
-  <strong>Paralegais procuracao:</strong>
-  <%= @work.procuration_paralegal %>
-</p>
-
-<p>
-  <strong>Advogado parceiro:</strong>
-  <%= @work.partner_lawyer %>
-</p>
-
-<p>
-  <strong>Notas:</strong>
-  <%= @work.note %>
-</p>
-
-<p>
-  <strong>Checklist:</strong>
-  <%= @work.checklist %>
-</p>
-
-<p>
-  <strong>Checklist documentos:</strong>
-  <%= @work.checklist_document %>
-</p>
-
-<p>
-  <strong>Documentos pendentes:</strong>
-  <%= @work.document_pendent %>
-</p>
-
-<%= link_to 'Edit', edit_work_path(@work) %> |
-<%= link_to 'Back', works_path %>

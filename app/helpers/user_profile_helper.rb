@@ -1,11 +1,11 @@
 module UserProfileHelper
 
   def options_for_gender
-    gender = [['Masculino', 1], ['Feminino', 2]]
+    gender = [['Masculino', 0], ['Feminino', 1]]
   end
 
   def options_for_civilstatus
-    civilstatus = [["Solteiro(a)", 1], ["Casado(a)", 2], ["Divorciado(a)", 3], ["Viúvo(a)", 4], ["União Estável", 4]]
+    civilstatus = [["Solteiro", "Solteiro"], ["Casado", "Casado"], ["Divorciado", "Divorciado"], ["Viúvo", "Viúvo"], ["União Estável", "em União Estável"]]
   end
 
   def options_for_status

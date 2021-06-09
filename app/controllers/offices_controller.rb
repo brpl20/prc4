@@ -81,6 +81,7 @@ class OfficesController < ApplicationController
         :zip,
         :site,
         :telephone,
+        :email,
         :bank,
         :agency,
         :account
