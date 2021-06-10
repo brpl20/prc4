@@ -3,7 +3,7 @@ class Client < ApplicationRecord
   has_many :phones, inverse_of: :client, dependent: :destroy
   has_many :emails, inverse_of: :client, dependent: :destroy
 
-  has_many :client_works
+  has_many :client_works, dependent: :destroy
   has_many :works, through: :client_works
   has_many :jobs
 

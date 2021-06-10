@@ -1,56 +1,46 @@
-<%= form_with model: @job, local: true do |f| %>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
+
+    <div class="x_title">
+      <h2>Cadastrando novo Job</h2>
+      <div class="clearfix"></div>
+    </div>
+
     <div class="x_content">
 
+      <%= form_with model: @job, local: true do |f| %>
 
-<div class="form-inputs">
-  <%= f.input :description%>
-  <%= f.input :deadline%>
-  <%#= f.association :client_id%>
-  <p><%= @cli.name %></p>
-</div>
+      <div class="col-md-12 col-sm-12">
 
-        <div class="col-md-12 col-sm-12">
-
-
-          <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Descrição" %></b>
-            <%= f.text_field :description, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Prazo" %></b>
-            <%= f.text_field :deadline, class:"form-control" %>
-          </div>
-
+        <div class="col-md-6 col-sm-6">
+          <b><%= f.label "Descrição" %></b>
+          <%= f.text_field :description, class:"form-control" %>
         </div>
 
-        <div class="col-md-12 col-sm-12">
-
-          <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Descrição" %></b>
-            <%= f.text_field :responsable, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Status" %></b>
-            <%= f.text_field :status, class:"form-control" %>
-          </div>
-
+        <div class="col-md-6 col-sm-6">
+          <b><%= f.label "Prazo" %></b>
+          <%= f.text_field :deadline, class:"form-control" %>
         </div>
+
+      </div>
+
+      <div class="col-md-12 col-sm-12">
+
+        <div class="col-md-6 col-sm-6">
+          <b><%= f.label "Cliente" %></b>
+          <%= f.collection_select :client_id, options_for_client, :first, :second, {:selected => @cli.id}, {class:'form-control'} %>
+        </div>
+
+      </div>
 
     </div>
 
-
-
-    <div class="col-md-6">
-      <%= f.select :client_id, options_for_select(Client.all.map{|s|[s.name, s.id]}) %>
-    </div>
-
+    <% end %>
 
     <div class="col-md-12">
       <button type="submit" class="btn btn-primary pull-right">Criar Job</button>
       <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
     </div>
 
-
-    <% end %>
+  </div>
+</div>

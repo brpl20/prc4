@@ -63,7 +63,6 @@ User.create!(
 )
 
 UserProfile.create!(
- id: 1,
  role: 0,
  name: 'Bruno',
  lastname: "Pellizzetti",
@@ -98,7 +97,6 @@ User.create!(
 )
 
 UserProfile.create!(
- id: 2,
  role: 0,
  name: 'Marcos',
  lastname: "Aurelio Ciello",
@@ -139,7 +137,6 @@ User.create!(
 )
 
 UserProfile.create!(
- id: 3,
  role: 2,
  name: 'Aline',
  lastname: "Cristina Hoffmann Pereira",
@@ -173,7 +170,6 @@ User.create!(
 )
 
 UserProfile.create!(
- id: 4,
  role: 3,
  name: 'Valdirene',
  lastname: "Santos da Costa Silva",
@@ -207,7 +203,6 @@ User.create!(
 )
 
 UserProfile.create!(
- id: 5,
  role: 1,
  name: 'João',
  lastname: "Augusto Prado",
@@ -256,4 +251,3 @@ Client.create!(
   zip: "85.819-530",
   documents: nil,
 )
-
