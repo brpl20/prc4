@@ -6,10 +6,10 @@ class Work < ApplicationRecord
   has_and_belongs_to_many :checklists
   has_and_belongs_to_many :checklist_documents
 
-  has_many :client_works
+  has_many :client_works, dependent: :destroy
   has_many :clients, through: :client_works
 
-  has_many :work_offices
+  has_many :work_offices, dependent: :destroy
   has_many :offices, through: :work_offices
 
   accepts_nested_attributes_for :client_works, :work_offices, reject_if: :all_blank, allow_destroy: true

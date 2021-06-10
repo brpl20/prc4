@@ -18,7 +18,7 @@ class WorksController < ApplicationController
     @work = Work.find(params[:id])
     @client = @work.client_ids
     @url = @work.document['aws_link']
-  
+
   end
 
   def create
@@ -108,7 +108,7 @@ class WorksController < ApplicationController
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
     if client.gender == 1
-      civilstatus = genderize(client.civilstatus)
+      civilstatus = client.civilstatus
       nacionalita = genderize(client.citizenship)
       porta = "portadora"
       inscrito = "inscrita"
@@ -132,10 +132,10 @@ class WorksController < ApplicationController
     # CLIENT BANK
     bank = ". Dados bancários: Banco: #{client.bank.name}, Agência #{client.bank.agency}, Conta: #{client.bank.account}"
 
-    # PROCEDIMENTOS 
+    # PROCEDIMENTOS
 
     proceds = [].join("")
-    work.procedures.each do | des | 
+    work.procedures.each do | des |
       proceds << des.description
     end
 
@@ -143,12 +143,12 @@ class WorksController < ApplicationController
     # PODERES ESPECIAIS
 
     powerxx = [].join("")
-    work.powers.each do | pw | 
+    work.powers.each do | pw |
       powerxx << pw.description
     end
 
     # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO
-    
+
     def rater(rate, trabalho, exito)
       if trabalho.to_i < 100
         trabalho = "#{trabalho} benefícios previdenciários"
@@ -172,7 +172,7 @@ class WorksController < ApplicationController
     else
       return "[configurar parcelamento]"
       end
-    end 
+    end
 
     rate_parceled_final = rate_parcel(work)
 
@@ -198,7 +198,7 @@ class WorksController < ApplicationController
       inters = ["Estagiários: "].join("")
     else
       inters = [""].join("")
-    end    
+    end
 
     lawyers.each_with_index do | x, index |
       if index == lawyers.size-1
@@ -207,7 +207,7 @@ class WorksController < ApplicationController
         laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
       end
     end
-    
+
     paralegals.each_with_index do | x, index |
       if index == paralegals.size-1
         parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
@@ -283,9 +283,9 @@ class WorksController < ApplicationController
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
          tr.substitute('_:addressoficial_', office_address)
-         tr.substitute('_:emailoficial_', office_email)
+         # tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
-        # Rates - Valores e Cobrancas 
+        # Rates - Valores e Cobrancas
 
         tr.substitute('_:rates_', rate_final)
         tr.substitute('_:parcel_', rate_parceled_final)
@@ -412,8 +412,11 @@ class WorksController < ApplicationController
   end
 
   def destroy
-    @works.destroy
-    redirect_to works_path
+    if @work.destroy
+      redirect_to works_path, notice: "Excluído com sucesso!"
+    else
+      redirect_to works_path, notice: "Houve um problema"
+    end
   end
 
   private

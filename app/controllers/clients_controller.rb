@@ -152,13 +152,13 @@ class ClientsController < ApplicationController
     # NO DB FIELDS CONFIG GENDER
     # GENDER LOGIC
     if @client[:gender] == 2
-      civilstatus = get_civilstatus(client.civilstatus)
+      civilstatus = client.civilstatus
       nacionalita = genderize(@client[:citizenship])
       porta = "portadora"
       inscrito = "inscrita"
       domiciliado = "domiciliada"
     else
-      civilstatus = get_civilstatus(client.civilstatus)
+      civilstatus = client.civilstatus
       nacionalita = @client[:citizenship]
       porta = "portador"
       inscrito = "inscrito"
@@ -193,7 +193,7 @@ class ClientsController < ApplicationController
       inters = ["Estagiários: "].join("")
     else
       inters = [""].join("")
-    end    
+    end
 
     lawyers.each_with_index do | x, index |
       if index == lawyers.size-1
@@ -202,7 +202,7 @@ class ClientsController < ApplicationController
         laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
       end
     end
-   
+
     paralegals.each_with_index do | x, index |
       if index == paralegals.size-1
         parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
@@ -234,9 +234,9 @@ class ClientsController < ApplicationController
 
 
 
-    # Address . similar ? 
+    # Address . similar ?
     # if lawyer.address.similar(lawyer.address)
-    #   lawyer.office 
+    #   lawyer.office
 
 
     # FIELD TREAT -- FIM --
@@ -272,7 +272,7 @@ class ClientsController < ApplicationController
         tr.substitute('_$parl_', parals)
         tr.substitute('$es', inters)
         tr.substitute('_:addressoficial_', office_address)
-        tr.substitute('_:emailoficial_', office_email)
+        # tr.substitute('_:emailoficial_', office_email)
 
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)

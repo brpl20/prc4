@@ -1,8 +1,6 @@
 <div class="col-md-12 col-sm-12">
   <h1>Dashboard</h1>
 
-
-
   <div class="col-md-6 col-sm-6">
 
     <div class="x_panel">
@@ -58,43 +56,45 @@
         <div class="clearfix"></div>
       </div>
 
-    <div class="x_content">
-      <ul class="list-unstyled timeline">
-        <% @works.each do |w| %>
-          <li>
-            <div class="block">
+      <div class="x_content">
+        <ul class="list-unstyled timeline">
+          <% @works.each do |w| %>
+            <li>
+              <div class="block">
 
-              <div class="tags">
-                <a href="" class="tag">
-                  <% if w.user.user_profile.full_name == nil %>
-                    <span><%= w.user.user_profile.full_name %></span></a>
-                    <% else %>
-                      <span><%= "nil" %></span></a>
+                <div class="tags">
+                  <a href="" class="tag">
+                    <% if w.user.user_profile.name %>
+                      <span><%= w.user.user_profile.full_name %></span>
+                      <% else %>
+                        <span>nil</span>
+                    <% end %>
+                  </a>
+                </div>
+
+                <div class="block_content">
+                  <h2 class="title"><%= w.subject %> -
+                    <%#= w.clients.first.name %></h2>
+                  <div class="byline">
+                    <%= localize(w.created_at, :format => :long) %>
+                  </div>
+
+                  <% w.procedures.each do |p| %>
+                    <p class="excerpt">
+                      <%= p.description %>
+                      <%= link_to "Ver mais.", work_path(w) %>
+                    </p>
                   <% end %>
-
-
-
-              <div class="block_content">
-                <h2 class="title"><%= w.subject %> -
-                  <%= w.clients.name %></h2>
-                <div class="byline">
-                  <%= localize(w.created_at, :format => :long) %>
 
                 </div>
 
-                <% w.procedures.each do |p| %>
-                  <p class="excerpt">
-                    <%= p.description %>
-                    <%= link_to "Ver mais.", work_path(w) %>
-                  </p>
-                <% end %>
-
               </div>
-            </div>
-          </li>
-        <% end %>
+            </li>
+          <% end %>
+        </ul>
 
       </div>
     </div>
   </div>
+
 </div>
