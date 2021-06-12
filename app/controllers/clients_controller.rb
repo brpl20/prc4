@@ -253,7 +253,7 @@ class ClientsController < ApplicationController
         # CLIENT
         tr.substitute('_:nome_', nome_cap)
         tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus)
+        tr.substitute('_:estado_civil_', civilstatus.downcase)
         tr.substitute('_:profissao_', @client[:profession].downcase)
         tr.substitute('_:capacidade_', capacity_treated.downcase)
         tr.substitute('_:nacionalidade_', nacionalita.downcase)
@@ -272,7 +272,7 @@ class ClientsController < ApplicationController
         tr.substitute('_$parl_', parals)
         tr.substitute('$es', inters)
         tr.substitute('_:addressoficial_', office_address)
-        # tr.substitute('_:emailoficial_', office_email)
+        tr.substitute('_:emailoficial_', office_email)
 
         # NO DB FIELDS CONFIG GENDER
         tr.substitute('_:portador_', porta)

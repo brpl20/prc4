@@ -283,7 +283,7 @@ class WorksController < ApplicationController
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
          tr.substitute('_:addressoficial_', office_address)
-         # tr.substitute('_:emailoficial_', office_email)
+         tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas
 
