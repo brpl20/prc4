@@ -1,4 +1,5 @@
 class UserProfileController < UsersController
+  before_action :sanitize_page_params, only: [:new, :create]
   before_action :verify_password, only: [:update]
   before_action :set_user, only: [:edit, :update, :destroy]
 
@@ -12,6 +13,7 @@ class UserProfileController < UsersController
   end
 
   def create
+    params_user[:user_profile_attributes][:gender] = params_user[:user_profile_attributes][:gender].to_i
     @user = User.new(params_user)
     if @user.save
       redirect_to profile_index_path
@@ -51,6 +53,10 @@ class UserProfileController < UsersController
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
         params[:user].extract!(:password, :password_confirmation)
       end
+    end
+
+    def sanitize_page_params
+      params_user[:user_profile_attributes][:gender] = params_user[:user_profile_attributes][:gender].to_i
     end
 
     def params_user

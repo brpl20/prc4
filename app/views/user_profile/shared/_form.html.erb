@@ -20,9 +20,7 @@
 		<%= f.label "Gênero", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b|
-			b.label(class:"inline-radio") { b.radio_button + b.text }
-			end %>
+			<%= f.text_field :gender, class:'form-control' %>
 		</div>
 
 	</div>
