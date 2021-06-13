@@ -1,5 +1,4 @@
 class UserProfileController < UsersController
-  before_action :sanitize_page_params, only: [:new, :create]
   before_action :verify_password, only: [:update]
   before_action :set_user, only: [:edit, :update, :destroy]
 
@@ -12,9 +11,14 @@ class UserProfileController < UsersController
     @user.build_user_profile
   end
 
+  def save
+  end
+
   def create
-    params_user[:user_profile_attributes][:gender] = params_user[:user_profile_attributes][:gender].to_i
-    @user = User.new(params_user)
+    up = params_user
+    up[:user_profile_attributes][:gender] = up[:user_profile_attributes][:gender].to_i
+    up[:user_profile_attributes][:status] = up[:user_profile_attributes][:status].to_i
+    @user = User.new(up)
     if @user.save
       redirect_to profile_index_path
     else
@@ -27,7 +31,10 @@ class UserProfileController < UsersController
   end
 
   def update
-    if @user.update(params_user)
+    up = params_user
+    up[:user_profile_attributes][:gender] = up[:user_profile_attributes][:gender].to_i
+    up[:user_profile_attributes][:status] = up[:user_profile_attributes][:status].to_i
+    if @user.update(up)
       bypass_sign_in(@user) if @user.email == current_user.email
       redirect_to profile_index_path, notice: "Usuário Atualizado com sucesso!"
     else
@@ -53,10 +60,6 @@ class UserProfileController < UsersController
       if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
         params[:user].extract!(:password, :password_confirmation)
       end
-    end
-
-    def sanitize_page_params
-      params_user[:user_profile_attributes][:gender] = params_user[:user_profile_attributes][:gender].to_i
     end
 
     def params_user

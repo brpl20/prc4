@@ -20,7 +20,9 @@
 		<%= f.label "Gênero", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :gender, class:'form-control' %>
+			<%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b|
+			b.label(class:"inline-radio") { b.radio_button + b.text }
+			end %>
 		</div>
 
 	</div>
@@ -106,7 +108,7 @@
 	<div class="item form-group">
 		<%= f.label "CEP", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :zip, class:'form-control','data-mask': '00.000-00', placeholder:"00.000-00" %>
+			<%= f.text_field :zip, class:'form-control','data-mask': '00.000-00', placeholder:"00.000-000" %>
 		</div>
 	</div>
 

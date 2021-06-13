@@ -1,10 +1,31 @@
 # TODO GERAL PROJETO PROC STUDIO
 
-
 # TODO TODAY
+<!-- - Git Ignore essa pasta /manual -->
 - Deploy Personal Use
 
 # TODO FUTURE
+- Aprender aquele negócio de criar um campo com `json` para adicionar um monte de coisa
+- Arrumar notificações de erro: /user_profile/new => "ao criar um novo usuário repetido ele só dá o rollback e nova edição, não informando que o usuário já existe"
+- Arrumar desconfiguração de senha: /user_profile/new => "ao criar um novo usuário repetido ele só dá o rollback e renderiza um form novo, porém ele está desalinhado no campo [senha](sc.png)"
+- Adicionar PIX: Nested - Multiple Keys
+- user_profifie Model: enum role => "ver se é necessário"
+- Arrumar funções restritas para Secretaria | Paralegal etc
+- Office => Arrumar campos: Unipessoal ... 
+- Office => Adicionar Sócios e suas % de participação
+- Office => + Emails + Telefones + Facebook + Bancos
+- Works => Definir % de participação dos sócios : restrito a Lawyers
+- Works/form => Adicionar mensagem se não houver cliente cadastrado
+- Works/form => criar requisição digitando o nome do cliente ou pelo menos possibilitando digitar
+- forms => Melhorar mensagens de informação : HINT etc 
+
+ouropreto@gmail.com 123456
+
+
+- Aprender melhores praticas erros qdo não existe arquivo no DB
+
+
+
 - Ano formato brasileiro no view/client e user_profile => Criei Initializer "date.display.format.rb" mas nao funcionou
 - Eleger um e-mail e endereço oficial 
 - /views/clients/show => na edição não está aparecendo os campos de telefone/e-mail (não aparece o título)

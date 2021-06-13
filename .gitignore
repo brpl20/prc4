@@ -7,9 +7,11 @@
 # Env
 *.env*
 *.ENV*
+
 # Shell Scripts
 *.sh*
 /lib/tasks/extenso.rake
+
 # Ignore bundler config.
 /.bundle
 
@@ -46,3 +48,6 @@ config/database.yml
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Manual-Teste-Notes
+/manual-testes-notes

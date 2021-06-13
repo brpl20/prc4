@@ -9,7 +9,7 @@ module UserProfileHelper
   end
 
   def options_for_status
-    status = [['Ativo', 1], ['Inativo', 2]]
+    status = [['Ativo', 0], ['Inativo', 1]]
   end
 
 end
