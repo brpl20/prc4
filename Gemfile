@@ -18,7 +18,7 @@ gem 'aws-sdk-s3', require: false
 gem 's3'
 
 # FrontEnd
-gem 'font-awesome-sass', '~> 5.6.1'
+gem "font-awesome-rails"
 gem 'simple_form'
 gem 'cocoon'
 
