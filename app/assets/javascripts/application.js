@@ -17,6 +17,14 @@
 
 $(document).ready(function(){
 
+  // checkboxes init 
+ function checkAll(){
+ $("#checkAll").click(function () {
+   $("input:checkbox").not(this).prop('checked', this.checked);
+ })};
+ checkAll()
+  // checkboxes end 
+
   $('.phone-cli').each(function(index){
     $(this).addClass('col-md-12').css('padding', '0');
     $('.client').css('margin', '0')

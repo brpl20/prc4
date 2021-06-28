@@ -86,14 +86,8 @@
 
         <div class="col-md-12">
 
-          <div class="grid col-md-12" id="powers">
-            <b><%= f.label "Poderes" %></b>
-            <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-              cb.label { cb.check_box + cb.text.gsub("[","").gsub("]","")}
-
-            end %>
-          </div>
-
+         <%= render 'powers', f: f %>
+ 
         </div>
 
         <div class="col-md-12">
