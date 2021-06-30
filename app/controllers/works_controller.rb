@@ -143,9 +143,23 @@ class WorksController < ApplicationController
     # PODERES ESPECIAIS
 
     powerxx = [].join("")
+    # work.powers.each_with_index do | pw, ind |
+    #   if ind.equal?(work..last)
+    #     powerxx << "#{JSON.parse(pw.description)[1]}, "
+    #   else
+    #     powerxx << "#{JSON.parse(pw.description)[1]}."
+    #   end
+    # end
+
     work.powers.each do | pw |
-      powerxx << pw.description
+      if pw.equal?(work.powers.last)
+        powerxx << "#{JSON.parse(pw.description)[1]}."
+      else
+        powerxx << "#{JSON.parse(pw.description)[1]}, "
+      end
     end
+    
+
 
     # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO
 

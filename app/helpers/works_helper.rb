@@ -18,6 +18,8 @@ module WorksHelper
       ["Aposentadoria Rural", "Aposentadoria Rural"],
       ["Benefícios Por Incapacidade - Auxílio Doença ou Acidente - Invalidez - LOAS", "Benefícios Por Incapacidade - Auxílio Doença ou Acidente - Invalidez - LOAS"],
       ["Revisão de Benefício Previdenciário", "Revisão de Benefício Previdenciário"],
+      ["Pensão Por Morte", "Pensão Por Morte"],
+      ["Auxílio Reclusão", "Auxílio Reclusão"],
       ["Reconhecimento de Tempo, Averbação, Serviços Administrativos", "Reconhecimento de Tempo, Averbação, Serviços Administrativos"]]
   end
 
