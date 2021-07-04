@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   resources :people
   resources :lawyers
   resources :user_profile, as: 'profile'
-  #do get 'receipt' end
   resources :offices
   resources :attendances
   resources :finances

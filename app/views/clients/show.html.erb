@@ -2,7 +2,12 @@
   <div class="x_panel">
 
     <div class="x_title clearfix">
-      <h1 class="pull-left"><%= @client.name + ' ' + @client.lastname%></h1>
+      <h1 class="pull-left"><%= @client.name + ' ' + @client.lastname %> </h1>
+      <span><%= link_to edit_client_path(@client), class:"btn btn-primary" do %></span>
+    <i class="fa fa-edit"></i>
+          <% end %>
+  
+
       <ul class="nav navbar-right panel_toolbox">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
         </li>
