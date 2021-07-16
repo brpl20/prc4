@@ -95,6 +95,8 @@
             <a href="javascript:;" class="user-profile dropdown-toggle" aria-haspopup="true" id="navbarDropdown" data-toggle="dropdown" aria-expanded="false">
               <% if user_signed_in? %>
                 <b><%= current_user.user_profile.nil? ? ' Atualize seu cadastro ' : current_user.user_profile.full_name %></b>
+                <% else %>
+                 <div> usuario sem log </div>
               <% end %>
             </a>
 

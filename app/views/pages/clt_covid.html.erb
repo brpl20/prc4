@@ -1,0 +1,17 @@
+<h1>Clt Covid</h1>
+<p>O vírus x vontade individual </p>
+
+<div class="x_content">
+  <%= form_with url: "/pages/clt_covid_s3", method: :post do |f| %>
+
+    <div class="col-md-12 col-sm-12">
+
+      <div class="col-md-12 col-sm-12">
+        <b><%= f.label "CNPJ" %></b>
+        <%= f.text_field :cnpj, class:"form-control" %>
+        <%= f.submit "Gerar Modelo" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>

@@ -17,7 +17,7 @@ class ClientsController < ApplicationController
     if @client.save
         templater(@client, 'procuracao_simples')
         flash[:notice] = "Cliente Criado"
-        redirect_to @client
+        redirect_to home
     end
   end
 
@@ -308,7 +308,7 @@ class ClientsController < ApplicationController
                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
                 :user => "#{current_user.id}"
                  }
-    client.documents = metadata
+    client.document = metadata
     client.save
     obj.upload_file(ch_file, metadata: metadata)
   end
