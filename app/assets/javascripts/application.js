@@ -14,6 +14,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
+//= require hide.js
 
 $(document).ready(function(){
 
@@ -23,7 +24,12 @@ $(document).ready(function(){
    $("input:checkbox").not(this).prop('checked', this.checked);
  })};
  checkAll()
+  // $('.className').on('click', function(){  $(this).value() });
+  // X = getElementById('class').on('click', function(){ //todo });
   // checkboxes end 
+  // let x = document.getElementsByClassName("radio_buttons");
+  // console.log(x);
+
 
   $('.phone-cli').each(function(index){
     $(this).addClass('col-md-12').css('padding', '0');

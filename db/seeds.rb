@@ -250,4 +250,7 @@ Client.create!(
   account: nil,
   zip: "85.819-530",
   documents: nil,
+  status: 1,
+  representative: 1,
+  cnpj: nil
 )

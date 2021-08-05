@@ -40,7 +40,8 @@ class PagesController < ApplicationController
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
         # CLIENT
-        tr.substitute('_:cnpj_', params)
+        # byebug
+        tr.substitute('_:cnpj_', params[:cnpj])
       end
     end
     bucket = 'prcstudio3herokubucket'
@@ -67,13 +68,6 @@ class PagesController < ApplicationController
 
   private
 
-  def clt_covid_s3_params
-    params.require(:cnpj).permit(
-      :adress,
-      :city,
-      :state
-      )
-  end
 
 
   def amazon_client

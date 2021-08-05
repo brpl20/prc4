@@ -346,6 +346,7 @@ class ClientsController < ApplicationController
       :state,
       :zip,
       :note,
+      :status,
       :documents,
       :choice,
       bank_attributes:   [:id, :name, :agency, :account],

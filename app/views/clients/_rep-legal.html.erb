@@ -1,0 +1,161 @@
+<div class="col-sm-12">
+  <div class="x_panel">
+
+    <div class="x_title">
+      <h2>Cadastrando novo Representante Legal</h2>
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="x_content">
+      <%= form_with model: @client, local: true do |f| %>
+
+        <div class="col-sm-12">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :name, class:"form-control" %>
+            <small id="passwordHelpBlock" class="form-text text-muted">
+              Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
+            </small>     
+        </div>
+
+          <div class="col-sm-12">
+            <b><%= f.label "Sobrenome" %></b>
+            <%= f.text_field :lastname, class:"form-control" %>
+          </div>
+
+        <div class="col-sm-12">
+            <b><%= f.label "Número de Benefício" %></b>
+            <%= f.text_field :number_benefit, class:"form-control"%>
+          </div>
+
+          <div class="col-sm-12">
+            <b><%= f.label "Número do RG" %></b>
+            <%= f.text_field :general_register, class:"form-control" %>
+          </div>
+
+          <div class="col-sm-12">
+              <b><%= f.label "Gênero" %></b>
+              <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text }
+              end %>
+
+              <b><%= f.label "Naturalidade" %></b>
+              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text }
+              end %>
+          </div>
+
+          <div class="col-sm-12">
+            <b><%= f.label "Estado Civil" %></b>
+            <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b|
+            b.label(class:"inline-radio") { b.radio_button + b.text }
+            end %>
+          </div>
+
+          <div class="col-sm-12">
+            <b><%= f.label "Data de Nascimento" %></b>
+            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
+          </div>
+
+
+          <div class="col-sm-12">
+            <b><%= f.label "Número do CPF" %></b>
+            <%= f.text_field :social_number, autocomplete:"Phone Number", class:"form-control", 'data-mask': '000.000.000-00', placeholder:"000.000.000-00" %>
+          </div>
+
+        </div>
+
+        <div class="col-sm-12">
+
+              <div class="phones">
+                <%= f.fields_for :phones do |ph| %>
+                  <%= render partial: "phone_fields", locals: {f: ph} %>
+                <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+            </div>
+
+          <div class="col-sm-12">
+
+
+              <div class="emails">
+                <%= f.fields_for :emails do |e| %>
+                  <%= render partial: "email_fields", locals: {f: e} %>
+                <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+          </div>
+
+
+        <div class="col-sm-12">
+            <b><%= f.label "Nome da Mãe" %></b>
+            <%= f.text_field :mothername, class:"form-control" %>
+        </div>
+
+        <div class="col-sm-12">
+            <b><%= f.label "Profissão"%></b>
+            <%= f.text_field :profession, class:"form-control" %>
+        </div>
+
+        <div class="col-sm-12">
+          <b><%= f.label "Empresa Atual"%></b>
+          <%= f.text_field :company, class:"form-control" %>
+        </div>
+
+        <div class="col-sm-12">
+
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control",'data-mask': '00.000-000', placeholder:"00.000-000" %>
+        </div>
+
+          <div class="col-sm-12">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :address, class:"form-control" %>
+          </div>
+
+        <div class="col-sm-12">
+            <b><%= f.label "Cidade" %></b>
+            <%= f.text_field :city, class:"form-control" %>
+        </div>
+
+        <div class="col-sm-12">
+            <b><%= f.label "Estado" %></b>
+            <%= f.text_field :state, class:"form-control" %>
+        </div>
+
+        <div class="col-sm-12">
+           <b><%= f.label "Capacidade" %></b>
+           <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+           b.label(class:"inline-radio") { b.radio_button + b.text }
+           end %>
+        </div>
+
+        
+        <div class="col-sm-12">
+
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Representante</button>
+
+            <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
+        </div>
+
+      <% end %>
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+</div>
+
