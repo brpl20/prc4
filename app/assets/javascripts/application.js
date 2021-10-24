@@ -31,6 +31,19 @@ $(document).ready(function(){
   // console.log(x);
 
 
+  let input = document.getElementById("client_zip");
+  input.addEventListener('input', function () {
+    if(input.value.length == 10){
+      console.log(input.value);
+      let cepClean = input.value.replace("-", "").replace(".", "");
+      fetch(`https://viacep.com.br/ws/${cepClean}/json/ `)
+        .then(response => response.json())
+        .then(data => console.log(data));
+    }
+    console.log(input.value.length);
+  });
+
+
   $('.phone-cli').each(function(index){
     $(this).addClass('col-md-12').css('padding', '0');
     $('.client').css('margin', '0')

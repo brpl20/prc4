@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.6'
+ruby '2.7.4'
 
 #   Authentication and Authorization
 gem 'dotenv-rails', groups: [:development, :test]
@@ -82,8 +82,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 
 # Reduces boot times through caching; required in config/boot.rb
-#gem 'bootsnap', '>= 1.1.0', require: false
-gem 'bootsnap', github: 'ojab/bootsnap', require: false
+gem 'bootsnap', require: false
 
 gem 'rails-i18n', '~> 6.0.0'
 

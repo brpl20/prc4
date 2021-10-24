@@ -18,7 +18,7 @@ class Client < ApplicationRecord
   
   # Representante Legal: nao = 0 {Nao e representante legal}
   # Representante Legal: yes = 1 {APENAS representante legal}
-  # Representante Legal: nao = 0 {É representante legal e TAMBÉM cliente}
+  # Representante Legal: both = 2 {É representante legal e TAMBÉM cliente}
 
   enum status: [:active, :inactive]
   enum representative: [:no, :yes, :both]

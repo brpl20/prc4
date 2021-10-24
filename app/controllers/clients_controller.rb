@@ -17,7 +17,7 @@ class ClientsController < ApplicationController
     if @client.save
         templater(@client, 'procuracao_simples')
         flash[:notice] = "Cliente Criado"
-        redirect_to home
+        redirect_to root_path
     end
   end
 
@@ -127,7 +127,7 @@ class ClientsController < ApplicationController
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
 
-    aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/#{document}.docx")
+    aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
     aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
@@ -308,7 +308,7 @@ class ClientsController < ApplicationController
                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
                 :user => "#{current_user.id}"
                  }
-    client.document = metadata
+    client.documents = metadata
     client.save
     obj.upload_file(ch_file, metadata: metadata)
   end

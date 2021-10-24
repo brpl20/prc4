@@ -7,6 +7,7 @@ module ClientsHelper
     gender = [['Masculino', 0], ['Feminino', 1]]
   end
 
+
   def options_for_citizenship
     citizenship = [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]]
   end
