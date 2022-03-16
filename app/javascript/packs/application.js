@@ -20,7 +20,8 @@ require ("jquery")
 require ("@nathanvda/cocoon")
 
 require('datatables.net-bs4')
-require("jquery-mask-plugin")
+require('jquery-mask-plugin')
+
 
 
 import $ from 'jquery';
@@ -58,6 +59,7 @@ $(document).ready(function(){
                       "sSortDescending": ": Ordenar colunas de forma descendente"
                   }
                 }});
+
 
   $('#datatable-list').DataTable({
     order: [[0, "desc"]],

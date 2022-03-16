@@ -16,7 +16,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( backoffice.js backoffice.css)
 
 # /lib/assets
-Rails.application.config.assets.precompile += %w( custom.js custom.css )
+Rails.application.config.assets.precompile += %w( custom.js custom.css)
 
 # /vendor/assets
 Rails.application.config.assets.precompile += %w( jquery-2.2.3/dist/jquery.js )

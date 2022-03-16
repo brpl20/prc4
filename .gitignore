@@ -12,6 +12,9 @@
 *.sh*
 /lib/tasks/extenso.rake
 
+# To-Do
+td.md
+
 # Ignore bundler config.
 /.bundle
 

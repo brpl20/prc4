@@ -14,7 +14,6 @@
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
-//= require hide.js
 
 $(document).ready(function(){
 
@@ -23,7 +22,6 @@ $(document).ready(function(){
  $("#checkAll").click(function () {
    $("input:checkbox").not(this).prop('checked', this.checked);
  })};
- checkAll()
   // $('.className').on('click', function(){  $(this).value() });
   // X = getElementById('class').on('click', function(){ //todo });
   // checkboxes end 
@@ -31,34 +29,6 @@ $(document).ready(function(){
   // console.log(x);
 
 
-  let input = document.getElementById("client_zip");
-  let inputAdressStreet = document.getElementById("client_address");
-  let inputAdressCity = document.getElementById("client_city");
-  let inputAdressState = document.getElementById("client_state");
-  let focus = document.getElementById("client_bank_attributes_name");
-
-
-
-
-  input.addEventListener('input', function () {
-    if(input.value.length == 10){
-      // console.log(input.value);
-      let cepClean = input.value.replace("-", "").replace(".", "");
-      fetch(`https://viacep.com.br/ws/${cepClean}/json/ `)
-        .then(response => response.json())
-        .then(function(data)
-          {
-            // console.log(data);
-            inputAdressStreet.value = data.logradouro + ", "
-            inputAdressCity.value = data.localidade
-            inputAdressState.value = data.uf
-            inputAdressStreet.focus()
-
-
-          });
-    }
-    // console.log(input.value.length);
-  });
 
 
   $('.phone-cli').each(function(index){
@@ -171,5 +141,26 @@ $(document).ready(function(){
     };
   });
 
+ checkAll()
 
 });
+
+
+// VERIFICAR EMAIL
+
+// let inputEmail = document.getElementById("client_emails_attributes_0_email");
+// inputEmail.addEventListener('input', function (){
+//   let getEmailInput = document.getElementById("client_emails_attributes_0_email").value;
+//   let userName = getEmailInput.substring(0,getEmailInput.indexOf("@"));
+//   let userDomain = getEmailInput.substring(getEmailInput.indexOf("@")+1, getEmailInput.lenght);
+//   // console.log(userName);
+//   // console.log(userDomain);
+//   if(userName.length > 1 && userDomain.length > 3 && userName.search("@") == -1){
+//     // desabilitar botao
+//     // alert == ver
+//   }
+
+// }
+// );
+
+// VER EMAIL FIM
