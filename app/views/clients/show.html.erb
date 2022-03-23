@@ -92,7 +92,7 @@
 
           <span class="col-md-12">
             <b>Documentos:</b>
-            <%= @documents %>
+            <#% Ajeitar Códig aqui  %>
           </span>
 
           <div class="col-md-12">
@@ -100,8 +100,8 @@
               <i class="fa fa-download"></i> Procuração Simples
             <% end %>
           </div>
-          
-          
+
+
         </section>
 
       </div>
@@ -203,7 +203,7 @@
                 <tr></tr>
                   <th scope="row"><%= ind+1 %></th>
                   <% wo = Work.find_by_id(w.id) %>
-                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>        
+                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
                   <th><%= wo.number %></th>
                   <th><%= wo.folder %></th>
                   <th><%= render "shared/links_works" %></th>

@@ -15,9 +15,17 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-        templater(@client, 'procuracao_simples')
-        flash[:notice] = "Cliente Criado"
-        redirect_to root_path
+      if @client.capacity === "Capaz"
+        #templater(@client, 'procuracao_simples')
+        #templater desativado porque está dando NIL na segunda geracao de doc
+        flash[:notice] = "Cliente Criado - Procuração Simples Gerada"
+        redirect_to @client
+      else
+        flash[:notice] = "Cliente Incapaz Criado - Redirecionando Para Representante Legal"
+        render :action => "new"
+        #redirect_to action: :new
+        # ainda em duvida sobre usar render ou redirect_to (zerar os campos)
+      end
     end
   end
 
@@ -55,13 +63,17 @@ class ClientsController < ApplicationController
     # Consulta Simples nao estao aparecendo no view
     # Pq nao existe documento gerado
 
-    doc_link = @client.documents["document_name"]
-    @client.documents[:aws_link]
+    if @client.documents != nil
+      doc_link = @client.documents["document_name"]
+    else
+      doc_link = "Sem documentos disponíveis"
+    end
     @meta = []
     @meta2 = []
     #criar objeto
-    @bucket = service.buckets.find("prcstudio3herokubucket")
+    @client.documents[:aws_link]
     @object = @bucket.objects.find("tmp/#{doc_link}")
+    @bucket = service.buckets.find("prcstudio3herokubucket")
     @url = @object.temporary_url(Time.now + 1800)
     @meta << @object
 
