@@ -1,5 +1,6 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_client, only: [:show, :edit, :update, :destroy]
+  #before_action :set_client, only: [:new_rep]
 
   def index
     @clients = Client.includes(:phones,:emails).all
@@ -12,6 +13,16 @@ class ClientsController < ApplicationController
     @client.emails.build
   end
 
+  def new_rep
+    @client = Client.new
+    incapable = Client.find(params[:id])
+    @client.address = incapable.address
+    # Continuar preenchimento
+  end
+
+
+
+
   def create
     @client = Client.new(client_params)
     if @client.save
@@ -22,8 +33,8 @@ class ClientsController < ApplicationController
         redirect_to @client
       else
         flash[:notice] = "Cliente Incapaz Criado - Redirecionando Para Representante Legal"
-        render :action => "new"
-        #redirect_to action: :new
+        redirect_to new_rep_path(@client)
+        #render :action => "new"
         # ainda em duvida sobre usar render ou redirect_to (zerar os campos)
       end
     end

@@ -5,10 +5,12 @@ Rails.application.routes.draw do
   get 'pages/dashboard'
   get 'pages/help'
   get 'pages/plans'
-  
+
   get 'pages/clt_covid'
   post 'pages/clt_covid_s3'
 
+  get 'clients/new_rep/:id', to: 'clients#new_rep', as: :new_rep
+  # criacao da rota
 
   root to: "pages#dashboard"
 
