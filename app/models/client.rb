@@ -15,13 +15,13 @@ class Client < ApplicationRecord
   # https://naturaily.com/blog/ruby-on-rails-enum
   # Status: Active = 0 {Cliente Ativo}
   # Status: Inactive = 1 {Cliente Inativo}
-  
+
   # Representante Legal: nao = 0 {Nao e representante legal}
-  # Representante Legal: yes = 1 {APENAS representante legal}
+  # Representante Legal: yes   = 1 {APENAS representante legal}
   # Representante Legal: both = 2 {É representante legal e TAMBÉM cliente}
 
   enum status: [:active, :inactive]
-  enum representative: [:no, :yes, :both]
+  # enum representative: [:no, :yes, :both]
 
 
   # Retirar NIL

@@ -15,12 +15,14 @@ class ClientsController < ApplicationController
 
   def new_rep
     @client = Client.new
-    incapable = Client.find(params[:id])
-    @client.address = incapable.address
-    # Continuar preenchimento
+    @incapable = Client.find(params[:id])
+    @client.address = @incapable.address
+    @client.zip = @incapable.zip
+    @client.city = @incapable.city
+    @client.state = @incapable.state
+    @client.capacity = "Capaz"
+    @client.representative = @incapable.id
   end
-
-
 
 
   def create
@@ -372,6 +374,8 @@ class ClientsController < ApplicationController
       :status,
       :documents,
       :choice,
+      :representative,
+      incapable_attributes: [:id],
       bank_attributes:   [:id, :name, :agency, :account],
       phones_attributes: [:id, :phone, :_destroy],
       emails_attributes: [:id, :email, :_destroy]

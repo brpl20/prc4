@@ -19,13 +19,17 @@
             <small class="form-text text-muted">
               Nome do representante.
             </small>
+            <small class="form-text text-muted">
+              Representado: <%= @incapable.name %>
+            </small>
           </div>
+
 
           <div class="col-md-6 col-sm-6">
             <b><%= f.label "Sobrenome" %></b>
             <%= f.text_field :lastname, class:"form-control" %>
             <small class="form-text text-muted">
-              Sobrenome do cliente.
+              Sobrenome do Representante.
             </small>
           </div>
 
@@ -174,18 +178,6 @@
 
         <div class="col-md-12">
 
-            <div class="col-md-6 ">
-               <b><%= f.label "Capacidade" %></b>
-               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
-               b.label(class:"inline-radio") { b.radio_button + b.text }
-               end %>
-            </div>
-
-            <div class="modal show-modal" id="rl" >
-               <b><%= f.label "Responsável Legal" %></b >
-               <%= f.text_field :responsavel %>
-            </div>
-
 
 
             <div class="col-md-6">
@@ -224,7 +216,7 @@
 
         <div class="col-md-12">
 
-            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Representante</button>
 
             <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
         </div>
