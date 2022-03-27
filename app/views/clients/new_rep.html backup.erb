@@ -1,39 +1,29 @@
-<h1>Novo Representante</h1>
-
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
-
     <div class="x_title">
-      <h2>Cadastrando novo Representante Legal</h2>
+    <h1>Novo Representante</h1>
       <div class="clearfix"></div>
     </div>
 
-    <div class="x_content">
-      <%= form_with model: @client, local: true do |f| %>
-
-        <% # Hidden Fields %>
+      <% # Hidden Fields Start %>
         <%= f.text_field :capacity, value: @client.capacity %>
         <%= f.text_field :representative, value: @client.representative %>
+      <% # Hidden Fields End %>
 
-        <div class="col-md-12 col-sm-12">
-
-          <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Nome" %></b>
-            <%= f.text_field :name, class:"form-control" %>
-            <small class="form-text text-muted">
-              Nome do representante.
-            </small>
-            <small class="form-text text-muted">
-              Representado: <%= @incapable.name %>
-            </small>
+      <div class="x_content">
+        <%= form_with model: @client, local: true do |f| %>
+          <div class="col-md-12 col-sm-12">
+            <div class="col-md-6 col-sm-6">
+              <b><%= f.label "Nome" %></b>
+                <%= f.text_field :name, class:"form-control" %>
+                  <small class="form-text text-muted"> Nome do representante.</small>
+                  <small class="form-text text-muted"> Representado: <%= @incapable.name %></small>
           </div>
-
-
           <div class="col-md-6 col-sm-6">
             <b><%= f.label "Sobrenome" %></b>
             <%= f.text_field :lastname, class:"form-control" %>
             <small class="form-text text-muted">
-              Sobrenome do Representante.
+              Sobrenome do cliente.
             </small>
           </div>
 
@@ -181,13 +171,23 @@
         </div>
 
         <div class="col-md-12">
+
+            <div class="col-md-6 ">
+               <b><%= f.label "Capacidade" %></b>
+               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+               b.label(class:"inline-radio") { b.radio_button + b.text }
+               end %>
+            </div>
+
+
             <div class="col-md-6">
                 <b><%= f.label "Consulta" %></b>
                 <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
-                  b.label(class:"inline-radio") { b.radio_button + b.text }
+                b.label(class:"inline-radio") { b.radio_button + b.text }
                 end %>
             </div>
 
+          </div>
 
           <div class="col-md-6">
 
@@ -209,16 +209,16 @@
               </div>
 
             <% end %>
+
           </div>
 
-        </div>
+      </div>
 
         <div class="col-md-12">
 
-            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Representante</button>
+            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
 
             <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
-
         </div>
 
       <% end %>
@@ -227,8 +227,14 @@
 
 
 
-
   </div>
+
+
+
+
+
+
+
 
 
 </div>

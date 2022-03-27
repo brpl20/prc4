@@ -22,6 +22,8 @@ class ClientsController < ApplicationController
     @client.state = @incapable.state
     @client.capacity = "Capaz"
     @client.representative = @incapable.id
+    # @client.emails = @incapable.emails.build
+    # nao esta funcionando
   end
 
 
@@ -365,6 +367,7 @@ class ClientsController < ApplicationController
       :mothername,
       :number_benefit,
       :general_register,
+      :cnpj,
       :social_number,
       :address,
       :city,

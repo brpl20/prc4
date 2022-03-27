@@ -27,10 +27,15 @@ class Client < ApplicationRecord
   # Retirar NIL
   # NULL_ATTRS = %w( lastname email bank emails phones)
   NULL_ATTRS = %w( lastname bank)
-  before_save :fill_if_nil
+  before_save :fill_if_nil, :default_values
 
 
   protected
+
+  def default_values
+    self.status = 0
+  end
+
 
   def fill_if_nil
     NULL_ATTRS.each { |attr| self[attr] = "[Campo Vazio]" if self[attr].nil? }

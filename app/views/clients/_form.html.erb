@@ -9,6 +9,10 @@
     <div class="x_content">
       <%= form_with model: @client, local: true do |f| %>
 
+        <% # Hidden Fields Init %>
+
+        <% # Hidden Fields End %>
+
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
@@ -81,6 +85,12 @@
             <b><%= f.label "Número do CPF" %></b>
             <%= f.text_field :social_number, autocomplete:"Phone Number", class:"form-control", 'data-mask': '000.000.000-00', placeholder:"000.000.000-00" %>
           </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Número do CNPJ" %></b>
+            <%= f.text_field :cnpj, autocomplete: true, class:"form-control", 'data-mask': '00.000.000/0000-00' %>
+          </div>
+
 
         </div>
 

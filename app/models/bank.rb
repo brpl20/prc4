@@ -1,6 +1,7 @@
 class Bank < ApplicationRecord
   belongs_to :client, dependent: :destroy
-  before_save :fill_if_nil
+  #before_save :fill_if_nil
+  #retirado fill_if_nill porque como faz referencia ele fica vazio por padrao
 
   # Retirar NIL
   NULL_ATTRS = %w(name agency account)
