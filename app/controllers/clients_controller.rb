@@ -6,6 +6,13 @@ class ClientsController < ApplicationController
     @clients = Client.includes(:phones,:emails).all
   end
 
+  # def choice
+  #   if choice == true
+  #     templater(@client, 'procuracao_simples')
+  #   else
+  #     redirect_to new_work_path(client)
+  # end
+
   def new
     @client = Client.new
     @client.build_bank
@@ -31,8 +38,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     if @client.save
       if @client.capacity === "Capaz"
-        #templater(@client, 'procuracao_simples')
-        #templater desativado porque está dando NIL na segunda geracao de doc
+        templater(@client, 'procuracao_simples')
         flash[:notice] = "Cliente Criado - Procuração Simples Gerada"
         redirect_to @client
       else
@@ -68,37 +74,7 @@ class ClientsController < ApplicationController
   end
 
   def show
-    require 's3'
-    service = S3::Service.new(
-      :access_key_id => ENV['AWS_ID'],
-      :secret_access_key => ENV['AWS_SECRET_KEY']
-     )
     @client = Client.find(params[:id])
-    # TODO -> Arrumar aqui pq os clientes que nao sao
-    # Consulta Simples nao estao aparecendo no view
-    # Pq nao existe documento gerado
-
-    if @client.documents != nil
-      doc_link = @client.documents["document_name"]
-    else
-      doc_link = "Sem documentos disponíveis"
-    end
-    @meta = []
-    @meta2 = []
-    #criar objeto
-    @client.documents[:aws_link]
-    @object = @bucket.objects.find("tmp/#{doc_link}")
-    @bucket = service.buckets.find("prcstudio3herokubucket")
-    @url = @object.temporary_url(Time.now + 1800)
-    @meta << @object
-
-    @civilstatus = get_civilstatus(@client.civilstatus)
-    if @client.documents == nil
-      @url = "Sem Docs Cadastrados"
-      @documents = "Sem Docs Cadastrados"
-    else
-      @url = @client.documents['aws_link']
-    end
     @url_work = @client.client_works
     @url_job = @client.jobs
   end

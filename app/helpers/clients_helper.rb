@@ -17,7 +17,7 @@ module ClientsHelper
   end
 
   def options_for_capacity
-    capacity = [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]]
+    capacity = [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"], ["Pessoa Jurídica", "Pessoa Jurídica"]]
   end
 
   def options_for_choice

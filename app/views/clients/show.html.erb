@@ -91,15 +91,13 @@
           <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Documentos</b></h2>
 
           <span class="col-md-12">
-            <b>Documentos:</b>
-            <#% Ajeitar Códig aqui  %>
-          </span>
-
           <div class="col-md-12">
-            <%= link_to @url, class: "btn btn-info col-md-6" do %>
+            <%= link_to @client&.documents["aws_link"], class: "btn btn-info col-md-6" do %>
+
               <i class="fa fa-download"></i> Procuração Simples
             <% end %>
           </div>
+
 
 
         </section>
