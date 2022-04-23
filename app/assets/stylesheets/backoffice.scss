@@ -138,20 +138,38 @@ input[type='checkbox']{
   border: solid 1px #ff6b6b;
   color: #ff6b6b;
 }
- #datatable-dash_length label{
+#datatable-dash_length label{
    display: none;
  }
+footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 3em;
 
-// footer
-.center{
-  text-align: center;
+  border: solid 1px red;
 }
-.footer{
-  font-size: 1.3em;
+footer div{
+  width: 25%;
+  padding: 0 1.5em;
 }
-.footer-links a{
-  margin: 10px;
+.icon-footer{
+  font-size: 1.8em;
+  margin-right: .5em;
 }
+
+ footer div h1{
+   font-size: 1em;
+   font-weight: bolder;
+ }
+ footer div a{
+    display: block;
+    margin-bottom: .6em;
+  }
+a.icon-footer{
+  display: inline;
+}
+
 // Datatables
 .table-actions{
   width: 250px;
