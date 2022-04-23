@@ -5,14 +5,8 @@
 *= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
 *= require custom
 */
-*{
-  font-size: 15px;
-}
 body {
   min-height: 100%;
-}
-.body {
-  min-height: 100vh;
 }
 .col-md-1,
 .col-md-2,
@@ -28,9 +22,6 @@ body {
 .col-md-12{
    // border: solid 1px #DDDDDD;
    margin-top: 0.6em;
-}
-.body{
-
 }
 .left{
   float: right;
@@ -74,14 +65,21 @@ textarea{
   text-align: justify;
   line-height: 2rem;
 }
+
+.nav_title.logo{
+  display: flex;
+  justify-content: center;
+}
+
 #logo-bola{
-  width: 3rem;
+  width: 100%;
+  padding: 0 1%;
 }
 .nav-item{
   height: 30px;
 }
 .nav_title{
-  height: 80px;
+  height: 105px;
 }
 #navbar, .site_title{
   height: 100px;
