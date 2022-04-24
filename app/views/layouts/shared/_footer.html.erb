@@ -3,18 +3,22 @@
   <div>
     <%= link_to (image_tag('logo_colorido.png', id:'l')), pages_dashboard_path %>
 
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In dolorem repudiandae error sequi architecto! Inventore modi commodi iste vel, et dolorem rerum ipsam, ratione perspiciatis nisi iure magni veritatis. Quisquam!</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In dolorem repudiandae error sequi architecto! Inventore ratione perspiciatis nisi iure magni veritatis. Quisquam!</p>
   </div>
 
   <div>
     <h1 class="h-line">ProcStudio 2020</h1>
+    <p><b>Pellizzetti Advocacia</b></p>
+    <p>Rua Paraná, 3033, Ed. Formato, 14 Andar, Cascavel, Paraná - CEP: 85810-010</p>
+    <p>(45) 3035-5898 </p>
   </div>
 
   <div>
     <h1 class="h-line">Links Úteis</h1>
-    <a href="#">Work</a>
-    <a href="#">Clientes</a>
-    <a href="#">Usuário</a>
+    <%= link_to 'Work', works_path %>
+    <%= link_to 'Clientes', clients_path %>
+    <%= link_to 'Usuários', profile_index_path %>
+    <%= link_to 'Escritórios', offices_path %>
   </div>
 
   <div>

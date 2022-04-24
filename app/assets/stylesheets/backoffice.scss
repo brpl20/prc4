@@ -141,13 +141,14 @@ input[type='checkbox']{
 #datatable-dash_length label{
    display: none;
  }
+.left_col{
+  margin: 0;
+}
 footer{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   padding: 3em;
-
-  border: solid 1px red;
 }
 footer div{
   width: 25%;
