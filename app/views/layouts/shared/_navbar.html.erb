@@ -1,10 +1,8 @@
 <div class="col-md-3 left_col menu_fixed">
   <div class="left_col scroll-view">
-    <div class="navbar nav_title" style="border: 0;">
 
-      <span class="site_title">
-        <%= link_to (image_tag('https://prcstudio3herokubucket.s3.us-west-2.amazonaws.com/assets/logo-proc-estudio.png', id:'logo-bola')), pages_dashboard_path %>
-        <span id="title-logo">ProcStudio</span>
+    <div class="navbar nav_title logo" style="border: 0;">
+      <%= link_to (image_tag('logo_branca.png', id:'logo-bola')), pages_dashboard_path %>
     </div>
 
     <div class="clearfix"></div>
@@ -15,7 +13,7 @@
         <ul class="nav side-menu">
           <li>
             <%= link_to pages_dashboard_path do  %>
-              <i class="fa fa-home"></i> Home
+              <i class="fa fa-home"></i> Início
             <% end %>
           </li>
         </ul>
@@ -84,7 +82,7 @@
   </div>
 </div>
 
-<div class="top_nav">
+<div class="top_nav clearfix">
     <div class="nav_menu">
         <div class="nav toggle">
           <a id="menu_toggle"><i class="fa fa-bars"></i></a>

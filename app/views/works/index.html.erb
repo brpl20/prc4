@@ -47,7 +47,8 @@
                     <td class="table-action-content">
 
                       <% if w.clients %>
-                        <%= link_to new_job_path(client: w.clients.first.id), class:"btn btn-success" do %>
+                      <%= link_to '#', class:"btn btn-success" do %>
+                        <%#= link_to new_job_path(client: w.clients.first.id), class:"btn btn-success" do %>
                           <i class="fa fa-gavel"></i>
                         <% end %>
                       <% else %>
