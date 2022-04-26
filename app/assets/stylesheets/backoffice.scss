@@ -54,9 +54,6 @@ body {
 textarea{
   resize: none;
 }
-.radio_buttons legend{
-  margin-bottom: -1em;
-}
 
 // Fim form works
 
@@ -168,7 +165,6 @@ footer div{
   font-size: 1.8em;
   margin-right: .5em;
 }
-
  footer div h1{
    font-size: 1em;
    font-weight: bolder;
@@ -192,8 +188,28 @@ span.section{
   color: #73879C;
 }
 
+.show-data-works{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.show-data-works section{
+  width: 33.33%;
+  margin-bottom: 3rem;
+}
+.show-data-works section span{
+  display: block;
+  line-height: 1.9em;
+}
+
 @media only screen and (max-width: 600px) {
   div.nav-item {
     display: none;
+  }
+  .show-data-works section{
+    width: 100%;
+    margin-bottom: 3rem;
   }
 }

@@ -65,4 +65,12 @@ module WorksHelper
   def options_for_procedure
     Procedure.all
   end
+
+  def initial_atendence id
+    id ? UserProfile.find(id).name : 'não informado'
+  end
+
+  def has_jobs_to_this_work work
+    @jobs = work.clients.last.jobs
+  end
 end

@@ -16,9 +16,8 @@ class WorksController < ApplicationController
 
   def show
     @work = Work.find(params[:id])
-    @client = @work.client_ids
-    @url = @work.document['aws_link']
-
+    @client = @work.clients.last
+    @url = @work.document['aws_link'] if @work.document
   end
 
   def create
@@ -158,7 +157,7 @@ class WorksController < ApplicationController
         powerxx << "#{JSON.parse(pw.description)[1]}, "
       end
     end
-    
+
 
 
     # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO
@@ -297,7 +296,7 @@ class WorksController < ApplicationController
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
          tr.substitute('_:addressoficial_', office_address)
-         tr.substitute('_:emailoficial_', office_email)
+         # tr.substitute('_:emailoficial_', office_email)
         #tr.substitute('_:prev-powers_', "")
         # Rates - Valores e Cobrancas
 
