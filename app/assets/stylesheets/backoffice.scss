@@ -119,6 +119,9 @@ input[type='checkbox']{
 .mg-top{
   margin-top: 0.7rem;
 }
+.mg-left{
+  padding-left: 10px;
+}
 // datatables
 #datatable-responsive_length > label{
   display: none;
@@ -141,6 +144,13 @@ input[type='checkbox']{
 #datatable-dash_length label{
    display: none;
  }
+.form-group > label,
+.form-group > .field_with_errors{
+  width: 25%;
+}
+.form-group > .field_with_errors > label{
+  width: 100%;
+}
 .left_col{
   margin: 0;
 }
