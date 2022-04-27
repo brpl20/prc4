@@ -43,7 +43,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Número do Requerimento ou Processo" %></b>
-            <%= f.number_field :number, class:"form-control" %>
+            <%= f.number_field :number, class:"form-control", min: 0 %>
             <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
           </div>
 
@@ -86,8 +86,8 @@
 
         <div class="col-md-12">
 
-         <%= render 'powers', f: f %>
- 
+         <%#= render 'powers', f: f %>
+
         </div>
 
         <div class="col-md-12">
@@ -105,7 +105,7 @@
             <%= f.fields_for :client_works do |cw| %>
 
               <b><%= cw.label "Cliente" %></b>
-              
+
               <% if @client.present? %>
                 <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => @client.id}, {class:'form-control'} %>
               <% else %>
@@ -143,10 +143,7 @@
             <%= f.text_field :recommendation_comission, class:"form-control" %>
           </div>
 
-
-
         </div>
-
 
         <div class="col-md-12">
 
