@@ -1,7 +1,6 @@
  <div class="grid col-md-12" id="powers">
   <b><%= f.label "Poderes" %></b>
 
-
     <input type="checkbox" id="checkAll">checkall
     <hr />
       <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|

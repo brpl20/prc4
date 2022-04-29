@@ -20,7 +20,6 @@ body {
 .col-md-10,
 .col-md-11,
 .col-md-12{
-   // border: solid 1px #DDDDDD;
    margin-top: 0.6em;
 }
 .left{
@@ -47,27 +46,21 @@ body {
   margin-top: 10px;
   margin-bottom: 10px;
 }
-// Form works
 .grid{
   display: grid;
 }
 textarea{
   resize: none;
 }
-
-// Fim form works
-
 .rmk-text{
   font-size: 0.9em;
   text-align: justify;
   line-height: 2rem;
 }
-
 .nav_title.logo{
   display: flex;
   justify-content: center;
 }
-
 #logo-bola{
   width: 100%;
   padding: 0 1%;
@@ -119,7 +112,6 @@ input[type='checkbox']{
 .mg-left{
   padding-left: 10px;
 }
-// datatables
 #datatable-responsive_length > label{
   display: none;
 }
@@ -176,8 +168,6 @@ footer div{
 a.icon-footer{
   display: inline;
 }
-
-// Datatables
 .table-actions{
   width: 250px;
 }
@@ -187,14 +177,12 @@ a.icon-footer{
 span.section{
   color: #73879C;
 }
-
 .show-data-works{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   flex-wrap: wrap;
 }
-
 .show-data-works section{
   width: 33.33%;
   margin-bottom: 3rem;

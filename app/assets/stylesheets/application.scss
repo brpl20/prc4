@@ -4,12 +4,6 @@
 *{
   font-size: 14px;
 }
-body {
-  // min-height: 100%;
-}
-.body {
-  // min-height: 100vh;
-}
 .distance-top{
   margin-top: 5vh;
 }
@@ -53,7 +47,6 @@ a.btn-user{
 }
 .btncent{
   margin-left:1em;
-
 }
 .clearfix{
   content: '';
@@ -63,5 +56,4 @@ a.btn-user{
 .panel_toolbox{
   float:right!important;
   margin-left:auto;
-  // margin-left:65%;
 }

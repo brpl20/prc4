@@ -1,15 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery
 //= require rails-ujs
 //= require activestorage
@@ -17,19 +5,10 @@
 
 $(document).ready(function(){
 
-  // checkboxes init 
  function checkAll(){
  $("#checkAll").click(function () {
    $("input:checkbox").not(this).prop('checked', this.checked);
  })};
-  // $('.className').on('click', function(){  $(this).value() });
-  // X = getElementById('class').on('click', function(){ //todo });
-  // checkboxes end 
-  // let x = document.getElementsByClassName("radio_buttons");
-  // console.log(x);
-
-
-
 
   $('.phone-cli').each(function(index){
     $(this).addClass('col-md-12').css('padding', '0');
@@ -144,23 +123,3 @@ $(document).ready(function(){
  checkAll()
 
 });
-
-
-// VERIFICAR EMAIL
-
-// let inputEmail = document.getElementById("client_emails_attributes_0_email");
-// inputEmail.addEventListener('input', function (){
-//   let getEmailInput = document.getElementById("client_emails_attributes_0_email").value;
-//   let userName = getEmailInput.substring(0,getEmailInput.indexOf("@"));
-//   let userDomain = getEmailInput.substring(getEmailInput.indexOf("@")+1, getEmailInput.lenght);
-//   // console.log(userName);
-//   // console.log(userDomain);
-//   if(userName.length > 1 && userDomain.length > 3 && userName.search("@") == -1){
-//     // desabilitar botao
-//     // alert == ver
-//   }
-
-// }
-// );
-
-// VER EMAIL FIM
