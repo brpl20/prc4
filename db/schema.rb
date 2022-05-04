@@ -1,4 +1,16 @@
-ActiveRecord::Schema.define(version: 2022_03_17_220712) do
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
+#
+# It's strongly recommended that you check this file into your version control system.
+
+ActiveRecord::Schema.define(version: 2022_05_04_213835) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,7 +85,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.integer "representative"
+    t.text "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -116,32 +128,6 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string "address"
-    t.date "birth"
-    t.integer "capacity"
-    t.string "citizenship"
-    t.string "city"
-    t.string "civilstatus"
-    t.string "company"
-    t.string "email"
-    t.string "first_name"
-    t.string "lastname"
-    t.integer "gender"
-    t.string "general_register"
-    t.string "mothername"
-    t.string "number_benefit"
-    t.string "oab_number"
-    t.string "profession"
-    t.string "social_number"
-    t.string "state"
-    t.string "zip"
-    t.integer "status"
-    t.integer "life"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "phones", force: :cascade do |t|
@@ -187,7 +173,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.string "civilstatus"
+    t.integer "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
@@ -219,7 +205,9 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.boolean "paralegal_role"
     t.boolean "intern_role"
     t.boolean "secretary_role"
+    t.bigint "office_id", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -270,6 +258,7 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
   add_foreign_key "jobs", "clients"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
   add_foreign_key "works", "users"

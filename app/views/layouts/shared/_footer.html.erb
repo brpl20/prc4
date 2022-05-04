@@ -7,11 +7,16 @@
   </div>
 
   <div>
-    <h1 class="h-line">ProcStudio 2020 - Licenciado Para</h1>
-    <% default_office = Office.first %>
-    <p><b><%= default_office&.name %></b></p>
-    <p><%= default_office&.address + ". " + default_office&.city + " - " + default_office&.state %></p>
-    <p><b>Telefone: </b><%= default_office&.telephone %></p>
+    <h1 class="h-line">ProcStudio 2020</h1>
+    <b>Licenciado Para <%= current_user.office.name %></b>
+
+    <p>
+      <%= footer_address %>
+    </p>
+
+    <p>
+      <b>Telefone: </b><%= footer_phone %>
+    </p>
   </div>
 
   <div>
@@ -24,7 +29,10 @@
 
   <div>
     <h1 class="h-line">Mídias Sociais</h1>
-    <p> <i class="fa fa-envelope" aria-hidden="true"></i> contato@contato.com.br</p>
+    <p>
+      <i class="fa fa-home" aria-hidden="true"></i>
+      <%= current_user.office.site %>
+    </p>
 
     <a href="#" class="icon-footer"><i class="fa fa-facebook-square"></i></a>
     <a href="#" class="icon-footer"><i class="fa fa-twitter-square"></i></a>
