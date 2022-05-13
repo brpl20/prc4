@@ -57,3 +57,7 @@ a.btn-user{
   float:right!important;
   margin-left:auto;
 }
+.page-item.active .page-link {
+    color: #859eb9 !important;
+    border: solid 1px #DDDDDD !important;
+}
