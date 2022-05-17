@@ -17,14 +17,14 @@ class WorksController < ApplicationController
   def show
     @work = Work.find(params[:id])
     @client = @work.client_ids
-    @url = @work.document['aws_link']
+    #@url = @work.document['aws_link']
 
   end
 
   def create
     @work = Work.new(work_params)
     if @work.save
-      work_templater(@work, 'wdocs')
+      #work_templater(@work, 'wdocs')
       redirect_to @work
     else
       render :new,
@@ -158,7 +158,7 @@ class WorksController < ApplicationController
         powerxx << "#{JSON.parse(pw.description)[1]}, "
       end
     end
-    
+
 
 
     # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO

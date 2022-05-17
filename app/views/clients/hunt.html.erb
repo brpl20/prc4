@@ -1,0 +1,129 @@
+<h1 class="center">Selecione um representante</h1>
+<div class="panel panel-default">
+  <div class="row">
+    <div class="col-sm-12">
+      <table id="registers" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info">
+        <thead>
+            <tr role="row">
+              <th>#</th>
+              <th>Nome</th>
+              <th>RG</th>
+              <th>CPF/CNPJ</th>
+              <th>E-mail</th>
+              <th>Cidade</th>
+              <th>Estado</th>
+              <th>Telefone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @clients.each do |client| %>
+                <tr role="row">
+                  <td>
+                    <label id="cli-id"><%= client.id %></label>
+                  </td>
+                    <td>
+                      <label for="client<%= client.id %>" id="client-name" data-rep-id="<%= client.id %>"><%= client.name %> <%= client.lastname %></label>
+                      <input
+                        type="radio"
+                        id="client<%= client.id %>"
+                        name="clients"
+                        value="<%= client.id %>"
+                        class="hidden"
+                        required>
+                    </td>
+                    <td><%= client.general_register %></td>
+                    <td><%= client.social_number %></td>
+                    <td>
+                      <% client.emails.each do |e| %>
+                        <%= e.email %>
+                      <% end %>
+                    </td>
+                    <td><%= client.city %></td>
+                    <td><%= client.state %></td>
+                    <td>
+                      <% client.phones.each do |p| %>
+                        <%= p.phone %>
+                      <% end %>
+                    </td>
+                </tr>
+              <% end %>
+        </tbody>
+      </table>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" id="set-client">Selecionar </button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+
+  function define_rep(){
+    let value = {
+      name: $('input:checked').prev('#client-name').text(),
+      id: $('input:checked').prev('#client-name').data('rep-id'),
+    };
+    return value;
+  }
+
+  $('#set-client').on("click", function(){
+    if ($('input:checked').val()){
+      try {
+        $('#btn-add-rep').click();
+      } catch (e) {
+        alert(e);
+      } finally {
+        $('#modal-general').modal('hide');
+      }
+    }
+  });
+
+  $('#customer_type').on('cocoon:before-insert', function(e, inserted) {
+
+    let data = define_rep();
+
+    inserted[0].querySelector('.represented_iid').value = data.id;
+    inserted[0].querySelector('.repName').textContent = data.name;
+
+  });
+
+
+  $("#registers").DataTable({
+    "lengthChange": false,
+    "info":     false,
+    order: [[0, "desc"]],
+    "lengthMenu": [5, 10, 20],
+    language: {
+                "sEmptyTable": "Nenhum registro encontrado",
+                "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sInfoThousands": ".",
+                "sLengthMenu": "_MENU_ resultados por página",
+                "sLoadingRecords": "Carregando...",
+                "sProcessing": "Processando...",
+                "sZeroRecords": "Nenhum registro encontrado",
+                "sSearch": "Pesquisar",
+                "oPaginate": {
+                    "sNext": "Próximo",
+                    "sPrevious": "Anterior",
+                    "sFirst": "Primeiro",
+                    "sLast": "Último"
+                },
+                "oAria": {
+                    "sSortAscending": ": Ordenar colunas de forma ascendente",
+                    "sSortDescending": ": Ordenar colunas de forma descendente"
+                }
+              }});
+
+  $('#registers tbody').on( 'click', 'tr', function () {
+    $('.selected').removeClass('selected').css('background-color', 'initial');
+    $(this).addClass('selected').css('background-color', 'rgba(72, 126, 176,.7)');
+    $('.selected input[type="radio"]').prop("checked", true);
+  } );
+
+</script>

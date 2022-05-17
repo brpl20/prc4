@@ -13,11 +13,19 @@ class ClientsController < ApplicationController
   #     redirect_to new_work_path(client)
   # end
 
+  def hunt
+    @clients = Client.all
+    respond_to do |format|
+      format.js { render "clients/hunt" }
+    end
+  end
+
   def new
     @client = Client.new
     @client.build_bank
     @client.phones.build
     @client.emails.build
+    @client.customer_types.build if @client.customer_types
   end
 
   def new_rep
@@ -38,14 +46,24 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     if @client.save
       if @client.capacity === "Capaz"
-        templater(@client, 'procuracao_simples')
-        flash[:notice] = "Cliente Criado - Procuração Simples Gerada"
-        redirect_to @client
+        if @client.client_type === 1
+          flash[:notice] = "Cliente Jurídico Criado - Redirecionando Para Representante"
+          redirect_to new_rep_path(@client)
+        else
+          templater(@client, 'procuracao_simples')
+          flash[:notice] = "Cliente Criado - Procuração Simples Gerada"
+          redirect_to @client
+        end
       else
         flash[:notice] = "Cliente Incapaz Criado - Redirecionando Para Representante Legal"
         redirect_to new_rep_path(@client)
         #render :action => "new"
         # ainda em duvida sobre usar render ou redirect_to (zerar os campos)
+      end
+    else
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @client.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -130,8 +148,8 @@ class ClientsController < ApplicationController
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
 
-    aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
-    aws_body = aws_doc.body
+    #aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
+    #aws_body = aws_doc.body
     # AWS STUFF -- FIM --
 
     # FIELD TREAT -- INICIO --
@@ -250,47 +268,48 @@ class ClientsController < ApplicationController
     dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
     # DOCUMENT REPLACES
-    doc = Docx::Document.open(aws_body)
-    doc.paragraphs.each do |p|
-      p.each_text_run do |tr|
-        # CLIENT
-        tr.substitute('_:nome_', nome_cap)
-        tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus.downcase)
-        tr.substitute('_:profissao_', @client[:profession].downcase)
-        tr.substitute('_:capacidade_', capacity_treated.downcase)
-        tr.substitute('_:nacionalidade_', nacionalita.downcase)
-        tr.substitute('_:rg_', @client[:general_register])
-        tr.substitute('_:cpf_', (@client[:social_number]).to_s)
-        tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', emails)
-        tr.substitute('_:endereco_', @client[:address])
-        tr.substitute('_:cidade_', @client[:city])
-        tr.substitute('_:state_', @client[:state])
-        tr.substitute('_:cep_', (@client[:zip]).to_s)
-        tr.substitute('_:empresa_atual_', @client[:company])
-        # LAWYER - PARALEGALS - INTERNS - SOCIETY
-        tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:sociedade_', office)
-        tr.substitute('_$parl_', parals)
-        tr.substitute('$es', inters)
-        tr.substitute('_:addressoficial_', office_address)
-        tr.substitute('_:emailoficial_', office_email)
 
-        # NO DB FIELDS CONFIG GENDER
-        tr.substitute('_:portador_', porta)
-        tr.substitute('_:inscrito_', inscrito)
-        tr.substitute('_:domiciliado_', domiciliado)
-        # PODERES TODO
-
-        # DOCUMENT TIME STAMP
-        tr.substitute('_:timestamp_', dia)
-      end
-    end
+    # doc = Docx::Document.open(aws_body)
+    # doc.paragraphs.each do |p|
+    #   p.each_text_run do |tr|
+    #     # CLIENT
+    #     tr.substitute('_:nome_', nome_cap)
+    #     tr.substitute('_:sobrenome_', sobrenome_cap)
+    #     tr.substitute('_:estado_civil_', civilstatus.downcase)
+    #     tr.substitute('_:profissao_', @client[:profession].downcase)
+    #     tr.substitute('_:capacidade_', capacity_treated.downcase)
+    #     tr.substitute('_:nacionalidade_', nacionalita.downcase)
+    #     tr.substitute('_:rg_', @client[:general_register])
+    #     tr.substitute('_:cpf_', (@client[:social_number]).to_s)
+    #     tr.substitute('_:nb_', nb_exist)
+    #     tr.substitute('_:email_', emails)
+    #     tr.substitute('_:endereco_', @client[:address])
+    #     tr.substitute('_:cidade_', @client[:city])
+    #     tr.substitute('_:state_', @client[:state])
+    #     tr.substitute('_:cep_', (@client[:zip]).to_s)
+    #     tr.substitute('_:empresa_atual_', @client[:company])
+    #     # LAWYER - PARALEGALS - INTERNS - SOCIETY
+    #     tr.substitute('_:lawyers_', laws)
+    #     tr.substitute('_:sociedade_', office)
+    #     tr.substitute('_$parl_', parals)
+    #     tr.substitute('$es', inters)
+    #     tr.substitute('_:addressoficial_', office_address)
+    #     tr.substitute('_:emailoficial_', office_email)
+    #
+    #     # NO DB FIELDS CONFIG GENDER
+    #     tr.substitute('_:portador_', porta)
+    #     tr.substitute('_:inscrito_', inscrito)
+    #     tr.substitute('_:domiciliado_', domiciliado)
+    #     # PODERES TODO
+    #
+    #     # DOCUMENT TIME STAMP
+    #     tr.substitute('_:timestamp_', dia)
+    #   end
+    # end
     bucket = 'prcstudio3herokubucket'
     nome_correto = client[:name].downcase.gsub(/\s+/, "")
 
-    ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+    #ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
 
     ch_file = "tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx"
 
@@ -313,7 +332,7 @@ class ClientsController < ApplicationController
                  }
     client.documents = metadata
     client.save
-    obj.upload_file(ch_file, metadata: metadata)
+    #obj.upload_file(ch_file, metadata: metadata)
   end
 
 
@@ -353,11 +372,12 @@ class ClientsController < ApplicationController
       :status,
       :documents,
       :choice,
-      :representative,
-      incapable_attributes: [:id],
+      :client_type,
+      files: [],
       bank_attributes:   [:id, :name, :agency, :account],
       phones_attributes: [:id, :phone, :_destroy],
-      emails_attributes: [:id, :email, :_destroy]
+      emails_attributes: [:id, :email, :_destroy],
+      customer_types_attributes: [:id, :represented, :client_id, :description, :_destroy]
       )
   end
 

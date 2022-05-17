@@ -166,6 +166,20 @@
 
         </section>
 
+        <section class="col-md-4">
+          <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Arquivos</b></h2>
+
+            <% @client.files.each do |file| %>
+              <span class="col-md-12">
+                <li>
+                  <%= link_to file.filename, url_for(file) %>
+                  <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                </li>
+              </span>
+            <% end %>
+
+        </section>
+
       </div>
     </div>
   </div>
