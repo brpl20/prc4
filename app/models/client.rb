@@ -31,6 +31,8 @@ class Client < ApplicationRecord
   enum status: {active: 0, inactive: 1, prospective: 2, abandoned: 3}
   # enum representative: [:no, :yes, :both]
 
+  DESCRIPTION = ["Representante Legal", "Contador"]
+
 
   # Retirar NIL
   # NULL_ATTRS = %w( lastname email bank emails phones)

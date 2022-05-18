@@ -91,7 +91,7 @@ $(document).ready(function(){
   };
 
   function pessoa_juridica(){
-    $("#rate-client-type").append("<div class='client-type-append col-md-6' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[cnpj]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
+    $("#rate-client-type").append("<div class='client-type-append col-md-6' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
 
     $("#client_cnpj").val($("#label-client-type").data('text'));
   };

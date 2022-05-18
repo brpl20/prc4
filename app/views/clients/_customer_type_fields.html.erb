@@ -1,9 +1,16 @@
-<div class='nested-fields col-md-6 clearfix representative-cli'>
-  <div class="col-xs-3">
+<div class='nested-fields col-md-12 clearfix'>
+  <div class="col-xs-3 rep-name">
     <%= f.number_field :represented, class:"represented_iid hidden adj100"%>
     <span class="repName"></span>
   </div>
-  <div class="col-xs-3">
-  <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove") %>
-</div>
+
+
+<div class="col-xs-3 rep-desc">
+    <%= f.collection_select :description, Client::DESCRIPTION, :to_s, :to_s, class:"decription adj100" %>
+  </div>
+
+
+<div class="col-xs-3 rep-btn">
+    <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove") %>
+  </div>
 </div>

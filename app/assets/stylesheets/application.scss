@@ -1,6 +1,20 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 
+.rep-name, .rep-desc, .rep-btn {
+  width: 80%;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.representative-cli {
+  align-text:right;
+  float: right;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: flex-end;
+}
+
 #error_explanation{
   color: #FF0000;
 }

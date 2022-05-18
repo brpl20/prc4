@@ -36,9 +36,4 @@ module ClientsHelper
     Hash[Client.statuses.map { |k,v| [k, Client.human_attribute_name("status.#{k}")] }]
   end
 
-  def options_for_representative
-    ["Representante Legal", "Contador"]
-  end
-
-
 end

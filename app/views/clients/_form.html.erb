@@ -94,39 +94,24 @@
             b.label { b.radio_button(class:"client-type ") + b.text }
             end %>
 
+            <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>">
 
-          </div>
-
-          <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>">
-
-          </div>
-
-          <div class="col-md-4 form-group client">
-
-            <div class="customer_types">
-
-              <%= f.fields_for :customer_types do |io| %>
-              <% end %>
-
-              <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
             </div>
 
+            <div class="col-md-12 form-group rep-cli">
 
+              <div class="customer_types">
 
-          <div class="col-xs-12">
-            <%# f.text_field :name, id:"client", class:"hidden"  %>
-            <span><b id="client-name-rep"></b> <%= client.name %> </span>
+                <%= f.fields_for :customer_types do |io| %>
+                <% end %>
+
+                <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+              </div>
+
           </div>
 
-        </div>
+          </div>
 
-        <%# link_to "#", class: "btn btn-outline btn-primary",
-          data: {
-            toggle: "modal",
-            url: clients_hunts_path,
-            target: "#modal-general"} do %>
-            <!-- <span>Pesquisar Representante</span> -->
-        <%# end %>
 
         <div class="col-md-12">
 
@@ -140,14 +125,14 @@
                 <% end %>
               </div>
 
-              <%= link_to_add_association "", f, :phones, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
             </div>
 
           </div>
 
           <div class="col-md-6 no-padding">
 
-            <div class="col-md-6 form-group client">
+            <div class="col-md-4 form-group client">
 
               <div class="emails">
                 <%= f.fields_for :emails do |e| %>
@@ -155,7 +140,7 @@
                 <% end %>
               </div>
 
-              <%= link_to_add_association "", f, :emails, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
             </div>
 
           </div>
