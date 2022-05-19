@@ -191,6 +191,9 @@ span.section{
   display: block;
   line-height: 1.9em;
 }
+.in-line{
+  display: inline;
+}
 
 @media only screen and (max-width: 600px) {
   div.nav-item {

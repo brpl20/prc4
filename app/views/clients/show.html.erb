@@ -89,11 +89,14 @@
         <section class="col-md-4">
           <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Documentos</b></h2>
 
-          <span class="col-md-12">
           <div class="col-md-12">
-            <%= link_to @client&.documents["aws_link"], class: "btn btn-info col-md-6" do %>
-
-              <i class="fa fa-download"></i> Procuração Simples
+            <% if @client.documents.nil? %>
+              <i class="fa fa-times"></i>
+              <p class="in-line">Não há documentos para download</p>
+            <% else %>
+              <%= link_to @client.documents?["aws_link"], class: "btn btn-info col-md-6" do %>
+                <i class="fa fa-download"></i> Procuração Simples
+              <% end %>
             <% end %>
           </div>
 
