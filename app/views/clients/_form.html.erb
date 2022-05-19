@@ -9,6 +9,10 @@
     <div class="x_content">
       <%= form_with model: @client, local: true do |f| %>
 
+      <%#= f.collection_radio_buttons :status, Work.status, :second, :first do |b|
+       b.label { b.radio_button + b.text }
+     end %>
+
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
@@ -222,7 +226,7 @@
 
         <div class="col-md-12">
 
-            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
+            <button type="submit" name="button" class="btn btn-primary pull-right">Salvar</button>
 
             <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
         </div>
