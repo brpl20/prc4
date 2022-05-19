@@ -5,14 +5,8 @@
 *= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
 *= require custom
 */
-*{
-  font-size: 15px;
-}
 body {
   min-height: 100%;
-}
-.body {
-  min-height: 100vh;
 }
 .col-md-1,
 .col-md-2,
@@ -28,9 +22,6 @@ body {
 .col-md-12{
    // border: solid 1px #DDDDDD;
    margin-top: 0.6em;
-}
-.body{
-
 }
 .left{
   float: right;
@@ -63,9 +54,6 @@ body {
 textarea{
   resize: none;
 }
-.radio_buttons legend{
-  margin-bottom: -1em;
-}
 
 // Fim form works
 
@@ -74,14 +62,21 @@ textarea{
   text-align: justify;
   line-height: 2rem;
 }
+
+.nav_title.logo{
+  display: flex;
+  justify-content: center;
+}
+
 #logo-bola{
-  width: 3rem;
+  width: 100%;
+  padding: 0 1%;
 }
 .nav-item{
   height: 30px;
 }
 .nav_title{
-  height: 80px;
+  height: 105px;
 }
 #navbar, .site_title{
   height: 100px;
@@ -121,6 +116,9 @@ input[type='checkbox']{
 .mg-top{
   margin-top: 0.7rem;
 }
+.mg-left{
+  padding-left: 10px;
+}
 // datatables
 #datatable-responsive_length > label{
   display: none;
@@ -143,20 +141,45 @@ input[type='checkbox']{
   border: solid 1px #ff6b6b;
   color: #ff6b6b;
 }
- #datatable-dash_length label{
+#datatable-dash_length label{
    display: none;
  }
+.form-group > label,
+.form-group > .field_with_errors{
+  width: 25%;
+}
+.form-group > .field_with_errors > label{
+  width: 100%;
+}
+.left_col{
+  margin: 0;
+}
+footer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 3em;
+}
+footer div{
+  width: 25%;
+  padding: 0 1.5em;
+}
+.icon-footer{
+  font-size: 1.8em;
+  margin-right: .5em;
+}
+ footer div h1{
+   font-size: 1em;
+   font-weight: bolder;
+ }
+ footer div a{
+    display: block;
+    margin-bottom: .6em;
+  }
+a.icon-footer{
+  display: inline;
+}
 
-// footer
-.center{
-  text-align: center;
-}
-.footer{
-  font-size: 1.3em;
-}
-.footer-links a{
-  margin: 10px;
-}
 // Datatables
 .table-actions{
   width: 250px;
@@ -168,8 +191,28 @@ span.section{
   color: #73879C;
 }
 
+.show-data-works{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.show-data-works section{
+  width: 33.33%;
+  margin-bottom: 3rem;
+}
+.show-data-works section span{
+  display: block;
+  line-height: 1.9em;
+}
+
 @media only screen and (max-width: 600px) {
   div.nav-item {
     display: none;
+  }
+  .show-data-works section{
+    width: 100%;
+    margin-bottom: 3rem;
   }
 }

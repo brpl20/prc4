@@ -5,7 +5,6 @@
     <input type="checkbox" id="checkAll">checkall
     <hr />
       <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-              cb.label { cb.check_box + JSON.parse(cb.text)[0] }
+              cb.label { cb.check_box + cb.text }
             end %>
   </div>
-

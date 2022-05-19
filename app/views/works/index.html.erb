@@ -1,6 +1,6 @@
 <div class="col-md-12 col-sm-12">
 
-  <h1 class="pull-left">Works</h1>
+  <h1 class="pull-left mg-left">Works</h1>
 
   <%= link_to new_work_path, class:"btn btn-success pull-right btn-new" do %>
     <i class="fa fa-plus"></i> Novo Work
@@ -47,7 +47,8 @@
                     <td class="table-action-content">
 
                       <% if w.clients %>
-                        <%= link_to new_job_path(client: w.clients.first.id), class:"btn btn-success" do %>
+                      <%= link_to '#', class:"btn btn-success" do %>
+                        <%#= link_to new_job_path(client: w.clients.first.id), class:"btn btn-success" do %>
                           <i class="fa fa-gavel"></i>
                         <% end %>
                       <% else %>

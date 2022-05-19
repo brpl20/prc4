@@ -988,7 +988,6 @@
   float: left;
   background: #EDEDED;
   border-bottom: 1px solid #D9DEE4;
-  margin-bottom: 10px;
   width: 100%;
   position: relative; }
 
@@ -1000,6 +999,10 @@
   position: absolute;
   right: -2px;
   top: -8px; }
+
+  .right_col{
+    min-height: none !important;
+  }
 
 @media (min-width: 480px) {
   .nav_menu {
@@ -1025,7 +1028,7 @@ body .container.body .right_col {
   background: #F7F7F7; }
 
 .nav-md .container.body .right_col {
-  padding: 10px 20px 0;
+  padding-top: 10px;
   margin-left: 230px; }
 
 .nav_title {
@@ -1664,7 +1667,12 @@ h2 {
 .x_title {
   border-bottom: 2px solid #E6E9ED;
   padding: 1px 5px 6px;
-  margin-bottom: 10px; }
+  margin-bottom: 0;
+  line-height: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;}
 
 .x_title .filter {
   width: 40%;
