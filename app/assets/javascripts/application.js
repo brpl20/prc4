@@ -203,7 +203,7 @@ $(document).ready(function(){
     };
   });
 
-  $("#client_status_active").prop("checked", true);
+  $("#client_status_0").prop("checked", true);
 
 
   // $("input[name='client[client_type]']").each(function(){

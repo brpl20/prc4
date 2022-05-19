@@ -24,6 +24,10 @@ module ClientsHelper
     client_type = [["Pessoa Física", 0], ["Pessoa Jurídica", 1]]
   end
 
+  def options_for_status_client
+    status_client = [["Ativo", 0], ["Inativo", 1], ["Prospecção", 2], ["Abandonado/ Desistente", 3]]
+  end
+
   def options_for_capacity
     capacity = [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"], ["Pessoa Jurídica", "Pessoa Jurídica"]]
   end

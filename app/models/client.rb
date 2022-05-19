@@ -28,7 +28,6 @@ class Client < ApplicationRecord
   # Representante Legal: yes   = 1 {APENAS representante legal}
   # Representante Legal: both = 2 {É representante legal e TAMBÉM cliente}
 
-  enum status: {active: 0, inactive: 1, prospective: 2, abandoned: 3}
   # enum representative: [:no, :yes, :both]
 
   DESCRIPTION = ["Representante Legal", "Contador"]

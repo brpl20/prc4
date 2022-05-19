@@ -278,9 +278,10 @@
         <div class="col-md-12">
 
           <div class="col-lg-6 form-group">
-
             <b><%= f.label :status %></b>
-            <%= f.collection_radio_buttons :status, human_attribute_statuses, :first, :second %>
+            <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
+            b.label(class:"inline-radio") { b.radio_button + b.text }
+            end %>
           </div>
         </div>
 
