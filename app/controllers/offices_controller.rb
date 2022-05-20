@@ -70,7 +70,8 @@ class OfficesController < ApplicationController
         :email,
         :bank,
         :agency,
-        :account
+        :account,
+        :responsible
         )
     end
 end

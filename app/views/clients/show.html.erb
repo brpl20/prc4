@@ -94,7 +94,7 @@
               <i class="fa fa-times"></i>
               <p class="in-line">Não há documentos para download</p>
             <% else %>
-              <%= link_to @client.documents?["aws_link"], class: "btn btn-info col-md-6" do %>
+              <%= link_to @client.documents["aws_link"], class: "btn btn-info col-md-6" do %>
                 <i class="fa fa-download"></i> Procuração Simples
               <% end %>
             <% end %>

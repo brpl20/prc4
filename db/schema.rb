@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_133527) do
+ActiveRecord::Schema.define(version: 2022_05_20_020827) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.text "representative"
+    t.integer "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -166,6 +166,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
+    t.integer "responsible"
   end
 
   create_table "phones", force: :cascade do |t|
@@ -211,7 +212,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.integer "civilstatus"
+    t.string "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"

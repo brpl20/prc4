@@ -5,6 +5,10 @@
 
 $(document).ready(function(){
 
+$('#modal-general').on("show.bs.modal", function(e) {
+  $(this).find('.modal-body').load(e.relatedTarget.dataset.url);
+});
+
  function checkAll(){
  $("#checkAll").click(function () {
    $("input:checkbox").not(this).prop('checked', this.checked);
