@@ -81,7 +81,6 @@
             <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
           </div>
 
-
         </div>
 
         <div class="col-md-12">
@@ -115,7 +114,6 @@
           </div>
 
         </div>
-
 
         <div class="col-md-12">
 
@@ -169,7 +167,6 @@
             <b><%= f.label "Estagiários da Procuração" %></b>
             <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
 
-
           </div>
 
           <div class="col-md-6">
@@ -207,7 +204,6 @@
 
         </div>
 
-
         <div class="col-md-12">
           <div class="col-md-12">
             <b><%= f.label "Notas em geral sobre o caso" %></b>
@@ -216,7 +212,7 @@
         </div>
 
         <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Criar Trabalho</button>
+          <button type="submit" class="btn btn-primary pull-right">Salvar</button>
           <%= link_to "Cancelar", works_path, class:"btn btn-danger pull-right" %>
         </div>
 

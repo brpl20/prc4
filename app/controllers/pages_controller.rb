@@ -26,7 +26,6 @@ class PagesController < ApplicationController
     require 'time'
     require 'rails-i18n'
 
-    # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
         ENV['AWS_ID'],
         ENV['AWS_SECRET_KEY']
@@ -35,17 +34,14 @@ class PagesController < ApplicationController
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
     aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/covid_clt.docx")
     aws_body = aws_doc.body
-    
+
     doc = Docx::Document.open(aws_body)
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
-        # CLIENT
-        # byebug
         tr.substitute('_:cnpj_', params[:cnpj])
       end
     end
     bucket = 'prcstudio3herokubucket'
-    #nome_correto = client[:name].downcase.gsub(/\s+/, "") # nao utilizado -- utilizado o hash no lugar 
 
     ch_save = doc.save(Rails.root.join("tmp/covid_clt-hash.docx").to_s)
 
@@ -67,8 +63,6 @@ class PagesController < ApplicationController
 
 
   private
-
-
 
   def amazon_client
    require 'aws-sdk-s3'

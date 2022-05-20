@@ -46,16 +46,10 @@
                     <td><%= w.partner_lawyer %></td>
                     <td class="table-action-content">
 
-                      <% if w.clients %>
-                      <%= link_to '#', class:"btn btn-success" do %>
-                        <%#= link_to new_job_path(client: w.clients.first.id), class:"btn btn-success" do %>
-                          <i class="fa fa-gavel"></i>
-                        <% end %>
-                      <% else %>
-                        <%= link_to new_job_path, class:"btn btn-success" do %>
+                      <%= link_to new_client_job_path(w.clients.first.id), class:"btn btn-success" do %>
                         <i class="fa fa-gavel"></i>
-                        <% end %>
                       <% end %>
+
                       <%= link_to work_path(w), class:"btn btn-info" do %>
                         <i class="fa fa-eye"></i>
                       <% end %>

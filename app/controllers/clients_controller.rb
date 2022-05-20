@@ -1,17 +1,9 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_client, only: [:show, :edit, :update, :destroy]
-  #before_action :set_client, only: [:new_rep]
 
   def index
     @clients = Client.includes(:phones,:emails).all
   end
-
-  # def choice
-  #   if choice == true
-  #     templater(@client, 'procuracao_simples')
-  #   else
-  #     redirect_to new_work_path(client)
-  # end
 
   def hunt
     @clients = Client.all
@@ -37,10 +29,9 @@ class ClientsController < ApplicationController
     @client.state = @incapable.state
     @client.capacity = "Capaz"
     @client.representative = @incapable.id
-    # @client.emails = @incapable.emails.build
-    # nao esta funcionando
+    @client.phones.build
+    @client.emails.build
   end
-
 
   def create
     @client = Client.new(client_params)
@@ -57,8 +48,6 @@ class ClientsController < ApplicationController
       else
         flash[:notice] = "Cliente Incapaz Criado - Redirecionando Para Representante Legal"
         redirect_to new_rep_path(@client)
-        #render :action => "new"
-        # ainda em duvida sobre usar render ou redirect_to (zerar os campos)
       end
     else
       respond_to do |format|
@@ -68,12 +57,8 @@ class ClientsController < ApplicationController
     end
   end
 
-  def edit
+  def edit; end
 
-  end
-
-  # PATCH/PUT /clients/1
-  # PATCH/PUT /clients/1.json
   def update
     respond_to do |format|
       if @client.update(client_params)
@@ -97,8 +82,6 @@ class ClientsController < ApplicationController
     @url_job = @client.jobs
   end
 
-
-  # FEMININ x MASCULIN (TODO: Create Module or Helper)
    def genderize(field)
      case field
      when "Casado"
@@ -140,7 +123,6 @@ class ClientsController < ApplicationController
     require 'time'
     require 'rails-i18n'
 
-    # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
         ENV['AWS_ID'],
         ENV['AWS_SECRET_KEY']
@@ -148,13 +130,9 @@ class ClientsController < ApplicationController
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
 
-    #aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
-    #aws_body = aws_doc.body
-    # AWS STUFF -- FIM --
+    aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
+    aws_body = aws_doc.body
 
-    # FIELD TREAT -- INICIO --
-
-    # SIMPLE FIELDS
     nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
@@ -163,15 +141,12 @@ class ClientsController < ApplicationController
       emails << "#{em.email}, "
     end
 
-    # NUMERO DE BENEFICIO FIELD
     if @client[:number_benefit].nil? || @client[:number_benefit] == ""
       nb_exist = ""
     else
       nb_exist = "número de benefício #{@client[:number_benefit]},"
     end
 
-    # NO DB FIELDS CONFIG GENDER
-    # GENDER LOGIC
     if @client[:gender] == 2
       civilstatus = client.civilstatus
       nacionalita = genderize(@client[:citizenship])
@@ -192,11 +167,9 @@ class ClientsController < ApplicationController
       capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-    # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
     lawyers = UserProfile.lawyer
     paralegals = UserProfile.paralegal
     interns = UserProfile.intern
-
 
     if lawyers.size > 0.5
       laws = ["Advogados: "].join("")
@@ -240,7 +213,6 @@ class ClientsController < ApplicationController
       end
     end
 
-    # ESCRITORIO
     offices = Office.all
     if offices.size > 0.5
       office_sel = Office.find_by_id(1)
@@ -253,59 +225,42 @@ class ClientsController < ApplicationController
       office_address = "#{lawyers[1]}"
     end
 
-
-
-    # Address . similar ?
-    # if lawyer.address.similar(lawyer.address)
-    #   lawyer.office
-
-
-    # FIELD TREAT -- FIM --
-
-    # PODERES
-
-    # TIME - HORARIO
     dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
-    # DOCUMENT REPLACES
+    doc = Docx::Document.open(aws_body)
+    doc.paragraphs.each do |p|
+      p.each_text_run do |tr|
+        # CLIENT
+        tr.substitute('_:nome_', nome_cap)
+        tr.substitute('_:sobrenome_', sobrenome_cap)
+        tr.substitute('_:estado_civil_', civilstatus.downcase)
+        tr.substitute('_:profissao_', @client[:profession].downcase)
+        tr.substitute('_:capacidade_', capacity_treated.downcase)
+        tr.substitute('_:nacionalidade_', nacionalita.downcase)
+        tr.substitute('_:rg_', @client[:general_register])
+        tr.substitute('_:cpf_', (@client[:social_number]).to_s)
+        tr.substitute('_:nb_', nb_exist)
+        tr.substitute('_:email_', emails)
+        tr.substitute('_:endereco_', @client[:address])
+        tr.substitute('_:cidade_', @client[:city])
+        tr.substitute('_:state_', @client[:state])
+        tr.substitute('_:cep_', (@client[:zip]).to_s)
+        tr.substitute('_:empresa_atual_', @client[:company])
 
-    # doc = Docx::Document.open(aws_body)
-    # doc.paragraphs.each do |p|
-    #   p.each_text_run do |tr|
-    #     # CLIENT
-    #     tr.substitute('_:nome_', nome_cap)
-    #     tr.substitute('_:sobrenome_', sobrenome_cap)
-    #     tr.substitute('_:estado_civil_', civilstatus.downcase)
-    #     tr.substitute('_:profissao_', @client[:profession].downcase)
-    #     tr.substitute('_:capacidade_', capacity_treated.downcase)
-    #     tr.substitute('_:nacionalidade_', nacionalita.downcase)
-    #     tr.substitute('_:rg_', @client[:general_register])
-    #     tr.substitute('_:cpf_', (@client[:social_number]).to_s)
-    #     tr.substitute('_:nb_', nb_exist)
-    #     tr.substitute('_:email_', emails)
-    #     tr.substitute('_:endereco_', @client[:address])
-    #     tr.substitute('_:cidade_', @client[:city])
-    #     tr.substitute('_:state_', @client[:state])
-    #     tr.substitute('_:cep_', (@client[:zip]).to_s)
-    #     tr.substitute('_:empresa_atual_', @client[:company])
-    #     # LAWYER - PARALEGALS - INTERNS - SOCIETY
-    #     tr.substitute('_:lawyers_', laws)
-    #     tr.substitute('_:sociedade_', office)
-    #     tr.substitute('_$parl_', parals)
-    #     tr.substitute('$es', inters)
-    #     tr.substitute('_:addressoficial_', office_address)
-    #     tr.substitute('_:emailoficial_', office_email)
-    #
-    #     # NO DB FIELDS CONFIG GENDER
-    #     tr.substitute('_:portador_', porta)
-    #     tr.substitute('_:inscrito_', inscrito)
-    #     tr.substitute('_:domiciliado_', domiciliado)
-    #     # PODERES TODO
-    #
-    #     # DOCUMENT TIME STAMP
-    #     tr.substitute('_:timestamp_', dia)
-    #   end
-    # end
+        tr.substitute('_:lawyers_', laws)
+        tr.substitute('_:sociedade_', office)
+        tr.substitute('_$parl_', parals)
+        tr.substitute('$es', inters)
+        tr.substitute('_:addressoficial_', office_address)
+        # tr.substitute('_:emailoficial_', office_email)
+
+        tr.substitute('_:portador_', porta)
+        tr.substitute('_:inscrito_', inscrito)
+        tr.substitute('_:domiciliado_', domiciliado)
+
+        tr.substitute('_:timestamp_', dia)
+      end
+    end
     bucket = 'prcstudio3herokubucket'
     nome_correto = client[:name].downcase.gsub(/\s+/, "")
 
@@ -335,16 +290,8 @@ class ClientsController < ApplicationController
     #obj.upload_file(ch_file, metadata: metadata)
   end
 
-
-
-
-
-
   def docx_upload(bucket='prcstudio3herokubucket', client, document)
   end
-
-
-
 
   private
 
@@ -381,10 +328,6 @@ class ClientsController < ApplicationController
       )
   end
 
-  # TODO : Lembrar que note e choose não possuem
-  # correspondência no DB
-
-  # Use callbacks to share common setup or constraints between actions.
   def set_client
     @client  = Client.find(params[:id])
   end

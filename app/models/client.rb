@@ -16,28 +16,11 @@ class Client < ApplicationRecord
 
   validate :file_type
 
-
-  # Enum
-  # https://naturaily.com/blog/ruby-on-rails-enum
-  # Status: Active = 0 {Cliente Ativo}
-  # Status: Inactive = 1 {Cliente Inativo}
-  # Status: Inactive = 2 {Cliente Prospectivo}
-  # Status: Inactive = 3 {Cliente Abandonado/Desistente}
-
-  # Representante Legal: nao = 0 {Nao e representante legal}
-  # Representante Legal: yes   = 1 {APENAS representante legal}
-  # Representante Legal: both = 2 {É representante legal e TAMBÉM cliente}
-
-  # enum representative: [:no, :yes, :both]
-
   DESCRIPTION = ["Representante Legal", "Contador"]
 
 
-  # Retirar NIL
-  # NULL_ATTRS = %w( lastname email bank emails phones)
   NULL_ATTRS = %w( lastname bank)
   #before_save :fill_if_nil, :default_values
-
 
   protected
 

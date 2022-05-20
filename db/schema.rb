@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.integer "representative"
+    t.text "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -211,7 +211,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.string "civilstatus"
+    t.integer "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
@@ -243,7 +243,9 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
     t.boolean "paralegal_role"
     t.boolean "intern_role"
     t.boolean "secretary_role"
+    t.bigint "office_id", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -297,6 +299,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_133527) do
   add_foreign_key "jobs", "clients"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
   add_foreign_key "works", "users"

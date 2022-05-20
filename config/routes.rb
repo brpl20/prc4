@@ -13,15 +13,17 @@ Rails.application.routes.draw do
   post 'pages/clt_covid_s3'
 
   get 'clients/new_rep/:id', to: 'clients#new_rep', as: :new_rep
-  # criacao da rota
 
   root to: "pages#dashboard"
 
   devise_for :users
 
-  resources :jobs
+  resources :jobs, except: [:new]
+
+  resources :clients do
+    resources :jobs, only: [:new]
+  end
   resources :works
-  resources :clients
   resources :people
   resources :lawyers
   resources :user_profile, as: 'profile'
@@ -32,5 +34,4 @@ Rails.application.routes.draw do
   resources :client do
      resources :file_uploads, only: [:new, :create, :destroy]
    end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

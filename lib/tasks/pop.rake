@@ -13,7 +13,6 @@ namespace :pop do
 
     puts "Setup finalizado com sucesso!"
   end
-  #################################################################
 
 desc "Cadastra Procedimentos"
   task generate_procedures: :environment do
@@ -33,7 +32,7 @@ desc "Cadastra Procedimentos"
   task generate_powers: :environment do
 
     puts "Cadastrando Powers"
-    powers = 
+    powers =
      ["Ad Judicia", 0, "helper",        "Ad Judicia"],
      ["Citação", 0, "helper,",          "Citação"],
      ["Desistir",  0, "helper,",        "Desistir do Pedido"],
@@ -46,7 +45,7 @@ desc "Cadastra Procedimentos"
      ["Acordos", 0, "helper",            "firmar compromissos e acordos"],
      ["Desistir", 0, "helper",            "desistir do processo e incidentes"],
      ["Renunciar", 0, "helper",           "renunciar ao direito o qual se funda a ação"],
-     ["Receber e dar quitação", 0, "helper", "receber e dar quitação"], 
+     ["Receber e dar quitação", 0, "helper", "receber e dar quitação"],
      ["Carência", 0, "helper", "firmar compromissos e assinar declaração de hipossuficiência econômica"],
      ["Termo renúncia", 0, "helper", "firmar termo de renúncia para fins de Juizado Especial"],
      ["RPV", 0, "helper", "renunciar valores superiores à Requisições de Pequeno Valor em Precatórios"],
@@ -56,7 +55,7 @@ desc "Cadastra Procedimentos"
      ["Institutos Prisionais", 6, "buscar informações de titularidade de familiares em relação a dados cadastrais prisionais, para fins de concessão do benefício de auxílio reclusão"],
      ["INSS", 0, "helper", "Instituto Nacional do Seguro Social - INSS"],
      ["PRPrev", 0, "helper", "Paraná Previdência"]
-     
+
     powers.each do |p|
     Power.find_or_create_by!(
       description: "#{p}"
