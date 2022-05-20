@@ -113,7 +113,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_180744) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.integer "representative"
+    t.text "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -166,7 +166,6 @@ ActiveRecord::Schema.define(version: 2022_05_20_180744) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
-    t.integer "responsible"
     t.bigint "user_id", default: 1, null: false
     t.index ["user_id"], name: "index_offices_on_user_id"
   end
@@ -214,7 +213,7 @@ ActiveRecord::Schema.define(version: 2022_05_20_180744) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.string "civilstatus"
+    t.integer "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
