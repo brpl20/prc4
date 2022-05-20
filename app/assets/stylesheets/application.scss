@@ -31,10 +31,6 @@
   width: 80%;
 }
 
-.modal-cashier{
-  width: 25%;
-}
-
 .modal-font{
   font-size: 1.5em;
   font-weight: bold;
@@ -106,4 +102,8 @@ a.btn-user{
 .page-item.active .page-link {
     color: #859eb9 !important;
     border: solid 1px #DDDDDD !important;
+}
+
+.no-margin{
+  margin-top: 0 !important;
 }

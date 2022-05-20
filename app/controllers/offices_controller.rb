@@ -5,15 +5,13 @@ class OfficesController < ApplicationController
     @offices = Office.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @office = Office.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @office = Office.new(office_params)
@@ -71,7 +69,7 @@ class OfficesController < ApplicationController
         :bank,
         :agency,
         :account,
-        :responsible
+        :user_id
         )
     end
 end

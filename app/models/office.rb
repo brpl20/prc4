@@ -1,7 +1,7 @@
 class Office < ApplicationRecord
   has_many :work_offices
   has_many :works, through: :work_offices
-  belongs_to :user_profile
+  belongs_to :user
 
   def full_account_details(id)
     details = Office.find(id)

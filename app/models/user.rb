@@ -9,5 +9,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  def name
+    [self.user_profile.name,self.user_profile.lastname].join(' ')
+  end
 
 end

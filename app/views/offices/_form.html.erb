@@ -94,7 +94,9 @@
 
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-12">
+
+        <div class="col-md-6 no-padding no-margin">
 
           <div class="col-md-4">
             <b><%= f.label "Banco" %></b>
@@ -115,12 +117,12 @@
 
         <div class="col-md-6">
 
-          <div class="col-md-4">
-            <b><%= f.label "Reponsável pelo escritório" %></b>
-            <%= f.collection_select :responsible,  UserProfile.order(:name), :id, :full_name, {}, {class:'form-control'} %>
-          </div>
+          <b><%= f.label "Reponsável pelo escritório" %></b>
+          <%= f.collection_select :user_id,  options_for_responsible, :id, :name, {}, {class:'form-control'} %>
 
         </div>
+        </div>
+
 
         <div class="col-md-12">
 
