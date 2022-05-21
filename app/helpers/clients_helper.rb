@@ -25,7 +25,7 @@ module ClientsHelper
   end
 
   def options_for_status_client
-    status_client = [["Ativo", 0], ["Inativo", 1], ["Prospecção", 2], ["Abandonado/ Desistente", 3]]
+    [['Ativo', 0], ['Inativo', 1], ['Prospecção', 2], ['Abandonado/ Desistente', 3]]
   end
 
   def options_for_capacity

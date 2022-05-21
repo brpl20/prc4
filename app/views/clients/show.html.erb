@@ -3,9 +3,24 @@
 
     <div class="x_title clearfix">
       <h1 class="pull-left"><%= @client.name + ' ' + @client.lastname %></h1>
-        <span> <%= link_to "", edit_client_path(@client), {class:"btn btn-primary fa fa-edit btncent"} %></span>
+
       <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        <li>
+          <span id="status-client" class="btn">
+            <%= retrieve_value_from_array(options_for_status_client, @client.status) %>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <%= link_to "", edit_client_path(@client), {class:"btn fa fa-edit btncent btn-link"} %>
+          </span>
+        </li>
+
+        <li>
+          <a class="collapse-link">
+            <i class="fa fa-chevron-up"></i>
+          </a>
         </li>
       </ul>
     </div>
@@ -30,7 +45,7 @@
 
             <span class="col-md-12">
               <b>Estado civil:</b>
-              <%= @civilstatus %>
+              <%= @client.civilstatus %>
             </span>
 
             <span class="col-md-12">
@@ -147,7 +162,10 @@
         </section>
 
         <section class="col-md-4">
-          <h2 class="pull-left h-line"> <i class="fa fa-asterisk"></i> <b>Informações Adicionais</b></h2>
+          <h2 class="pull-left h-line">
+            <i class="fa fa-asterisk"></i>
+            <b>Informações Adicionais</b>
+          </h2>
 
           <span class="col-md-12">
             <strong>Profissao:</strong>
@@ -276,3 +294,65 @@
   <%= link_to "Voltar", clients_path, class:"btn btn-danger btn-outline left col-md-1" %>
 
   </div>
+
+
+
+
+
+<!--
+
+
+  =====================
+  INFORMAÇÕES PESSOAIS
+  =====================
+  gender: 1,
+  citizenship: "Brasileiro",
+  civilstatus: "em União Estável",
+  birth: Sun, 02 May 1971,
+  general_register: "Itaque laboris conse",
+  social_number: "555.555.555-55",
+  mothername: "Hyatt Bell",
+  capacity: "Capaz",
+  ***  cnpj: nil,
+
+   ====================
+   ENDEREÇO
+   ====================
+   address: "Est reiciendis liber",
+   city: "Soluta quibusdam id ",
+   state: "Qui delectus occaec",
+   zip: "91.382",
+
+   ====================
+   DOCUMENTOS
+   ====================
+   "aws_link"=>"https://prcstudio3herokubucket.s3-us-west-2.amazonaws.com/tmp/procuracao_simples-jenettecain_40.docx",
+
+   ====================
+   CONTATO
+   ====================
+
+   ====================
+   INFORMAÇÕES BANCÁRIAS
+   ====================
+   bank: nil,
+   agency: nil,
+   account: nil,
+
+   ====================
+   INFORMAÇÕES ADICIONAIS
+   ====================
+   profession: "Magni sed sit aut en",
+   company: "Moon and Cooke Traders",
+   number_benefit: "251",
+
+
+   ====================
+   REPRESENTANTE LEGAL
+   ====================
+   representative: nil,
+   incapable_dependent: nil,
+
+   choice: true,
+   status: 0,
+   client_type:0 -->
