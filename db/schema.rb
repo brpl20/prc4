@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_20_180744) do
+ActiveRecord::Schema.define(version: 2022_05_21_153637) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 2022_05_20_180744) do
     t.bigint "work_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "recommendation"
+    t.decimal "value"
+    t.decimal "percentage"
     t.index ["client_id"], name: "index_client_works_on_client_id"
     t.index ["work_id"], name: "index_client_works_on_work_id"
   end
@@ -166,7 +169,6 @@ ActiveRecord::Schema.define(version: 2022_05_20_180744) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
-    t.integer "responsible"
     t.bigint "user_id", default: 1, null: false
     t.index ["user_id"], name: "index_offices_on_user_id"
   end

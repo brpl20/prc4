@@ -50,7 +50,7 @@
 
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
 
@@ -98,9 +98,9 @@
 
             </div>
 
-            <div class="col-md-12 form-group rep-cli">
+            <div class="col-md-12 form-group rep-cli no-padding">
 
-              <div class="customer_types">
+              <div class="customer_types no-padding">
 
                 <%= f.fields_for :customer_types do |io| %>
                 <% end %>
@@ -144,7 +144,6 @@
             </div>
 
           </div>
-
 
         </div>
 
@@ -217,68 +216,78 @@
 
         </div>
 
-        <div class="col-md-6">
-
-          <%= f.fields_for :bank do |b| %>
-
-            <div class="col-md-4 no-padding">
-              <b><%= f.label "Banco" %></b>
-              <%= b.text_field :name, placeholder:"Número do Banco", class:"form-control" %>
-            </div>
-
-            <div class="col-md-4">
-              <b><%= f.label "Agência" %></b>
-              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
-            </div>
-
-            <div class="col-md-4 no-padding">
-              <b><%= f.label "Conta" %></b>
-              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
-            </div>
-
-          <% end %>
-
-        </div>
-
-        <div class="col-md-6">
+        <div class="col-md-12">
 
           <div class="col-md-6 no-padding">
-            <b><%= f.label "Upload de arquivos" %></b>
-            <%= f.file_field :files, multiple: true %>
 
-            <% if client.errors.any? %>
-              <div id="error_explanation">
-                <ul>
-                  <% client.errors.each do |error| %>
-                    <p><%= error.full_message %></p>
-                  <% end %>
-                </ul>
+            <%= f.fields_for :bank do |b| %>
+
+              <div class="col-md-4">
+                <b><%= f.label "Banco" %></b>
+                <%= b.text_field :name, placeholder:"Número do Banco", class:"form-control" %>
               </div>
-            <% else %>
 
-              <% if @client.files != nil %>
-                <% @client.files.each do |file| %>
-                  <li>
-                    <%= link_to file.filename, url_for(file) %>
-                    <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
-                  </li>
+              <div class="col-md-4">
+                <b><%= f.label "Agência" %></b>
+                <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+              </div>
 
-                <% end %>
-              <% end %>
+              <div class="col-md-4 no-padding">
+                <b><%= f.label "Conta" %></b>
+                <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+              </div>
+
             <% end %>
 
+          </div>
+
+          <div class="col-md-6">
+
+            <div class="col-md-6">
+              <b><%= f.label "Upload de arquivos" %></b>
+              <%= f.file_field :files, multiple: true %>
+              <small class="form-text text-muted">
+                Formatos aceitos: JPEG, PNG e PDF.
+              </small>
+
+              <% if client.errors.any? %>
+                <div id="error_explanation">
+                  <ul>
+                    <% client.errors.each do |error| %>
+                      <p><%= error.full_message %></p>
+                    <% end %>
+                  </ul>
+                </div>
+              <% else %>
+
+                <% if @client.files != nil %>
+                  <% @client.files.each do |file| %>
+                    <li>
+                      <%= link_to file.filename, url_for(file) %>
+                      <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                    </li>
+
+                  <% end %>
+                <% end %>
+              <% end %>
+
+            </div>
           </div>
         </div>
 
         <div class="col-md-12">
+          <div class="col-md-6">
 
-          <div class="col-lg-6 form-group">
-            <b><%= f.label :status %></b>
-            <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
-            b.label(class:"inline-radio") { b.radio_button + b.text }
-            end %>
+            <div class="status">
+              <b><%= f.label :status %></b>
+              <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
           </div>
         </div>
+
+      </div>
+
 
       </div>
 

@@ -1,16 +1,14 @@
-<div class='nested-fields col-md-12 clearfix'>
-  <div class="col-xs-3 rep-name">
+<div class='nested-fields col-md-12 clearfix no-margin no-padding'>
+  <div class="col-md-4 rep-name no-padding">
     <%= f.number_field :represented, class:"represented_iid hidden adj100"%>
     <span class="repName"></span>
   </div>
 
-
-<div class="col-xs-3 rep-desc">
-    <%= f.collection_select :description, Client::DESCRIPTION, :to_s, :to_s, class:"decription adj100" %>
+<div class="col-md-4 rep-desc">
+    <%= f.collection_select :description, Client::DESCRIPTION, :to_s, :to_s, {}, {class:'form-control'} %>
   </div>
 
-
-<div class="col-xs-3 rep-btn">
+<div class="col-md-4 rep-btn">
     <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove") %>
   </div>
 </div>
