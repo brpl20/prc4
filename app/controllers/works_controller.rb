@@ -380,8 +380,8 @@ class WorksController < ApplicationController
   def update
     respond_to do |format|
       if @work.update(work_params)
-        format.html { redirect_to @work, notice: 'work Atualizado. Cuidado * Procuracão Não Atualizada' }
-        format.json { render :show, status: :ok, location: @work, notice: 'work Atualizado. Cuidado * Procuracão Não Atualizada!!!'}
+        format.html { redirect_to @work, notice: 'Trabalho Atualizado. Cuidado * Procuracão Não Atualizada' }
+        format.json { render :show, status: :ok, location: @work, notice: 'Trabalho Atualizado. Cuidado * Procuracão Não Atualizada!!!'}
       else
         format.html { render :edit }
         format.json { render json: @work.errors, status: :unprocessable_entity }

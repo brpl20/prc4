@@ -1,10 +1,10 @@
-<h1 class="mg-left">Novo Representante</h1>
+<h1 class="mg-left">Representante Legal para: <%= @incapable.name %></h1>
 
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
 
     <div class="x_title">
-      <h2>Cadastrando novo Representante Legal</h2>
+      <h2>Cadastrando novo representante</h2>
       <div class="clearfix"></div>
     </div>
 
@@ -18,9 +18,6 @@
           <div class="col-md-6 col-sm-6">
             <b><%= f.label "Nome" %></b>
             <%= f.text_field :name, class:"form-control" %>
-            <small class="form-text text-muted">
-              Nome do representante.
-            </small>
             <small class="form-text text-muted">
               Representado: <%= @incapable.name %>
             </small>
