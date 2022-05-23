@@ -1,0 +1,9 @@
+'pt-BR':
+  activerecord:
+    attributes:
+      client:
+        statuses:
+          active: Ativo
+          inactive: Inativo
+          prospective: Prospeceção
+          abandoned: Abandonado/Desistente

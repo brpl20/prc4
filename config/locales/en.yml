@@ -39,3 +39,10 @@ en:
 
 en:
   hello: "Hello world"
+
+en:
+  activerecord:
+    enums:
+      launch:
+        inflow: inflow
+        outflow: outflow

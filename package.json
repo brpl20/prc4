@@ -4,6 +4,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.2",
     "@nathanvda/cocoon": "^1.2.14",
+    "@popperjs/core": "^2.11.5",
     "@rails/webpacker": "5.1.1",
     "bootstrap": "^4.6.0",
     "bootstrap-growl-ifightcrime": "^1.1.0",

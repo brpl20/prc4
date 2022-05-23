@@ -81,7 +81,6 @@
             <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
           </div>
 
-
         </div>
 
         <div class="col-md-12">
@@ -111,11 +110,9 @@
               <% else %>
                 <%= cw.collection_select :client_id, options_for_client, :first, :second, {}, {class:'form-control'} %>
               <% end %>
-            <% end %>
           </div>
 
         </div>
-
 
         <div class="col-md-12">
 
@@ -132,16 +129,29 @@
         </div>
 
         <div class="col-md-12">
+            <div class="col-md-3">
+              <b><%= cw.label "Indicação" %></b>
+              <div class=" ind-name no-padding">
+                <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
+                <span class="indName">Escolha uma indicação.</span>
+                <button type='button' class='btn btn-danger remove-ind' id='ind-btn-remove'>X</button>
+              </div>
+            </div>
 
-          <div class="col-md-6">
-            <b><%= f.label "Indicação" %></b>
-            <%= f.text_field :recommendation, class:"form-control" %>
-          </div>
+            <div class="col-md-1">
+              <a class='btn btn-outline btn-primary modal-ind' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Selecionar Indicação</span></a>
+            </div>
 
-          <div class="col-md-6">
-            <b><%= f.label "Comissão (da Indicação)" %></b>
-            <%= f.text_field :recommendation_comission, class:"form-control" %>
-          </div>
+            <div class="col-md-4">
+              <b><%= cw.label "Porcentagem da Comissão" %></b>
+              <%= cw.number_field :percentage, class:"form-control" %>
+            </div>
+
+            <div class="col-md-4">
+              <b><%= cw.label "Valor da Comissão" %></b>
+              <%= cw.number_field :value, class:"form-control" %>
+            </div>
+          <% end %>
 
         </div>
 
@@ -168,7 +178,6 @@
           <div class="col-md-6">
             <b><%= f.label "Estagiários da Procuração" %></b>
             <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
-
 
           </div>
 
@@ -207,7 +216,6 @@
 
         </div>
 
-
         <div class="col-md-12">
           <div class="col-md-12">
             <b><%= f.label "Notas em geral sobre o caso" %></b>
@@ -216,7 +224,7 @@
         </div>
 
         <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Criar Trabalho</button>
+          <button type="submit" class="btn btn-primary pull-right">Salvar</button>
           <%= link_to "Cancelar", works_path, class:"btn btn-danger pull-right" %>
         </div>
 
@@ -224,3 +232,8 @@
     </div>
   </div>
 </div>
+
+<%= render partial: "shared/modal" %>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>

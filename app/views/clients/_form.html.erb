@@ -7,11 +7,11 @@
     </div>
 
     <div class="x_content">
-      <%= form_with model: @client, local: true do |f| %>
+      <%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
 
-        <% # Hidden Fields Init %>
-
-        <% # Hidden Fields End %>
+      <%#= f.collection_radio_buttons :status, Work.status, :second, :first do |b|
+       b.label { b.radio_button + b.text }
+     end %>
 
         <div class="col-md-12 col-sm-12">
 
@@ -50,7 +50,7 @@
 
         </div>
 
-        <div class="col-md-12">
+        <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
 
@@ -80,19 +80,38 @@
             <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
           </div>
 
+          <div class="col-md-6 grid" id="conds-rates">
 
-          <div class="col-md-6">
-            <b><%= f.label "Número do CPF" %></b>
-            <%= f.text_field :social_number, autocomplete:"Phone Number", class:"form-control", 'data-mask': '000.000.000-00', placeholder:"000.000.000-00" %>
+            <label
+              id="label-client-type"
+              for="client_Tipo de Cliente"
+              data-exfield="<%= @client.social_number %>"
+            >
+              <b>Tipo de Cliente</b>
+            </label>
+
+            <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b|
+            b.label { b.radio_button(class:"client-type ") + b.text }
+            end %>
+
+            <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>">
+
+            </div>
+
+            <div class="col-md-12 form-group rep-cli no-padding">
+
+              <div class="customer_types no-padding">
+
+                <%= f.fields_for :customer_types do |io| %>
+                <% end %>
+
+                <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+              </div>
+
           </div>
 
-          <div class="col-md-6">
-            <b><%= f.label "Número do CNPJ" %></b>
-            <%= f.text_field :cnpj, autocomplete: true, class:"form-control", 'data-mask': '00.000.000/0000-00' %>
           </div>
 
-
-        </div>
 
         <div class="col-md-12">
 
@@ -113,7 +132,7 @@
 
           <div class="col-md-6 no-padding">
 
-            <div class="col-md-6 form-group client">
+            <div class="col-md-4 form-group client">
 
               <div class="emails">
                 <%= f.fields_for :emails do |e| %>
@@ -125,7 +144,6 @@
             </div>
 
           </div>
-
 
         </div>
 
@@ -182,28 +200,29 @@
 
         <div class="col-md-12">
 
-            <div class="col-md-6 ">
-               <b><%= f.label "Capacidade" %></b>
-               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
-               b.label(class:"inline-radio") { b.radio_button + b.text }
-               end %>
-            </div>
-
-
-            <div class="col-md-6">
-                <b><%= f.label "Consulta" %></b>
-                <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
-                b.label(class:"inline-radio") { b.radio_button + b.text }
-                end %>
-            </div>
-
+          <div class="col-md-6 ">
+             <b><%= f.label "Capacidade" %></b>
+             <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+             b.label(class:"inline-radio") { b.radio_button + b.text }
+             end %>
           </div>
 
           <div class="col-md-6">
+              <b><%= f.label "Consulta" %></b>
+              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text }
+              end %>
+          </div>
+
+        </div>
+
+        <div class="col-md-12">
+
+          <div class="col-md-6 no-padding">
 
             <%= f.fields_for :bank do |b| %>
 
-              <div class="col-md-4 no-padding">
+              <div class="col-md-4">
                 <b><%= f.label "Banco" %></b>
                 <%= b.text_field :name, placeholder:"Número do Banco", class:"form-control" %>
               </div>
@@ -222,30 +241,66 @@
 
           </div>
 
+          <div class="col-md-6">
+
+            <div class="col-md-6">
+              <b><%= f.label "Upload de arquivos" %></b>
+              <%= f.file_field :files, multiple: true %>
+              <small class="form-text text-muted">
+                Formatos aceitos: JPEG, PNG e PDF.
+              </small>
+
+              <% if client.errors.any? %>
+                <div id="error_explanation">
+                  <ul>
+                    <% client.errors.each do |error| %>
+                      <p><%= error.full_message %></p>
+                    <% end %>
+                  </ul>
+                </div>
+              <% else %>
+
+                <% if @client.files != nil %>
+                  <% @client.files.each do |file| %>
+                    <li>
+                      <%= link_to file.filename, url_for(file) %>
+                      <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                    </li>
+
+                  <% end %>
+                <% end %>
+              <% end %>
+
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+
+            <div class="status">
+              <b><%= f.label :status %></b>
+              <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
       </div>
 
         <div class="col-md-12">
+          <button type="submit" name="button" class="btn btn-primary pull-right">Salvar</button>
 
-            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Cliente</button>
-
-            <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
+          <%= link_to "Cancelar", clients_path, class:"btn btn-danger btn-outline pull-right" %>
         </div>
 
       <% end %>
 
     </div>
 
-
-
-  </div>
-
-
-
-
-
-
-
-
-
-</div>
-
+  <%= render partial: "shared/modal" %>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>

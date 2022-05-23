@@ -5,10 +5,8 @@
       <div class="clearfix"></div>
     </div>
 
-      <% # Hidden Fields Start %>
         <%= f.text_field :capacity, value: @client.capacity %>
         <%= f.text_field :representative, value: @client.representative %>
-      <% # Hidden Fields End %>
 
       <div class="x_content">
         <%= form_with model: @client, local: true do |f| %>
@@ -225,17 +223,4 @@
 
     </div>
 
-
-
   </div>
-
-
-
-
-
-
-
-
-
-</div>
-

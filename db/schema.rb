@@ -10,10 +10,38 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_03_17_220712) do
+ActiveRecord::Schema.define(version: 2022_05_22_011401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.string "service_name", null: false
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
+
+  create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "blob_id", null: false
+    t.string "variation_digest", null: false
+    t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
 
   create_table "banks", force: :cascade do |t|
     t.string "name"
@@ -56,6 +84,9 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.bigint "work_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "recommendation"
+    t.decimal "value"
+    t.decimal "percentage"
     t.index ["client_id"], name: "index_client_works_on_client_id"
     t.index ["work_id"], name: "index_client_works_on_work_id"
   end
@@ -89,6 +120,16 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
+    t.integer "client_type"
+  end
+
+  create_table "customer_types", force: :cascade do |t|
+    t.integer "represented"
+    t.string "description"
+    t.bigint "client_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_customer_types_on_client_id"
   end
 
   create_table "emails", force: :cascade do |t|
@@ -128,32 +169,8 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
-  end
-
-  create_table "people", force: :cascade do |t|
-    t.string "address"
-    t.date "birth"
-    t.integer "capacity"
-    t.string "citizenship"
-    t.string "city"
-    t.string "civilstatus"
-    t.string "company"
-    t.string "email"
-    t.string "first_name"
-    t.string "lastname"
-    t.integer "gender"
-    t.string "general_register"
-    t.string "mothername"
-    t.string "number_benefit"
-    t.string "oab_number"
-    t.string "profession"
-    t.string "social_number"
-    t.string "state"
-    t.string "zip"
-    t.integer "status"
-    t.integer "life"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", default: 1, null: false
+    t.index ["user_id"], name: "index_offices_on_user_id"
   end
 
   create_table "phones", force: :cascade do |t|
@@ -231,7 +248,9 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.boolean "paralegal_role"
     t.boolean "intern_role"
     t.boolean "secretary_role"
+    t.bigint "office_id", default: 1, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -255,8 +274,6 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.string "rate_work"
     t.string "rate_parceled"
     t.text "power"
-    t.string "recommendation"
-    t.string "recommendation_comission"
     t.string "folder"
     t.string "initial_atendee"
     t.string "procuration_lawyer"
@@ -275,13 +292,18 @@ ActiveRecord::Schema.define(version: 2022_03_17_220712) do
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "banks", "clients"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
+  add_foreign_key "customer_types", "clients"
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients"
+  add_foreign_key "offices", "users"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
   add_foreign_key "works", "users"

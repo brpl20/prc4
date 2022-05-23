@@ -23,7 +23,7 @@ class WorksController < ApplicationController
   def create
     @work = Work.new(work_params)
     if @work.save
-      work_templater(@work, 'wdocs')
+      #work_templater(@work, 'wdocs')
       redirect_to @work
     else
       render :new,
@@ -31,7 +31,6 @@ class WorksController < ApplicationController
     end
   end
 
-  # FEMININ x MASCULIN (TODO: Create Module or Helper)
    def genderize(field)
      case field
      when "Casado"
@@ -59,8 +58,6 @@ class WorksController < ApplicationController
      end
    end
 
-
-
   def work_templater(work, document)
     require 'aws-sdk-s3'
     require 'docx'
@@ -69,16 +66,12 @@ class WorksController < ApplicationController
     require 'rails-i18n'
     require 'pdf_forms'
 
-    # AWS STUFF -- INICIO --
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(ENV['AWS_ID'],ENV['AWS_SECRET_KEY'])})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
     aws_doc = @aws_client.get_object(bucket:'prcstudio3herokubucket', key:"base/#{document}.docx")
     aws_body = aws_doc.body
-    # AWS STUFF -- FIM --
 
-    # FIELD TREAT -- INICIO --
-    # SIMPLE FIELDS
     client = work.clients.last
     nome_cap = client.name.upcase
     sobrenome_cap = client.lastname.upcase
@@ -94,18 +87,14 @@ class WorksController < ApplicationController
       phones << "#{tl.phone}, "
     end
 
-    # NUMERO DE BENEFICIO FIELD
     if client.number_benefit.nil? || client.number_benefit == ""
       nb_exist = ""
     else
       nb_exist = "número de benefício #{client.number_benefit},"
     end
 
-    # TIME - HORARIO
     dia = I18n.l(Time.now, format: "%d de %B de %Y")
 
-    # NO DB FIELDS CONFIG GENDER
-    # GENDER LOGIC
     if client.gender == 1
       civilstatus = client.civilstatus
       nacionalita = genderize(client.citizenship)
@@ -126,20 +115,12 @@ class WorksController < ApplicationController
       capacity_treated = "#{client.capacity}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
     end
 
-    # RATE - COBRANCAS
-    # VER RATER
-    # CLIENT BANK
     bank = ". Dados bancários: Banco: #{client.bank.name}, Agência #{client.bank.agency}, Conta: #{client.bank.account}"
-
-    # PROCEDIMENTOS
 
     proceds = [].join("")
     work.procedures.each do | des |
       proceds << des.description
     end
-
-
-    # PODERES ESPECIAIS
 
     powerxx = [].join("")
     # work.powers.each_with_index do | pw, ind |
@@ -157,10 +138,6 @@ class WorksController < ApplicationController
         powerxx << "#{JSON.parse(pw.description)[1]}, "
       end
     end
-
-
-
-    # HONORARIOS - RATE - COBRANCAS - PARCELAMENTO
 
     def rater(rate, trabalho, exito)
       if trabalho.to_i < 100
@@ -189,7 +166,6 @@ class WorksController < ApplicationController
 
     rate_parceled_final = rate_parcel(work)
 
-    # ADVOGADOS - PARALEGAIS - ESTAGIARIOS
     lawyers = UserProfile.lawyer
     paralegals = UserProfile.paralegal
     interns = UserProfile.intern
@@ -237,9 +213,6 @@ class WorksController < ApplicationController
       end
     end
 
-
-
-    # ESCRITORIO
     offices = Office.all
     if offices.size > 0.5
       office_sel = Office.find_by_id(1)
@@ -253,8 +226,6 @@ class WorksController < ApplicationController
     end
     office_bank = "Banco #{office_sel.bank} Agência #{office_sel.agency}, Conta #{office_sel.account}"
 
-
-    # DOCUMENT REPLACES
     doc = Docx::Document.open(aws_body)
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
@@ -275,35 +246,33 @@ class WorksController < ApplicationController
         tr.substitute('_:cep_', client.zip.to_s)
         tr.substitute('_:empresa_atual_', client.company)
         tr.substitute('_:banco_', bank)
-        # LAWYER end Society
+
         tr.substitute('_:lawyers_', laws)
         tr.substitute('_:society_', office)
         tr.substitute('_:lawyerresponsible_',  @work.user[:name].to_s)
-        # NO DB FIELDS CONFIG GENDER
+
         tr.substitute('_:portador_', porta)
         tr.substitute('_:inscrito_', inscrito)
         tr.substitute('_:domiciliado_', domiciliado)
 
-        # PROCEDIMENTOS  - PODERES
          tr.substitute('_:procedure_', proceds)
          tr.substitute('_:subject_', work.subject)
          tr.substitute('_:action_', work.action)
          tr.substitute('_:number_', work.number)
          tr.substitute('_:powers_', powerxx)
-        # PARTE SOCIETARIA - ADVOGADOS - ESCRITORIO - PARALGAIS - ESTAGIARIOS
+
          tr.substitute('_:lawyers_', laws)
          tr.substitute('_:sociedade_', office)
          tr.substitute('_$parl_', parals)
          tr.substitute('$es', inters)
          tr.substitute('_:addressoficial_', office_address)
          # tr.substitute('_:emailoficial_', office_email)
-        #tr.substitute('_:prev-powers_', "")
-        # Rates - Valores e Cobrancas
+         #tr.substitute('_:prev-powers_', "")
 
         tr.substitute('_:rates_', rate_final)
         tr.substitute('_:parcel_', rate_parceled_final)
         tr.substitute('_:accountdetails_', office_bank)
-        # All Measures Clause - True or False
+
         tr.substitute('_:timestamp_', dia)
         tr.substitute('_:sname_', office_sel.name.upcase)
         tr.substitute('_:fullqual_', fullqual(client))
@@ -406,12 +375,8 @@ class WorksController < ApplicationController
       # end
   #end
 
-  # GET /works/1/edit
-  def edit
-  end
+  def edit; end
 
-  # PATCH/PUT /works/1
-  # PATCH/PUT /works/1.json
   def update
     respond_to do |format|
       if @work.update(work_params)
@@ -460,8 +425,6 @@ class WorksController < ApplicationController
       :rate_work,
       :rate_parceled,
       :rate_parceled_exfield,
-      :recommendation,
-      :recommendation_comission,
       :folder,
       :initial_atendee,
       :user_id,
@@ -476,7 +439,7 @@ class WorksController < ApplicationController
       checklist_ids: [],
       power_ids: [],
       procedure_ids: [],
-      client_works_attributes: [:id, :client_id],
+      client_works_attributes: [:id, :client_id, :recommendation, :value, :percentage],
       work_offices_attributes: [:id, :office_id]
       )
   end

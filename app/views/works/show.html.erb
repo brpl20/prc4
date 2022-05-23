@@ -136,12 +136,12 @@
 
           <span>
             <b>Recomendação/Indicação/Origem:</b>
-            <%= @work.recommendation %>
+            <%# @work.percentage %>
           </span>
 
           <span>
             <b>Comissão da Recomendação:</b>
-            <%= @work.recommendation_comission %>
+            <%# @work.recommendation %>
           </span>
 
           <span>
@@ -204,7 +204,7 @@
     <div class="x_title clearfix">
       <h1 class="">Jobs</h1>
 
-      <%= link_to new_job_path(client: @client), class:"btn btn-success" do %>
+      <%= link_to "#", class:"btn btn-success" do %>
         <i class="fa fa-plus"></i>
       <% end %>
 
@@ -255,6 +255,5 @@
   </div>
 
   <%= link_to "Voltar", works_path, class:"btn btn-danger btn-outline left col-md-1" %>
-
 
   </div>

@@ -8,4 +8,5 @@ class UserProfile < ApplicationRecord
   def full_name
     [self.name,self.lastname].join(' ')
   end
+
 end

@@ -1,39 +1,3 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
-
-# TODO tr.substitute = sucess
-# TODO Compare address function sociedade x lawyer - default equals advogado
-#
-
-#arr.each do | base |
-#  puts base.join(",")
-#end
-
-# Client.all.each do | cliento |
-#     arr1.each do | base |
-#       puts base[0]
-#     end
-#   end
-
-# Client.all.each do | cliento |
-#     arr1.each do | base |
-#     if cliento.id == base[0].to_i
-#       Client.id.nome = base[1]
-#     end
-#   end
-# end
-
-
-# b = Lawyer.create(name: "Bruno", lastname: "Pellizzetti", oab_number: "54.159 PR", email: "marcos@pellizzetti.adv.br")
-# a = Lawyer.create(name: "Marcos", lastname: "Aurélio Ciello", oab_number: "54.837 PR", email: "marcos@pellizzetti.adv.br")
-# b = Lawyer.create(name: "Eduardo", lastname: "Hamilton Walber", oab_number: "106.344 PR", email: "eduardo@pellizzetti.adv.br")
-
-
 Office.create(
   name: "Pellizzetti Advocacia",
   oab: "4416",
@@ -121,13 +85,6 @@ UserProfile.create!(
  origin: nil,
  user_id: 2
  )
-
-# User.create!(
-#   email: "lucas@pellizzetti.adv.br",
-#   password: 123456,
-#   password_confirmation: 123456,
-#   lawyer_role: true
-# )
 
 User.create!(
   email: "aline@pellizzetti.adv.br",

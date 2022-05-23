@@ -1,15 +1,3 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require jquery
 //= require rails-ujs
 //= require activestorage
@@ -17,19 +5,14 @@
 
 $(document).ready(function(){
 
-  // checkboxes init 
+$('#modal-general').on("show.bs.modal", function(e) {
+  $(this).find('.modal-body').load(e.relatedTarget.dataset.url);
+});
+
  function checkAll(){
  $("#checkAll").click(function () {
    $("input:checkbox").not(this).prop('checked', this.checked);
  })};
-  // $('.className').on('click', function(){  $(this).value() });
-  // X = getElementById('class').on('click', function(){ //todo });
-  // checkboxes end 
-  // let x = document.getElementsByClassName("radio_buttons");
-  // console.log(x);
-
-
-
 
   $('.phone-cli').each(function(index){
     $(this).addClass('col-md-12').css('padding', '0');
@@ -44,6 +27,7 @@ $(document).ready(function(){
 
   function check_subject_area(){
     var area = $("#subject-fields").data('action-for-subject');
+    var c_type = $("#rate-client-type").data('action-for-client-type');
 
     $('input[name="work[action]"]').each(function(){
       if ($(this).val() == area) {
@@ -51,6 +35,24 @@ $(document).ready(function(){
       };
     });
 
+    $('input[name="client[client_type]"]').each(function(){
+      if ($(this).val() == c_type) {
+        $(this).prop("checked", true);
+      };
+    });
+
+  };
+
+  function pessoa_fisica(){
+    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Física' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CPF</label></b> <input autocomplete='off' class='form-control' data-mask='000.000.000-00' placeholder='000.000.000-00' type='text' name='client[social_number]' id='client_social_number' maxlength='14'></div></div>" );
+
+    $("#client_social_number").val($("#label-client-type").data('exfield'));
+  };
+
+  function pessoa_juridica(){
+    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
+
+    $("#client_cnpj").val($("#label-client-type").data('text'));
   };
 
   function previdenciario(){
@@ -103,6 +105,13 @@ $(document).ready(function(){
 
   };
 
+  function get_type_client(value){
+    switch (value) {
+      case '0': pessoa_fisica(); break;
+      case '1': pessoa_juridica(); break;
+    };
+  };
+
   function get_action(value){
     switch (value) {
       case 'Previdenciário': previdenciario(); break;
@@ -121,6 +130,16 @@ $(document).ready(function(){
     };
   };
 
+  $('.client-type').click(function(){
+    $('.client-type-append').remove();
+    get_type_client($(this).val());
+  });
+
+  $('.subject').click(function(){
+    $('.subject-append').remove();
+    get_type_client($(this).val());
+  });
+
   $('.subject').click(function(){
     $('.subject-append').remove();
     get_action($(this).val());
@@ -130,6 +149,8 @@ $(document).ready(function(){
     $('.rate-works-append').remove();
     get_rate_work($(this).val());
   });
+
+  get_type_client($("input[name='client[client_type]']:checked").val());
 
   get_action($("input[name='work[subject]']:checked").val());
 
@@ -141,26 +162,25 @@ $(document).ready(function(){
     };
   });
 
+  $("#client_status_0").prop("checked", true);
+
+  $('.remove-ind').on("click", function(){
+    $('.indId').val("");
+    $('.indName').text("Escolha uma indicação.");
+    document.getElementById('ind-btn-remove').style.visibility = 'hidden';
+  });
+
+  if (window.location.href.match('works/new') != null) {
+  document.getElementById('ind-btn-remove').style.visibility = 'hidden';
+}
+
+
+  // $("input[name='client[client_type]']").each(function(){
+  //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){
+  //     $(this).prop("checked", true);
+  //   };
+  // });
+
  checkAll()
 
 });
-
-
-// VERIFICAR EMAIL
-
-// let inputEmail = document.getElementById("client_emails_attributes_0_email");
-// inputEmail.addEventListener('input', function (){
-//   let getEmailInput = document.getElementById("client_emails_attributes_0_email").value;
-//   let userName = getEmailInput.substring(0,getEmailInput.indexOf("@"));
-//   let userDomain = getEmailInput.substring(getEmailInput.indexOf("@")+1, getEmailInput.lenght);
-//   // console.log(userName);
-//   // console.log(userDomain);
-//   if(userName.length > 1 && userDomain.length > 3 && userName.search("@") == -1){
-//     // desabilitar botao
-//     // alert == ver
-//   }
-
-// }
-// );
-
-// VER EMAIL FIM

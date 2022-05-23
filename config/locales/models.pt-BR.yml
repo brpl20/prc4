@@ -1,18 +1,28 @@
-'pt-BR':
+pt-BR:
+  helpers:
+    label:
+      client:
+        name: Nome
+        status: Situação do Cliente
   activerecord:
     models:
+      client:
+        one: Nome
+        other: Nomes
       user:
         one: Usuário
         other: Usuários
     attributes:
-      user:
+      user/status:
+        active: Ativo
+        inactive: Inativo
+        prospective: Prospectivo
+        abandoned: Abandonado
         email: E-mail
         password: Senha
         password_confirmation: Confirmação de senha
         current_password: Senha atual
         remember_me: Lembrar-me
         sign_in: Entrar
-      client:
-        name: Nome
       work:
         work: Trabalho

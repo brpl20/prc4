@@ -92,10 +92,11 @@
             <%= f.text_field :email, class:"form-control" %>
           </div>
 
-
         </div>
 
         <div class="col-md-12">
+
+        <div class="col-md-6 no-padding no-margin">
 
           <div class="col-md-4">
             <b><%= f.label "Banco" %></b>
@@ -114,9 +115,18 @@
 
         </div>
 
+        <div class="col-md-6">
+
+          <b><%= f.label "Reponsável pelo escritório" %></b>
+          <%= f.collection_select :user_id,  options_for_responsible, :id, :name, {}, {class:'form-control'} %>
+
+        </div>
+        </div>
+
+
         <div class="col-md-12">
 
-            <button type="submit" name="button" class="btn btn-primary pull-right">Criar Escritório</button>
+          <button type="submit" name="button" class="btn btn-primary pull-right">Salvar</button>
 
             <%= link_to "Cancelar", offices_path, class:"btn btn-danger btn-outline pull-right" %>
         </div>
