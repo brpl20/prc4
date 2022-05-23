@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_21_153637) do
+ActiveRecord::Schema.define(version: 2022_05_22_011401) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -274,8 +274,6 @@ ActiveRecord::Schema.define(version: 2022_05_21_153637) do
     t.string "rate_work"
     t.string "rate_parceled"
     t.text "power"
-    t.string "recommendation"
-    t.string "recommendation_comission"
     t.string "folder"
     t.string "initial_atendee"
     t.string "procuration_lawyer"

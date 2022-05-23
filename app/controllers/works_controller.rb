@@ -425,8 +425,6 @@ class WorksController < ApplicationController
       :rate_work,
       :rate_parceled,
       :rate_parceled_exfield,
-      :recommendation,
-      :recommendation_comission,
       :folder,
       :initial_atendee,
       :user_id,
@@ -441,7 +439,7 @@ class WorksController < ApplicationController
       checklist_ids: [],
       power_ids: [],
       procedure_ids: [],
-      client_works_attributes: [:id, :client_id],
+      client_works_attributes: [:id, :client_id, :recommendation, :value, :percentage],
       work_offices_attributes: [:id, :office_id]
       )
   end

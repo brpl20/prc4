@@ -164,6 +164,16 @@ $('#modal-general').on("show.bs.modal", function(e) {
 
   $("#client_status_0").prop("checked", true);
 
+  $('.remove-ind').on("click", function(){
+    $('.indId').val("");
+    $('.indName').text("Escolha uma indicação.");
+    document.getElementById('ind-btn-remove').style.visibility = 'hidden';
+  });
+
+  if (window.location.href.match('works/new') != null) {
+  document.getElementById('ind-btn-remove').style.visibility = 'hidden';
+}
+
 
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){
