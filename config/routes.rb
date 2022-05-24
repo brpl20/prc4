@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'pages/plans'
 
   get 'clients/hunts', to: 'clients#hunt'
-  get 'works/list/:id', to: 'works#list', as: :work_list
 
   get 'pages/clt_covid'
   post 'pages/clt_covid_s3'
