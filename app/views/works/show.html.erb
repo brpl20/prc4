@@ -157,20 +157,25 @@
             <b>Dados bancários</b>
           </h2>
 
-          <span>
-            <b>Banco:</b>
-            <%= @client.bank.name %>
-          </span>
+          <% if @client.bank %>
+            <span class="col-md-12">
+              <b>Banco:</b>
+              <%= @client.bank&.name %>
+            </span>
 
-          <span>
-            <b>Agência</b>
-            <%= @client.bank.agency %>
-          </span>
+            <span class="col-md-12">
+              <b>Agência:</b>
+              <%= @client.bank&.agency %>
+            </span>
 
-          <span>
-            <b>Conta</b>
-            <%= @client.bank.account %>
-          </span>
+            <span class="col-md-12">
+              <b>Conta:</b>
+              <%= @client.bank&.account %>
+            </span>
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há conta cadastrada</p>
+          <% end %>
 
         </section>
 

@@ -259,10 +259,10 @@
               <% @url_work.each_with_index do |w, ind| %>
                 <tr>
                   <th scope="row"><%= ind+1 %></th>
-                  <% wo = Work.find_by_id(w.id) %>
-                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
-                  <th><%= wo.number %></th>
-                  <th><%= wo.folder %></th>
+                  <%# wo = Work.find_by_id(w.id) %>
+                  <th><%#= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
+                  <th><%#= wo.number %></th>
+                  <th><%#= wo.folder %></th>
                   <th><%= render "shared/links_works" %></th>
                   <td></td>
                 </tr>
