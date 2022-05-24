@@ -84,6 +84,9 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.bigint "work_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "recommendation"
+    t.decimal "value"
+    t.decimal "percentage"
     t.index ["client_id"], name: "index_client_works_on_client_id"
     t.index ["work_id"], name: "index_client_works_on_work_id"
   end
@@ -113,7 +116,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.text "representative"
+    t.integer "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -215,7 +218,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.integer "civilstatus"
+    t.string "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
@@ -273,8 +276,6 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.string "rate_work"
     t.string "rate_parceled"
     t.text "power"
-    t.string "recommendation"
-    t.string "recommendation_comission"
     t.string "folder"
     t.string "initial_atendee"
     t.string "procuration_lawyer"

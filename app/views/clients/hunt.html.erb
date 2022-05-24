@@ -71,6 +71,9 @@
 
   $('#set-client').on("click", function(){
     if ($('input:checked').val()){
+      $('.indId').val($('input:checked').prev('#client-name').data('rep-id'));
+      $('.indName').text($('input:checked').prev('#client-name').text());
+      document.getElementById('ind-btn-remove').style.visibility = 'visible';
       try {
         $('#btn-add-rep').click();
       } catch (e) {

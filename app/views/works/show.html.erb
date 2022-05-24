@@ -134,15 +134,26 @@
             <%= initial_atendence(@work.initial_atendee) %>
           </span>
 
+          <% if @work.client_works.last.recommendation %>
           <span>
             <b>Recomendação/Indicação/Origem:</b>
-            <%= @work.recommendation %>
+            <%= has_recommendation(@work.client_works.last.recommendation) %>
           </span>
 
           <span>
             <b>Comissão da Recomendação:</b>
-            <%= @work.recommendation_comission %>
+            <%= @work.client_works.last.percentage %>
           </span>
+
+          <span>
+            <b>Valor da Recomendação:</b>
+            <%= @work.client_works.last.value %>
+          </span>
+
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há recomendação/indicação.</p>
+          <% end %>
 
           <span>
             <b>Advogado Parceiro:</b>
