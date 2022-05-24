@@ -73,4 +73,10 @@ module WorksHelper
   def has_jobs_to_this_work work
     @jobs = work.clients.last.jobs
   end
+
+  def has_recommendation id
+    Client.find(id).name
+  end
+
+
 end

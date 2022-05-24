@@ -194,9 +194,9 @@ $(document).ready(function(){
     document.getElementById('ind-btn-remove').style.visibility = 'hidden';
   });
 
-  if (window.location.href.match('works/new') != null) {
+  if ($('.indName').text() == "Escolha uma indicação.") {
   document.getElementById('ind-btn-remove').style.visibility = 'hidden';
-}
+  }
 
 
   // $("input[name='client[client_type]']").each(function(){

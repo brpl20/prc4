@@ -236,7 +236,7 @@
                 <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
               </div>
 
-              <div class="col-md-4 no-padding">
+              <div class="col-md-4">
                 <b><%= f.label "Conta" %></b>
                 <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
               </div>
@@ -280,21 +280,18 @@
         </div>
 
         <div class="col-md-12">
-          <div class="col-md-6">
 
-          <div class="col-md-6 no-padding">
+          <div class="col-md-6">
             <b><%= f.label 'Senha do meu Inss' %></b>
             <%= f.text_field :passwdInss, class:"form-control" %>
           </div>
 
-          <div class="col-lg-6 form-group">
+          <div class="col-md-6">
             <b><%= f.label :status %></b>
             <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
             b.label(class:"inline-radio") { b.radio_button + b.text }
             end %>
           </div>
-
-        </div>
 
       </div>
 
