@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_22_011401) do
+ActiveRecord::Schema.define(version: 2022_05_23_175247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,8 @@ ActiveRecord::Schema.define(version: 2022_05_22_011401) do
     t.string "cnpj"
     t.integer "incapable_dependent"
     t.integer "client_type"
+    t.string "nit"
+    t.string "passwdInss"
   end
 
   create_table "customer_types", force: :cascade do |t|

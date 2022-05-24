@@ -1,23 +1,21 @@
-class PagesController < ApplicationController
-  #skip_authorization_check
-  before_action :amazon_client, :authenticate_user!, :except => [:help, :clt_covid, :clt_covid_s3]
+# frozen_string_literal: true
 
-  def index
-  end
+class PagesController < ApplicationController
+
+  before_action :amazon_client, :authenticate_user!, except: %w[help clt_covid clt_covid_s3]
+
+  def index; end
 
   def dashboard
     @clients = Client.all
-    @works = Work.last(3)
+    @works = Work.order(created_at: :desc).last(4)
   end
 
-  def help
-  end
+  def help; end
 
-  def plans
-  end
+  def plans; end
 
-  def clt_covid
-  end
+  def clt_covid; end
 
   def clt_covid_s3
     require 'aws-sdk-s3'
@@ -65,7 +63,7 @@ class PagesController < ApplicationController
   private
 
   def amazon_client
-   require 'aws-sdk-s3'
+  require 'aws-sdk-s3'
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
         ENV['AWS_ID'],
         ENV['AWS_SECRET_KEY']

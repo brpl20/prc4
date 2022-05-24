@@ -127,6 +127,9 @@ input[type='checkbox']{
 .btn-add-rep{
   width: 100%;
 }
+.cem_percent{
+  width: 100%;
+}
 .btn-rmv-cli{
   margin-top: .5em;
   width: 100%;
@@ -196,6 +199,9 @@ span.section{
 }
 .in-line{
   display: inline;
+}
+.panel-dashboard{
+  min-height: 485px;
 }
 
 @media only screen and (max-width: 600px) {

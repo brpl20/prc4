@@ -1,5 +1,5 @@
 class Bank < ApplicationRecord
-  belongs_to :client, dependent: :destroy
+  has_one :client, dependent: :destroy
   #before_save :fill_if_nil
   #retirado fill_if_nill porque como faz referencia ele fica vazio por padrao
 

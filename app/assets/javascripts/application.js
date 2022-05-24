@@ -5,9 +5,33 @@
 
 $(document).ready(function(){
 
-$('#modal-general').on("show.bs.modal", function(e) {
-  $(this).find('.modal-body').load(e.relatedTarget.dataset.url);
-});
+
+  function change_status_color(status) {
+    status = status.replace(/^\s+|\s+$/gm,'');
+
+    switch (status) {
+      case 'Ativo':
+        $('#status-client').css( "background", "#27ae60" );
+      break;
+      case 'Inativo':
+        $('#status-client').css( "background", "#e74c3c" );
+      break;
+      case 'Prospecção':
+        $('#status-client').css( "background", "#3498db" );
+      break;
+      case 'Abandonado/ Desistente':
+      $('#status-client').css( "background", "#f1c40f" ).css( "color", "#111111" );
+      break;
+    }
+  }
+
+  if (window.location.href.match('clients/')) {
+    change_status_color($('#status-client').text());
+  }
+
+  $('#modal-general').on("show.bs.modal", function(e) {
+    $(this).find('.modal-body').load(e.relatedTarget.dataset.url);
+  });
 
  function checkAll(){
  $("#checkAll").click(function () {
@@ -170,9 +194,9 @@ $('#modal-general').on("show.bs.modal", function(e) {
     document.getElementById('ind-btn-remove').style.visibility = 'hidden';
   });
 
-  if (window.location.href.match('works/new') != null) {
+  if ($('.indName').text() == "Escolha uma indicação.") {
   document.getElementById('ind-btn-remove').style.visibility = 'hidden';
-}
+  }
 
 
   // $("input[name='client[client_type]']").each(function(){

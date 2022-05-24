@@ -2,7 +2,7 @@
   <div class="x_panel">
 
     <div class="x_title">
-      <h2>Cadastrando novo work</h2>
+      <h2><%= action %></h2>
       <div class="clearfix"></div>
     </div>
 
@@ -129,29 +129,39 @@
         </div>
 
         <div class="col-md-12">
-            <div class="col-md-3">
+          <div class="col-md-6">
+            <div class="col-md-6 no-padding">
               <b><%= cw.label "Indicação" %></b>
               <div class=" ind-name no-padding">
                 <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
-                <span class="indName">Escolha uma indicação.</span>
+                <% if @work.client_works.last.recommendation %>
+
+                  <span class="indName"><%= has_recommendation(@work.client_works.last.recommendation) %></span>
+
+                <% else %>
+                  <span class="indName">Escolha uma indicação.</span>
+                <% end %>
                 <button type='button' class='btn btn-danger remove-ind' id='ind-btn-remove'>X</button>
               </div>
             </div>
 
-            <div class="col-md-1">
-              <a class='btn btn-outline btn-primary modal-ind' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Selecionar Indicação</span></a>
+            <div class="col-md-6 no-padding">
+              <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Selecionar Indicação</span></a>
             </div>
+          </div>
 
-            <div class="col-md-4">
-              <b><%= cw.label "Porcentagem da Comissão" %></b>
-              <%= cw.number_field :percentage, class:"form-control" %>
-            </div>
+            <div class="col-md-6">
+              <div class="col-md-6 no-padding">
+                <b><%= cw.label "Porcentagem da Comissão" %></b>
+                <%= cw.number_field :percentage, class:"form-control" %>
+              </div>
 
-            <div class="col-md-4">
-              <b><%= cw.label "Valor da Comissão" %></b>
-              <%= cw.number_field :value, class:"form-control" %>
-            </div>
-          <% end %>
+              <div class="col-md-6">
+                <b><%= cw.label "Valor da Comissão" %></b>
+                <%= cw.number_field :value, class:"form-control" %>
+              </div>
+            <% end %>
+          </div>
 
         </div>
 

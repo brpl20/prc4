@@ -8,7 +8,7 @@
 
   <div>
     <h1 class="h-line">ProcStudio 2020</h1>
-    <b>Licenciado Para <%= current_user.office.name %></b>
+    <b>Licenciado para <%= current_user.office.name %></b>
 
     <p>
       <%= footer_address %>
@@ -21,10 +21,10 @@
 
   <div>
     <h1 class="h-line">Links Úteis</h1>
-    <%= link_to 'Work', works_path %>
     <%= link_to 'Clientes', clients_path %>
-    <%= link_to 'Usuários', profile_index_path %>
     <%= link_to 'Escritórios', offices_path %>
+    <%= link_to 'Trabalhos', works_path %>
+    <%= link_to 'Usuários', profile_index_path %>
   </div>
 
   <div>
