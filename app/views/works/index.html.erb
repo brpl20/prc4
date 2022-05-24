@@ -1,9 +1,9 @@
 <div class="col-md-12 col-sm-12">
 
-  <h1 class="pull-left mg-left">Works</h1>
+  <h1 class="pull-left mg-left">Trabalhos</h1>
 
   <%= link_to new_work_path, class:"btn btn-success pull-right btn-new" do %>
-    <i class="fa fa-plus"></i> Novo Work
+    <i class="fa fa-plus"></i> Novo Trabalho
   <% end %>
 
   <div class="x_panel">
@@ -46,20 +46,20 @@
                     <td><%= w.partner_lawyer %></td>
                     <td class="table-action-content">
 
-                      <%= link_to new_client_job_path(w.clients.first.id), class:"btn btn-success" do %>
+                      <%= link_to new_client_job_path(w.clients.first.id), class:"btn btn-success", 'data-toggle':"tooltip", 'data-placement':'top', title:'nova tarefa' do %>
                         <i class="fa fa-gavel"></i>
                       <% end %>
 
-                      <%= link_to work_path(w), class:"btn btn-info" do %>
+                      <%= link_to work_path(w), class:"btn btn-info", 'data-toggle':"tooltip", 'data-placement':'top', title:'ver' do %>
                         <i class="fa fa-eye"></i>
                       <% end %>
 
-                      <%= link_to edit_work_path(w), class:"btn btn-primary" do %>
+                      <%= link_to edit_work_path(w), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
 
                       <%= link_to work_path(w), class:"btn btn-danger",
-                          method: :delete, data: {confirm: "Tem certeza que deseja apagar"} do %>
+                          method: :delete, 'data-toggle':"tooltip", 'data-placement':'top', title:'apagar', data: {confirm: "Tem certeza que deseja apagar"} do %>
                           <i class="fa fa-times"></i>
                       <% end %>
 

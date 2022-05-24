@@ -6,15 +6,15 @@ Rails.application.routes.draw do
   get 'pages/help'
   get 'pages/plans'
 
-  #modal
   get 'clients/hunts', to: 'clients#hunt'
+  get 'works/list/:id', to: 'works#list', as: :work_list
 
   get 'pages/clt_covid'
   post 'pages/clt_covid_s3'
 
   get 'clients/new_rep/:id', to: 'clients#new_rep', as: :new_rep
 
-  root to: "pages#dashboard"
+  root to: 'pages#dashboard'
 
   devise_for :users
 

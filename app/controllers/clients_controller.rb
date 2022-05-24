@@ -38,7 +38,7 @@ class ClientsController < ApplicationController
     if @client.save
       if @client.capacity === "Capaz"
         if @client.client_type === 1
-          flash[:notice] = "Cliente Jurídico Criado - Redirecionando Para Representante"
+          flash[:notice] = "Cliente Jurídico Criado - Redirecionando para Representante"
           redirect_to new_rep_path(@client)
         else
           templater(@client, 'procuracao_simples')
@@ -46,7 +46,7 @@ class ClientsController < ApplicationController
           redirect_to @client
         end
       else
-        flash[:notice] = "Cliente Incapaz Criado - Redirecionando Para Representante Legal"
+        flash[:notice] = "Cliente Incapaz Criado - Redirecionando para Representante Legal"
         redirect_to new_rep_path(@client)
       end
     else
@@ -62,7 +62,7 @@ class ClientsController < ApplicationController
   def update
     respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client Atualizado. Cuidado * Procuracão Não Atualizada' }
+        format.html { redirect_to @client, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada' }
         format.json { render :show, status: :ok, location: @client }
       else
         format.html { render :edit }
@@ -307,6 +307,8 @@ class ClientsController < ApplicationController
       :company,
       :birth,
       :mothername,
+      :nit,
+      :passwdInss,
       :number_benefit,
       :general_register,
       :cnpj,

@@ -1,115 +1,59 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.4'
 
-#   Authentication and Authorization
-gem 'dotenv-rails', groups: [:development, :test]
+gem 'autoprefixer-rails'
+gem 'aws-sdk-s3', require: false
+gem 'bootsnap', require: false
+gem 'cancancan'
+gem 'cocoon'
+gem 'coffee-rails', '~> 5.0'
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
-gem 'rails_admin', '~> 2.0'
-gem 'cancancan'
-
-# Jquery e JS em Geral
-gem 'jquery-rails'
-
-# Amazon AWS S3
-gem 'aws-sdk-s3', require: false
-gem 's3'
-
-# FrontEnd
-gem "font-awesome-rails"
-gem 'simple_form'
-gem 'cocoon'
-
-# Docx
-gem 'docx', :require => ["docx"]
-
-# PDF 
-gem 'pdf-forms'
-
-# Seeder
-gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
-
-# Diversos
-gem 'autoprefixer-rails'
-gem 'pry-rails', :group => :development
-gem 'webpacker', '~> 5.x'
-gem 'similar_text', '~> 0.0.4' # Ver se o texto e similar especialmente enderecos
-
-# Google Omni
-gem 'omniauth-google-oauth2'
-
-# BRzuca
+gem 'docx', require: ['docx']
+gem 'dotenv-rails', groups: %w[development test]
 gem 'extensobr'
-
-# Rack - Adiconado para resolver problema de vulnerabilidade
-# Eh uma Gem Dependente
-gem "rack", ">= 2.2.3"
-
-# ERRORs
-gem "better_errors"
-
-
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', ">= 6.0.3.5"
-# Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
-# Use Puma as the app server
-gem 'puma', '~> 4.3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'mini_racer', platforms: :ruby
-
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 5.0'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-# gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
-# Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
-# Use ActiveModel has_secure_password
-# gem 'bcrypt', '~> 3.1.7'
-
-# Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
-
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
-# Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', require: false
-
+gem 'jquery-rails'
+gem 'omniauth-google-oauth2'
+gem 'pdf-forms'
+gem 'pg', '>= 0.18', '< 2.0'
+gem 'puma', '~> 4.3'
+gem 'rack', '>= 2.2.3'
+gem 'rails', '>= 6.0.3.5'
+gem 'rails_admin', '~> 2.0'
 gem 'rails-i18n', '~> 6.0.0'
+gem 's3'
+gem 'sass-rails', '~> 5.0'
+gem 'similar_text', '~> 0.0.4'
+gem 'simple_form'
+gem 'uglifier', '>= 1.3.0'
+gem 'webpacker', '~> 5.x'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'better_errors'
+  gem 'byebug', platforms: %w[mri mingw x64_mingw]
+  gem 'pry-rails'
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
+  gem 'annotate'
+  gem 'binding_of_caller'
   gem 'listen', '>= 3.0.5', '< 3.2'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem "binding_of_caller"
-  #https://github.com/ctran/annotate_models
-  gem 'annotate'
+  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
-  # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
-  gem 'selenium-webdriver'
-  # Easy installation and use of chromedriver to run system tests with Chrome
   gem 'chromedriver-helper'
+  gem 'selenium-webdriver'
 end
 
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %w[mingw mswin x64_mingw jruby]

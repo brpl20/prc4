@@ -3,9 +3,30 @@
 
     <div class="x_title clearfix">
       <h1 class="pull-left"><%= @client.name + ' ' + @client.lastname %></h1>
-        <span> <%= link_to "", edit_client_path(@client), {class:"btn btn-primary fa fa-edit btncent"} %></span>
+
       <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        <li>
+          <span id="status-client" class="btn">
+            <%= retrieve_value_from_array(options_for_status_client, @client.status) %>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <%= link_to '', work_list_path(@client), {class:"btn fa fa-gavel btncent btn-link", 'data-toggle':"tooltip", 'data-placement':'bottom', title:'ver trabalhos ativos'}  %>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <%= link_to '', edit_client_path(@client), {class:"btn fa fa-edit btncent btn-link"} %>
+          </span>
+        </li>
+
+        <li>
+          <a class="collapse-link btncent">
+            <i class="fa fa-chevron-up"></i>
+          </a>
         </li>
       </ul>
     </div>
@@ -30,7 +51,7 @@
 
             <span class="col-md-12">
               <b>Estado civil:</b>
-              <%= @civilstatus %>
+              <%= @client.civilstatus %>
             </span>
 
             <span class="col-md-12">
@@ -51,6 +72,11 @@
             <span class="col-md-12">
               <strong>Mae:</strong>
               <%= @client.mothername %>
+            </span>
+
+            <span class="col-md-12">
+              <strong>NIT:</strong>
+              <%= @client.nit %>
             </span>
 
             <span class="col-md-12">
@@ -127,27 +153,38 @@
         </section>
 
         <section class="col-md-4">
-          <h2 class="pull-left h-line"> <i class="fa fa-university"></i> <b>Informações Bancárias</b></h2>
+          <h2 class="pull-left h-line cem_percent">
+            <i class="fa fa-university"></i>
+            <b>Informações Bancárias</b>
+          </h2>
 
-          <span class="col-md-12">
-            <b>Banco:</b>
-            <%= @client.bank&.name %>
-          </span>
+          <% if @client.bank %>
+            <span class="col-md-12">
+              <b>Banco:</b>
+              <%= @client.bank&.name %>
+            </span>
 
-          <span class="col-md-12">
-            <b>Agência:</b>
-            <%= @client.bank&.agency %>
-          </span>
+            <span class="col-md-12">
+              <b>Agência:</b>
+              <%= @client.bank&.agency %>
+            </span>
 
-          <span class="col-md-12">
-            <b>Conta:</b>
-            <%= @client.bank&.account %>
-          </span>
+            <span class="col-md-12">
+              <b>Conta:</b>
+              <%= @client.bank&.account %>
+            </span>
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há conta cadastrada</p>
+          <% end %>
 
         </section>
 
         <section class="col-md-4">
-          <h2 class="pull-left h-line"> <i class="fa fa-asterisk"></i> <b>Informações Adicionais</b></h2>
+          <h2 class="pull-left h-line">
+            <i class="fa fa-asterisk"></i>
+            <b>Informações Adicionais</b>
+          </h2>
 
           <span class="col-md-12">
             <strong>Profissao:</strong>
@@ -167,16 +204,24 @@
         </section>
 
         <section class="col-md-4">
-          <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Arquivos</b></h2>
+          <h2 class="pull-left h-line cem_percent">
+            <i class="fa fa-file"></i>
+            <b>Arquivos</b>
+          </h2>
 
-            <% @client.files.each do |file| %>
-              <span class="col-md-12">
-                <li>
-                  <%= link_to file.filename, url_for(file) %>
-                  <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
-                </li>
-              </span>
-            <% end %>
+          <% if @client.files.empty? %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há arquivos.</p>
+          <% end %>
+
+          <% @client.files.each do |file| %>
+            <span class="col-md-12">
+              <li>
+                <%= link_to file.filename, url_for(file) %>
+                <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+              </li>
+            </span>
+          <% end %>
 
         </section>
 
@@ -214,10 +259,10 @@
               <% @url_work.each_with_index do |w, ind| %>
                 <tr>
                   <th scope="row"><%= ind+1 %></th>
-                  <% wo = Work.find_by_id(w.id) %>
-                  <th><%= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
-                  <th><%= wo.number %></th>
-                  <th><%= wo.folder %></th>
+                  <%# wo = Work.find_by_id(w.id) %>
+                  <th><%#= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
+                  <th><%#= wo.number %></th>
+                  <th><%#= wo.folder %></th>
                   <th><%= render "shared/links_works" %></th>
                   <td></td>
                 </tr>
@@ -232,7 +277,7 @@
   <div class="x_panel">
 
     <div class="x_title clearfix">
-      <h1 class="pull-left">Jobs Pendentes</h1>
+      <h1 class="pull-left">Tarefas Pendentes</h1>
       <%= link_to "#", {class:"btn btn-success fa fa-plus btncent"} %>
       <ul class="nav navbar-right panel_toolbox float-right">
         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -248,7 +293,7 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Job</th>
+              <th>Tarefa</th>
               <th>Prazo</th>
               <th>Responsável</th>
               <th>Status</th>
@@ -275,4 +320,4 @@
 
   <%= link_to "Voltar", clients_path, class:"btn btn-danger btn-outline left col-md-1" %>
 
-  </div>
+</div>

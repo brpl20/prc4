@@ -19,8 +19,10 @@
                 <th>RG</th>
                 <th>CPF/CNPJ</th>
                 <th>E-mail</th>
-                <th>Cidade</th>
-                <th>Estado</th>
+                <th>Cidade / Estado</th>
+                <th>Número Banefício</th>
+                <th>NIT</th>
+                <th>Senha meu Inss</th>
                 <th>Telefone</th>
                 <th class="table-actions">Ações</th>
               </tr>
@@ -37,8 +39,10 @@
                         <%= e.email %>
                       <% end %>
                     </td>
-                    <td><%= c.city %></td>
-                    <td><%= c.state %></td>
+                    <td><%= c.city %> / <%= c.state %></td>
+                    <td><%= c.number_benefit %></td>
+                    <td><%= c.nit %></td>
+                    <td><%= c.passwdInss %></td>
                     <td>
                       <% c.phones.each do |p| %>
                         <%= p.phone %>
@@ -46,11 +50,11 @@
                     </td>
                     <td class="table-action-content">
 
-                      <%= link_to new_client_job_path(c), class:'btn btn-success', 'data-toggle':"tooltip", 'data-placement':'top', title:'novo job' do %>
+                      <%= link_to new_client_job_path(c), class:'btn btn-success', 'data-toggle':"tooltip", 'data-placement':'top', title:'nova tarefa' do %>
                         <i class="fa fa-gavel"></i>
                       <% end %>
 
-                      <%= link_to client_path(c), class:"btn btn-info", 'data-toggle':"tooltip", 'data-placement':'top', title:'ver dados do cliente' do %>
+                      <%= link_to client_path(c), class:"btn btn-info", 'data-toggle':"tooltip", 'data-placement':'top', title:'ver' do %>
                         <i class="fa fa-eye"></i>
                       <% end %>
 

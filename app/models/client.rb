@@ -16,10 +16,9 @@ class Client < ApplicationRecord
 
   validate :file_type
 
-  DESCRIPTION = ["Representante Legal", "Contador"]
+  DESCRIPTION = %w[Representante Legal Contador].freeze
 
-
-  NULL_ATTRS = %w( lastname bank)
+  NULL_ATTRS = %w[lastname bank].freeze
   #before_save :fill_if_nil, :default_values
 
   protected
@@ -30,8 +29,8 @@ class Client < ApplicationRecord
 
   def file_type
     files.each do |file|
-      if !file.content_type.in?(%('image/jpeg image/png application/pdf'))
-        errors.add(:files, "Adicione um arquivo JPG, PNG ou PDF.")
+      unless file.content_type.in?(%('image/jpeg image/png application/pdf'))
+        errors.add(:files, 'Adicione um arquivo JPG, PNG ou PDF.')
       end
     end
   end
