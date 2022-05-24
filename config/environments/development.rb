@@ -27,13 +27,11 @@ Rails.application.configure do
   config.action_mailer.default charset: 'utf-8'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: 'smtp.zoho.com',
     port: 587,
-    domain: 'gmail.com',
     enable_starttls_auto: true,
-    user_name: 'jemison321@gmail.com',
-    password: ENV['EMAIL_PASSWORD'],
-    authentication: :plain
+    user_name: 'noreply@procstudio.com.br',
+    password: ENV['EMAIL_PASSWORD']
   }
 
   config.active_support.deprecation = :log
