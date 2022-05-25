@@ -39,8 +39,12 @@
             </span>
 
             <span class="col-md-12">
-              <b>Cliente:</b>
-              <%= @job.client.name %>
+              <% if !@job.client.nil? %>
+                <b>Cliente:</b>
+                <%= @job.client.name %>
+              <% else %>
+                não há
+              <% end %>
             </span>
 
         </section>
@@ -50,7 +54,5 @@
 	</div>
 
     <div class="col-md-12">
-      <%= link_to "Editar", edit_job_path(@job), class:"btn btn-primary pull-right" %>
-      <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
-      <%= link_to "Voltar ao Cliente", client_path(@job.client), class:"btn btn-warning pull-right" %>
+      <%= link_to "Voltar", jobs_path, class:"btn btn-danger pull-right" %>
     </div>

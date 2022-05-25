@@ -1,31 +1,27 @@
+# frozen_string_literal: true
+
 class JobsController < ApplicationController
-  before_action :set_job, only: [:show, :edit, :update, :destroy]
-  before_action :set_client, only: [:new, :create]
+  before_action :set_job, only: %i[show edit update destroy]
+  before_action :set_client, only: %i[new create]
 
   def index
     @jobs = Job.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @job = Job.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
-    @job = Job.new(job_params)
-    respond_to do |format|
-      if @job.save
-        format.html { redirect_to @job, notice: 'Tarefa criada com sucesso.' }
-        format.json { render :show, status: :created, location: @job }
-      else
-        format.html { render :new }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
-      end
+    @job = @cli.jobs.build(job_params)
+    if @job.save
+      redirect_to jobs_path, notice: 'Tarefa criada com sucesso.'
+    else
+      render :new
     end
   end
 
@@ -50,21 +46,22 @@ class JobsController < ApplicationController
   end
 
   private
-    def set_job
-      @job = Job.find(params[:id])
-    end
 
-    def set_client
-      @cli = Client.find(params[:client_id])
-    end
+  def set_job
+    @job = Job.find(params[:id])
+  end
 
-    def job_params
-      params.require(:job).permit(
-        :description,
-        :deadline,
-        :responsable,
-        :status,
-        :client_id
-        )
-    end
+  def set_client
+    @cli = Client.find(params[:client_id])
+  end
+
+  def job_params
+    params.require(:job).permit(
+      :description,
+      :deadline,
+      :responsable,
+      :status,
+      :client_id
+    )
+  end
 end

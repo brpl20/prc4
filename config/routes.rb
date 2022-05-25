@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'pages/plans'
 
   get 'clients/hunts', to: 'clients#hunt'
-  get 'works/list/:id', to: 'works#list', as: :work_list
 
   get 'pages/clt_covid'
   post 'pages/clt_covid_s3'
@@ -18,10 +17,10 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :jobs, except: [:new]
+  resources :jobs, except: %i[new create]
 
   resources :clients do
-    resources :jobs, only: [:new]
+    resources :jobs, only: %i[new create]
   end
   resources :works
   resources :people
@@ -32,6 +31,7 @@ Rails.application.routes.draw do
   resources :finances
 
   resources :client do
-     resources :file_uploads, only: [:new, :create, :destroy]
-   end
+    resources :file_uploads, only: %i[new create destroy]
+  end
+
 end

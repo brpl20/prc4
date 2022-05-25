@@ -1,46 +1,47 @@
 <div class="col-md-12 col-sm-12">
 
-  <h1 class="pull-left">Tarefas</h1>
+  <h1 class="pull-left mg-left">Tarefas</h1>
 
-  <%= link_to new_job_path, class:"btn btn-success pull-right btn-new" do %>
-    <i class="fa fa-plus"></i> Nova tarefa
-  <% end %>
+  <div class="x_panel">
+    <div class="x_content">
+      <div class="row">
+        <div class="col-sm-12">
 
-  <tbody>
-    <#% @works.each do |work| %>
-      <tr>
-        <td><%#= work.procedure %></td>
-        <td><%#= work.subject %></td>
-        <td><%#= work.action %></td>
-        <td><%#= work.number %></td>
-        <td><%#= work.rate_percentage %></td>
-        <td><%#= work.rate_percentage_exfield %></td>
-        <td><%#= work.rate_fixed %></td>
-        <td><%#= work.rate_fixed_exfield %></td>
-        <td><%#= work.rate_work %></td>
-        <td><%#= work.rate_parceled %></td>
-        <td>work.office -- todo -- corrigier </td>
-        <td><%#= work.power %></td>
-        <td><%#= work.recommendation %></td>
-        <td><%#= work.recommendation_comission %></td>
-        <td><%#= work.folder %></td>
-        <td><%#= work.initial_atendee %></td>
-        <td><%#= work.responsible_lawyer %></td>
-        <td><%#= work.procuration_lawyer %></td>
-        <td><%#= work.procuration_intern %></td>
-        <td><%#= work.procuration_paralegal %></td>
-        <td><%#= work.partner_lawyer %></td>
-        <td><%#= work.note %></td>
-        <td><%#= work.checklist %></td>
-        <td><%#= work.checklist_document %></td>
-        <td><%#= work.document_pendent %></td>
-        <td><%#= link_to 'Show', work %></td>
-        <td><%#= link_to 'Edit', edit_work_path(work) %></td>
-        <td><%#= link_to 'Destroy', work, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <%# end %>
-  </tbody>
+          <table id="datatable-list" class="table table-striped table-bordered dt-responsive nowrap dataTable no-footer dtr-inline" cellspacing="0" role="grid" aria-describedby="datatable-responsive_info">
+            <thead>
+              <tr role="row">
+                <th>#</th>
+                <th>Cliente</th>
+                <th>Descrição</th>
+                <th>Data limite</th>
+                <th>Status</th>
+                <th class="table-actions">Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+                <% @jobs.each do |job| %>
+                  <tr role="row">
+                    <td><%= job.id %></td>
 
-<br>
+                    <td><%= job.client.name %></td>
 
-<%= link_to 'New Work', new_work_path %>
+                    <td><%= job.description %></td>
+
+                    <td><%= job.deadline %></td>
+
+                    <td><%= job.status %></td>
+
+                    <td class="table-action-content">
+                      <%= link_to edit_job_path(job), class:"btn btn-primary" do %>
+                        <i class="fa fa-edit"></i>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

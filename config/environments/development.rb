@@ -21,19 +21,19 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  # config.action_mailer.perform_caching = false
+  config.action_mailer.perform_caching = false
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
+    address: 'smtp.zoho.com',
     port: 587,
-    domain: 'gmail.com',
-    enable_starttls_auto: true,
-    user_name: 'jemison321@gmail.com',
+    domain: 'procstudio.com.br',
+    user_name: 'noreply@procstudio.com.br',
     password: ENV['EMAIL_PASSWORD'],
-    authentication: :plain
+    authentication: 'plain',
+    enable_starttls_auto: true
   }
 
   config.active_support.deprecation = :log
