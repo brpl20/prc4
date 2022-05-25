@@ -128,26 +128,31 @@
 
 	<span class="section">Dados Bancários</span>
 
-	<div class="item form-group">
-		<%= f.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :bank, class:'form-control' %>
-		</div>
-	</div>
+	<%= f.fields_for :bank do |b| %>
 
-	<div class="item form-group">
-		<%= f.label "Agência", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :agency, class:'form-control' %>
-		</div>
-	</div>
+		<div class="item form-group">
+			<%= b.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+			<div class="col-md-6 col-sm-6 ">
+			<%= b.collection_select :name, options_for_banks_conc, :first, :second, {}, {class:'form-control'} %>
 
-	<div class="item form-group">
-		<%= f.label "Conta", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :account, class:'form-control' %>
+			</div>
 		</div>
-	</div>
+
+		<div class="item form-group">
+			<%= b.label "Agência", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+			<div class="col-md-6 col-sm-6 ">
+				<%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+			</div>
+		</div>
+
+		<div class="item form-group">
+			<%= b.label "Conta", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+			<div class="col-md-6 col-sm-6 ">
+				<%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+			</div>
+		</div>
+
+	<% end %>
 
 	<span class="section">Dados Gerais</span>
 

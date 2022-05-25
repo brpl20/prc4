@@ -186,7 +186,10 @@ $(document).ready(function(){
     };
   });
 
-  $("#client_status_0").prop("checked", true);
+  if (window.location.href.match('clients/new')) {
+    $("#client_status_0").prop("checked", true);
+
+  }
 
   $('.remove-ind').on("click", function(){
     $('.indId').val("");

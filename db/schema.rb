@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_23_175247) do
+ActiveRecord::Schema.define(version: 2022_05_24_225115) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,9 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
     t.index ["client_id"], name: "index_banks_on_client_id"
+    t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
   create_table "checklist_documents", force: :cascade do |t|
@@ -226,9 +228,6 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.string "city"
     t.string "state"
     t.string "phone"
-    t.string "bank"
-    t.string "agency"
-    t.string "account"
     t.string "zip"
     t.integer "status"
     t.string "origin"
@@ -297,6 +296,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "banks", "clients"
+  add_foreign_key "banks", "users"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
   add_foreign_key "customer_types", "clients"

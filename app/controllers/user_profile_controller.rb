@@ -88,12 +88,10 @@ class UserProfileController < UsersController
                                         :city,
                                         :state,
                                         :phone,
-                                        :bank,
-                                        :agency,
-                                        :account,
                                         :zip,
                                         :status,
-                                        :origin])
+                                        :origin],
+              bank_attributes:   [:id, :name, :agency, :account])
     end
 
 end
