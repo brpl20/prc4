@@ -17,11 +17,8 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :jobs, except: %i[new create]
-
-  resources :clients do
-    resources :jobs, only: %i[new create]
-  end
+  resources :clients
+  resources :jobs
   resources :works
   resources :people
   resources :lawyers
@@ -33,5 +30,4 @@ Rails.application.routes.draw do
   resources :client do
     resources :file_uploads, only: %i[new create destroy]
   end
-
 end

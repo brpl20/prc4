@@ -9,9 +9,7 @@ class WorksController < ApplicationController
     @work = Work.new
     @work.client_works.build
     @work.work_offices.build
-    if params[:client]
-      @client = Client.find(params[:client])
-    end
+    @client = Client.find(params[:client]) if params[:client]
   end
 
   def show
