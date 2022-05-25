@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Client < ApplicationRecord
   has_one  :bank, dependent: :destroy
   has_many :phones, inverse_of: :client, dependent: :destroy
@@ -36,7 +38,6 @@ class Client < ApplicationRecord
   end
 
   def fill_if_nil
-    NULL_ATTRS.each { |attr| self[attr] = "[Campo Vazio]" if self[attr].nil? }
+    NULL_ATTRS.each { |attr| self[attr] = '[Campo Vazio]' if self[attr].nil? }
   end
-
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_23_175247) do
+ActiveRecord::Schema.define(version: 2022_05_24_234717) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.integer "representative"
+    t.text "representative"
     t.integer "status"
     t.string "cnpj"
     t.integer "incapable_dependent"
@@ -144,7 +144,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
 
   create_table "jobs", force: :cascade do |t|
     t.text "description"
-    t.string "deadline"
+    t.date "deadline"
     t.string "responsable"
     t.string "status"
     t.datetime "created_at", precision: 6, null: false
@@ -218,7 +218,7 @@ ActiveRecord::Schema.define(version: 2022_05_23_175247) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.string "civilstatus"
+    t.integer "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
