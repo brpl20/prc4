@@ -1,27 +1,53 @@
-<h2>Change your password</h2>
+<div class="row row-line justify-content-center distance-top">
 
-<%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+  <div class="col-xl-9 col-lg-11 col-md-8">
 
-  <%= f.input :reset_password_token, as: :hidden %>
-  <%= f.full_error :reset_password_token %>
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
 
-  <div class="form-inputs">
-    <%= f.input :password,
-                label: "Nova senha",
-                required: true,
-                autofocus: true,
-                hint: ("#{@minimum_password_length} caracteres no mínimo" if @minimum_password_length),
-                input_html: { autocomplete: "new-password" } %>
-    <%= f.input :password_confirmation,
-                label: "Confirme sua nova senha",
-                required: true,
-                input_html: { autocomplete: "new-password" } %>
+        <div class="row justify-content-center">
+
+          <div class="col-lg-10 box-login">
+            <div class="p-5">
+
+              <div class="text-center">
+                <%= image_tag 'logo_colorido_500.png', class:"devise-logo" %>
+                <h2 class="devise-titles">Informe uma nova senha</h2>
+              </div>
+
+                <div class="form-group">
+                  <%= simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+                    <%= f.error_notification %>
+
+                    <%= f.input :reset_password_token, as: :hidden %>
+                    <%= f.full_error :reset_password_token %>
+
+                    <div class="form-inputs">
+                      <%= f.input :password,
+                                  label: "Nova senha",
+                                  required: true,
+                                  autofocus: true,
+                                  hint: ("#{@minimum_password_length} caracteres no mínimo" if @minimum_password_length),
+                                  input_html: { autocomplete: "new-password" } %>
+                      <%= f.input :password_confirmation,
+                                  label: "Confirme sua nova senha",
+                                  required: true,
+                                  input_html: { autocomplete: "new-password" } %>
+                    </div>
+
+                    <div class="form-actions">
+                      <%= f.button :submit, "Alterar minha senha", class:"btn btn-success btn-user btn-block field-user" %>
+                    </div>
+                    <% end %>
+
+              <%= render "users/shared/links" %>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Alterar minha senha" %>
-  </div>
-<% end %>
-
-<%= render "users/shared/links" %>
+</div>

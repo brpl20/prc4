@@ -18,7 +18,7 @@ end
 protected
 
     def layout_by_resource
-      if devise_controller? && action_name == "new"
+      if devise_controller?
         "application"
       else
         "backoffice"
