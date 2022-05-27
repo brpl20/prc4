@@ -12,6 +12,7 @@
               <tr role="row">
                 <th>#</th>
                 <th>Cliente</th>
+                <th>Trabalho</th>
                 <th>Descrição</th>
                 <th>Data limite</th>
                 <th>Status</th>
@@ -24,6 +25,14 @@
                     <td><%= job.id %></td>
 
                     <td><%= job.client.name %></td>
+
+                    <td>
+                      <% if job.work_id %>
+                        <%= job.id %>
+                      <% else %>
+                        <p>Não vinculado</p>
+                      <% end %>
+                    </td>
 
                     <td><%= job.description %></td>
 

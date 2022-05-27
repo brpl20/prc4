@@ -46,7 +46,7 @@
                     <td><%= w.partner_lawyer %></td>
                     <td class="table-action-content">
 
-                      <%= link_to new_job_path(client_id: w.clients.first.id), class:"btn btn-success", 'data-toggle':"tooltip", 'data-placement':'top', title:'nova tarefa' do %>
+                      <%= link_to new_job_path(client_id: w.clients.first.id, work_id: w.id), class:"btn btn-success", 'data-toggle':"tooltip", 'data-placement':'top', title:'nova tarefa' do %>
                         <i class="fa fa-gavel"></i>
                       <% end %>
 

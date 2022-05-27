@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_24_234717) do
+ActiveRecord::Schema.define(version: 2022_05_26_224903) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,9 @@ ActiveRecord::Schema.define(version: 2022_05_24_234717) do
     t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
     t.index ["client_id"], name: "index_banks_on_client_id"
+    t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
   create_table "checklist_documents", force: :cascade do |t|
@@ -150,7 +152,11 @@ ActiveRecord::Schema.define(version: 2022_05_24_234717) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id"
+    t.integer "priority"
+    t.string "comment"
+    t.bigint "work_id"
     t.index ["client_id"], name: "index_jobs_on_client_id"
+    t.index ["work_id"], name: "index_jobs_on_work_id"
   end
 
   create_table "offices", force: :cascade do |t|
@@ -226,9 +232,6 @@ ActiveRecord::Schema.define(version: 2022_05_24_234717) do
     t.string "city"
     t.string "state"
     t.string "phone"
-    t.string "bank"
-    t.string "agency"
-    t.string "account"
     t.string "zip"
     t.integer "status"
     t.string "origin"
@@ -297,16 +300,19 @@ ActiveRecord::Schema.define(version: 2022_05_24_234717) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "banks", "clients"
+  add_foreign_key "banks", "users"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
   add_foreign_key "customer_types", "clients"
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients"
+  add_foreign_key "jobs", "works"
   add_foreign_key "offices", "users"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
+  add_foreign_key "works", "jobs"
   add_foreign_key "works", "users"
 end

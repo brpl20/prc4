@@ -27,8 +27,17 @@
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
+
             <b><%= f.label "Cliente" %></b>
-            <%= f.collection_select :client_id, options_for_client, :first, :second, {:selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
+
+            <%= f.collection_select :client_id, options_for_client, :first, :second, {prompt: 'Informe um cliente', :selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+
+            <b><%= f.label "Trabalho" %></b>
+
+            <%= f.collection_select :work_id, options_for_job_work, :first, :second, {prompt: 'Informe um trabalho', :selected => (@work.id unless @work.nil?)}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6 col-sm-6">
@@ -52,6 +61,12 @@
           </div>
 
         </div>
+
+        <div class="col-md-12">
+          <b><%= f.label "Comentários" %></b>
+          <%= f.text_area(:comment, rows: 5, class:"form-control") %>
+        </div>
+
 
         <div class="col-md-12">
           <button type="submit" class="btn btn-primary pull-right">Salvar</button>

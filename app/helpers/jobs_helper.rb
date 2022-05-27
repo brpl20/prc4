@@ -8,4 +8,8 @@ module JobsHelper
   def options_for_job_priority
     [['Normal', 0], ['Alta', 1]]
   end
+
+  def options_for_job_work
+    Work.order(:id).map{|c| [c.id, c.id] }
+  end
 end

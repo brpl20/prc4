@@ -12,9 +12,13 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
     @client = Client.find(params[:client_id]) if params[:client_id]
+    @work = Work.find(params[:work_id]) if params[:work_id]
   end
 
-  def edit; end
+  def edit
+    @client = Client.find(@job.client_id)
+    @work = @job.work_id ? Work.find(@job.work_id) : nil
+  end
 
   def create
     @job = Job.new(job_params)
@@ -58,7 +62,9 @@ class JobsController < ApplicationController
       :responsable,
       :status,
       :client_id,
-      :priority
+      :priority,
+      :comment,
+      :work_id
     )
   end
 end
