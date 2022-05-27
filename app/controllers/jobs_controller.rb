@@ -2,7 +2,6 @@
 
 class JobsController < ApplicationController
   before_action :set_job, only: %i[show edit update destroy]
-  before_action :set_client, only: %i[new create]
 
   def index
     @jobs = Job.all
@@ -12,12 +11,17 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
+    @client = Client.find(params[:client_id]) if params[:client_id]
+    @work = Work.find(params[:work_id]) if params[:work_id]
   end
 
-  def edit; end
+  def edit
+    @client = Client.find(@job.client_id)
+    @work = @job.work_id ? Work.find(@job.work_id) : nil
+  end
 
   def create
-    @job = @cli.jobs.build(job_params)
+    @job = Job.new(job_params)
     if @job.save
       redirect_to jobs_path, notice: 'Tarefa criada com sucesso.'
     else
@@ -48,11 +52,7 @@ class JobsController < ApplicationController
   private
 
   def set_job
-    @job = Job.find(params[:id])
-  end
-
-  def set_client
-    @cli = Client.find(params[:client_id])
+    @job = Job.find(params[:id]) if params[:id]
   end
 
   def job_params
@@ -61,7 +61,10 @@ class JobsController < ApplicationController
       :deadline,
       :responsable,
       :status,
-      :client_id
+      :client_id,
+      :priority,
+      :comment,
+      :work_id
     )
   end
 end

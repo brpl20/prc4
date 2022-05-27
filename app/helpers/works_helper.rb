@@ -80,5 +80,4 @@ module WorksHelper
     Client.find(id).name
   end
 
-
 end

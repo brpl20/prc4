@@ -12,6 +12,7 @@
               <tr role="row">
                 <th>#</th>
                 <th>Cliente</th>
+                <th>Trabalho</th>
                 <th>Descrição</th>
                 <th>Data limite</th>
                 <th>Status</th>
@@ -25,11 +26,19 @@
 
                     <td><%= job.client.name %></td>
 
+                    <td>
+                      <% if job.work_id %>
+                        <%= job.id %>
+                      <% else %>
+                        <p>Não vinculado</p>
+                      <% end %>
+                    </td>
+
                     <td><%= job.description %></td>
 
                     <td><%= job.deadline %></td>
 
-                    <td><%= job.status %></td>
+                    <td><%= retrieve_value_from_array(options_for_job_status, job.status.to_i) %></td>
 
                     <td class="table-action-content">
                       <%= link_to edit_job_path(job), class:"btn btn-primary" do %>
