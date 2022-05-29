@@ -129,11 +129,33 @@ $(document).ready(function(){
 
   };
 
+  function lawyer_user (){
+    $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>OAB</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
+
+    $("#lawyer-oab").val($("#label-user-role").data('exfield'));
+  };
+
+  function accountant_user (){
+    $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>CRC</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
+
+    $("#accontant-crc").val($("#label-user-role").data('exfield'));
+  };
+
   function get_type_client(value){
     switch (value) {
       case '0': pessoa_fisica(); break;
       case '1': pessoa_juridica(); break;
     };
+  };
+
+  function get_role_user(law, out_accountant, accountant){
+    if (law == true){
+      lawyer_user ();
+    } else if (out_accountant == true || accountant == true) {
+      accountant_user();
+    } else {
+      $('.user-role-append').remove();
+    }
   };
 
   function get_action(value){
@@ -174,7 +196,19 @@ $(document).ready(function(){
     get_rate_work($(this).val());
   });
 
+  $('.lawyer_role').click(function(){
+    $('.user-role-append').remove();
+    get_type_client($(this).val());
+  });
+
+  $('.accountant_role').click(function(){
+    $('.user-role-append').remove();
+    get_type_client($(this).val());
+  });
+
   get_type_client($("input[name='client[client_type]']:checked").val());
+
+  get_role_user($("input[name='user[lawyer_role]']:checked").val(), $("input[name='user[outside_accountant_role]']:checked").val(), $("input[name='user[accountant_role]']:checked").val());
 
   get_action($("input[name='work[subject]']:checked").val());
 
@@ -200,6 +234,19 @@ $(document).ready(function(){
   if ($('.indName').text() == "Escolha uma indicação.") {
   document.getElementById('ind-btn-remove').style.visibility = 'hidden';
   }
+
+  $('.lawyer_role').on('click', function(){
+    if($('.lawyer_role').is(":checked")){
+    lawyer_user ();
+    $("#user_accountant_role").prop("checked", false);
+    $("#user_outside_accountant_role").prop("checked", false);
+  }});
+
+  $('.accountant_role').on('click', function(){
+    if($('.accountant_role').is(":checked")){
+    accountant_user ();
+    $("#user_lawyer_role").prop("checked", false);
+  }});
 
 
   // $("input[name='client[client_type]']").each(function(){

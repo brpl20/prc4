@@ -4,7 +4,7 @@ class CreateBanks < ActiveRecord::Migration[6.1]
       t.string :name
       t.string :agency
       t.string :account
-      t.references :client, null: false, foreign_key: true
+      t.references :client, null: true, foreign_key: true
 
       t.timestamps
     end

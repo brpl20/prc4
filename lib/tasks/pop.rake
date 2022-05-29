@@ -5,7 +5,7 @@ namespace :pop do
 
     puts "Executando o setup para desenvolvimento..."
 
-    puts %x(rake db:seed)
+    puts %x(rake db:drop db:create db:migrate db:seed)
     puts %x(rake pop:generate_procedures)
     puts %x(rake pop:generate_powers)
     puts %x(rake pop:generate_checklists)

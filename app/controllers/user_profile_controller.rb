@@ -9,6 +9,7 @@ class UserProfileController < UsersController
   def new
     @user = User.new
     @user.build_user_profile
+    @user.build_bank
   end
 
   def save
@@ -71,6 +72,8 @@ class UserProfileController < UsersController
               :paralegal_role,
               :intern_role,
               :secretary_role,
+              :accountant_role,
+              :outside_accountant_role,
               user_profile_attributes: [:id,
                                         :role,
                                         :name,
