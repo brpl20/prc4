@@ -76,7 +76,7 @@ $(document).ready(function(){
   function pessoa_juridica(){
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
 
-    $("#client_cnpj").val($("#label-client-type").data('text'));
+    $("#client_cnpj").val($("#label-client-type").data('exfield'));
   };
 
   function previdenciario(){
@@ -132,13 +132,13 @@ $(document).ready(function(){
   function lawyer_user (){
     $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>OAB</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
 
-    $("#lawyer-oab").val($("#label-user-role").data('exfield'));
+    $("#user_user_profile_attributes_oab").val($("#label-user-role").data('exfield'));
   };
 
   function accountant_user (){
     $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>CRC</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
 
-    $("#accontant-crc").val($("#label-user-role").data('exfield'));
+    $("#user_user_profile_attributes_oab").val($("#label-user-role").data('exfield'));
   };
 
   function get_type_client(value){

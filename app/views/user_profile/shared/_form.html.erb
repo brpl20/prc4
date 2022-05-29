@@ -140,7 +140,17 @@
 	</div>
 
 <div class="item form-group">
-	<%= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+	<label
+		id="label-user-role"
+		for="user_Tipo de Usuario"
+		data-exfield="<%= @user.user_profile.oab %>"
+		class="col-form-label col-md-3 col-sm-3 label-align"
+	>
+		Tipo
+	</label>
+
+	<%#= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 
 	<div class="col-md-6 col-sm-6 ">
 		<div class="col-md-12 col-sm-12 ">
@@ -188,7 +198,7 @@
 	<div class="item form-group">
 		<%= b.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-		<%= b.collection_select :name, options_for_banks_conc, :first, :second, {}, {class:'form-control'} %>
+		<%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'} %>
 
 		</div>
 	</div>
@@ -234,6 +244,6 @@
 
 <div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
-		<button type="submit" class="btn btn-success">Atualizar</button>
+		<button type="submit" class="btn btn-success">Salvar</button>
 	</div>
 </div>
