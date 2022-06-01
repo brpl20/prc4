@@ -30,14 +30,20 @@
 
             <b><%= f.label "Cliente" %></b>
 
-            <%= f.collection_select :client_id, options_for_client, :first, :second, {prompt: 'Informe um cliente', :selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
+            <%= f.collection_select :client_id, options_for_client, :first, :second, {prompt: 'Selecione um cliente', :selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6 col-sm-6">
 
             <b><%= f.label "Trabalho" %></b>
 
-            <%= f.collection_select :work_id, options_for_job_work, :first, :second, {prompt: 'Informe um trabalho', :selected => (@work.id unless @work.nil?)}, {class:'form-control'} %>
+            <%= f.collection_select :work_id, options_for_job_work, :first, :second, {prompt: 'Selecione um trabalho', :selected => (@work.id unless @work.nil?)}, {class:'form-control'} %>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Responsável" %></b>
+
+            <%= f.collection_select :responsable,  options_for_responsible, :name, :name, {}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6 col-sm-6">
