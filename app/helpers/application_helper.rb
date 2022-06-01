@@ -5,7 +5,7 @@ module ApplicationHelper
   end
 
   def footer_address
-    current_user.office.address + ". " + current_user.office.city + " - " + current_user.office.state
+    "#{current_user.office.address}. #{current_user.office.city} - #{current_user.office.state}"
   end
 
   def retrieve_value_from_array(object, value)

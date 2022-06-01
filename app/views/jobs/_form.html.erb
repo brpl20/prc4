@@ -43,7 +43,7 @@
           <div class="col-md-6 col-sm-6">
             <b><%= f.label "Responsável" %></b>
 
-            <%= f.collection_select :responsable,  options_for_responsible, :name, :name, {}, {class:'form-control'} %>
+            <%= f.collection_select :responsable,  options_for_responsible, :name, :name, {prompt: 'Selecione um responsável'}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6 col-sm-6">

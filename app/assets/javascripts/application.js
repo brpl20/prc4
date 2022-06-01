@@ -13,7 +13,7 @@ $(document).ready(function(){
       case 'Ativo':
         $('#status-client').css( "background", "#27ae60" );
       break;
-      case 'Inativo':
+      case 'Inativo' || '':
         $('#status-client').css( "background", "#e74c3c" );
       break;
       case 'Prospecção':
@@ -22,10 +22,19 @@ $(document).ready(function(){
       case 'Abandonado/ Desistente':
       $('#status-client').css( "background", "#f1c40f" ).css( "color", "#111111" );
       break;
+      case 'Atrasado':
+        $('#status-client').css( "background", "#e74c3c" );
+      break;
+      case 'Pendente':
+        $('#status-client').css( "background", "#3498db" );
+      break;
+      case 'Finalizado':
+        $('#status-client').css( "background", "#27ae60" );
+      break;
     }
   }
 
-  if (window.location.href.match('clients/')) {
+  if (window.location.href.match('clients/') || window.location.href.match('jobs/')) {
     change_status_color($('#status-client').text());
   }
 
