@@ -1,14 +1,14 @@
 class ClientsController < ApplicationController
-  before_action :authenticate_user!, :amazon_client, :set_client, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, :amazon_client, :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.includes(:phones,:emails).all
+    @clients = Client.includes(:phones, :emails).all
   end
 
   def hunt
     @clients = Client.all
     respond_to do |format|
-      format.js { render "clients/hunt" }
+      format.js { render 'clients/hunt' }
     end
   end
 

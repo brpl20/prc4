@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class WorksController < ApplicationController
   before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
@@ -10,6 +12,7 @@ class WorksController < ApplicationController
     @work.client_works.build
     @work.work_offices.build
     @work.powers.build
+    @work.build_tributary
     @client = Client.find(params[:client]) if params[:client]
   end
 
@@ -440,8 +443,10 @@ class WorksController < ApplicationController
       checklist_ids: [],
       procedure_ids: [],
       power_ids: [],
+      archive_file: [],
       client_works_attributes: %i[id client_id recommendation value percentage],
-      work_offices_attributes: %i[id office_id]
+      work_offices_attributes: %i[id office_id],
+      tributary_attributes: %i[id compensation craft lawsuit projection perd_number shipping_date payment_date status work_id]
       )
   end
 

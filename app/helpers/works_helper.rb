@@ -7,7 +7,8 @@ module WorksHelper
     work = ["Previdenciário", "Previdenciário"],
             ["Cível", "Cível"],
             ["Trabalhista", "Trabalhista"],
-            ["Tributáiro", "Tributário"],
+            ["Tributário", "Tributário"],
+            ["Tributário Pis/Cofins insumos", "Tributário Pis/Cofins insumos"],
             ["Outros", "Outros"]
   end
 

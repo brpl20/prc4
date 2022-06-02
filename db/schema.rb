@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_29_021749) do
+ActiveRecord::Schema.define(version: 2022_06_02_050018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -214,6 +214,21 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
     t.index ["work_id"], name: "index_procedures_works_on_work_id"
   end
 
+  create_table "tributaries", force: :cascade do |t|
+    t.integer "compensation"
+    t.integer "craft"
+    t.integer "lawsuit"
+    t.decimal "projection"
+    t.string "perd_number"
+    t.date "shipping_date"
+    t.date "payment_date"
+    t.integer "status"
+    t.bigint "work_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["work_id"], name: "index_tributaries_on_work_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.integer "role"
     t.string "name"
@@ -313,6 +328,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
   add_foreign_key "jobs", "works"
   add_foreign_key "offices", "users"
   add_foreign_key "phones", "clients"
+  add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
