@@ -73,13 +73,6 @@
 		</div>
 	</div>
 
-	<div class="item form-group">
-		<%= f.label "OAB", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :oab, class:'form-control' %>
-		</div>
-	</div>
-
 	<span class="section">Endereço</span>
 
 	<div class="item form-group">
@@ -126,29 +119,6 @@
 		</div>
 	</div>
 
-	<span class="section">Dados Bancários</span>
-
-	<div class="item form-group">
-		<%= f.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%#= f.text_field :bank, class:'form-control' %>
-		</div>
-	</div>
-
-	<div class="item form-group">
-		<%= f.label "Agência", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%#= f.text_field :agency, class:'form-control' %>
-		</div>
-	</div>
-
-	<div class="item form-group">
-		<%= f.label "Conta", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%#= f.text_field :account, class:'form-control' %>
-		</div>
-	</div>
-
 	<span class="section">Dados Gerais</span>
 
 	<div class="item form-group">
@@ -169,14 +139,22 @@
 		</div>
 	</div>
 
-<% end %>
-
 <div class="item form-group">
-	<%= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+
+	<label
+		id="label-user-role"
+		for="user_Tipo de Usuario"
+		data-exfield="<%= @user.user_profile.oab %>"
+		class="col-form-label col-md-3 col-sm-3 label-align"
+	>
+		Tipo
+	</label>
+
+	<%#= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 
 	<div class="col-md-6 col-sm-6 ">
 		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :lawyer_role, checked_value: true, unchecked_value: false %>
+			<%= form.check_box :lawyer_role, checked_value: true, unchecked_value: false, class:"lawyer_role" %>
 			<%= form.label "Advogado", for:"user_lawyer_role" %>
 		</div>
 
@@ -194,9 +172,52 @@
 			<%= form.check_box :secretary_role, checked_value: true, unchecked_value: false %>
 			<%= form.label "Secretária", for:"user_secretary_role" %>
 		</div>
+
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :accountant_role, checked_value: true, unchecked_value: false, class:"accountant_role" %>
+			<%= form.label "Contador", for:"user_secretary_role" %>
+		</div>
+
+		<div class="col-md-12 col-sm-12 ">
+			<%= form.check_box :outside_accountant_role, checked_value: true, unchecked_value: false, class:"accountant_role" %>
+			<%= form.label "Contador externo", for:"user_secretary_role" %>
+		</div>
+
 	</div>
 
 </div>
+		<div class="item form-group" id="oba-crc">
+
+		</div>
+<% end %>
+
+<span class="section">Dados Bancários</span>
+
+<%= form.fields_for :bank do |b| %>
+
+	<div class="item form-group">
+		<%= b.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+		<%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'} %>
+
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= b.label "Agência", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+		</div>
+	</div>
+
+	<div class="item form-group">
+		<%= b.label "Conta", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+		</div>
+	</div>
+
+<% end %>
 
 <span class="section">Acesso ao Sistema</span>
 
@@ -223,6 +244,6 @@
 
 <div class="item form-group">
 	<div class="col-md-6 col-sm-6 offset-md-3">
-		<button type="submit" class="btn btn-success">Atualizar</button>
+		<button type="submit" class="btn btn-success">Salvar</button>
 	</div>
 </div>

@@ -59,20 +59,25 @@
   <%= @office.email %>
 </p>
 
-<p>
-  <strong>Banco:</strong>
-  <%= @office.bank %>
-</p>
+<% if @office.bank %>
+  <p>
+    <strong>Banco:</strong>
+    <%= @office.bank.name %>
+  </p>
 
-<p>
-  <strong>Agencia:</strong>
-  <%= @office.agency %>
-</p>
+  <p>
+    <strong>Agencia:</strong>
+    <%= @office.bank.agency %>
+  </p>
 
-<p>
-  <strong>Conta:</strong>
-  <%= @office.account %>
-</p>
+  <p>
+    <strong>Conta:</strong>
+    <%= @office.bank.account %>
+  </p>
+<% else %>
+  <i class="fa fa-times"></i>
+  <p class="in-line">Não há conta cadastrada</p>
+<% end %>
 
 <%= link_to 'Edit', edit_office_path(@office) %> |
 <%= link_to 'Back', offices_path %>
