@@ -44,7 +44,11 @@ $(document).ready(function(){
 
  function checkAll(){
  $("#checkAll").click(function () {
-   $("input:checkbox").not(this).prop('checked', this.checked);
+     if($('#checkAll').is(":checked")){
+       $(".power").prop('checked', true);
+     } else {
+       $(".power").prop('checked', false);
+     }
  })};
 
   $('.phone-cli').each(function(index){

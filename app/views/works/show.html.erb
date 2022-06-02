@@ -15,7 +15,15 @@
 
         <section>
 
-            <h2 class="h-line"> <i class="fa fa-user"></i> <b>Informações Iniciais</b></h2>
+            <h2 class="h-line">
+              <i class="fa fa-user"></i>
+              <b>Informações Iniciais</b>
+            </h2>
+
+            <span>
+              <b>Cliente:</b>
+              <%= @work.clients.first.name %>
+            </span>
 
             <span>
               <b>Assunto:</b>
@@ -123,46 +131,6 @@
         </section>
 
         <section>
-
-          <h2 class="h-line">
-            <i class="fa fa-phone"></i>
-            <b>Outras Informações</b>
-          </h2>
-
-          <span>
-            <b>Atendimento Inicial:</b>
-            <%= initial_atendence(@work.initial_atendee) %>
-          </span>
-
-          <% if @work.client_works.last.recommendation %>
-          <span>
-            <b>Recomendação/Indicação/Origem:</b>
-            <%= has_recommendation(@work.client_works.last.recommendation) %>
-          </span>
-
-          <span>
-            <b>Comissão da Recomendação:</b>
-            <%= @work.client_works.last.percentage %>
-          </span>
-
-          <span>
-            <b>Valor da Recomendação:</b>
-            <%= @work.client_works.last.value %>
-          </span>
-
-          <% else %>
-            <i class="fa fa-times"></i>
-            <p class="in-line">Não há recomendação/indicação.</p>
-          <% end %>
-
-          <span>
-            <b>Advogado Parceiro:</b>
-            <%= @work.partner_lawyer %>
-          </span>
-
-        </section>
-
-        <section>
           <h2 class="h-line">
             <i class="fa fa-university"></i>
             <b>Dados bancários</b>
@@ -210,6 +178,60 @@
 
         </section>
 
+        <section>
+          <h2 class="h-line">
+            <i class="fa fa-gavel"></i>
+            <b>Poderes</b>
+          </h2>
+
+          <% @work.powers.each do |p| %>
+            <span>
+              <%= p.description %>
+            </span>
+          <% end %>
+
+        </section>
+
+        <section>
+
+          <h2 class="h-line">
+            <i class="fa fa-phone"></i>
+            <b>Outras Informações</b>
+          </h2>
+
+          <span>
+            <b>Atendimento Inicial:</b>
+            <%= initial_atendence(@work.initial_atendee) %>
+          </span>
+
+          <span>
+            <b>Advogado Parceiro:</b>
+            <%= @work.partner_lawyer %>
+          </span>
+
+          <% if @work.client_works.last.recommendation %>
+            <span>
+              <b>Recomendação/Indicação/Origem:</b>
+              <%= has_recommendation(@work.client_works.last.recommendation) %>
+            </span>
+
+            <span>
+              <b>Comissão da Recomendação:</b>
+              <%= @work.client_works.last.percentage %>
+            </span>
+
+            <span>
+              <b>Valor da Recomendação:</b>
+              <%= @work.client_works.last.value %>
+            </span>
+
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há recomendação/indicação.</p>
+          <% end %>
+
+        </section>
+
       </div>
 
     </div>
@@ -219,21 +241,11 @@
 
     <div class="x_title clearfix">
       <h1 class="">Tarefas</h1>
-
-      <%= link_to "#", class:"btn btn-success" do %>
-        <i class="fa fa-plus"></i>
-      <% end %>
-
-      <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-        </li>
-      </ul>
-
     </div>
 
     <div class="x_content">
 
-      <% if has_jobs_to_this_work(@work) %>
+      <% if jobs_to_this_work?(@work) %>
         <div>
 
           <table class="table table-striped">
@@ -241,19 +253,26 @@
               <tr>
                 <th>#</th>
                 <th>Tarefa</th>
-                <th>Descrição</th>
+                <th>Deadline</th>
                 <th>Status</th>
-                <th>Ações</th>
               </tr>
             </thead>
             <tbody>
               <% @jobs.each do |job| %>
                 <tr>
-                  <th scope="row"><%= job.id %></th>
-                  <td> <%= job.description %></td>
+                  <td scope="row"><%= job.id %></td>
+
+                  <td>
+                    <%= link_to job_path(job) do %>
+                      <%= job.description %>
+                    <% end %>
+                  </td>
+
                   <td> <%= job.deadline %></td>
-                  <td> <%= job.status %></td>
-                  <td>Colocar botões aqui</td>
+
+                  <td><%= retrieve_value_from_array(options_for_job_status, job.status.to_i) %>
+                   </td>
+
                 </tr>
               <% end %>
             </tbody>

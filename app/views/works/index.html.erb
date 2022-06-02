@@ -54,7 +54,7 @@
                         <i class="fa fa-eye"></i>
                       <% end %>
 
-                      <%= link_to edit_work_path(w), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
+                      <%= link_to edit_work_path(w, client_id: w.clients.last), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
 

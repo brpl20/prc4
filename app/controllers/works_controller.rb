@@ -9,6 +9,7 @@ class WorksController < ApplicationController
     @work = Work.new
     @work.client_works.build
     @work.work_offices.build
+    @work.powers.build
     @client = Client.find(params[:client]) if params[:client]
   end
 
@@ -326,7 +327,7 @@ class WorksController < ApplicationController
     # obj_tje = @s3.bucket(bucket).object(ch_file_tje)
     # obj_tje.upload_file(ch_file_tje)
 
-    end
+  end
 
     # if work.checklist.include?("Declaração")
     # end
@@ -373,7 +374,9 @@ class WorksController < ApplicationController
       # end
   #end
 
-  def edit; end
+  def edit
+    @client = Client.find(params[:client_id])
+  end
 
   def update
     respond_to do |format|
@@ -435,10 +438,10 @@ class WorksController < ApplicationController
       :document_pendent,
       checklist_document_ids: [],
       checklist_ids: [],
-      power_ids: [],
       procedure_ids: [],
-      client_works_attributes: [:id, :client_id, :recommendation, :value, :percentage],
-      work_offices_attributes: [:id, :office_id]
+      power_ids: [],
+      client_works_attributes: %i[id client_id recommendation value percentage],
+      work_offices_attributes: %i[id office_id]
       )
   end
 

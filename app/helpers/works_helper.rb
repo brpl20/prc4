@@ -66,15 +66,15 @@ module WorksHelper
     Procedure.all
   end
 
-  def initial_atendence id
+  def initial_atendence(id)
     id ? UserProfile.find(id).name : 'não informado'
   end
 
-  def has_jobs_to_this_work work
-    @jobs = work.clients.last.jobs
+  def jobs_to_this_work?(work)
+    @jobs = Job.where(work_id: work.id)
   end
 
-  def has_recommendation id
+  def has_recommendation (id)
     Client.find(id).name
   end
 
