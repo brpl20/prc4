@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
     t.string "name"
     t.string "agency"
     t.string "account"
-    t.bigint "client_id"
+    t.bigint "client_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
@@ -120,7 +120,10 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
+    t.text "representative"
     t.integer "status"
+    t.string "cnpj"
+    t.integer "incapable_dependent"
     t.integer "client_type"
     t.string "nit"
     t.string "passwdInss"
@@ -249,10 +252,11 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
     t.boolean "paralegal_role"
     t.boolean "intern_role"
     t.boolean "secretary_role"
-    t.integer "office_id"
+    t.bigint "office_id", default: 1, null: false
     t.boolean "accountant_role"
     t.boolean "outside_accountant_role"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -291,6 +295,8 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "document"
     t.string "rate_parceled_exfield"
+    t.bigint "job_id", default: 1, null: false
+    t.index ["job_id"], name: "index_works_on_job_id"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
@@ -308,6 +314,7 @@ ActiveRecord::Schema.define(version: 2022_05_29_021749) do
   add_foreign_key "offices", "users"
   add_foreign_key "phones", "clients"
   add_foreign_key "user_profiles", "users"
+  add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
   add_foreign_key "works", "jobs"

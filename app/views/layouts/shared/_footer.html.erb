@@ -8,14 +8,14 @@
 
   <div>
     <h1 class="h-line">ProcStudio 2020</h1>
-    <b>Licenciado para <%= current_user.office.name %></b>
+    <b>Licenciado para <%= office_name %></b>
 
     <p>
-      <%= footer_address %>
+      <%= office_address %>
     </p>
 
     <p>
-      <b>Telefone: </b><%= footer_phone %>
+      <b>Telefone: </b><%= office_phone %>
     </p>
   </div>
 
@@ -31,7 +31,7 @@
     <h1 class="h-line">Mídias Sociais</h1>
     <p>
       <i class="fa fa-home" aria-hidden="true"></i>
-      <%= current_user.office.site %>
+      <%= office_site %>
     </p>
 
     <a href="#" class="icon-footer"><i class="fa fa-facebook-square"></i></a>
