@@ -13,7 +13,7 @@ $(document).ready(function(){
       case 'Ativo':
         $('#status-client').css( "background", "#27ae60" );
       break;
-      case 'Inativo':
+      case 'Inativo' || '':
         $('#status-client').css( "background", "#e74c3c" );
       break;
       case 'Prospecção':
@@ -22,10 +22,19 @@ $(document).ready(function(){
       case 'Abandonado/ Desistente':
       $('#status-client').css( "background", "#f1c40f" ).css( "color", "#111111" );
       break;
+      case 'Atrasado':
+        $('#status-client').css( "background", "#e74c3c" );
+      break;
+      case 'Pendente':
+        $('#status-client').css( "background", "#3498db" );
+      break;
+      case 'Finalizado':
+        $('#status-client').css( "background", "#27ae60" );
+      break;
     }
   }
 
-  if (window.location.href.match('clients/')) {
+  if (window.location.href.match('clients/') || window.location.href.match('jobs/')) {
     change_status_color($('#status-client').text());
   }
 
@@ -35,7 +44,11 @@ $(document).ready(function(){
 
  function checkAll(){
  $("#checkAll").click(function () {
-   $("input:checkbox").not(this).prop('checked', this.checked);
+     if($('#checkAll').is(":checked")){
+       $(".power").prop('checked', true);
+     } else {
+       $(".power").prop('checked', false);
+     }
  })};
 
   $('.phone-cli').each(function(index){
@@ -76,7 +89,7 @@ $(document).ready(function(){
   function pessoa_juridica(){
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
 
-    $("#client_cnpj").val($("#label-client-type").data('text'));
+    $("#client_cnpj").val($("#label-client-type").data('exfield'));
   };
 
   function previdenciario(){
@@ -99,6 +112,12 @@ $(document).ready(function(){
 
   function tributario(){
     $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Tributário-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label for='work_action_asfalto'><input type='radio' value='Asfalto' name='work[action]' id='work_action_asfalto'>Asfalto</label><label for='work_action_alvara'><input type='radio' value='Alvará' name='work[action]' id='work_action_alvara'>Alvará</label><label for='work_action_outros'><input type='radio' value='Outros' name='work[action]' id='work_action_outros'>Outros</label></fieldset> </div>" );
+
+    check_subject_area();
+  };
+
+  function tributarioPisCofins(){
+    $('#subject-fields').append("<div class='subject-append'> <div class='col-md-5'> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações realizadas nos últimos 5 anos:'>Compensações realizadas nos últimos 5 anos:</label></b> <input type='radio' value='1' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_1'> sim <input type='radio' value='0' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações de ofício:'>Compensações de ofício:</label></b> <input type='radio' value='1' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_1'> sim <input type='radio' value='0' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Possui ação judicial:'>Possui ação judicial:</label></b> <input type='radio' value='1' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_1'> sim <input type='radio' value='0' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_0'> não </div> <div class='col-md-6 no-padding'> <b><label for='work_tributary_attributes_Projeção de Ganho'>Projeção de ganho</label></b> <input placeholder='10.000' class='form-control' type='number' name='work[tributary_attributes][projection]' id='work_tributary_attributes_projection'> </div> <div class='col-md-12 no-padding'> <div class='col-md-6'> <b><label for='work_Upload de arquivos'>Upload de arquivos</label></b> <input multiple='multiple' type='file' name='work[archive_file][]' id='work_archive_file'> <small class='form-text text-muted'> Formatos aceitos: JPEG, PNG e PDF. </small> </div> </div> </div> <div class='col-md-3'> <div class='col-md-12 no-padding'> <p><b>Lançamento de Perd/Comp</b></p> <b><label for='work_tributary_attributes_Número Perd/Comp'>Número perd/comp</label></b> <input class='form-control' type='text' name='work[tributary_attributes][perd_number]' id='work_tributary_attributes_perd_number'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][shipping_date]' id='work_tributary_attributes_shipping_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de pagamento de Perd/Comp'>Data de pagamento de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][payment_date]' id='work_tributary_attributes_payment_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_Status'>Status</label></b> <input type='radio' value='1' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_1'> Pendente de Análise <input type='radio' value='0' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_0'> Paga </div> </div> </div>");
 
     check_subject_area();
   };
@@ -129,6 +148,18 @@ $(document).ready(function(){
 
   };
 
+  function lawyer_user (){
+    $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>OAB</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
+
+    $("#user_user_profile_attributes_oab").val($("#label-user-role").data('exfield'));
+  };
+
+  function accountant_user (){
+    $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>CRC</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
+
+    $("#user_user_profile_attributes_oab").val($("#label-user-role").data('exfield'));
+  };
+
   function get_type_client(value){
     switch (value) {
       case '0': pessoa_fisica(); break;
@@ -136,13 +167,24 @@ $(document).ready(function(){
     };
   };
 
+  function get_role_user(law, out_accountant, accountant){
+    if (law == true){
+      lawyer_user ();
+    } else if (out_accountant == true || accountant == true) {
+      accountant_user();
+    } else {
+      $('.user-role-append').remove();
+    }
+  };
+
   function get_action(value){
     switch (value) {
-      case 'Previdenciário': previdenciario(); break;
-      case 'Cível':          civel();          break;
-      case 'Trabalhista':    trabalhista();    break;
-      case 'Tributário':     tributario();     break;
-      case 'Outros':         outros();         break;
+      case 'Previdenciário':                  previdenciario();         break;
+      case 'Cível':                           civel();                  break;
+      case 'Trabalhista':                     trabalhista();            break;
+      case 'Tributário':                      tributario();             break;
+      case 'Tributário Pis/Cofins insumos':     tributarioPisCofins();  break;
+      case 'Outros':                          outros();                 break;
     };
   };
 
@@ -174,7 +216,19 @@ $(document).ready(function(){
     get_rate_work($(this).val());
   });
 
+  $('.lawyer_role').click(function(){
+    $('.user-role-append').remove();
+    get_type_client($(this).val());
+  });
+
+  $('.accountant_role').click(function(){
+    $('.user-role-append').remove();
+    get_type_client($(this).val());
+  });
+
   get_type_client($("input[name='client[client_type]']:checked").val());
+
+  get_role_user($("input[name='user[lawyer_role]']:checked").val(), $("input[name='user[outside_accountant_role]']:checked").val(), $("input[name='user[accountant_role]']:checked").val());
 
   get_action($("input[name='work[subject]']:checked").val());
 
@@ -186,7 +240,10 @@ $(document).ready(function(){
     };
   });
 
-  $("#client_status_0").prop("checked", true);
+  if (window.location.href.match('clients/new')) {
+    $("#client_status_0").prop("checked", true);
+
+  }
 
   $('.remove-ind').on("click", function(){
     $('.indId').val("");
@@ -197,6 +254,19 @@ $(document).ready(function(){
   if ($('.indName').text() == "Escolha uma indicação.") {
   document.getElementById('ind-btn-remove').style.visibility = 'hidden';
   }
+
+  $('.lawyer_role').on('click', function(){
+    if($('.lawyer_role').is(":checked")){
+    lawyer_user ();
+    $("#user_accountant_role").prop("checked", false);
+    $("#user_outside_accountant_role").prop("checked", false);
+  }});
+
+  $('.accountant_role').on('click', function(){
+    if($('.accountant_role').is(":checked")){
+    accountant_user ();
+    $("#user_lawyer_role").prop("checked", false);
+  }});
 
 
   // $("input[name='client[client_type]']").each(function(){

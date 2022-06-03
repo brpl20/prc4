@@ -98,20 +98,24 @@
 
         <div class="col-md-6 no-padding no-margin">
 
-          <div class="col-md-4">
-            <b><%= f.label "Banco" %></b>
-            <%= f.text_field :bank, class:"form-control" %>
-          </div>
+          <%= f.fields_for :bank do |b| %>
 
-          <div class="col-md-4">
-            <b><%= f.label "Agência" %></b>
-            <%= f.text_field :agency, class:"form-control" %>
-          </div>
+            <div class="col-md-4">
+              <b><%= f.label "Banco" %></b>
+              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control', placeholder:"Conta"}%>
+            </div>
 
-          <div class="col-md-4">
-            <b><%= f.label "Conta" %></b>
-            <%= f.text_field :account, class:"form-control" %>
-          </div>
+            <div class="col-md-4">
+              <b><%= f.label "Agência" %></b>
+              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+            </div>
+
+            <div class="col-md-4">
+              <b><%= f.label "Conta" %></b>
+              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+            </div>
+
+          <% end %>
 
         </div>
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_26_224903) do
+ActiveRecord::Schema.define(version: 2022_06_02_050018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -51,7 +51,9 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
+    t.bigint "office_id"
     t.index ["client_id"], name: "index_banks_on_client_id"
+    t.index ["office_id"], name: "index_banks_on_office_id"
     t.index ["user_id"], name: "index_banks_on_user_id"
   end
 
@@ -171,9 +173,6 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
     t.string "zip"
     t.string "site"
     t.string "telephone"
-    t.string "bank"
-    t.string "agency"
-    t.string "account"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
@@ -215,6 +214,21 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
     t.index ["work_id"], name: "index_procedures_works_on_work_id"
   end
 
+  create_table "tributaries", force: :cascade do |t|
+    t.integer "compensation"
+    t.integer "craft"
+    t.integer "lawsuit"
+    t.decimal "projection"
+    t.string "perd_number"
+    t.date "shipping_date"
+    t.date "payment_date"
+    t.integer "status"
+    t.bigint "work_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["work_id"], name: "index_tributaries_on_work_id"
+  end
+
   create_table "user_profiles", force: :cascade do |t|
     t.integer "role"
     t.string "name"
@@ -254,6 +268,8 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
     t.boolean "intern_role"
     t.boolean "secretary_role"
     t.bigint "office_id", default: 1, null: false
+    t.boolean "accountant_role"
+    t.boolean "outside_accountant_role"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -294,12 +310,15 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "document"
     t.string "rate_parceled_exfield"
+    t.bigint "job_id", default: 1, null: false
+    t.index ["job_id"], name: "index_works_on_job_id"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "banks", "clients"
+  add_foreign_key "banks", "offices"
   add_foreign_key "banks", "users"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
@@ -309,6 +328,7 @@ ActiveRecord::Schema.define(version: 2022_05_26_224903) do
   add_foreign_key "jobs", "works"
   add_foreign_key "offices", "users"
   add_foreign_key "phones", "clients"
+  add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"

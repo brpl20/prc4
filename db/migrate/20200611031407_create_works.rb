@@ -24,7 +24,7 @@ class CreateWorks < ActiveRecord::Migration[6.0]
       t.string :checklist
       t.string :checklist_document
       t.string :document_pendent
-      t.references :user, null: false, foreign_key: true      
+      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end

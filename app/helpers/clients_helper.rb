@@ -40,4 +40,7 @@ module ClientsHelper
     Hash[Client.statuses.map { |k,v| [k, Client.human_attribute_name("status.#{k}")] }]
   end
 
+  def jobs_to_this_client?(client)
+    @jobs = Job.where(client_id: client.id)
+  end
 end

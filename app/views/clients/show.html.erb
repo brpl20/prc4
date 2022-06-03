@@ -227,12 +227,6 @@
 
     <div class="x_title clearfix">
       <h1 class="pull-left">Trabalhos Pendentes</h1>
-      <%= link_to "", new_work_path(client: @client), {class:"btn btn-success fa fa-plus btncent"} %>
-
-      <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-        </li>
-      </ul>
     </div>
 
     <div class="x_content">
@@ -243,24 +237,22 @@
           <thead>
             <tr>
               <th>#</th>
-              <th>Matéria - Ação</th>
-              <th>Número</th>
-              <th>Pasta</th>
-              <th>Funções</th>
+              <th>Procedimento</th>
+              <th>Assunto</th>
+              <th>Ação</th>
             </tr>
           </thead>
           <tbody>
-              <% @url_work.each_with_index do |w, ind| %>
-                <tr>
-                  <th scope="row"><%= ind+1 %></th>
-                  <%# wo = Work.find_by_id(w.id) %>
-                  <th><%#= link_to "#{wo.subject} - #{wo.action}", work_path(wo.id) %></th>
-                  <th><%#= wo.number %></th>
-                  <th><%#= wo.folder %></th>
-                  <th><%= render "shared/links_works" %></th>
-                  <td></td>
-                </tr>
-              <% end %>
+            <% @client.works.each do |work| %>
+              <td><%= work.id %></td>
+              <td>
+                <% work.procedures.each do |p| %>
+                  <%= p.description %>
+                <% end %>
+              </td>
+              <td><%= work.subject %></td>
+              <td><%= work.action %></td>
+            <% end %>
           </tbody>
         </table>
 
@@ -272,43 +264,54 @@
 
     <div class="x_title clearfix">
       <h1 class="pull-left">Tarefas Pendentes</h1>
-      <%= link_to "#", {class:"btn btn-success fa fa-plus btncent"} %>
-      <ul class="nav navbar-right panel_toolbox float-right">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-        </li>
-      </ul>
     </div>
 
     <div class="x_content">
 
-      <div class="col-md-12">
+      <% if jobs_to_this_client?(@client) %>
+        <div>
 
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Tarefa</th>
-              <th>Prazo</th>
-              <th>Responsável</th>
-              <th>Status</th>
-              <th>Funções</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @url_job.each_with_index do |w, ind| %>
-              <tr></tr>
-                <th scope="row"><%= ind+1 %></th>
-                <% wo = Job.find_by_id(w.id) %>
-                <th><%= link_to "#{wo.description}", job_path(wo.id) %></th>
-                <th><%= wo.deadline %></th>
-                <th><%= wo.responsable %></th>
-                <th><%= wo.status %></th>
-                <th><%= render "shared/links_jobs" %></th>
-                <% end %>
-          </tbody>
-        </table>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Tarefa</th>
+                <th>Trabalho</th>
+                <th>Deadline</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @jobs.each do |job| %>
+                <tr>
+                  <td scope="row"><%= job.id %></td>
 
-      </div>
+                  <td>
+                    <%= link_to job_path(job) do %>
+                      <%= job.description %>
+                    <% end %>
+                  </td>
+
+                  <td scope="row"><%= job.work_id %></td>
+
+                  <td> <%= job.deadline %></td>
+
+                  <td><%= retrieve_value_from_array(options_for_job_status, job.status.to_i) %>
+                   </td>
+
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+        </div>
+
+      <% else %>
+
+        <p>Não foram encontradas tarefas para este cliente.</p>
+
+      <% end %>
+
     </div>
   </div>
 

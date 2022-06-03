@@ -1,22 +1,42 @@
-<p id="notice"><%= notice %></p>
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
     <div class="x_title clearfix">
       <h1 class="pull-left"><%= @job.description %></h1>
 
       <ul class="nav navbar-right panel_toolbox">
-        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+        <li>
+          <span id="status-client" class="btn">
+            <%= retrieve_value_from_array(options_for_job_status, @job.status.to_i) %>
+          </span>
+        </li>
+        <li>
+          <span id="status-client" class="btn">
+            <%= retrieve_value_from_array(options_for_job_priority, @job.priority.to_i) %>
+          </span>
+        </li>
+
+        <li>
+          <span>
+            <%= link_to '', edit_job_path(@job), {class:"btn fa fa-edit btncent btn-link"} %>
+          </span>
+        </li>
+
+        <li>
+          <a class="collapse-link btncent">
+            <i class="fa fa-chevron-up"></i>
+          </a>
         </li>
       </ul>
+
     </div>
 
     <div class="x_content">
 
       <div class="col-md-12">
 
-        <section class="col-md-4">
+        <section class="col-md-6">
 
-            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações da Tarefas</b></h2>
+            <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações da Tarefa</b></h2>
 
             <span class="col-md-12">
               <b>Descrição:</b>
@@ -35,7 +55,7 @@
 
             <span class="col-md-12">
               <b>Status:</b>
-              <%= @job.status %>
+              <%= retrieve_value_from_array(options_for_job_status, @job.status.to_i) %>
             </span>
 
             <span class="col-md-12">
@@ -54,10 +74,12 @@
 
         </section>
 
-	  </div>
+  	  </div>
 
-	</div>
+  	</div>
 
     <div class="col-md-12">
       <%= link_to "Voltar", jobs_path, class:"btn btn-danger pull-right" %>
     </div>
+  </div>
+</div>

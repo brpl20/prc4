@@ -8,7 +8,8 @@ class OfficesController < ApplicationController
   def show; end
 
   def new
-    @office = Office.new
+    @office  = Office.new
+    @office.build_bank
   end
 
   def edit; end
@@ -66,10 +67,7 @@ class OfficesController < ApplicationController
         :site,
         :telephone,
         :email,
-        :bank,
-        :agency,
-        :account,
-        :user_id
-        )
+        :user_id,
+        bank_attributes:   [:id, :name, :agency, :account])
     end
 end

@@ -11,9 +11,9 @@
             <thead>
               <tr role="row">
                 <th>#</th>
+                <th>Descrição</th>
                 <th>Cliente</th>
                 <th>Trabalho</th>
-                <th>Descrição</th>
                 <th>Data limite</th>
                 <th>Status</th>
                 <th class="table-actions">Ações</th>
@@ -23,6 +23,8 @@
                 <% @jobs.each do |job| %>
                   <tr role="row">
                     <td><%= job.id %></td>
+
+                    <td><%= job.description %></td>
 
                     <td><%= job.client.name %></td>
 
@@ -34,17 +36,20 @@
                       <% end %>
                     </td>
 
-                    <td><%= job.description %></td>
-
                     <td><%= job.deadline %></td>
 
                     <td><%= retrieve_value_from_array(options_for_job_status, job.status.to_i) %></td>
 
                     <td class="table-action-content">
+                      <%= link_to job_path(job), class:"btn btn-info" do %>
+                        <i class="fa fa-eye"></i>
+                      <% end %>
+
                       <%= link_to edit_job_path(job), class:"btn btn-primary" do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
                     </td>
+
                   </tr>
                 <% end %>
             </tbody>
