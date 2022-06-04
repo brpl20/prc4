@@ -155,6 +155,7 @@ $(document).ready(function(){
   };
 
   function accountant_user (){
+    $('.user-role-append').remove();
     $("#oba-crc").append("<label class='user-role-append col-form-label col-md-3 col-sm-3 label-align' for='user_user_profile_attributes_OAB'>CRC</label> <div class='user-role-append col-md-6 col-sm-6 '><input class='user-role-append form-control' type='text' name='user[user_profile_attributes][oab]' id='user_user_profile_attributes_oab'></div>" );
 
     $("#user_user_profile_attributes_oab").val($("#label-user-role").data('exfield'));
@@ -263,10 +264,19 @@ $(document).ready(function(){
   }});
 
   $('.accountant_role').on('click', function(){
-    if($('.accountant_role').is(":checked")){
-    accountant_user ();
-    $("#user_lawyer_role").prop("checked", false);
-  }});
+    if($(this).is(":checked")){
+      accountant_user ();
+      $(".outside_accountant_role").prop("checked", false);
+      $("#user_lawyer_role").prop("checked", false);    }
+  });
+
+  $('.outside_accountant_role').on('click', function(){
+    if($(this).is(":checked")){
+      accountant_user ();
+      $("#user_lawyer_role").prop("checked", false);
+      $(".accountant_role").prop("checked", false);
+    }
+  });
 
 
   // $("input[name='client[client_type]']").each(function(){

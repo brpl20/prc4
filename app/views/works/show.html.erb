@@ -137,17 +137,17 @@
           </h2>
 
           <% if @client.bank %>
-            <span class="col-md-12">
+            <span>
               <b>Banco:</b>
               <%= @client.bank&.name %>
             </span>
 
-            <span class="col-md-12">
+            <span>
               <b>Agência:</b>
               <%= @client.bank&.agency %>
             </span>
 
-            <span class="col-md-12">
+            <span>
               <b>Conta:</b>
               <%= @client.bank&.account %>
             </span>
@@ -178,16 +178,18 @@
 
         </section>
 
-        <section>
+        <section class="col-lg-7 no-padding">
           <h2 class="h-line">
             <i class="fa fa-gavel"></i>
             <b>Poderes</b>
           </h2>
 
           <% @work.powers.each do |p| %>
-            <span>
-              <%= p.description %>
-            </span>
+            <ul style="padding-left: 20px">
+              <li>
+                <%= p.description %>
+              </li>
+            </ul>
           <% end %>
 
         </section>

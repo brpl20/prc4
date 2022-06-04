@@ -197,7 +197,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Estado" %></b>
-            <%= f.text_field :state, class:"form-control" %>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control"} %>
           </div>
 
         </div>
@@ -307,6 +307,8 @@
       <% end %>
 
     </div>
+  </div>
+</div>
 
   <%= render partial: "shared/modal" %>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>

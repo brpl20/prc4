@@ -3,15 +3,35 @@ namespace :pop do
   desc "Setup Development"
   task setup: :environment do
 
-    puts "Executando o setup para desenvolvimento..."
+    p "Executando o setup para desenvolvimento..."
 
-    puts %x(rake db:drop db:create db:migrate db:seed)
-    puts %x(rake pop:generate_procedures)
-    puts %x(rake pop:generate_powers)
-    puts %x(rake pop:generate_checklists)
-    puts %x(rake pop:generate_checklist_documents)
+    p "Apagando banco de dados"
+    p %x(rake db:drop)
+    p "Banco de dados apagado com sucesso"
 
-    puts "Setup finalizado com sucesso!"
+    p "Criando banco de dados"
+    p %x(rake db:create)
+    p "Banco de dados criado com sucesso"
+
+    p "Migrando tabelas ..."
+    p %x(rake db:migrate)
+    p "Migração concluída com sucesso"
+
+    p %x(rake pop:generate_procedures)
+
+    p %x(rake cad:user)
+
+    p %x(rake cad:client)
+
+    p %x(rake cad:office)
+
+    p %x(rake pop:generate_powers)
+
+    p %x(rake pop:generate_checklists)
+
+    p %x(rake pop:generate_checklist_documents)
+
+    p "Setup finalizado com sucesso!"
   end
 
 desc "Cadastra Procedimentos"
@@ -33,31 +53,10 @@ desc "Cadastra Procedimentos"
 
     puts "Cadastrando Powers"
     powers =
-     ["Ad Judicia", 0, "helper",        "Ad Judicia"],
-     ["Citação", 0, "helper,",          "Citação"],
-     ["Desistir",  0, "helper,",        "Desistir do Pedido"],
-     ["Imposto de Renda", 0, "helper",  "Firmar e Declarar Imposto de Renda e Isenções"],
-     ["Confessar", 0, "helper",         "confessar"],
-     ["Reconhecer o pedido", 0, "helper", "reconhecer a procedência do pedido"],
-     ["Desistir", 0, "helper",          "desistir do processo e substabelecer com ou sem reserva de poderes"],
-     ["Transigir", 0, "helper",          "transigir"],
-     ["Indicar e-mail", 0, "helper",     "indicar e-mail do escritório para notificações e intimações"],
-     ["Acordos", 0, "helper",            "firmar compromissos e acordos"],
-     ["Desistir", 0, "helper",            "desistir do processo e incidentes"],
-     ["Renunciar", 0, "helper",           "renunciar ao direito o qual se funda a ação"],
-     ["Receber e dar quitação", 0, "helper", "receber e dar quitação"],
-     ["Carência", 0, "helper", "firmar compromissos e assinar declaração de hipossuficiência econômica"],
-     ["Termo renúncia", 0, "helper", "firmar termo de renúncia para fins de Juizado Especial"],
-     ["RPV", 0, "helper", "renunciar valores superiores à Requisições de Pequeno Valor em Precatórios"],
-     ["Sigilo médico", 0, "helper", "acessar documentos resguardados pelo sigilo médico, independente do seu teor"],
-     ["Representar adm", 0, "helper", "representar, assinar, protocolar requerimentos, desistir de pedidos ou de benefícios, fazer carga de processos, ter vistas e acessar documentos, bem como acesso digital, gerar, cadastrar e-mail, telefone e segnhas nos portais Gov.br e Meu INSS"],
-     ["Titulares Falecidos", 5, "buscar informações de titularidade de seus familiares falecidos para informação e instrução de seus pedidos pessoais"],
-     ["Institutos Prisionais", 6, "buscar informações de titularidade de familiares em relação a dados cadastrais prisionais, para fins de concessão do benefício de auxílio reclusão"],
-     ["INSS", 0, "helper", "Instituto Nacional do Seguro Social - INSS"],
-     ["PRPrev", 0, "helper", "Paraná Previdência"]
+     ["Ad Judicia", "Citação, Desistir do Pedido", "Firmar e Declarar Imposto de Renda e Isenções", "Confessar", "Reconhecer a procedência do pedido", "Desistir do processo e substabelecer com ou sem reserva de poderes", "Transigir", "Indicar e-mail do escritório para notificações e intimações", "Firmar compromissos e acordos", "Desistir do processo e incidentes", "Renunciar ao direito o qual se funda a ação", "Receber e dar quitação", "Carência - firmar compromissos e assinar declaração de hipossuficiência econômica", "Termo renúncia - firmar termo de renúncia para fins de Juizado Especial", "RPV - Renunciar valores superiores à Requisições de Pequeno Valor em Precatórios", "Sigilo médico - acessar documentos resguardados pelo sigilo médico independente do seu teor", "Representar adm - assinar, protocolar requerimentos, desistir de pedidos ou de benefícios, fazer carga de processos, ter vistas e acessar documentos bem como acesso digital, gerar, cadastrar e-mail, telefone e senhas nos portais Gov.br e Meu INSS", "Titulares Falecidos - buscar informações de titularidade de seus familiares falecidos para informação e instrução de seus pedidos pessoais", "Institutos Prisionais - buscar informações de titularidade de familiares em relação a dados cadastrais prisionais, para fins de concessão do benefício de auxílio reclusão", "Instituto Nacional do Seguro Social - INSS", "PRPrev - Paraná Previdência"]
 
     powers.each do |p|
-    Power.find_or_create_by!(
+    Power.create!(
       description: "#{p}"
     )
     end

@@ -18,7 +18,7 @@ class Client < ApplicationRecord
 
   validate :file_type
 
-  DESCRIPTION = %w[Representante Legal Contador].freeze
+  DESCRIPTION = %w[Representante\ Legal Contador].freeze
 
   NULL_ATTRS = %w[lastname bank].freeze
   #before_save :fill_if_nil, :default_values
