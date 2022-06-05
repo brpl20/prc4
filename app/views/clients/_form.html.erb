@@ -100,9 +100,10 @@
 
             <div class="col-md-12 form-group rep-cli no-padding">
 
-              <div class="customer_types no-padding">
+              <div class="customer_types no-padding" id="customer_types_add">
 
                 <%= f.fields_for :customer_types do |io| %>
+                  <%= render partial: "customer_type_fields", locals: {f: io} %>
                 <% end %>
 
                 <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>

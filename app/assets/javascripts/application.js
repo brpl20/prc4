@@ -243,7 +243,6 @@ $(document).ready(function(){
 
   if (window.location.href.match('clients/new')) {
     $("#client_status_0").prop("checked", true);
-
   }
 
   $('.remove-ind').on("click", function(){
@@ -277,6 +276,11 @@ $(document).ready(function(){
       $(".accountant_role").prop("checked", false);
     }
   });
+
+  if (window.location.href.match('clients/new')) {
+    $(".btn-remove-rep").click();
+    //document.getElementById('customer_types_add').style.visibility = 'hidden';
+  }
 
 
   // $("input[name='client[client_type]']").each(function(){

@@ -49,7 +49,6 @@ module ClientsHelper
   end
 
   def retrieve_represented(id)
-    client = Client.find(id)
-    "#{client.name} #{client.lastname}"
+    id ? Client.find(id).name : 'não informado'
   end
 end
