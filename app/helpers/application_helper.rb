@@ -2,20 +2,20 @@
 
 module ApplicationHelper
   def office_phone
-    Office.find(current_user.office_id).telephone
+    Office.where(user_id: current_user.id).last.telephone
   end
 
   def office_address
-    office = Office.find(current_user.office_id)
+    office = Office.where(user_id: current_user.id).last
     "#{office.address}. #{office.city} - #{office.state}"
   end
 
   def office_name
-    Office.find(current_user.office_id).name
+    Office.where(user_id: current_user.id).last.name
   end
 
   def office_site
-    Office.find(current_user.office_id).site
+    Office.where(user_id: current_user.id).last.site
   end
 
   def retrieve_value_from_array(object, value)

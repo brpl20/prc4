@@ -22,7 +22,6 @@
                 <th>Cidade / Estado</th>
                 <th>Número Banefício</th>
                 <th>NIT</th>
-                <th>Senha meu Inss</th>
                 <th>Telefone</th>
                 <th class="table-actions">Ações</th>
               </tr>
@@ -42,7 +41,6 @@
                     <td><%= c.city %> / <%= c.state %></td>
                     <td><%= c.number_benefit %></td>
                     <td><%= c.nit %></td>
-                    <td><%= c.passwdInss %></td>
                     <td>
                       <% c.phones.each do |p| %>
                         <%= p.phone %>

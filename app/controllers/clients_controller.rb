@@ -28,7 +28,7 @@ class ClientsController < ApplicationController
     @client.city = @incapable.city
     @client.state = @incapable.state
     @client.capacity = "Capaz"
-    @client.representative = @incapable.id
+    # @client.representative = @incapable.id
     @client.phones.build
     @client.emails.build
   end
@@ -36,24 +36,10 @@ class ClientsController < ApplicationController
   def create
     @client = Client.new(client_params)
     if @client.save
-      if @client.capacity === "Capaz"
-        if @client.client_type === 1
-          flash[:notice] = "Cliente Jurídico Criado - Redirecionando para Representante"
-          redirect_to new_rep_path(@client)
-        else
-          templater(@client, 'procuracao_simples')
-          flash[:notice] = "Cliente Criado - Procuração Simples Gerada"
-          redirect_to @client
-        end
-      else
-        flash[:notice] = "Cliente Incapaz Criado - Redirecionando para Representante Legal"
-        redirect_to new_rep_path(@client)
-      end
+      flash[:notice] = 'Cliente criado com sucesso'
+      redirect_to clients_path
     else
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+      render :new
     end
   end
 

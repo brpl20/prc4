@@ -177,6 +177,34 @@
         <section class="col-md-4">
           <h2 class="pull-left h-line">
             <i class="fa fa-asterisk"></i>
+            <b>Representante</b>
+          </h2>
+
+          <span class="col-md-12">
+            <% unless @client.customer_types.nil? %>
+
+              <% @client.customer_types.each do |ct| %>
+                  <p>
+                    <%= retrieve_represented(ct.represented) %> -
+                    <%= ct.description %>
+                  </p>
+              <% end %>
+
+            <% else %>
+              <i class="fa fa-times"></i>
+              <p class="in-line">Não há representante/contador</p>
+            <% end %>
+
+          <span class="col-md-12">
+            <strong></strong>
+
+          </span>
+
+        </section>
+
+        <section class="col-md-4">
+          <h2 class="pull-left h-line">
+            <i class="fa fa-asterisk"></i>
             <b>Informações Adicionais</b>
           </h2>
 
@@ -211,7 +239,7 @@
           <% @client.files.each do |file| %>
             <span class="col-md-12">
               <li>
-                <%= link_to file.filename, url_for(file) %>
+                <%= link_to file.filename, url_for(file), target:'_blank' %>
                 <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
               </li>
             </span>

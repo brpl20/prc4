@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.string "name"
     t.string "agency"
     t.string "account"
-    t.bigint "client_id", null: false
+    t.bigint "client_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
@@ -120,10 +120,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.text "representative"
     t.integer "status"
-    t.string "cnpj"
-    t.integer "incapable_dependent"
     t.integer "client_type"
     t.string "nit"
     t.string "passwdInss"
@@ -154,8 +151,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id"
-    t.integer "priority"
-    t.string "comment"
     t.bigint "work_id"
     t.index ["client_id"], name: "index_jobs_on_client_id"
     t.index ["work_id"], name: "index_jobs_on_work_id"
@@ -238,7 +233,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.string "oab"
     t.string "social_number"
     t.string "citizenship"
-    t.integer "civilstatus"
+    t.string "civilstatus"
     t.date "birth"
     t.string "mothername"
     t.string "email"
@@ -267,11 +262,10 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.boolean "paralegal_role"
     t.boolean "intern_role"
     t.boolean "secretary_role"
-    t.bigint "office_id", default: 1, null: false
+    t.integer "office_id"
     t.boolean "accountant_role"
     t.boolean "outside_accountant_role"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["office_id"], name: "index_users_on_office_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
@@ -310,8 +304,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.datetime "updated_at", precision: 6, null: false
     t.json "document"
     t.string "rate_parceled_exfield"
-    t.bigint "job_id", default: 1, null: false
-    t.index ["job_id"], name: "index_works_on_job_id"
     t.index ["user_id"], name: "index_works_on_user_id"
   end
 
@@ -330,9 +322,7 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
   add_foreign_key "phones", "clients"
   add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"
-  add_foreign_key "users", "offices"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
-  add_foreign_key "works", "jobs"
   add_foreign_key "works", "users"
 end
