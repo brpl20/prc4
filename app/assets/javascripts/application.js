@@ -80,6 +80,10 @@ $(document).ready(function(){
 
   };
 
+  function add_button_rep(){
+    $(".client-type-append").append("<a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a>")
+  };
+
   function pessoa_fisica(){
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Física' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CPF</label></b> <input autocomplete='off' class='form-control' data-mask='000.000.000-00' placeholder='000.000.000-00' type='text' name='client[social_number]' id='client_social_number' maxlength='14'></div></div>" );
 
@@ -87,7 +91,8 @@ $(document).ready(function(){
   };
 
   function pessoa_juridica(){
-    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
+    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div></div> " );
+    add_button_rep();
 
     $("#client_cnpj").val($("#label-client-type").data('exfield'));
   };
@@ -282,6 +287,32 @@ $(document).ready(function(){
     //document.getElementById('customer_types_add').style.visibility = 'hidden';
   }
 
+  if (window.location.href.match('clients/edit')) {
+    //$(".btn-remove-rep").click();
+    //document.getElementById('customer_types_add').style.visibility = 'hidden';
+  }
+
+  $(".client-type").on('click', function(){
+    if ($(this).val() == 0){
+      $("#client_capacity_capaz").prop("checked", false);
+      $("#client_capacity_relativamente_incapaz").prop("disabled", false);
+      $("#client_capacity_absolutamente_incapaz").prop("disabled", false);
+    } else {
+      $("#client_capacity_capaz").prop("checked", true);
+      $("#client_capacity_relativamente_incapaz").prop("disabled", true);
+      $("#client_capacity_absolutamente_incapaz").prop("disabled", true);
+    }
+  });
+
+  $(".btn-capacity").on('click', function(){
+    if($(this).val() == 'Capaz' && $("#client_client_type_0").is(':checked')){
+      $("#btn-add-reps").remove();
+      $(".parcial-rep").remove();
+    } else {
+      $("#btn-add-reps").remove();
+      add_button_rep();
+    }
+  });
 
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){

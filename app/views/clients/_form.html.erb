@@ -79,21 +79,38 @@
             <b><%= f.label "Data de Nascimento" %></b>
             <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
           </div>
+        </div>
 
-          <div class="col-md-6 grid" id="conds-rates">
+        <div class="col-md-12 no-padding">
 
-            <label
-              id="label-client-type"
-              for="client_Tipo de Cliente"
-              data-exfield="<%= @client.social_number %>"
-            >
-              <b>Tipo de Cliente</b>
-            </label>
+          <div class="col-md-6">
 
-            <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b|
-            b.label { b.radio_button(class:"client-type ") + b.text }
-            end %>
 
+            <div class="col-md-6 grid" id="conds-rates">
+
+              <label
+                id="label-client-type"
+                for="client_Tipo de Cliente"
+                data-exfield="<%= @client.social_number %>"
+              >
+                <b>Tipo de Cliente</b>
+              </label>
+
+              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b|
+              b.label { b.radio_button(class:"client-type ") + b.text }
+              end %>
+
+            </div>
+
+            <div class="col-md-6 ">
+              <b><%= f.label "Capacidade" %></b>
+              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text }
+              end %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
             <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>">
 
             </div>
@@ -109,9 +126,12 @@
                 <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
               </div>
 
-          </div>
+            </div>
 
           </div>
+
+        </div>
+
 
         <div class="col-md-12">
 
@@ -205,24 +225,6 @@
 
         <div class="col-md-12">
 
-          <div class="col-md-6 ">
-             <b><%= f.label "Capacidade" %></b>
-             <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b|
-             b.label(class:"inline-radio") { b.radio_button + b.text }
-             end %>
-          </div>
-
-          <div class="col-md-6">
-              <b><%= f.label "Consulta" %></b>
-              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
-              b.label(class:"inline-radio") { b.radio_button + b.text }
-              end %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
           <div class="col-md-6 no-padding">
 
             <%= f.fields_for :bank do |b| %>
@@ -288,14 +290,22 @@
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label :status %></b>
-            <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
-            b.label(class:"inline-radio") { b.radio_button + b.text }
-            end %>
+
+            <div class="col-md-6">
+                <b><%= f.label "Consulta" %></b>
+                <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b|
+                b.label(class:"inline-radio") { b.radio_button + b.text }
+                end %>
+            </div>
+
+
+            <div class="col-md-6">
+              <b><%= f.label :status %></b>
+              <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
+              b.label(class:"inline-radio") { b.radio_button + b.text }
+              end %>
+            </div>
           </div>
-
-      </div>
-
 
       </div>
 
