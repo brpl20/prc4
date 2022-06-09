@@ -38,7 +38,9 @@ module WorksHelper
 
   def options_for_action_tributary
     tributary = [ ["Asfalto", "Asfalto"],
-                  ["Alfavá", "Alvará"],
+                  ["Alvará", "Alvará"],
+                  ["Ressarcimento PIS/COFINS Insumos", "Ressarcimento PIS/COFINS Insumos"],
+                  ["Inss - Verbas Indenizatórias", "Inss - Verbas Indenizatórias"],
                   ["Outros", "Outros"]
                 ]
   end
