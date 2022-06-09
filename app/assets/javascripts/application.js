@@ -122,7 +122,7 @@ $(document).ready(function(){
   };
 
   function tributarioPisCofins(){
-    $('#subject-fields').append("<div class='subject-append'> <div class='col-md-5'> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações realizadas nos últimos 5 anos:'>Compensações realizadas nos últimos 5 anos:</label></b> <input type='radio' value='1' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_1'> sim <input type='radio' value='0' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações de ofício:'>Compensações de ofício:</label></b> <input type='radio' value='1' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_1'> sim <input type='radio' value='0' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Possui ação judicial:'>Possui ação judicial:</label></b> <input type='radio' value='1' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_1'> sim <input type='radio' value='0' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_0'> não </div> <div class='col-md-6 no-padding'> <b><label for='work_tributary_attributes_Projeção de Ganho'>Projeção de ganho</label></b> <input placeholder='10.000' class='form-control' type='number' name='work[tributary_attributes][projection]' id='work_tributary_attributes_projection'> </div> <div class='col-md-12 no-padding'> <div class='col-md-6'> <b><label for='work_Upload de arquivos'>Upload de arquivos</label></b> <input multiple='multiple' type='file' name='work[archive_file][]' id='work_archive_file'> <small class='form-text text-muted'> Formatos aceitos: JPEG, PNG e PDF. </small> </div> </div> </div> <div class='col-md-3'> <div class='col-md-12 no-padding'> <p><b>Lançamento de Perd/Comp</b></p> <b><label for='work_tributary_attributes_Número Perd/Comp'>Número perd/comp</label></b> <input class='form-control' type='text' name='work[tributary_attributes][perd_number]' id='work_tributary_attributes_perd_number'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][shipping_date]' id='work_tributary_attributes_shipping_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de pagamento de Perd/Comp'>Data de pagamento de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][payment_date]' id='work_tributary_attributes_payment_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_Status'>Status</label></b> <input type='radio' value='1' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_1'> Pendente de Análise <input type='radio' value='0' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_0'> Paga </div> </div> </div>");
+    $(".subject-append-pis").removeClass('hidden');
 
     check_subject_area();
   };
@@ -192,6 +192,9 @@ $(document).ready(function(){
       case 'Tributário Pis/Cofins insumos':     tributarioPisCofins();  break;
       case 'Outros':                          outros();                 break;
     };
+    if(value != 'Tributário Pis/Cofins insumos'){
+      $(".subject-append-pis").addClass('hidden');
+    }
   };
 
   function get_rate_work(value){
@@ -313,6 +316,8 @@ $(document).ready(function(){
       add_button_rep();
     }
   });
+
+
 
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){
