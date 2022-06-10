@@ -152,8 +152,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "client_id"
     t.bigint "work_id"
-    t.integer "priority"
-    t.string "comment"
     t.index ["client_id"], name: "index_jobs_on_client_id"
     t.index ["work_id"], name: "index_jobs_on_work_id"
   end
