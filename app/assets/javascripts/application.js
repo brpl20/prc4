@@ -80,6 +80,10 @@ $(document).ready(function(){
 
   };
 
+  function add_button_rep(){
+    $(".client-type-append").append("<a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a>")
+  };
+
   function pessoa_fisica(){
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Física' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CPF</label></b> <input autocomplete='off' class='form-control' data-mask='000.000.000-00' placeholder='000.000.000-00' type='text' name='client[social_number]' id='client_social_number' maxlength='14'></div></div>" );
 
@@ -87,7 +91,8 @@ $(document).ready(function(){
   };
 
   function pessoa_juridica(){
-    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div> <a class='btn btn-outline btn-primary' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div> " );
+    $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Jurídica' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CNPJ</label></b> <input autocomplete='off' class='form-control' data-mask='00.000.000/0000-00' placeholder='00.000.000/0000-00' type='text' name='client[social_number]'' id='client_cnpj' maxlength='18'></div></div> " );
+    add_button_rep();
 
     $("#client_cnpj").val($("#label-client-type").data('exfield'));
   };
@@ -117,7 +122,7 @@ $(document).ready(function(){
   };
 
   function tributarioPisCofins(){
-    $('#subject-fields').append("<div class='subject-append'> <div class='col-md-5'> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações realizadas nos últimos 5 anos:'>Compensações realizadas nos últimos 5 anos:</label></b> <input type='radio' value='1' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_1'> sim <input type='radio' value='0' name='work[tributary_attributes][compensation]' id='work_tributary_attributes_compensation_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Compensações de ofício:'>Compensações de ofício:</label></b> <input type='radio' value='1' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_1'> sim <input type='radio' value='0' name='work[tributary_attributes][craft]' id='work_tributary_attributes_craft_0'> não </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Possui ação judicial:'>Possui ação judicial:</label></b> <input type='radio' value='1' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_1'> sim <input type='radio' value='0' name='work[tributary_attributes][lawsuit]' id='work_tributary_attributes_lawsuit_0'> não </div> <div class='col-md-6 no-padding'> <b><label for='work_tributary_attributes_Projeção de Ganho'>Projeção de ganho</label></b> <input placeholder='10.000' class='form-control' type='number' name='work[tributary_attributes][projection]' id='work_tributary_attributes_projection'> </div> <div class='col-md-12 no-padding'> <div class='col-md-6'> <b><label for='work_Upload de arquivos'>Upload de arquivos</label></b> <input multiple='multiple' type='file' name='work[archive_file][]' id='work_archive_file'> <small class='form-text text-muted'> Formatos aceitos: JPEG, PNG e PDF. </small> </div> </div> </div> <div class='col-md-3'> <div class='col-md-12 no-padding'> <p><b>Lançamento de Perd/Comp</b></p> <b><label for='work_tributary_attributes_Número Perd/Comp'>Número perd/comp</label></b> <input class='form-control' type='text' name='work[tributary_attributes][perd_number]' id='work_tributary_attributes_perd_number'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][shipping_date]' id='work_tributary_attributes_shipping_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_tributary_attributes_Data de pagamento de Perd/Comp'>Data de pagamento de perd/comp</label></b> <input class='form-control' type='date' name='work[tributary_attributes][payment_date]' id='work_tributary_attributes_payment_date'> </div> <div class='col-md-12 no-padding'> <b><label for='work_Status'>Status</label></b> <input type='radio' value='1' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_1'> Pendente de Análise <input type='radio' value='0' name='work[tributary_attributes][status]' id='work_tributary_attributes_status_0'> Paga </div> </div> </div>");
+    $(".subject-append-pis").removeClass('hidden');
 
     check_subject_area();
   };
@@ -187,6 +192,9 @@ $(document).ready(function(){
       case 'Tributário Pis/Cofins insumos':     tributarioPisCofins();  break;
       case 'Outros':                          outros();                 break;
     };
+    if(value != 'Tributário Pis/Cofins insumos'){
+      $(".subject-append-pis").addClass('hidden');
+    }
   };
 
   function get_rate_work(value){
@@ -243,7 +251,6 @@ $(document).ready(function(){
 
   if (window.location.href.match('clients/new')) {
     $("#client_status_0").prop("checked", true);
-
   }
 
   $('.remove-ind').on("click", function(){
@@ -277,6 +284,39 @@ $(document).ready(function(){
       $(".accountant_role").prop("checked", false);
     }
   });
+
+  if (window.location.href.match('clients/new')) {
+    $(".btn-remove-rep").click();
+    //document.getElementById('customer_types_add').style.visibility = 'hidden';
+  }
+
+  if (window.location.href.match('clients/edit')) {
+    //$(".btn-remove-rep").click();
+    //document.getElementById('customer_types_add').style.visibility = 'hidden';
+  }
+
+  $(".client-type").on('click', function(){
+    if ($(this).val() == 0){
+      $("#client_capacity_capaz").prop("checked", false);
+      $("#client_capacity_relativamente_incapaz").prop("disabled", false);
+      $("#client_capacity_absolutamente_incapaz").prop("disabled", false);
+    } else {
+      $("#client_capacity_capaz").prop("checked", true);
+      $("#client_capacity_relativamente_incapaz").prop("disabled", true);
+      $("#client_capacity_absolutamente_incapaz").prop("disabled", true);
+    }
+  });
+
+  $(".btn-capacity").on('click', function(){
+    if($(this).val() == 'Capaz' && $("#client_client_type_0").is(':checked')){
+      $("#btn-add-reps").remove();
+      $(".parcial-rep").remove();
+    } else {
+      $("#btn-add-reps").remove();
+      add_button_rep();
+    }
+  });
+
 
 
   // $("input[name='client[client_type]']").each(function(){
