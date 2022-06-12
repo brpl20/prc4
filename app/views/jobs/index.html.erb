@@ -24,7 +24,7 @@
                   <tr role="row">
                     <td><%= job.id %></td>
 
-                    <td><%= job.description %></td>
+                    <td><%= link_to "#{job.description}", job_path(job) %></td>
 
                     <td><%= job.client.name %></td>
 

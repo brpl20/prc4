@@ -1,83 +1,135 @@
-<p>
-  <strong>Nome:</strong>
-  <%= @office.name %>
-</p>
+<div class="col-md-12 col-sm-12">
+  <div class="x_panel">
+    <div class="x_title clearfix">
+      <h1 class="pull-left"><%= @office.name %></h1>
 
-<p>
-  <strong>Oab:</strong>
-  <%= @office.oab %>
-</p>
+    </div>
 
-<p>
-  <strong>Cnpj:</strong>
-  <%= @office.cnpj_number %>
-</p>
+    <div class="x_content">
 
-<p>
-  <strong>Tipo:</strong>
-  <%= @office.society %>
-</p>
+      <div class="col-md-12">
 
-<p>
-  <strong>Fundacao:</strong>
-  <%= @office.foundation %>
-</p>
+          <section class="col-md-4">
 
-<p>
-  <strong>Endereco:</strong>
-  <%= @office.address %>
-</p>
+            <h2 class="pull-left col-md-12 h-line">
+              <i class="fa fa-user"></i>
+              <b>Informações da Escritório</b>
+            </h2>
 
-<p>
-  <strong>Cidade:</strong>
-  <%= @office.city %>
-</p>
+            <span class="col-md-12">
+              <b>Nome:</b>
+              <%= @office.name %>
+            </span>
 
-<p>
-  <strong>Estado:</strong>
-  <%= @office.state %>
-</p>
+            <span class="col-md-12">
+              <b>OAB:</b>
+              <%= @office.oab %>
+            </span>
 
-<p>
-  <strong>Cep:</strong>
-  <%= @office.zip %>
-</p>
+            <span class="col-md-12">
+              <b>CNPJ:</b>
+              <%= @office.cnpj_number %>
+            </span>
+            
+            <span class="col-md-12">
+              <b>Tipo:</b>
+              <%= @office.society %>
+            </span>
 
-<p>
-  <strong>Site:</strong>
-  <%= @office.site %>
-</p>
+            <span class="col-md-12">
+              <b>Fundação:</b>
+              <%= @office.foundation %>
+            </span>
 
-<p>
-  <strong>Telefone:</strong>
-  <%= @office.telephone %>
-</p>
+        </section>
+
+        <section class="col-md-4">
+
+          <h2 class="pull-left col-md-12 h-line">
+            <i class="fa fa-home"></i>
+            <b>Endereço</b>
+          </h2>
+
+          <span class="col-md-12">
+            <b>Rua/Av.:</b>
+            <%= @office.address %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Cidade:</b>
+            <%= @office.city %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Estado:</b>
+            <%= @office.state %>
+          </span>
+
+          <span class="col-md-12">
+            <b>CEP::</b>
+            <%= @office.zip %>
+          </span>
+
+        </section>
+
+        <section class="col-md-4">
+
+          <h2 class="pull-left col-md-12 h-line">
+            <i class="fa fa-asterisk"></i>
+            <b>Informações Adicionais</b>
+          </h2>
+
+          <span class="col-md-12">
+            <b>Telefone:</b>
+            <%= @office.telephone %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Site:</b>
+            <%= @office.site %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Email:</b>
+            <%= @office.email %>
+          </span>
+
+        </section>
+
+        <section class="col-md-4">
+
+          <h2 class="pull-left col-md-12 h-line">
+            <i class="fa fa-university"></i>
+            <b>Informações Bancárias</b>
+          </h2>
 
 
-<p>
-  <strong>Email:</strong>
-  <%= @office.email %>
-</p>
+          <% if @office.bank %>
+            <span class="col-md-12">
+              <b>Banco:</b>
+              <%= @office.bank.name %>
+            </span>
 
-<% if @office.bank %>
-  <p>
-    <strong>Banco:</strong>
-    <%= @office.bank.name %>
-  </p>
+            <span class="col-md-12">
+              <b>Agencia:</b>
+              <%= @office.bank.agency %>
+            </span>
 
-  <p>
-    <strong>Agencia:</strong>
-    <%= @office.bank.agency %>
-  </p>
+            <span class="col-md-12">
+              <b>Conta:</b>
+              <%= @office.bank.account %>
+            </span>
 
-  <p>
-    <strong>Conta:</strong>
-    <%= @office.bank.account %>
-  </p>
-<% else %>
-  <i class="fa fa-times"></i>
-  <p class="in-line">Não há conta cadastrada</p>
-<% end %>
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não há conta cadastrada</p>
+          <% end %>
 
-<%= link_to 'Edit', edit_office_path(@office) %> |
-<%= link_to 'Back', offices_path %>
+        </section>
+
+  	  </div>
+
+  	</div>
+
+  </div>
+</div>

@@ -28,7 +28,7 @@
             <tbody>
                 <% @works.each do |w| %>
                   <tr role="row">
-                    <td><%= w.id %></td>
+                    <td><%= link_to "#{w.id}", work_path(w) %></td>
                     <td>
                       <% w.clients.each do |c| %>
                         <%= c.name %>
