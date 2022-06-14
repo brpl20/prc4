@@ -65,6 +65,7 @@ $(document).ready(function(){
   function check_subject_area(){
     var area = $("#subject-fields").data('action-for-subject');
     var c_type = $("#rate-client-type").data('action-for-client-type');
+    $(".subject-append-pis").val($("#label-tributary-work").data('action-for-tributary-work'));
 
     $('input[name="work[action]"]').each(function(){
       if ($(this).val() == area) {
