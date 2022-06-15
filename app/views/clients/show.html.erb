@@ -27,7 +27,15 @@
 
     <div class="x_content">
 
-      <div class="col-md-12">
+      <div class="col-md-12 no-padding">
+
+        <% if @client.capacity != 'Capaz' && !@client.customer_types.any? %>
+          <div class="alert alert-danger container-flex" role="alert">
+            <p>Este cliente foi definido como incapaz ou parcialmente incapaz e não possui um representante</p>
+
+            <%= link_to 'Informar Representante Legal', edit_client_path(@client), class:'btn btn-outline btn-danger'%>
+          </div>
+        <% end %>
 
         <section class="col-md-4">
 
@@ -344,5 +352,7 @@
   </div>
 
   <%= link_to "Voltar", clients_path, class:"btn btn-danger btn-outline left col-md-1" %>
-
 </div>
+<%= render partial: "shared/modal" %>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>

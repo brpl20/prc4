@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :offices
   resources :attendances
   resources :finances
+  resources :customer_types
 
   resources :client do
     resources :file_uploads, only: %i[new create destroy]

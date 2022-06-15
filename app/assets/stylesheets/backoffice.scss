@@ -203,6 +203,18 @@ span.section{
 .panel-dashboard{
   min-height: 485px;
 }
+.container-flex{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.container-flex p,
+.container-flex a{
+  margin: 0 !important;
+  font-size: 1.1rem;
+}
 
 @media only screen and (max-width: 600px) {
   div.nav-item {

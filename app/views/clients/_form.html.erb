@@ -9,10 +9,6 @@
     <div class="x_content">
       <%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
 
-      <%#= f.collection_radio_buttons :status, Work.status, :second, :first do |b|
-       b.label { b.radio_button + b.text }
-     end %>
-
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
@@ -295,7 +291,6 @@
           </div>
 
       </div>
-
 
       </div>
 
