@@ -245,17 +245,17 @@
 
             <span>
               <strong>Compensações realizadas nos últimos 5 anos:</strong>
-              <%= @work.tributary.compensation %>
+              <%= options_for_radio_yes(@work.tributary.compensation) %>
             </span>
 
             <span>
               <strong>Compensações de ofício:</strong>
-              <%= @work.tributary.craft %>
+              <%= options_for_radio_yes(@work.tributary.craft) %>
             </span>
 
             <span>
               <strong>Possui ação judicial:</strong>
-              <%= @work.tributary.lawsuit %>
+              <%= options_for_radio_yes(@work.tributary.lawsuit) %>
             </span>
 
             <span>
@@ -316,7 +316,7 @@
 
             <span>
               <strong>Status:</strong>
-              <%= @work.tributary.status %>
+              <%= options_for_radio_status(@work.tributary.status) %>
             </span>
           <% else %>
             <i class="fa fa-times"></i>
