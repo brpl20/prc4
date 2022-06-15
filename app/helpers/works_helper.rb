@@ -38,7 +38,9 @@ module WorksHelper
 
   def options_for_action_tributary
     tributary = [ ["Asfalto", "Asfalto"],
-                  ["Alfavá", "Alvará"],
+                  ["Alvará", "Alvará"],
+                  ["Ressarcimento PIS/COFINS Insumos", "Ressarcimento PIS/COFINS Insumos"],
+                  ["Inss - Verbas Indenizatórias", "Inss - Verbas Indenizatórias"],
                   ["Outros", "Outros"]
                 ]
   end
@@ -75,8 +77,28 @@ module WorksHelper
     @jobs = Job.where(work_id: work.id)
   end
 
-  def has_recommendation (id)
+  def has_recommendation(id)
     Client.find(id).name
+  end
+
+  def options_for_radio_yes(op)
+    if op == 1
+      'Não'
+    else
+      if op == 0
+        'Sim'
+      end
+    end
+  end
+
+  def options_for_radio_status(op)
+    if op == 1
+      'Paga'
+    else
+      if op == 0
+        'Pendende de Análise'
+      end
+    end
   end
 
 end

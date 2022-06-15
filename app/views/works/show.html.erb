@@ -178,7 +178,7 @@
 
         </section>
 
-        <section class="col-lg-7 no-padding">
+        <section>
           <h2 class="h-line">
             <i class="fa fa-gavel"></i>
             <b>Poderes</b>
@@ -230,6 +230,97 @@
           <% else %>
             <i class="fa fa-times"></i>
             <p class="in-line">Não há recomendação/indicação.</p>
+          <% end %>
+
+        </section>
+
+        <section>
+
+          <h2 class="h-line">
+            <i class="fa fa-file"></i>
+            <b>Tributário Pis/Cofins insumos:</b>
+          </h2>
+
+          <% if @work.tributary %>
+
+            <span>
+              <strong>Compensações realizadas nos últimos 5 anos:</strong>
+              <%= options_for_radio_yes(@work.tributary.compensation) %>
+            </span>
+
+            <span>
+              <strong>Compensações de ofício:</strong>
+              <%= options_for_radio_yes(@work.tributary.craft) %>
+            </span>
+
+            <span>
+              <strong>Possui ação judicial:</strong>
+              <%= options_for_radio_yes(@work.tributary.lawsuit) %>
+            </span>
+
+            <span>
+              <strong>Projeção de ganho:</strong>
+              <%= @work.tributary.projection %>
+            </span>
+
+            <h2 class="pull-left h-line cem_percent">
+              <i class="fa fa-file"></i>
+              <b>Arquivos</b>
+            </h2>
+
+            <%= form_with model: @work, local: true, multipart: true do |f| %>
+              <b><%= f.label "Adicionar de arquivos" %></b>
+              <div class="">
+                <%= f.file_field :files, multiple: true, class:"file-clss" %>
+                <small class="form-text text-muted">
+                  Formatos aceitos: JPEG, PNG e PDF.
+                </small>
+              </div>
+                <button type="submit" name="button" class="btn btn-primary btn-file-show" disabled='true'>Enviar arquivos</button>
+
+            <% end %>
+
+            <% if @work.archive_file.empty? %>
+              <i class="fa fa-times"></i>
+              <p class="in-line">Não há arquivos anexados.</p>
+            <% end %>
+
+            <% @work.archive_file.each do |file| %>
+              <span class="col-md-12">
+                <li>
+                  <%= link_to file.filename, url_for(file), target:'_blank' %>
+                  <%= link_to ("X"), client_file_upload_path(@work, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                </li>
+              </span>
+            <% end %>
+
+            <h2 class="h-line">
+              <i class="fa fa-file"></i>
+              <b>Lançamento de Perd/Comp</b>
+            </h2>
+
+            <span>
+              <strong>Número perd/comp:</strong>
+              <%= @work.tributary.perd_number %>
+            </span>
+
+            <span>
+              <strong>Data de envio de perd/comp:</strong>
+              <%= @work.tributary.shipping_date %>
+            </span>
+
+            <span>
+              <strong>Data de pagamento de perd/comp:</strong>
+              <%= @work.tributary.payment_date %>
+            </span>
+
+            <span>
+              <strong>Status:</strong>
+              <%= options_for_radio_status(@work.tributary.status) %>
+            </span>
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line">Não registro Tributário Pis/Cofins insumos.</p>
           <% end %>
 
         </section>

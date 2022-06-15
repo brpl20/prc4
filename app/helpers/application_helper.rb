@@ -21,4 +21,5 @@ module ApplicationHelper
   def retrieve_value_from_array(object, value)
     object[value][0]
   end
+
 end

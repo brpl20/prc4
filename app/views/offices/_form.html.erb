@@ -46,22 +46,22 @@
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Endereço" %></b>
-            <%= f.text_field :address, class:"form-control" %>
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
           </div>
 
         </div>
 
         <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :address, class:"form-control address" %>
+          </div>
 
           <div class="col-md-6">
             <b><%= f.label "Cidade" %></b>
-            <%= f.text_field :city, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <b><%= f.label "Estado" %></b>
-            <%= f.text_field :state, class:"form-control" %>
+            <%= f.text_field :city, class:"form-control city" %>
           </div>
 
         </div>
@@ -69,8 +69,8 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "CEP" %></b>
-            <%= f.text_field :zip, class:"form-control",'data-mask': '00.000-000', placeholder:"00.000-000" %>
+            <b><%= f.label "Estado" %></b>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
           </div>
 
           <div class="col-md-6">

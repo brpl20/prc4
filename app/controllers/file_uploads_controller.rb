@@ -6,6 +6,6 @@ class FileUploadsController < ApplicationController
   def destroy
     @client = Client.find(params[:client_id])
     @client.files.find(params[:id]).purge
-    redirect_to edit_client_path(@client)
+    redirect_to request.referrer
   end
 end

@@ -58,8 +58,12 @@ class ClientsController < ApplicationController
   end
 
   def destroy
-    @client.destroy
-    redirect_to clients_path
+    if Client.can_be_destroyed(@client.id)
+      redirect_to clients_path, notice: 'Cliente não pode ser excluído, pois possui trabalhos anteriores.'
+    else
+      @client.destroy
+      redirect_to clients_path, notice: 'Cliente excluído com sucesso.'
+    end
   end
 
   def show

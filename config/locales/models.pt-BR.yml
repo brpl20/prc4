@@ -1,3 +1,5 @@
+# config.i18n.default_locale = :'pt-BR'
+
 pt-BR:
   helpers:
     label:
