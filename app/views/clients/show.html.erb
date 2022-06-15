@@ -231,9 +231,21 @@
             <b>Arquivos</b>
           </h2>
 
+          <%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+            <b><%= f.label "Adicionar de arquivos" %></b>
+            <div class="">
+              <%= f.file_field :files, multiple: true, class:"file-clss" %>
+              <small class="form-text text-muted">
+                Formatos aceitos: JPEG, PNG e PDF.
+              </small>
+            </div>
+              <button type="submit" name="button" class="btn btn-primary btn-file-show" disabled='true'>Enviar arquivos</button>
+
+          <% end %>
+
           <% if @client.files.empty? %>
             <i class="fa fa-times"></i>
-            <p class="in-line">Não há arquivos.</p>
+            <p class="in-line">Não há arquivos anexados.</p>
           <% end %>
 
           <% @client.files.each do |file| %>

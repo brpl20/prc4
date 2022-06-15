@@ -318,7 +318,39 @@ $(document).ready(function(){
     }
   });
 
+  if (window.location.href.match('clients/show')) {
+    $("#client_status_0").prop("checked", true);
+  }
 
+  $('input[name="client[files][]"]').change(function(ev){
+    if ($('input[name="client[files][]"]').val() == ""){
+      $(".btn-file-show").prop("disabled", true);
+    }
+    else {
+      $(".btn-file-show").prop("disabled", false);
+    }
+  });
+
+  $(".cep").focusout(function(){
+    $.ajax({
+      url: 'https://viacep.com.br/ws/'+$(this).val().replace(/\D/g, '')+'/json/',
+      dataType: 'json',
+      success: function(resposta){
+        $(".address").val(resposta.logradouro);
+        $(".city").val(resposta.localidade);
+        $(".state").val(resposta.uf);
+        $(".address").focus();
+      }
+    });
+  });
+
+  $(".subBtn-cep").on('click', function(){
+
+    cep = $(".cep").val();
+    cep = cep.replace(/\D/g, '');
+    console.log(cep)
+
+  });
 
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){

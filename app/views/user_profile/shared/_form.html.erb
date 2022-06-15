@@ -76,32 +76,33 @@
 	<span class="section">Endereço</span>
 
 	<div class="item form-group">
+		<%= f.label "CEP", class:"col-form-label col-md-3 col-sm-3 label-align" %>
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.text_field :zip, class:'form-control cep','data-mask': '00000-000', placeholder:"00000-000" %>
+		</div>
+	</div>
+
+	<div class="item form-group">
 		<%= f.label "Endereço", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :address, class:'form-control' %>
+			<%= f.text_field :address, class:'form-control address' %>
 		</div>
 	</div>
 
 	<div class="item form-group">
 		<%= f.label "Cidade", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :city, class:'form-control' %>
+			<%= f.text_field :city, class:'form-control city' %>
 		</div>
 	</div>
 
 	<div class="item form-group">
 		<%= f.label "Estado", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :state, class:'form-control' %>
+			<%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
 		</div>
 	</div>
 
-	<div class="item form-group">
-		<%= f.label "CEP", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-		<div class="col-md-6 col-sm-6 ">
-			<%= f.text_field :zip, class:'form-control','data-mask': '00.000-00', placeholder:"00.000-000" %>
-		</div>
-	</div>
 
 	<span class="section">Contato</span>
 

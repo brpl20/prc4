@@ -43,4 +43,5 @@ Rails.application.configure do
   config.assets.quiet = true
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.i18n.available_locales = 'pt-BR'
+  config.i18n.enforce_available_locales = true
 end

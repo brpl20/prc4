@@ -33,7 +33,7 @@
             <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
           </fieldset>
 
-          <%= f.fields_for :tributary_attributes do |ta| %>
+          <%= f.fields_for :tributary do |ta| %>
               <div class='subject-append-pis hidden' id='label-tributary-work' data-action-for-tributary-work="<%#= @work.tributary_attribute.compensation %>">
 
                 <div class='col-md-5'>
@@ -66,7 +66,7 @@
                   <div class='col-md-12 no-padding'>
                     <div class='col-md-6'>
                       <b><%= f.label "Upload de arquivos" %></b>
-                      <%= f.file_field :files, multiple: true %>
+                      <%= f.file_field :archive_file, multiple: true %>
                       <small class="form-text text-muted">
                         Formatos aceitos: JPEG, PNG e PDF.
                       </small>

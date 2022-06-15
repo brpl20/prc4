@@ -6,7 +6,6 @@ namespace :cad do
     p "Criando cliente do sistema..."
 
     Client.create!(
-       id: 48,
        gender: 1,
        name: "Allistair Lawson",
        lastname: "Reyes",
