@@ -68,6 +68,7 @@ class OfficesController < ApplicationController
         :telephone,
         :email,
         :user_id,
+        :office_type_id,
         bank_attributes:   [:id, :name, :agency, :account])
     end
 end
