@@ -89,6 +89,11 @@ $('.rate').focus();
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Física' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CPF</label></b> <input autocomplete='off' class='form-control' data-mask='000.000.000-00' placeholder='000.000.000-00' type='text' name='client[social_number]' id='client_social_number' maxlength='14'></div></div>" );
 
     $("#client_social_number").val($("#label-client-type").data('exfield'));
+
+    if($("#client_capacity_relativamente_incapaz").is(':checked') || $("#client_capacity_absolutamente_incapaz").is(':checked') && $("#client_client_type_0").is(':checked')){
+      add_button_rep();
+    }
+
   };
 
   function pessoa_juridica(){

@@ -18,7 +18,8 @@ namespace :cad do
       site: "www.pellizzetti.adv.br",
       telephone: "4530355898",
       email: "contato@pellizzetti.adv.br",
-      user_id: 1
+      user_id: 1,
+      office_type_id: 1
     )
 
     p 'Office criado com sucesso'

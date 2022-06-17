@@ -56,11 +56,22 @@ class OfficesController < ApplicationController
     @office = Office.find(params[:id])
   end
 
-  def office_params
-    params.require(:office).permit(
-      :name, :oab, :cnpj_number, :society, :foundation, :address, :city, :state, :zip,
-      :site, :telephone, :email, :user_id, bank_attributes: %i[id name agency account]
-    )
-  end
-
+    def office_params
+      params.require(:office).permit(
+        :name,
+        :oab,
+        :cnpj_number,
+        :society,
+        :foundation,
+        :address,
+        :city,
+        :state,
+        :zip,
+        :site,
+        :telephone,
+        :email,
+        :user_id,
+        :office_type_id,
+        bank_attributes:   [:id, :name, :agency, :account])
+    end
 end

@@ -23,6 +23,8 @@ namespace :pop do
 
     p %x(rake cad:client)
 
+    p %x(rake cad:office_type)
+
     p %x(rake cad:office)
 
     p %x(rake pop:generate_powers)
