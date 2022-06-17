@@ -180,7 +180,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_033446) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.bigint "user_id", default: 1, null: false
-    t.bigint "office_type_id", null: false
+    t.bigint "office_type_id", default: 1, null: false
     t.index ["office_type_id"], name: "index_offices_on_office_type_id"
     t.index ["user_id"], name: "index_offices_on_user_id"
   end
