@@ -20,19 +20,6 @@ class ClientsController < ApplicationController
     @client.customer_types.build if @client.customer_types
   end
 
-  def new_rep
-    @client = Client.new
-    @incapable = Client.find(params[:id])
-    @client.address = @incapable.address
-    @client.zip = @incapable.zip
-    @client.city = @incapable.city
-    @client.state = @incapable.state
-    @client.capacity = "Capaz"
-    # @client.representative = @incapable.id
-    @client.phones.build
-    @client.emails.build
-  end
-
   def create
     @client = Client.new(client_params)
     if @client.save

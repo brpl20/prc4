@@ -120,7 +120,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_033446) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "choice"
-    t.integer "status"
+    t.integer "status", default: 0
     t.integer "client_type"
     t.string "nit"
     t.string "passwdInss"
