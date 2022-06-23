@@ -446,7 +446,12 @@ class WorksController < ApplicationController
       archive_file: [],
       client_works_attributes: %i[id client_id recommendation value percentage],
       work_offices_attributes: %i[id office_id],
-      tributary_attributes: %i[id compensation craft lawsuit projection perd_number shipping_date payment_date status work_id]
+      tributary_attributes: [:id,
+                            :compensation,
+                            :craft,
+                            :lawsuit,
+                            :projection,
+                            :work_id]
       )
   end
 

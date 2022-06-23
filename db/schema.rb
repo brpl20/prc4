@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_16_033446) do
+ActiveRecord::Schema.define(version: 2022_06_22_024449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -183,6 +183,17 @@ ActiveRecord::Schema.define(version: 2022_06_16_033446) do
     t.index ["user_id"], name: "index_offices_on_user_id"
   end
 
+  create_table "perd_launches", force: :cascade do |t|
+    t.string "perd_number"
+    t.date "shipping_date"
+    t.date "payment_date"
+    t.integer "status"
+    t.bigint "tributary_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tributary_id"], name: "index_perd_launches_on_tributary_id"
+  end
+
   create_table "phones", force: :cascade do |t|
     t.text "phone"
     t.bigint "client_id", null: false
@@ -222,10 +233,6 @@ ActiveRecord::Schema.define(version: 2022_06_16_033446) do
     t.integer "craft"
     t.integer "lawsuit"
     t.decimal "projection"
-    t.string "perd_number"
-    t.date "shipping_date"
-    t.date "payment_date"
-    t.integer "status"
     t.bigint "work_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -328,6 +335,7 @@ ActiveRecord::Schema.define(version: 2022_06_16_033446) do
   add_foreign_key "jobs", "works"
   add_foreign_key "offices", "office_types"
   add_foreign_key "offices", "users"
+  add_foreign_key "perd_launches", "tributaries"
   add_foreign_key "phones", "clients"
   add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"

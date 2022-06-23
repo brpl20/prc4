@@ -77,6 +77,12 @@ module WorksHelper
     @jobs = Job.where(work_id: work.id)
   end
 
+  def perd_comp_to_this_work?(tributary)
+    if tributary != nil
+      @perdlaunches = PerdLaunch.where(tributary_id: tributary.id)
+    end
+  end
+
   def has_recommendation(id)
     Client.find(id).name
   end

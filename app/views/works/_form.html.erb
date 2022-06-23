@@ -73,36 +73,6 @@
                     </div>
                   </div>
                 </div>
-
-
-                <div class='col-md-3'>
-                  <div class='col-md-12 no-padding'>
-                    <p><b>Lançamento de Perd/Comp</b></p> <b>
-                      <label for='work_tributary_attributes_Número Perd/Comp'>Número perd/comp</label>
-                    </b>
-                    <%= ta.text_field :perd_number, class:"form-control" %>
-
-                  </div>
-
-                  <div class='col-md-12 no-padding'>
-                    <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b>
-                    <%= ta.date_field :shipping_date, class:"form-control" %>
-
-                  </div>
-                  <div class='col-md-12 no-padding'>
-                    <b><label for='work_tributary_attributes_Data de pagamento de Perd/Comp'>Data de pagamento de perd/comp</label></b>
-                    <%= ta.date_field :payment_date, class:"form-control" %>
-
-                  </div>
-
-                  <div class='col-md-12 no-padding'>
-                      <b><label for='work_Status'>Status</label></b>
-
-                      <%= ta.radio_button :status, '0' %> Pendende de Análise
-                      <%= ta.radio_button :status, '1' %> Paga
-
-                  </div>
-                </div>
               </div>
 
           <% end %>
@@ -216,7 +186,7 @@
             </div>
 
             <div class="col-md-6 no-padding">
-              <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Selecionar Indicação</span></a>
+              <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Adicionar Perd/Comp</span></a>
             </div>
           </div>
 

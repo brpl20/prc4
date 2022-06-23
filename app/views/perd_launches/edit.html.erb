@@ -1,0 +1,41 @@
+<h1 class="mg-left">Edição de Perd/Comp</h1>
+
+<div class="panel panel-default">
+
+  <%= form_with model:@perdlaunch, local: true do |f| %>
+      <div class='col-md-12'>
+        <div class='col-md-12 no-padding'>
+          <p><b>Lançamento de Perd/Comp</b></p> <b>
+            <label for='work_tributary_attributes_Número Perd/Comp'>Número perd/comp</label>
+          </b>
+          <%= f.text_field :perd_number, class:"form-control" %>
+
+        </div>
+
+        <div class='col-md-12 no-padding'>
+          <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b>
+          <%= f.date_field :shipping_date, class:"form-control" %>
+
+        </div>
+
+        <div class='col-md-12 no-padding'>
+          <b><label for='work_tributary_attributes_Data de pagamento de Perd/Comp'>Data de pagamento de perd/comp</label></b>
+          <%= f.date_field :payment_date, class:"form-control" %>
+
+        </div>
+
+        <div class='col-md-12 no-padding grid'>
+            <b><label for='work_Status'>Status</label></b>
+            <div> <%= f.radio_button :status, '0' %> Pendende de Análise </div>
+            <div> <%= f.radio_button :status, '1' %> Paga </div>
+        </div>
+
+        <%= f.number_field :tributary_id, class:"form-control hidden" %>
+
+      </div>
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+      <%= link_to "Cancelar", works_path, class:"btn btn-danger pull-right" %>
+    </div>
+  <% end %>
+</div>

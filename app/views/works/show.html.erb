@@ -294,33 +294,9 @@
               </span>
             <% end %>
 
-            <h2 class="h-line">
-              <i class="fa fa-file"></i>
-              <b>Lançamento de Perd/Comp</b>
-            </h2>
-
-            <span>
-              <strong>Número perd/comp:</strong>
-              <%= @work.tributary.perd_number %>
-            </span>
-
-            <span>
-              <strong>Data de envio de perd/comp:</strong>
-              <%= @work.tributary.shipping_date %>
-            </span>
-
-            <span>
-              <strong>Data de pagamento de perd/comp:</strong>
-              <%= @work.tributary.payment_date %>
-            </span>
-
-            <span>
-              <strong>Status:</strong>
-              <%= options_for_radio_status(@work.tributary.status) %>
-            </span>
           <% else %>
             <i class="fa fa-times"></i>
-            <p class="in-line">Não registro Tributário Pis/Cofins insumos.</p>
+            <p class="in-line pis-warning">Não registro Tributário Pis/Cofins insumos.</p>
           <% end %>
 
         </section>
@@ -329,6 +305,95 @@
 
     </div>
   </div>
+
+  <% if @work.tributary %>
+    <div class="x_panel">
+
+      <div class="x_title clearfix">
+        <div class="col-md-8">
+          <h1 class="">Perd/Comp</h1>
+        </div>
+
+          <div class="col-md-4">
+            <%= link_to "#", class: "btn btn-outline btn-primary btn-new-perd",
+                data: {
+                  toggle: "modal",
+                  url: new_perd_launch_path(tributary_id: @work.tributary.id, work_id: @work.id),
+                  target: "#modal-general"} do %>
+                  <span class="btn-color">Novo lançamento</span>
+            <% end %>
+          </div>
+
+      </div>
+
+      <div class="x_content">
+
+        <% if perd_comp_to_this_work?(@work.tributary) %>
+          <div>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Número perd/comp</th>
+                  <th>Data de envio de perd/comp</th>
+                  <th>Data de pagamento de perd/comp</th>
+                  <th>Status</th>
+                  <th class="table-actions">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @perdlaunches.each do |perd| %>
+                  <tr>
+                    <td scope="row"><%= perd.id %></td>
+
+                    <td>
+                      <%= perd.perd_number %>
+                    </td>
+
+                    <td>
+                      <%= perd.shipping_date %>
+                    </td>
+
+                    <td> <%= perd.payment_date %></td>
+
+                    <td> <%= options_for_radio_status(perd.status) %></td>
+
+                    <td class="table-action-content">
+
+                      <%= link_to "#", class: "btn btn-primary", 'data-placement':'top', title:'editar',
+                          data: {
+                            toggle: "modal",
+                            url: edit_perd_launch_path(perd_id: perd.id, work_id: @work.id),
+                            target: "#modal-general"} do %>
+                            <i class="fa fa-edit"></i>
+                      <% end %>
+
+                      <%= link_to perd_launch_path(perd, work_id: @work.id), class:"btn btn-danger",
+                          method: :delete, 'data-toggle':"tooltip", 'data-placement':'top', title:'apagar', data: {confirm: "Tem certeza que deseja apagar"} do %>
+                          <i class="fa fa-times"></i>
+                      <% end %>
+
+                    </td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+
+        <% else %>
+
+          <p>Não foram encontradas Perd/Comp para este trabalho.</p>
+
+        <% end %>
+
+      </div>
+
+
+    </div>
+  <% end %>
 
   <div class="x_panel">
 
@@ -385,3 +450,5 @@
   <%= link_to "Voltar", works_path, class:"btn btn-danger btn-outline left col-md-1" %>
 
   </div>
+
+    <%= render partial: "shared/modal" %>
