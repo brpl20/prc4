@@ -23,6 +23,10 @@ class Client < ApplicationRecord
   NULL_ATTRS = %w[lastname bank].freeze
   #before_save :fill_if_nil, :default_values
 
+  def self.can_be_destroyed id
+    ClientWork.exists?(client_id: id)
+  end
+
   protected
 
   #def default_values

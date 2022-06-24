@@ -65,6 +65,7 @@ $(document).ready(function(){
   function check_subject_area(){
     var area = $("#subject-fields").data('action-for-subject');
     var c_type = $("#rate-client-type").data('action-for-client-type');
+    $(".subject-append-pis").val($("#label-tributary-work").data('action-for-tributary-work'));
 
     $('input[name="work[action]"]').each(function(){
       if ($(this).val() == area) {
@@ -88,6 +89,11 @@ $(document).ready(function(){
     $("#rate-client-type").append("<div class='client-type-append col-md-6 no-padding' data-cond-option='client[client_type]' data-cond-value='Pessoa Física' style='display: block;'> <div class='form-group'><b><label for='client_Tipo de Cliente'>Número do CPF</label></b> <input autocomplete='off' class='form-control' data-mask='000.000.000-00' placeholder='000.000.000-00' type='text' name='client[social_number]' id='client_social_number' maxlength='14'></div></div>" );
 
     $("#client_social_number").val($("#label-client-type").data('exfield'));
+
+    if($("#client_capacity_relativamente_incapaz").is(':checked') || $("#client_capacity_absolutamente_incapaz").is(':checked') && $("#client_client_type_0").is(':checked')){
+      add_button_rep();
+    }
+
   };
 
   function pessoa_juridica(){
@@ -317,7 +323,39 @@ $(document).ready(function(){
     }
   });
 
+  if (window.location.href.match('clients/show')) {
+    $("#client_status_0").prop("checked", true);
+  }
 
+  $('input[name="client[files][]"]').change(function(ev){
+    if ($('input[name="client[files][]"]').val() == ""){
+      $(".btn-file-show").prop("disabled", true);
+    }
+    else {
+      $(".btn-file-show").prop("disabled", false);
+    }
+  });
+
+  $(".cep").focusout(function(){
+    $.ajax({
+      url: 'https://viacep.com.br/ws/'+$(this).val().replace(/\D/g, '')+'/json/',
+      dataType: 'json',
+      success: function(resposta){
+        $(".address").val(resposta.logradouro);
+        $(".city").val(resposta.localidade);
+        $(".state").val(resposta.uf);
+        $(".address").focus();
+      }
+    });
+  });
+
+  $(".subBtn-cep").on('click', function(){
+
+    cep = $(".cep").val();
+    cep = cep.replace(/\D/g, '');
+    console.log(cep)
+
+  });
 
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){

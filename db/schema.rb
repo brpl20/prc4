@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_06_02_050018) do
+ActiveRecord::Schema.define(version: 2022_06_22_024449) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -158,6 +158,12 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.index ["work_id"], name: "index_jobs_on_work_id"
   end
 
+  create_table "office_types", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "offices", force: :cascade do |t|
     t.string "name"
     t.string "oab"
@@ -174,7 +180,20 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "email"
     t.bigint "user_id", default: 1, null: false
+    t.bigint "office_type_id", null: false
+    t.index ["office_type_id"], name: "index_offices_on_office_type_id"
     t.index ["user_id"], name: "index_offices_on_user_id"
+  end
+
+  create_table "perd_launches", force: :cascade do |t|
+    t.string "perd_number"
+    t.date "shipping_date"
+    t.date "payment_date"
+    t.integer "status"
+    t.bigint "tributary_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["tributary_id"], name: "index_perd_launches_on_tributary_id"
   end
 
   create_table "phones", force: :cascade do |t|
@@ -216,10 +235,6 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
     t.integer "craft"
     t.integer "lawsuit"
     t.decimal "projection"
-    t.string "perd_number"
-    t.date "shipping_date"
-    t.date "payment_date"
-    t.integer "status"
     t.bigint "work_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -320,7 +335,9 @@ ActiveRecord::Schema.define(version: 2022_06_02_050018) do
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients"
   add_foreign_key "jobs", "works"
+  add_foreign_key "offices", "office_types"
   add_foreign_key "offices", "users"
+  add_foreign_key "perd_launches", "tributaries"
   add_foreign_key "phones", "clients"
   add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"

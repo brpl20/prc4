@@ -178,7 +178,7 @@
 
         </section>
 
-        <section class="col-lg-7 no-padding">
+        <section>
           <h2 class="h-line">
             <i class="fa fa-gavel"></i>
             <b>Poderes</b>
@@ -234,10 +234,166 @@
 
         </section>
 
+        <section>
+
+          <h2 class="h-line">
+            <i class="fa fa-file"></i>
+            <b>Tributário Pis/Cofins insumos:</b>
+          </h2>
+
+          <% if @work.tributary %>
+
+            <span>
+              <strong>Compensações realizadas nos últimos 5 anos:</strong>
+              <%= options_for_radio_yes(@work.tributary.compensation) %>
+            </span>
+
+            <span>
+              <strong>Compensações de ofício:</strong>
+              <%= options_for_radio_yes(@work.tributary.craft) %>
+            </span>
+
+            <span>
+              <strong>Possui ação judicial:</strong>
+              <%= options_for_radio_yes(@work.tributary.lawsuit) %>
+            </span>
+
+            <span>
+              <strong>Projeção de ganho:</strong>
+              <%= @work.tributary.projection %>
+            </span>
+
+            <h2 class="pull-left h-line cem_percent">
+              <i class="fa fa-file"></i>
+              <b>Arquivos</b>
+            </h2>
+
+            <%= form_with model: @work, local: true, multipart: true do |f| %>
+              <b><%= f.label "Adicionar de arquivos" %></b>
+              <div class="">
+                <%= f.file_field :files, multiple: true, class:"file-clss" %>
+                <small class="form-text text-muted">
+                  Formatos aceitos: JPEG, PNG e PDF.
+                </small>
+              </div>
+                <button type="submit" name="button" class="btn btn-primary btn-file-show" disabled='true'>Enviar arquivos</button>
+
+            <% end %>
+
+            <% if @work.archive_file.empty? %>
+              <i class="fa fa-times"></i>
+              <p class="in-line">Não há arquivos anexados.</p>
+            <% end %>
+
+            <% @work.archive_file.each do |file| %>
+              <span class="col-md-12">
+                <li>
+                  <%= link_to file.filename, url_for(file), target:'_blank' %>
+                  <%= link_to ("X"), client_file_upload_path(@work, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                </li>
+              </span>
+            <% end %>
+
+          <% else %>
+            <i class="fa fa-times"></i>
+            <p class="in-line pis-warning">Não registro Tributário Pis/Cofins insumos.</p>
+          <% end %>
+
+        </section>
+
       </div>
 
     </div>
   </div>
+
+  <% if @work.tributary %>
+    <div class="x_panel">
+
+      <div class="x_title clearfix">
+        <div class="col-md-8">
+          <h1 class="">Perd/Comp</h1>
+        </div>
+
+          <div class="col-md-4">
+            <%= link_to "#", class: "btn btn-outline btn-primary btn-new-perd",
+                data: {
+                  toggle: "modal",
+                  url: new_perd_launch_path(tributary_id: @work.tributary.id, work_id: @work.id),
+                  target: "#modal-general"} do %>
+                  <span class="btn-color">Novo lançamento</span>
+            <% end %>
+          </div>
+
+      </div>
+
+      <div class="x_content">
+
+        <% if perd_comp_to_this_work?(@work.tributary) %>
+          <div>
+
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Número perd/comp</th>
+                  <th>Data de envio de perd/comp</th>
+                  <th>Data de pagamento de perd/comp</th>
+                  <th>Status</th>
+                  <th class="table-actions">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @perdlaunches.each do |perd| %>
+                  <tr>
+                    <td scope="row"><%= perd.id %></td>
+
+                    <td>
+                      <%= perd.perd_number %>
+                    </td>
+
+                    <td>
+                      <%= perd.shipping_date %>
+                    </td>
+
+                    <td> <%= perd.payment_date %></td>
+
+                    <td> <%= options_for_radio_status(perd.status) %></td>
+
+                    <td class="table-action-content">
+
+                      <%= link_to "#", class: "btn btn-primary", 'data-placement':'top', title:'editar',
+                          data: {
+                            toggle: "modal",
+                            url: edit_perd_launch_path(perd_id: perd.id, work_id: @work.id),
+                            target: "#modal-general"} do %>
+                            <i class="fa fa-edit"></i>
+                      <% end %>
+
+                      <%= link_to perd_launch_path(perd, work_id: @work.id), class:"btn btn-danger",
+                          method: :delete, 'data-toggle':"tooltip", 'data-placement':'top', title:'apagar', data: {confirm: "Tem certeza que deseja apagar"} do %>
+                          <i class="fa fa-times"></i>
+                      <% end %>
+
+                    </td>
+
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+
+          </div>
+
+        <% else %>
+
+          <p>Não foram encontradas Perd/Comp para este trabalho.</p>
+
+        <% end %>
+
+      </div>
+
+
+    </div>
+  <% end %>
 
   <div class="x_panel">
 
@@ -294,3 +450,5 @@
   <%= link_to "Voltar", works_path, class:"btn btn-danger btn-outline left col-md-1" %>
 
   </div>
+
+    <%= render partial: "shared/modal" %>

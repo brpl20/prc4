@@ -59,6 +59,11 @@
   <%= @office.email %>
 </p>
 
+<p>
+  <strong>Tipo de escritório:</strong>
+  <%= description_office_type(@office.office_type_id) %>
+</p>
+
 <% if @office.bank %>
   <p>
     <strong>Banco:</strong>

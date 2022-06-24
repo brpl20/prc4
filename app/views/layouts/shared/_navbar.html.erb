@@ -74,11 +74,22 @@
             <% end %>
           </li>
 
-          <li>
-            <%= link_to offices_path do %>
-              <i class="fa fa-university"></i> Escritório
-              <span class="fa fa-chevron-right"></span>
-            <% end %>
+          <li><a><i class="fa fa-university"></i> Escritório <span class="fa fa-chevron-down"></span></a>
+            <ul class="nav child_menu">
+              <li>
+                <%= link_to offices_path do %>
+                  Escritórios
+                <% end %>
+              </li>
+
+              <li>
+                <%= link_to office_types_path do %>
+                  Tipos de Escritório
+                <% end %>
+              </li>
+
+            </ul>
+
           </li>
 
         </ul>

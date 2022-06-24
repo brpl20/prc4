@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'office_types/index'
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 
   get 'pages/index'
@@ -26,6 +27,8 @@ Rails.application.routes.draw do
   resources :offices
   resources :attendances
   resources :finances
+  resources :office_types
+  resources :perd_launches, except: %i[show]
 
   resources :client do
     resources :file_uploads, only: %i[new create destroy]

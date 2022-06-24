@@ -46,22 +46,22 @@
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Endereço" %></b>
-            <%= f.text_field :address, class:"form-control" %>
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
           </div>
 
         </div>
 
         <div class="col-md-12">
+
+          <div class="col-md-6">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :address, class:"form-control address" %>
+          </div>
 
           <div class="col-md-6">
             <b><%= f.label "Cidade" %></b>
-            <%= f.text_field :city, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <b><%= f.label "Estado" %></b>
-            <%= f.text_field :state, class:"form-control" %>
+            <%= f.text_field :city, class:"form-control city" %>
           </div>
 
         </div>
@@ -69,8 +69,8 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "CEP" %></b>
-            <%= f.text_field :zip, class:"form-control",'data-mask': '00.000-000', placeholder:"00.000-000" %>
+            <b><%= f.label "Estado" %></b>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
           </div>
 
           <div class="col-md-6">
@@ -96,35 +96,46 @@
 
         <div class="col-md-12">
 
-        <div class="col-md-6 no-padding no-margin">
+          <div class="col-md-6 no-padding no-margin">
 
-          <%= f.fields_for :bank do |b| %>
+            <%= f.fields_for :bank do |b| %>
 
-            <div class="col-md-4">
-              <b><%= f.label "Banco" %></b>
-              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control', placeholder:"Conta"}%>
+              <div class="col-md-4">
+                <b><%= f.label "Banco" %></b>
+                <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control', placeholder:"Conta"}%>
+              </div>
+
+              <div class="col-md-4">
+                <b><%= f.label "Agência" %></b>
+                <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+              </div>
+
+              <div class="col-md-4">
+                <b><%= f.label "Conta" %></b>
+                <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+              </div>
+
+            <% end %>
+
+          </div>
+
+          <div class="col-md-6 no-padding no-margin">
+
+            <div class="col-md-6">
+
+              <b><%= f.label "Reponsável pelo escritório" %></b>
+              <%= f.collection_select :user_id,  options_for_responsible, :id, :name, {}, {class:'form-control'} %>
+
             </div>
 
-            <div class="col-md-4">
-              <b><%= f.label "Agência" %></b>
-              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+            <div class="col-md-6">
+
+              <b><%= f.label "Tipo de escritório" %></b>
+              <%= f.collection_select :office_type_id,  options_for_office_type, :id, :description, {}, {class:'form-control'} %>
+
             </div>
+          </div>
 
-            <div class="col-md-4">
-              <b><%= f.label "Conta" %></b>
-              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
-            </div>
-
-          <% end %>
-
-        </div>
-
-        <div class="col-md-6">
-
-          <b><%= f.label "Reponsável pelo escritório" %></b>
-          <%= f.collection_select :user_id,  options_for_responsible, :id, :name, {}, {class:'form-control'} %>
-
-        </div>
         </div>
 
 
