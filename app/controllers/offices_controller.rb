@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 class OfficesController < ApplicationController
-  before_action :set_office, only: [:show, :edit, :update, :destroy]
+
+  before_action :set_office, only: %i[show edit update destroy]
 
   def index
     @offices = Office.all
@@ -8,7 +11,7 @@ class OfficesController < ApplicationController
   def show; end
 
   def new
-    @office  = Office.new
+    @office = Office.new
     @office.build_bank
   end
 
@@ -49,9 +52,9 @@ class OfficesController < ApplicationController
   end
 
   private
-    def set_office
-      @office = Office.find(params[:id])
-    end
+  def set_office
+    @office = Office.find(params[:id])
+  end
 
     def office_params
       params.require(:office).permit(

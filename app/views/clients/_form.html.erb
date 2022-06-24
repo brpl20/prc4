@@ -9,10 +9,6 @@
     <div class="x_content">
       <%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
 
-      <%#= f.collection_radio_buttons :status, Work.status, :second, :first do |b|
-       b.label { b.radio_button + b.text }
-     end %>
-
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
@@ -299,15 +295,6 @@
                 end %>
             </div>
 
-
-            <div class="col-md-6">
-              <b><%= f.label :status %></b>
-              <%= f.collection_radio_buttons :status, options_for_status_client, :second, :first do |b|
-              b.label(class:"inline-radio") { b.radio_button + b.text }
-              end %>
-            </div>
-          </div>
-
       </div>
 
         <div class="col-md-12">
@@ -322,6 +309,6 @@
   </div>
 </div>
 
-  <%= render partial: "shared/modal" %>
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
+<%= render partial: "shared/modal" %>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>

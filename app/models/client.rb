@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
-  has_one  :bank, dependent: :destroy
+
+  has_one :bank, dependent: :destroy
   has_many :phones, inverse_of: :client, dependent: :destroy
   has_many :emails, inverse_of: :client, dependent: :destroy
   has_many :customer_types, inverse_of: :client, dependent: :destroy
@@ -21,21 +22,20 @@ class Client < ApplicationRecord
   DESCRIPTION = %w[Representante\ Legal Contador].freeze
 
   NULL_ATTRS = %w[lastname bank].freeze
-  #before_save :fill_if_nil, :default_values
+  # before_save :fill_if_nil, :default_values
 
   def self.can_be_destroyed id
     ClientWork.exists?(client_id: id)
   end
 
   protected
-
-  #def default_values
+  # def default_values
   #  self.status = 0
-  #end
+  # end
 
   def file_type
     files.each do |file|
-      unless file.content_type.in?(%('image/jpeg image/png application/pdf'))
+      unless file.content_type.in?(%{'image/jpeg image/png application/pdf'})
         errors.add(:files, 'Adicione um arquivo JPG, PNG ou PDF.')
       end
     end
@@ -44,4 +44,5 @@ class Client < ApplicationRecord
   def fill_if_nil
     NULL_ATTRS.each { |attr| self[attr] = '[Campo Vazio]' if self[attr].nil? }
   end
+
 end

@@ -27,7 +27,7 @@
                 <% @offices.each do |o| %>
                   <tr role="row">
                     <td><%= o.id %></td>
-                    <td><%= o.name %></td>
+                    <td><%= link_to "#{o.name}", office_path(o) %></td>
                     <td><%= o.cnpj_number %></td>
                     <td><%= o.society %></td>
                     <td><%= o.city %></td>

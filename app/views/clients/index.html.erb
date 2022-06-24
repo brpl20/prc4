@@ -16,7 +16,6 @@
               <tr role="row">
                 <th>#</th>
                 <th>Nome</th>
-                <th>RG</th>
                 <th>CPF/CNPJ</th>
                 <th>E-mail</th>
                 <th>Cidade / Estado</th>
@@ -30,8 +29,7 @@
                 <% @clients.each do |c| %>
                   <tr role="row">
                     <td><%= c.id %></td>
-                    <td><%= c.name %> <%= c.lastname %></td>
-                    <td><%= c.general_register %></td>
+                    <td><%= link_to "#{c.name + ' ' + c.lastname}", client_path(c) %></td>
                     <td><%= c.social_number %></td>
                     <td>
                       <% c.emails.each do |e| %>
@@ -47,6 +45,12 @@
                       <% end %>
                     </td>
                     <td class="table-action-content">
+
+                      <% if c.capacity != 'Capaz' && !c.customer_types.any? %>
+                        <%= link_to client_path(c), class:'btn btn-warning', 'data-toggle':"tooltip", 'data-placement':'top', title:'Necessário informar um representante legal' do %>
+                        <i class="fa fa-exclamation-triangle"></i>
+                        <% end %>
+                      <% end %>
 
                       <%= link_to new_job_path(client_id: c), class:'btn btn-success', 'data-toggle':"tooltip", 'data-placement':'top', title:'nova tarefa' do %>
                         <i class="fa fa-gavel"></i>

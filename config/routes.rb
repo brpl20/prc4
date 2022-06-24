@@ -9,11 +9,6 @@ Rails.application.routes.draw do
 
   get 'clients/hunts', to: 'clients#hunt'
 
-  get 'pages/clt_covid'
-  post 'pages/clt_covid_s3'
-
-  get 'clients/new_rep/:id', to: 'clients#new_rep', as: :new_rep
-
   root to: 'pages#dashboard'
 
   devise_for :users
@@ -27,6 +22,7 @@ Rails.application.routes.draw do
   resources :offices
   resources :attendances
   resources :finances
+  resources :customer_types
   resources :office_types
   resources :perd_launches, except: %i[show]
 
