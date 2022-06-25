@@ -315,7 +315,7 @@
         </div>
 
           <div class="col-md-4">
-            <%= link_to "#", class: "btn btn-outline btn-primary btn-new-perd",
+            <%= link_to "#", class: "btn btn-outline btn-primary btn-new-perd pull-right",
                 data: {
                   toggle: "modal",
                   url: new_perd_launch_path(tributary_id: @work.tributary.id, work_id: @work.id),
@@ -364,7 +364,7 @@
                       <%= link_to "#", class: "btn btn-primary", 'data-placement':'top', title:'editar',
                           data: {
                             toggle: "modal",
-                            url: edit_perd_launch_path(perd_id: perd.id, work_id: @work.id),
+                            url: "/perd_launches/#{perd.id}/edit?work_id=#{@work.id}",
                             target: "#modal-general"} do %>
                             <i class="fa fa-edit"></i>
                       <% end %>
