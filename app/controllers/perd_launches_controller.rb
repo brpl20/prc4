@@ -17,9 +17,8 @@ class PerdLaunchesController < ApplicationController
   end
 
   def edit
-    @@perd_id = params[:perd_id]
     @@work_id = params[:work_id]
-    @perdlaunch = PerdLaunch.find(@@perd_id)
+    @perdlaunch = PerdLaunch.find(params[:id])
     respond_to do |format|
       format.js { render 'perd_launches/edit' }
     end
