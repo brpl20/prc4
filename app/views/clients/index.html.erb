@@ -2,9 +2,9 @@
 
   <h1 class="pull-left mg-left">Clientes</h1>
 
-  <%= link_to new_client_path, class:"btn btn-success pull-right btn-new" do %>
+  <a class='btn btn-success btn-modal-ind pull-right btn-new' data-toggle='modal' data-target='#modal-client-type' href='#'>
     <i class="fa fa-plus"></i> Novo Cliente
-  <% end %>
+  </a>
 
   <div class="x_panel">
     <div class="x_content">
@@ -80,3 +80,5 @@
   </div>
 
 </div>
+
+<%= render partial: "clients/client_type" %>
