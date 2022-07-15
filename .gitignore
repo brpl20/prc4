@@ -45,6 +45,8 @@ public/assets
 
 config/database.yml
 /config/database.yml
+config/secrets.yml
+
 
 /public/packs
 /public/packs-test
