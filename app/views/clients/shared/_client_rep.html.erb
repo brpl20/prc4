@@ -1,0 +1,111 @@
+<%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+
+  <div id="wizard" class="form_wizard wizard_horizontal">
+    <ul class="wizard_steps anchor">
+      <li>
+        <a href="#step-1" class="selected" isdone="1" rel="1">
+          <span class="step_no">1</span>
+          <span class="step_descr">
+            Dados do representante legal
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-2" class="disabled" isdone="0" rel="2">
+          <span class="step_no">2</span>
+          <span class="step_descr">
+            Contato do representante legal
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="stepContainer">
+      <div id="step-1" class="content" style="display: block;">
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :name, class:"form-control" %>
+            <small class="form-text text-muted">
+              Nome do representante legal.
+            </small>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Sobrenome" %></b>
+            <%= f.text_field :lastname, class:"form-control" %>
+            <small class="form-text text-muted">
+              Sobrenome do representante legal.
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= "Número do CPF" %></b>
+            <%= f.text_field :social_number, class:"form-control"%>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= "Número do RG" %></b>
+            <%= f.text_field :general_register, class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-12 no-padding">
+          <div class="col-md-6">
+            <div class="col-md-6 grid" id="conds-rates">
+              <label id="label-client-type" for="client_Tipo de Cliente" data-exfield="<%= @client.social_number %>">
+                <b>Tipo de Cliente</b>
+              </label>
+
+              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type ") + b.text } end %>
+            </div>
+
+            <div class="col-md-6">
+              <b><%= f.label "Capacidade" %></b>
+              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>
+
+          <div class="col-md-12 form-group rep-cli no-padding">
+            <div class="customer_types no-padding" id="customer_types_add">
+              <%= f.fields_for :customer_types do |io| %> <%= render partial: "customer_type_fields", locals: {f: io} %> <% end %> <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div id="step-2" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="phones">
+                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="emails">
+                <%= f.fields_for :emails do |e| %> <%= render partial: "email_fields", locals: {f: e} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>
