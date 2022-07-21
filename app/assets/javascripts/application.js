@@ -357,6 +357,11 @@ $('.rate').focus();
 
   });
 
+  $(".buttonFinish").addClass('btn btn-primary');
+  $(".buttonNext").addClass('btn btn-outline-success');
+  $(".buttonPrevious").addClass('btn btn-outline-primary');
+
+
   // $("input[name='client[client_type]']").each(function(){
   //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){
   //     $(this).prop("checked", true);

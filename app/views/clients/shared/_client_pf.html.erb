@@ -1,0 +1,283 @@
+<%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+
+  <div id="wizard" class="form_wizard wizard_horizontal">
+    <ul class="wizard_steps anchor">
+      <li>
+        <a href="#step-1" class="selected" isdone="1" rel="1">
+          <span class="step_no">1</span>
+          <span class="step_descr">
+            Dados pessoais
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-2" class="disabled" isdone="0" rel="2">
+          <span class="step_no">2</span>
+          <span class="step_descr">
+            Endereço
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-3" class="disabled" isdone="0" rel="3">
+          <span class="step_no">3</span>
+          <span class="step_descr">
+            Contato e representante
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-4" class="disabled" isdone="0" rel="4">
+          <span class="step_no">4</span>
+          <span class="step_descr">
+            Dados bancarios
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-5" class="disabled" isdone="0" rel="5">
+          <span class="step_no">5</span>
+          <span class="step_descr">
+            Informações Adicionais
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-6" class="disabled" isdone="0" rel="6">
+          <span class="step_no">6</span>
+          <span class="step_descr">
+            Arquivos
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="stepContainer">
+      <div id="step-1" class="content" style="display: block;">
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Nome" %></b>
+            <%= f.text_field :name, class:"form-control" %>
+            <small class="form-text text-muted">
+              Nome do cliente.
+            </small>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <b><%= f.label "Sobrenome" %></b>
+            <%= f.text_field :lastname, class:"form-control" %>
+            <small class="form-text text-muted">
+              Sobrenome do cliente.
+            </small>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= f.label "Número de Benefício" %></b>
+            <%= f.text_field :number_benefit, class:"form-control"%>
+            <small class="form-text text-muted">
+              Número do Benefício Previdenciário, caso possua.
+            </small>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Número do RG" %></b>
+            <%= f.text_field :general_register, class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-12 no-padding">
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <b><%= f.label "Gênero" %></b>
+              <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+
+              <b><%= f.label "Naturalidade" %></b>
+              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
+
+            <div class="col-md-6">
+              <b><%= f.label "Estado Civil" %></b>
+              <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Data de Nascimento" %></b>
+            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
+          </div>
+        </div>
+
+        <div class="col-md-12 no-padding">
+          <div class="col-md-6">
+            <div class="col-md-6 grid" id="conds-rates">
+              <label id="label-client-type" for="client_Tipo de Cliente" data-exfield="<%= @client.social_number %>">
+                <b>Tipo de Cliente</b>
+              </label>
+
+              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type ") + b.text } end %>
+            </div>
+
+            <div class="col-md-6">
+              <b><%= f.label "Capacidade" %></b>
+              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-md-6">
+          <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>
+
+          <div class="col-md-12 form-group rep-cli no-padding">
+            <div class="customer_types no-padding" id="customer_types_add">
+              <%= f.fields_for :customer_types do |io| %> <%= render partial: "customer_type_fields", locals: {f: io} %> <% end %> <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div id="step-2" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= f.label "CEP" %></b>
+            <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Endereço" %></b>
+            <%= f.text_field :address, class:"form-control address" %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= f.label "Cidade" %></b>
+            <%= f.text_field :city, class:"form-control city" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Estado" %></b>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
+          </div>
+        </div>
+      </div>
+      <div id="step-3" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="phones">
+                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="emails">
+                <%= f.fields_for :emails do |e| %> <%= render partial: "email_fields", locals: {f: e} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="step-4" class="content" style="display: none;">
+
+        <div class="col-md-12 no-padding">
+            <%= f.fields_for :bank do |b| %>
+            <div class="col-md-4">
+              <b><%= f.label "Banco" %></b>
+              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
+            </div>
+
+            <div class="col-md-4">
+              <b><%= f.label "Agência" %></b>
+              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+            </div>
+
+            <div class="col-md-4">
+              <b><%= f.label "Conta" %></b>
+              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+            </div>
+
+            <% end %>
+        </div>
+
+      </div>
+      <div id="step-5" class="content" style="display: none;">
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= f.label "Nome da Mãe" %></b>
+            <%= f.text_field :mothername, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Nit" %></b>
+            <%= f.text_field :nit, class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <b><%= f.label "Profissão"%></b>
+            <%= f.text_field :profession, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <b><%= f.label "Empresa Atual"%></b>
+            <%= f.text_field :company, class:"form-control" %>
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <b><%= f.label 'Senha do meu Inss' %></b>
+          <%= f.text_field :passwdInss, class:"form-control" %>
+        </div>
+
+        <div class="col-md-6">
+          <div class="col-md-6">
+            <b><%= f.label "Consulta" %></b>
+            <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+          </div>
+        </div>
+
+      </div>
+      <div id="step-6" class="content" style="display: none;">
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <b><%= f.label "Adicionar arquivos" %></b>
+              <%= f.file_field :files, multiple: true %>
+              <small class="form-text text-muted">
+                Formatos aceitos: JPEG, PNG e PDF.
+              </small>
+
+              <% if @client.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                  <% @client.errors.each do |error| %>
+                  <p><%= error.full_message %></p>
+                  <% end %>
+                </ul>
+              </div>
+              <% else %> <% if @client.files != nil %> <% @client.files.each do |file| %>
+              <li>
+                <%= link_to file.filename, url_for(file) %> <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+              </li>
+
+              <% end %> <% end %> <% end %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
