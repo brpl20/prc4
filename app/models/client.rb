@@ -24,6 +24,7 @@ class Client < ApplicationRecord
   NULL_ATTRS = %w[lastname bank email].freeze
   # before_save :fill_if_nil, :default_values
 
+
   def gender_check(client)
     if client === 0
       gender = :male
@@ -82,7 +83,8 @@ class Client < ApplicationRecord
   end
 
   def bank_check(client)
-    bank_details = "Dados Bancários: Banco #{client.bank.name}, Agência: #{client.bank.agency}, Conta: #{client.bank.account}"
+    banks_helper = ApplicationController.helpers.options_for_banks
+    bank_details = "Dados Bancários: Banco #{banks_helper.select {|item| item.include?("#{client.bank.name}")}[0][1]} (#{client.bank.name}), Agência: #{client.bank.agency}, Conta: #{client.bank.account}"
   end
 
   # representative methods
@@ -104,8 +106,7 @@ class Client < ApplicationRecord
           full_rep << nit_check(gender, rep)
           full_rep << client_address(gender, rep)
           full_rep
-          raise
-      end
+        end
       full_rep
     end
   end

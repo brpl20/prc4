@@ -112,7 +112,7 @@ class ClientsController < ApplicationController
       emails << "#{em.email}, "
     end
 
-    client.full_qualify(client, :full)
+    client.full_qualify_person(client, :full)
     client.full_qualify_representative(client)
 
 
@@ -187,11 +187,11 @@ class ClientsController < ApplicationController
       p.each_text_run do |tr|
         # CLIENT
         tr.substitute('_:c_nome_', client.full_name(client))
-        tr.substitute('_:c_estado_civil_', client.genderize(client.civilstatus))
+        #tr.substitute('_:c_estado_civil_', client.genderize(client.civilstatus))
 
         tr.substitute('_:c_profissao_', client.profession.downcase)
         tr.substitute('_:c_capacidade_', capacity_treated.downcase)
-        tr.substitute('_:c_nacionalidade_', client.genderize(client.citizenship).downcase)
+        #tr.substitute('_:c_nacionalidade_', client.genderize(client.citizenship).downcase)
 
         tr.substitute('_:c_rg_', @client[:general_register])
         tr.substitute('_:c_cpf_', (@client[:social_number]).to_s)
