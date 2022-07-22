@@ -33,7 +33,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Número de Benefício" %></b>
-            <%= f.text_field :number_benefit, class:"form-control"%>
+            <%= f.text_field :number_benefit, class:"form-control", 'data-mask': '00000-000', placeholder:"00000-000"%>
             <small class="form-text text-muted">
               Número do Benefício Previdenciário, caso possua.
             </small>

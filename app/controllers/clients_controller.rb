@@ -112,9 +112,8 @@ class ClientsController < ApplicationController
       emails << "#{em.email}, "
     end
 
-    client.full_qualify(client)
+    client.full_qualify(client, :full)
     client.full_qualify_representative(client)
-    byebug
 
 
     if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
