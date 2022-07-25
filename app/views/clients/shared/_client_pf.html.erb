@@ -6,7 +6,7 @@
         <a href="#step-1" class="selected" isdone="1" rel="1">
           <span class="step_no">1</span>
           <span class="step_descr">
-            Dados pessoais
+            Dados Pessoais
           </span>
         </a>
       </li>
@@ -22,7 +22,7 @@
         <a href="#step-3" class="disabled" isdone="0" rel="3">
           <span class="step_no">3</span>
           <span class="step_descr">
-            Contato e representante
+            Contato e Representante
           </span>
         </a>
       </li>
@@ -30,7 +30,7 @@
         <a href="#step-4" class="disabled" isdone="0" rel="4">
           <span class="step_no">4</span>
           <span class="step_descr">
-            Dados bancarios
+            Dados Bancários
           </span>
         </a>
       </li>
@@ -75,7 +75,7 @@
         <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
-            <b><%= "Número do CPF" %></b>
+            <label>Número do CPF</label>
             <%= f.text_field :social_number, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-00', 'placeholder':'000.000.000-00' %>
           </div>
 
@@ -123,15 +123,8 @@
 
           </div>
 
-          <div class="col-md-6 no-padding">
-            <div class="col-md-6 grid" id="conds-rates">
-              <label id="label-client-type" for="client_Tipo de Cliente" data-exfield="<%= @client.social_number %>">
-                <b>Tipo de Cliente</b>
-              </label>
-
-              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type ") + b.text } end %>
-            </div>
-
+          <div class="col-md-6 hidden">
+            <%= f.radio_button :client_type, '0', checked: true %> Pessoa Física
           </div>
 
         </div>
@@ -243,15 +236,17 @@
           </div>
         </div>
 
-        <div class="col-md-6">
-          <b><%= f.label 'Senha do meu Inss' %></b>
-          <%= f.text_field :passwdInss, class:"form-control" %>
-        </div>
-
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "Consulta" %></b>
-            <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            <b><%= f.label 'Senha do meu Inss' %></b>
+            <%= f.text_field :passwdInss, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <b><%= f.label "Consulta" %></b>
+              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
           </div>
         </div>
 
@@ -275,12 +270,16 @@
                   <% end %>
                 </ul>
               </div>
-              <% else %> <% if @client.files != nil %> <% @client.files.each do |file| %>
-              <li>
-                <%= link_to file.filename, url_for(file) %> <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
-              </li>
+              <% else %>
 
-              <% end %> <% end %> <% end %>
+                <% if @client.files != nil %> <% @client.files.each do |file| %>
+                  <li>
+                    <%= link_to file.filename, url_for(file) %> <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+                  </li>
+                  <% end %>
+                <% end %>
+
+              <% end %>
             </div>
           </div>
 

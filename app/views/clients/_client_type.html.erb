@@ -8,13 +8,21 @@
 
       <div class="container">
 
-        <div></div>
+        <div>
+          <%= link_to 'Pessoa Física', new_client_path(type: 'pf'), class: 'btn btn-success' %>
+        </div>
 
-        <div></div>
+        <div>
+          <%= link_to 'Pessoa Jurídica', new_client_path(type: 'pj'), class: 'btn btn-success' %>
+        </div>
 
-        <div></div>
+        <div>
+          <%= link_to 'Contador', new_client_path(type: 'cont'), class: 'btn btn-success' %>
+        </div>
 
-        <div></div>
+        <div>
+          <%= link_to 'Representante Legal', new_client_path(type: 'rep'), class: 'btn btn-success' %>
+        </div>
 
       </div>
 

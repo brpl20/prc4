@@ -18,6 +18,7 @@ class ClientsController < ApplicationController
     @client.phones.build
     @client.emails.build
     @client.customer_types.build if @client.customer_types
+    @type = params[:type]
   end
 
   def create

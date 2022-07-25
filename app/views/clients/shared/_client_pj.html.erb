@@ -6,7 +6,7 @@
         <a href="#step-1" class="selected" isdone="1" rel="1">
           <span class="step_no">1</span>
           <span class="step_descr">
-            Dados da empresa
+            Dados da Empresa
           </span>
         </a>
       </li>
@@ -22,7 +22,7 @@
         <a href="#step-3" class="disabled" isdone="0" rel="3">
           <span class="step_no">3</span>
           <span class="step_descr">
-            Contato e representante
+            Contato e Representante
           </span>
         </a>
       </li>
@@ -30,7 +30,7 @@
         <a href="#step-4" class="disabled" isdone="0" rel="4">
           <span class="step_no">4</span>
           <span class="step_descr">
-            Dados bancarios
+            Dados Bancários
           </span>
         </a>
       </li>
@@ -51,7 +51,7 @@
             <b><%= "Nome" %></b>
             <%= f.text_field :name, class:"form-control" %>
             <small class="form-text text-muted">
-              Nome da empresa.
+              Nome da Empresa.
             </small>
           </div>
 
@@ -61,25 +61,10 @@
           </div>
         </div>
 
-          <div class="col-md-12 col-sm-12">
-
-          <div class="col-md-6">
-            <div class="col-md-6 grid" id="conds-rates">
-              <label id="label-client-type" for="client_Tipo de Cliente" data-exfield="<%= @client.social_number %>">
-                <b>Tipo de Cliente</b>
-              </label>
-
-              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type ") + b.text } end %>
-            </div>
-
-            <div class="col-md-6">
-              <b><%= f.label "Capacidade" %></b>
-              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
-            </div>
-          </div>
+        <div class="col-md-6 hidden">
+          <%= f.radio_button :client_type, '1', checked: true %> Pessoa Jurídica
+          <%= f.radio_button :capacity, 'Capaz', checked: true %> Capaz
         </div>
-
-
 
         <div class="col-md-6">
           <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>
@@ -114,32 +99,49 @@
       <div id="step-3" class="content" style="display: none;">
         <div class="col-md-12">
           <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client">
+            <div class="col-md-4 form-group client no-padding">
               <div class="phones">
                 <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
               </div>
 
-              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar telefone", f, :phones, class:"btn btn-success btn-add-cli" %>
             </div>
           </div>
 
           <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client">
+            <div class="col-md-4 form-group client no-padding">
               <div class="emails">
-                <%= f.fields_for :emails do |e| %> <%= render partial: "email_fields", locals: {f: e} %> <% end %>
+                <%= f.fields_for :emails do |e| %>
+                  <%= render partial: "email_fields", locals: {f: e} %>
+                <% end %>
               </div>
 
-              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar e-mail", f, :emails, class:"btn btn-success btn-add-cli" %>
             </div>
           </div>
         </div>
 
         <div class="col-md-12 add-button-rep">
-          <a class="btn btn-outline btn-primary" id="btn-add-reps" data-toggle="modal" data-url="/clients/hunts" data-target="#modal-general" href="#"> <span>Pesquisar Representante</span></a>
+          <div class="col-md-6">
+            <a
+              class="btn btn-outline btn-primary"
+              id="btn-add-reps"
+              data-toggle="modal"
+              data-url="/clients/hunts"
+              data-target="#modal-general"
+              href="#">
+              Pesquisar Representante
+            </a>
+          </div>
 
-          <div class="col-md-12 form-group rep-cli no-padding">
+          <div class="col-md-6 form-group rep-cli no-padding">
             <div class="customer_types no-padding" id="customer_types_add">
-              <%= f.fields_for :customer_types do |io| %> <%= render partial: "customer_type_fields", locals: {f: io} %> <% end %> <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+
+              <%= f.fields_for :customer_types do |io| %>
+                <%= render partial: "customer_type_fields", locals: {f: io} %>
+              <% end %>
+
+              <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
             </div>
           </div>
 

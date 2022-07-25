@@ -59,13 +59,9 @@
                 <b>Tipo de Cliente</b>
               </label>
 
-              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type ") + b.text } end %>
+              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type") + b.text } end %>
             </div>
 
-            <div class="col-md-6">
-              <b><%= f.label "Capacidade" %></b>
-              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
-            </div>
           </div>
 
         </div>

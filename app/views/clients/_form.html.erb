@@ -2,12 +2,20 @@
   <div class="x_panel">
 
     <div class="x_title">
-      <h2>Cadastrando novo cliente</h2>
+      <h2>Cadastrando</h2>
       <div class="clearfix"></div>
     </div>
 
     <div class="x_content">
-      <%= render partial: "clients/shared/client_pf"%>
+      <% if @type == 'pf' %>
+        <%= render partial: "clients/shared/client_pf"%>
+      <% elsif @type == 'pj' %>
+        <%= render partial: "clients/shared/client_pj"%>
+      <% elsif @type == 'cont' %>
+        <%= render partial: "clients/shared/client_cont"%>
+      <% elsif @type == 'rep' %>
+        <%= render partial: "clients/shared/client_rep"%>
+      <% end %>
   </div>
 </div>
 

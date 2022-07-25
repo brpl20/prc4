@@ -4,23 +4,19 @@
 #error_explanation{
   color: #FF0000;
 }
-
 #client {
     visibility: hidden;
 }
-
 .modal-font{
   font-size: 1.5em;
   font-weight: bold;
   text-align: center;
   margin: 10px 0 10px;
 }
-
 .modal-text-input{
   width:150px;
   margin: 0 auto;
 }
-
 *{
   font-size: 14px;
 }
@@ -81,7 +77,6 @@ a.btn-user{
     color: #859eb9 !important;
     border: solid 1px #DDDDDD !important;
 }
-
 .no-margin{
   margin-top: 0 !important;
 }
@@ -97,15 +92,27 @@ a.btn-user{
   color: #c6c7cb !important;
   font-size: 1.3em !important;
 }
-
 .btn-modal-ind{
   float: right;
 }
-
 .btn-color{
   color:  #FFFFFF !important;
 }
-
 .buttonFinish, .buttonNext, .buttonPrevious{
   float: right;
+}
+#wizard{
+  margin-top: 2rem;
+}
+.stepContainer{
+  min-height: 300px;
+}
+.wizard_steps{
+  padding: 0;
+}
+label{
+  font-weight: bolder;
+}
+.inline-radio{
+  font-weight: normal;
 }
