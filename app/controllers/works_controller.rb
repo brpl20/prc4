@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-class WorksController < ApplicationController
-  before_action :authenticate_user!, :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
+class WorksController < BackofficeController
+  before_action :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
 
   def index
     @works = Work.includes(:clients).all

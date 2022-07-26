@@ -1,4 +1,4 @@
-class OfficeTypesController < ApplicationController
+class OfficeTypesController < BackofficeController
   before_action :set_office_type, only: [:edit, :update, :destroy]
 
   def index
