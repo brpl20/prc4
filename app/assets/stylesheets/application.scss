@@ -123,5 +123,22 @@ label{
   width:196px !important;
   height: 137px !important;
   border-radius: 20px !important;
+}
+
+.btn-icon{
+  padding-top: 30px;
+}
+
+.color-btn:hover{
+  background-color: #2A3F54 !important;
+  color: white !important;
+}
+
+.modal-btn{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.75rem;
 
 }

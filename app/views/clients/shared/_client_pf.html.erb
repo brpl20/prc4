@@ -103,20 +103,23 @@
 
         <div class="col-md-12 no-padding">
           <div class="col-md-6">
-            <div class="col-md-4">
+
+            <div class="col-md-3">
               <label>Gênero</label>
               <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
 
+            <div class="col-md-3">
               <label>Naturalidade</label>
               <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label>Estado Civil</label>
               <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label>Capacidade</label>
               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
             </div>
