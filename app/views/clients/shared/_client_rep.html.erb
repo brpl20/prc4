@@ -24,7 +24,7 @@
       <div id="step-1" class="content" style="display: block;">
         <div class="col-md-12 col-sm-12">
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Nome" %></b>
+            <label>Nome</label>
             <%= f.text_field :name, class:"form-control" %>
             <small class="form-text text-muted">
               Nome do representante legal.
@@ -32,7 +32,7 @@
           </div>
 
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Sobrenome" %></b>
+            <label>Sobrenome</label>
             <%= f.text_field :lastname, class:"form-control" %>
             <small class="form-text text-muted">
               Sobrenome do representante legal.
@@ -42,12 +42,12 @@
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= "Número do CPF" %></b>
+            <label>Número do CPF</label>
             <%= f.text_field :social_number, class:"form-control"%>
           </div>
 
           <div class="col-md-6">
-            <b><%= "Número do RG" %></b>
+            <label>Número do RG</label>
             <%= f.text_field :general_register, class:"form-control" %>
           </div>
         </div>

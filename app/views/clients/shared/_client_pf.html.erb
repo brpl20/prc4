@@ -56,7 +56,7 @@
       <div id="step-1" class="content" style="display: block;">
         <div class="col-md-12 col-sm-12 no-padding">
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Nome" %></b>
+            <label>Nome</label>
             <%= f.text_field :name, class:"form-control" %>
             <small class="form-text text-muted">
               Nome do cliente.
@@ -64,7 +64,7 @@
           </div>
 
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Sobrenome" %></b>
+            <label>Sobrenome</label>
             <%= f.text_field :lastname, class:"form-control" %>
             <small class="form-text text-muted">
               Sobrenome do cliente.
@@ -76,11 +76,11 @@
 
           <div class="col-md-6">
             <label>Número do CPF</label>
-            <%= f.text_field :social_number, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-00', 'placeholder':'000.000.000-00' %>
+            <%= f.text_field :social_number, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Número do RG" %></b>
+            <label>Número do RG</label>
             <%= f.text_field :general_register, class:"form-control" %>
           </div>
         </div>
@@ -88,36 +88,36 @@
         <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
-            <b><%= f.label "Número de Benefício" %></b>
-            <%= f.text_field :number_benefit, class:"form-control"%>
+            <label>Número de Benefício</label>
+            <%= f.text_field :number_benefit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-0', placeholder:'000.000.000-0'%>
             <small class="form-text text-muted">
               Número do Benefício Previdenciário, caso possua.
             </small>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Data de Nascimento" %></b>
-            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
+            <label>Data de Nascimento</label>
+            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required", min: Date.new(1902, 01, 01), max: Date.today %>
           </div>
         </div>
 
         <div class="col-md-12 no-padding">
           <div class="col-md-6">
             <div class="col-md-4">
-              <b><%= f.label "Gênero" %></b>
+              <label>Gênero</label>
               <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
 
-              <b><%= f.label "Naturalidade" %></b>
+              <label>Naturalidade</label>
               <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Estado Civil" %></b>
+              <label>Estado Civil</label>
               <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Capacidade" %></b>
+              <label>Capacidade</label>
               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
             </div>
 
@@ -133,24 +133,24 @@
       <div id="step-2" class="content" style="display: none;">
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "CEP" %></b>
+            <label>CEP</label>
             <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Endereço" %></b>
+            <label>Endereço</label>
             <%= f.text_field :address, class:"form-control address" %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "Cidade" %></b>
+            <label>Cidade</label>
             <%= f.text_field :city, class:"form-control city" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Estado" %></b>
+            <label>Estado</label>
             <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
           </div>
         </div>
@@ -192,17 +192,17 @@
         <div class="col-md-12 no-padding">
             <%= f.fields_for :bank do |b| %>
             <div class="col-md-4">
-              <b><%= f.label "Banco" %></b>
+              <label>Banco</label>
               <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Agência" %></b>
+              <label>Agência</label>
               <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Conta" %></b>
+              <label>Conta</label>
               <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
             </div>
 
@@ -214,37 +214,37 @@
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "Nome da Mãe" %></b>
+            <label>Nome da Mãe</label>
             <%= f.text_field :mothername, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Nit" %></b>
-            <%= f.text_field :nit, class:"form-control" %>
+            <label>Nit</label>
+            <%= f.text_field :nit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.00000.00-0', placeholder:'000.00000.00-0' %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "Profissão"%></b>
+            <label>Profissão</label>
             <%= f.text_field :profession, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Empresa Atual"%></b>
+            <label>Empresa Atual</label>
             <%= f.text_field :company, class:"form-control" %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label 'Senha do meu Inss' %></b>
+            <label>Senha do meu Inss</label>
             <%= f.text_field :passwdInss, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
             <div class="col-md-6">
-              <b><%= f.label "Consulta" %></b>
+              <label>Consulta</label>
               <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
           </div>
@@ -256,7 +256,7 @@
 
           <div class="col-md-6">
             <div class="col-md-6">
-              <b><%= f.label "Adicionar arquivos" %></b>
+              <label>Adicionar arquivos</label>
               <%= f.file_field :files, multiple: true %>
               <small class="form-text text-muted">
                 Formatos aceitos: JPEG, PNG e PDF.

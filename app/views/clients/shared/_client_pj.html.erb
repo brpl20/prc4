@@ -48,7 +48,7 @@
       <div id="step-1" class="content" style="display: block;">
         <div class="col-md-12 col-sm-12">
           <div class="col-md-6 col-sm-6">
-            <b><%= "Nome" %></b>
+            <label>Nome</label>
             <%= f.text_field :name, class:"form-control" %>
             <small class="form-text text-muted">
               Nome da Empresa.
@@ -56,7 +56,7 @@
           </div>
 
           <div class="col-md-6 col-sm-6">
-            <b><%=  "Número do CNPJ" %></b>
+            <label>Número do CNPJ</label>
             <%= f.text_field :social_number, class:"form-control", 'data-mask': "00.000.000/0000-00", placeholder: "00.000.000/0000-00"%>
           </div>
         </div>
@@ -74,24 +74,24 @@
       <div id="step-2" class="content" style="display: none;">
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "CEP" %></b>
+            <label>CEP</label>
             <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Endereço" %></b>
+            <label>Endereço</label>
             <%= f.text_field :address, class:"form-control address" %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <b><%= f.label "Cidade" %></b>
+            <label>Cidade</label>
             <%= f.text_field :city, class:"form-control city" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Estado" %></b>
+            <label>Estado</label>
             <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
           </div>
         </div>
@@ -153,17 +153,17 @@
         <div class="col-md-12 no-padding">
             <%= f.fields_for :bank do |b| %>
             <div class="col-md-4">
-              <b><%= f.label "Banco" %></b>
+              <label>Banco</label>
               <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Agência" %></b>
+              <label>Agência</label>
               <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
             </div>
 
             <div class="col-md-4">
-              <b><%= f.label "Conta" %></b>
+              <label>Conta</label>
               <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
             </div>
 
@@ -176,7 +176,7 @@
 
           <div class="col-md-6">
             <div class="col-md-6">
-              <b><%= f.label "Adicionar arquivos" %></b>
+              <label>Adicionar arquivos</label>
               <%= f.file_field :files, multiple: true %>
               <small class="form-text text-muted">
                 Formatos aceitos: JPEG, PNG e PDF.
