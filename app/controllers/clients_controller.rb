@@ -30,6 +30,7 @@ class ClientsController < BackofficeController
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
     else
+      # redirect_to new_client_path(type: 'pf')
       render :new
     end
   end
