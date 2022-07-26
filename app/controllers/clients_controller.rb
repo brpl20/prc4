@@ -1,8 +1,11 @@
-class ClientsController < ApplicationController
-  before_action :authenticate_user!, :amazon_client, :set_client, only: %i[show edit update destroy]
+# frozen_string_literal: true
+
+# Controladora do cliente
+class ClientsController < BackofficeController
+  before_action :amazon_client, :set_client, only: %i[show edit update destroy]
 
   def index
-    @clients = Client.includes(:phones, :emails).all
+    @clients = Client.includes(:phones, :emails, :customer_types).all
   end
 
   def hunt
@@ -27,6 +30,7 @@ class ClientsController < ApplicationController
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
     else
+      # redirect_to new_client_path(type: 'pf')
       render :new
     end
   end

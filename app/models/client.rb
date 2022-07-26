@@ -17,6 +17,9 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
 
+  validates :name, :lastname, :general_register, :phones, :emails, :address, :city, :state, :profession, presence: true, if: :client_type == 1
+  p '=========================='
+  p :client_type
   validate :file_type
 
   DESCRIPTION = %w[Representante\ Legal Contador].freeze
@@ -24,7 +27,7 @@ class Client < ApplicationRecord
   NULL_ATTRS = %w[lastname bank].freeze
   # before_save :fill_if_nil, :default_values
 
-  def self.can_be_destroyed id
+  def self.can_be_destroyed(id)
     ClientWork.exists?(client_id: id)
   end
 
