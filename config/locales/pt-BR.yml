@@ -1,5 +1,17 @@
-pt-BR:
+'pt-BR':
   activerecord:
+    attributes:
+      client:
+        name: Nome
+        lastname: Sobrenome
+        general_register: RG
+        phones: Telefone
+        emails: E-mail
+        address: Endereço
+        city: Cidade
+        state: Estado
+        profession: Profissão
+        files: Arquivos
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

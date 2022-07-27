@@ -25,10 +25,11 @@
         <ul class="nav side-menu">
 
           <li>
-            <%= link_to new_client_path do %>
+            <a data-toggle='modal' data-target='#modal-client-type' href='#'>
               <i class="fa fa-male"></i> Novo Cliente
               <span class="fa fa-plus"></span>
-            <% end %>
+            </a>
+
           </li>
 
           <li>
@@ -143,3 +144,6 @@
       </nav>
     </div>
   </div>
+
+<%= render partial: "clients/client_type" %>
+<%= render partial: 'shared/modal' %>

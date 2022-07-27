@@ -3,6 +3,7 @@
 # Controladora do cliente
 class ClientsController < BackofficeController
   before_action :amazon_client, :set_client, only: %i[show edit update destroy]
+  before_action :retrive_type, only: %i[new create edit update]
 
   def index
     @clients = Client.includes(:phones, :emails, :customer_types).all
@@ -21,16 +22,15 @@ class ClientsController < BackofficeController
     @client.phones.build
     @client.emails.build
     @client.customer_types.build if @client.customer_types
-    @type = params[:type]
   end
 
   def create
     @client = Client.new(client_params)
+
     if @client.save
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
     else
-      # redirect_to new_client_path(type: 'pf')
       render :new
     end
   end
@@ -324,6 +324,10 @@ class ClientsController < BackofficeController
         )})
     @aws_client = Aws::S3::Client.new
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
+  end
+
+  def retrive_type
+    @type = params[:type]
   end
 
 end

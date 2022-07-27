@@ -29,7 +29,7 @@
                 <% @clients.each do |c| %>
                   <tr role="row">
                     <td><%= c.id %></td>
-                    <td><%= link_to "#{c.name + ' ' + c.lastname}", client_path(c) %></td>
+                    <td><%= link_to "#{c.name + ' ' + c.lastname.to_s}", client_path(c) %></td>
                     <td><%= c.social_number %></td>
                     <td>
                       <% c.emails.each do |e| %>
@@ -60,7 +60,7 @@
                         <i class="fa fa-eye"></i>
                       <% end %>
 
-                      <%= link_to edit_client_path(c), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
+                      <%= link_to edit_client_path(c, type: 'pf'), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
 
@@ -80,5 +80,3 @@
   </div>
 
 </div>
-
-<%= render partial: "clients/client_type" %>

@@ -17,9 +17,8 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :lastname, :general_register, :phones, :emails, :address, :city, :state, :profession, presence: true, if: :client_type == 1
-  p '=========================='
-  p :client_type
+  validates :name, :lastname, :general_register, :phones, :emails, :address, :city, :state, :profession, presence: true, if: Proc.new { |c| c.client_type == 0 }
+
   validate :file_type
 
   DESCRIPTION = %w[Representante\ Legal Contador].freeze
@@ -32,14 +31,11 @@ class Client < ApplicationRecord
   end
 
   protected
-  # def default_values
-  #  self.status = 0
-  # end
 
   def file_type
     files.each do |file|
       unless file.content_type.in?(%{'image/jpeg image/png application/pdf'})
-        errors.add(:files, 'Adicione um arquivo JPG, PNG ou PDF.')
+        errors.add(:files, 'apenas são permtidos nos formatos JPG, PNG ou PDF.')
       end
     end
   end

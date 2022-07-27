@@ -1,4 +1,4 @@
-<%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+<%= form_with url: clients_path(type: @type), model: @client, local: true, id:"customer_type", multipart: true do |f| %>
 
   <div id="wizard" class="form_wizard wizard_horizontal">
     <ul class="wizard_steps anchor">
@@ -265,24 +265,14 @@
                 Formatos aceitos: JPEG, PNG e PDF.
               </small>
 
-              <% if @client.errors.any? %>
-              <div id="error_explanation">
-                <ul>
-                  <% @client.errors.each do |error| %>
-                  <p><%= error.full_message %></p>
-                  <% end %>
-                </ul>
-              </div>
-              <% else %>
-
-                <% if @client.files != nil %> <% @client.files.each do |file| %>
+              <% if @client.files != nil && !@client.errors.any? %>
+                <% @client.files.each do |file| %>
                   <li>
                     <%= link_to file.filename, url_for(file) %> <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
                   </li>
-                  <% end %>
                 <% end %>
-
               <% end %>
+
             </div>
           </div>
 
