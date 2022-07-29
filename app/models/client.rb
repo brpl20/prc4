@@ -17,7 +17,9 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :lastname, :general_register, :phones, :emails, :address, :city, :state, :profession, presence: true, if: Proc.new { |c| c.client_type == 0 }
+  validates :name, :lastname, :general_register, :gender, :civilstatus, :citizenship, :capacity, :birth, :phones, :emails, :address, :city, :state, :profession, presence: true, if: Proc.new { |c| c.client_type == 0 }
+
+  validates :phones, :emails, :address, :city, :state, presence: true, if: Proc.new { |c| c.client_type == 1 }
 
   validate :file_type
 

@@ -5,6 +5,7 @@
 
 $(document).ready(function(){
 
+
 $('.rate').focus();
   function change_status_color(status) {
     status = status.replace(/^\s+|\s+$/gm,'');
