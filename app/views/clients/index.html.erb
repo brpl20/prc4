@@ -16,6 +16,7 @@
               <tr role="row">
                 <th>#</th>
                 <th>Nome</th>
+                <th>Tipo</th>
                 <th>CPF/CNPJ</th>
                 <th>E-mail</th>
                 <th>Cidade / Estado</th>
@@ -30,6 +31,9 @@
                   <tr role="row">
                     <td><%= c.id %></td>
                     <td><%= link_to "#{c.name + ' ' + c.lastname.to_s}", client_path(c) %></td>
+                    <td>
+                      <%= retrieve_value_from_array(options_for_client_type, c.client_type) %>
+                    </td>
                     <td><%= c.social_number %></td>
                     <td>
                       <% c.emails.each do |e| %>

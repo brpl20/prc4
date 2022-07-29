@@ -52,19 +52,8 @@
           </div>
         </div>
 
-        <div class="col-md-12 no-padding">
-          <div class="col-md-6">
-            <div class="col-md-6 grid" id="conds-rates">
-              <label id="label-client-type" for="client_Tipo de Cliente" data-exfield="<%= @client.social_number %>">
-                <b>Tipo de Cliente</b>
-              </label>
-
-              <%= f.collection_radio_buttons :client_type, options_for_client_type, :second, :first do |b| b.label { b.radio_button(class:"client-type") + b.text } end %>
-            </div>
-
-          </div>
-
-        </div>
+        <%= f.radio_button :client_type, '2', class:'hidden', checked: true %>
+        <%= f.radio_button :capacity, 'Capaz', class:'hidden', checked: true %>
 
         <div class="col-md-6">
           <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>
@@ -83,7 +72,9 @@
           <div class="col-md-6 no-padding">
             <div class="col-md-4 form-group client">
               <div class="phones">
-                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
+                <%= f.fields_for :phones do |ph| %>
+                  <%= render partial: "phone_fields", locals: {f: ph} %>
+                <% end %>
               </div>
 
               <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
@@ -93,7 +84,9 @@
           <div class="col-md-6 no-padding">
             <div class="col-md-4 form-group client">
               <div class="emails">
-                <%= f.fields_for :emails do |e| %> <%= render partial: "email_fields", locals: {f: e} %> <% end %>
+                <%= f.fields_for :emails do |e| %>
+                  <%= render partial: "email_fields", locals: {f: e} %>
+                <% end %>
               </div>
 
               <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>

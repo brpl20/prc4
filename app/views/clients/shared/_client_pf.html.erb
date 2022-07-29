@@ -1,4 +1,4 @@
-<%= form_with url: clients_path(type: @type), model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+<%= form_with url: clients_path, model: @client, local: true, id:"customer_type", multipart: true do |f| %>
 
   <div id="wizard" class="form_wizard wizard_horizontal">
     <ul class="wizard_steps anchor">
@@ -126,9 +126,7 @@
 
           </div>
 
-          <div class="col-md-6 hidden">
-            <%= f.radio_button :client_type, '0', checked: true %> Pessoa Física
-          </div>
+          <%= f.radio_button :client_type, '0', class:'hidden', checked: true %>
 
         </div>
 

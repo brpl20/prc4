@@ -61,10 +61,8 @@
           </div>
         </div>
 
-        <div class="col-md-6 hidden">
-          <%= f.radio_button :client_type, '1', checked: true %> Pessoa Jurídica
-          <%= f.radio_button :capacity, 'Capaz', checked: true %> Capaz
-        </div>
+        <%= f.radio_button :client_type, '1',class:'hidden', checked: true %>
+        <%= f.radio_button :capacity, 'Capaz',class:'hidden', checked: true %>
 
         <div class="col-md-6">
           <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>

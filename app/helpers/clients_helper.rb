@@ -13,15 +13,20 @@ module ClientsHelper
 
 
   def options_for_citizenship
-    [["Brasileiro", "Brasileiro"], ["Estrangeiro", "Estrangeiro"]]
+    [['Brasileiro', 'Brasileiro'], ['Estrangeiro', 'Estrangeiro']]
   end
 
   def options_for_civilstatus_client
-    [["Solteiro", "Solteiro"], ["Casado", "Casado"], ["Divorciado", "Divorciado"], ["Viúvo", "Viúvo"], ["União Estável", "em União Estável"]]
+    [['Solteiro', 'Solteiro'], ['Casado', 'Casado'], ['Divorciado', 'Divorciado'], ['Viúvo', 'Viúvo'], ['União Estável', 'em União Estável']]
   end
 
   def options_for_client_type
-    [["Pessoa Física", 0], ["Pessoa Jurídica", 1]]
+    [
+      ['Pessoa Física', 0],
+      ['Pessoa Jurídica', 1],
+      ['Representante Legal', 2],
+      ['Contador', 3]
+    ]
   end
 
   def options_for_status_client
@@ -29,15 +34,15 @@ module ClientsHelper
   end
 
   def options_for_capacity
-    [["Capaz", "Capaz"], ["Relativamente Incapaz", "Relativamente Incapaz"], ["Absolutamente Incapaz", "Absolutamente Incapaz"]]
+    [['Capaz', 'Capaz'], ['Relativamente Incapaz', 'Relativamente Incapaz'], ['Absolutamente Incapaz', 'Absolutamente Incapaz']]
   end
 
   def options_for_choice
-    [["Consulta Simples", true], ["Adicionar Trabalho", false]]
+    [['Consulta Simples', true], ['Adicionar Trabalho', false]]
   end
 
   def human_attribute_statuses
-    Hash[Client.statuses.map { |k, v| [k, Client.human_attribute_name("status.#{k}")] }]
+    Hash[Client.statuses.map { |k, v| [k, Client.human_attribute_name('status.#{k}')] }]
   end
 
   def jobs_to_this_client?(client)
