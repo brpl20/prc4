@@ -83,7 +83,7 @@ $('.rate').focus();
   };
 
   function add_button_rep(){
-    $(".add-button-rep").append("<a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a>")
+    $(".add-button-rep").append("<div class='col-md-6'><a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/hunts' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div>")
   };
 
   function pessoa_fisica(){

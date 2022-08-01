@@ -10,7 +10,7 @@
 
     <div class="x_content">
       <% if @type == 'pf' %>
-      <%= render partial: "clients/shared/client_pf"%>
+        <%= render partial: "clients/shared/client_pf"%>
       <% elsif @type == 'pj' %>
         <%= render partial: "clients/shared/client_pj"%>
       <% elsif @type == 'cont' %>
@@ -29,6 +29,7 @@
 <script src="https://colorlib.com/polygon/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
 
 <script type="text/javascript">
+
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
@@ -50,4 +51,5 @@
     onShowStep: null,  // triggers when showing a step
     onFinish: null  // triggers when Finish button is clicked
   });
+
 </script>

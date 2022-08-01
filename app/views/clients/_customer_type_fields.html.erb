@@ -5,7 +5,7 @@
   </div>
 
 <div class="col-md-4 rep-desc">
-    <%= f.collection_select :description, Client::DESCRIPTION, :to_s, :to_s, {}, {class:'form-control'} %>
+    <%= f.text_field :description%>
   </div>
 
 <div class="col-md-4 rep-btn">

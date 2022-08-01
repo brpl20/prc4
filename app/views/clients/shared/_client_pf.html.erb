@@ -57,7 +57,7 @@
         <div class="col-md-12 col-sm-12 no-padding">
           <div class="col-md-6 col-sm-6">
             <label>Nome*</label>
-            <%= f.text_field :name, class:"form-control" %>
+            <%= f.text_field :name, id:'name', class:"form-control", required: true %>
             <small class="form-text text-muted">
               Nome do cliente.
             </small>
@@ -75,12 +75,12 @@
         <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
-            <label>CPF</label>
+            <label>CPF*</label>
             <%= f.text_field :social_number, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
           </div>
 
           <div class="col-md-6">
-            <label>RG*</label>
+            <label>RG</label>
             <%= f.text_field :general_register, class:"form-control",  pattern:"[a-z]{1,15}" %>
           </div>
         </div>
@@ -102,16 +102,10 @@
         </div>
 
         <div class="col-md-12 no-padding">
-          <div class="col-md-6">
 
             <div class="col-md-3">
               <label>Gênero*</label>
               <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
-            </div>
-
-            <div class="col-md-3">
-              <label>Naturalidade*</label>
-              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
             </div>
 
             <div class="col-md-3">
@@ -120,11 +114,14 @@
             </div>
 
             <div class="col-md-3">
+              <label>Naturalidade*</label>
+              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+            </div>
+
+            <div class="col-md-3">
               <label>Capacidade*</label>
               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
             </div>
-
-          </div>
 
           <%= f.radio_button :client_type, '0', class:'hidden', checked: true %>
 
@@ -158,38 +155,40 @@
       </div>
       <div id="step-3" class="content" style="display: none;">
         <div class="col-md-12">
-          <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client">
+          <div class="col-md-6 no-padding ordering-contact">
+            <div class="col-md-5 form-group client ordering-btn-add">
               <div class="phones">
                 <%= f.fields_for :phones do |ph| %>
                   <%= render partial: "phone_fields", locals: {f: ph} %>
                 <% end %>
               </div>
 
-              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar Telefone", f, :phones, class:"btn btn-success btn-add-cli" %>
             </div>
           </div>
 
-          <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client">
+          <div class="col-md-6 no-padding ordering-contact">
+            <div class="col-md-5 form-group client ordering-btn-add">
               <div class="emails">
                 <%= f.fields_for :emails do |e| %>
                   <%= render partial: "email_fields", locals: {f: e} %>
                 <% end %>
               </div>
 
-              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+              <%= link_to_add_association "Adicionar E-mail", f, :emails, class:"btn btn-success btn-add-cli" %>
             </div>
           </div>
 
           <div class="col-md-12 add-button-rep">
-            <div class="col-md-12 form-group rep-cli no-padding">
+            <div class="col-md-6 form-group rep-cli no-padding">
+
               <div class="customer_types no-padding" id="customer_types_add">
                 <%= f.fields_for :customer_types do |io| %>
                   <%= render partial: "customer_type_fields", locals: {f: io} %>
                 <% end %>
                 <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
               </div>
+
             </div>
           </div>
 
@@ -197,22 +196,23 @@
       </div>
       <div id="step-4" class="content" style="display: none;">
 
-        <div class="col-md-12 no-padding">
+        <div class="col-md-6 no-padding">
             <%= f.fields_for :bank do |b| %>
-            <div class="col-md-4">
+            <div class="col-md-12">
               <label>Banco</label>
               <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Agência</label>
               <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6">
               <label>Conta</label>
               <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
             </div>
+
 
             <% end %>
         </div>
@@ -227,7 +227,7 @@
           </div>
 
           <div class="col-md-6">
-            <label>Nit</label>
+            <label>NIT</label>
             <%= f.text_field :nit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.00000.00-0', placeholder:'000.00000.00-0' %>
           </div>
         </div>

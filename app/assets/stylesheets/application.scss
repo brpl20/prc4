@@ -98,6 +98,9 @@ a.btn-user{
 .btn-color{
   color:  #FFFFFF !important;
 }
+.buttonFinish{
+  margin-left: 2rem !important;
+}
 .buttonFinish, .buttonNext, .buttonPrevious{
   float: right;
 }
@@ -140,5 +143,4 @@ label{
   align-items: center;
   justify-content: flex-end;
   padding: 0.75rem;
-
 }

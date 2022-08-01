@@ -3,7 +3,7 @@
 # Controladora do cliente
 class ClientsController < BackofficeController
   before_action :amazon_client, :set_client, only: %i[show edit update destroy]
-  before_action :retrive_type, only: %i[new create edit update]
+  before_action :retrieve_type, only: %i[new create edit update]
 
   def index
     @clients = Client.includes(:phones, :emails, :customer_types).all
@@ -313,7 +313,7 @@ class ClientsController < BackofficeController
   end
 
   def set_client
-    @client  = Client.find(params[:id])
+    @client = Client.find(params[:id])
   end
 
   def amazon_client
@@ -326,8 +326,7 @@ class ClientsController < BackofficeController
     @s3 = Aws::S3::Resource.new(region: 'us-west-2')
   end
 
-  def retrive_type
+  def retrieve_type
     @type = params[:type]
   end
-
 end
