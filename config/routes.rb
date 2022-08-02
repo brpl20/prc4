@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   get 'pages/help'
   get 'pages/plans'
 
-  get 'clients/hunts', to: 'clients#hunt'
+  get 'clients/modal/recommendation_search', to: 'clients#search'
+  get 'clients/modal/representative_search', to: 'clients#representative_search'
+  get 'clients/modal/representative_accountant_search', to: 'clients#representative_accountant_search'
 
   root to: 'pages#dashboard'
 

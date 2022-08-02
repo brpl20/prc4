@@ -6,13 +6,27 @@ class ClientsController < BackofficeController
   before_action :retrieve_type, only: %i[new create edit update]
 
   def index
-    @clients = Client.includes(:phones, :emails, :customer_types).all
+    @clients = ClientFilters.retrive_clients
   end
 
-  def hunt
-    @clients = Client.all
+  def search
+    @clients = ClientFilters.retrive_clients
     respond_to do |format|
-      format.js { render 'clients/hunt' }
+      format.js { render partial: 'clients/modal/recommendation_search' }
+    end
+  end
+
+  def representative_search
+    @clients = ClientFilters.retrive_representative_search
+    respond_to do |format|
+      format.js { render partial: 'clients/modal/representative_search' }
+    end
+  end
+
+  def representative_accountant_search
+    @clients = ClientFilters.retrive_representative_accountant_search
+    respond_to do |format|
+      format.js { render partial: 'clients/modal/representative_accountant_search' }
     end
   end
 

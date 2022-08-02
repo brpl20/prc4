@@ -7,46 +7,44 @@
             <tr role="row">
               <th>#</th>
               <th>Nome</th>
-              <th>RG</th>
-              <th>CPF/CNPJ</th>
-              <th>E-mail</th>
-              <th>Cidade</th>
-              <th>Estado</th>
+              <th>Tipo de Cliente</th>
+              <th>Cidade / Estado</th>
               <th>Telefone</th>
+              <th>E-mail</th>
             </tr>
         </thead>
         <tbody>
-            <% @clients.each do |client| %>
-                <tr role="row">
-                  <td>
-                    <label id="cli-id"><%= client.id %></label>
-                  </td>
-                    <td>
-                      <label for="client<%= client.id %>" id="client-name" data-rep-id="<%= client.id %>"><%= client.name %> <%= client.lastname %></label>
-                      <input
-                        type="radio"
-                        id="client<%= client.id %>"
-                        name="clients"
-                        value="<%= client.id %>"
-                        class="hidden"
-                        required>
-                    </td>
-                    <td><%= client.general_register %></td>
-                    <td><%= client.social_number %></td>
-                    <td>
-                      <% client.emails.each do |e| %>
-                        <%= e.email %>
-                      <% end %>
-                    </td>
-                    <td><%= client.city %></td>
-                    <td><%= client.state %></td>
-                    <td>
-                      <% client.phones.each do |p| %>
-                        <%= p.phone %>
-                      <% end %>
-                    </td>
-                </tr>
-              <% end %>
+          <% @clients.each do |client| %>
+            <tr role="row">
+              <td>
+                <label id="cli-id"><%= client.id %></label>
+              </td>
+              <td>
+                <label for="client<%= client.id %>" id="client-name" data-rep-id="<%= client.id %>" data-type-id="<%= retrieve_value_from_array(options_for_client_type ,client.client_type) %>"><%= client.name %> <%= client.lastname %></label>
+                <input
+                  type="radio"
+                  id="client<%= client.id %>"
+                  name="clients"
+                  value="<%= client.id %>"
+                  class="hidden"
+                  required>
+              </td>
+              <td>
+                <%= retrieve_value_from_array(options_for_client_type ,client.client_type) %>
+              </td>
+              <td><%= client.city %> / <%= client.state %></td>
+              <td>
+                <% client.phones.each do |p| %>
+                  <%= p.phone %>
+                <% end %>
+              </td>
+              <td>
+                <% client.emails.each do |e| %>
+                  <%= e.email %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
         </tbody>
       </table>
 
@@ -64,6 +62,7 @@
   function define_rep(){
     let value = {
       name: $('input:checked').prev('#client-name').text(),
+      type: $('input:checked').prev('#client-name').data('type-id'),
       id: $('input:checked').prev('#client-name').data('rep-id'),
     };
     return value;
@@ -72,6 +71,7 @@
   $('#set-client').on("click", function(){
     if ($('input:checked').val()){
       $('.indId').val($('input:checked').prev('#client-name').data('rep-id'));
+      $('.indType').text($('input:checked').prev('#client-name').data('type-id'));
       $('.indName').text($('input:checked').prev('#client-name').text());
       if (document.getElementById('ind-btn-remove')){
         document.getElementById('ind-btn-remove').style.visibility = 'visible';
@@ -92,9 +92,10 @@
 
     inserted[0].querySelector('.represented_iid').value = data.id;
     inserted[0].querySelector('.repName').textContent = data.name;
+    inserted[0].querySelector('.rep_desc').value = data.type;
+    inserted[0].querySelector('.repdesc').textContent = data.type;
 
   });
-
 
   $("#registers").DataTable({
     "lengthChange": false,
