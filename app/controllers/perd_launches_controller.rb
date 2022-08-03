@@ -56,6 +56,9 @@ class PerdLaunchesController < ApplicationController
       :shipping_date,
       :payment_date,
       :status,
+      :value,
+      :perd_style,
+      :responsible,
       :tributary_id
     )
   end

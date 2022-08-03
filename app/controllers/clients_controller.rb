@@ -60,7 +60,7 @@ class ClientsController < ApplicationController
     @url_job = @client.jobs
   end
 
-  def aws
+  def aws_configurations
     aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
         ENV['AWS_ID'],
         ENV['AWS_SECRET_KEY']
@@ -99,7 +99,7 @@ class ClientsController < ApplicationController
     require 'rails-i18n'
 
     # AWS CONFIG AND DOC
-    aws
+    aws_configurations
     aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
     aws_body = aws_doc.body
 

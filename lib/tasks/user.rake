@@ -71,7 +71,7 @@ namespace :cad do
      )
 
     User.create!(
-      email: "aline@pellizzetti.adv.br",
+      email: "estagiario@pellizzetti.adv.br",
       password: 123456,
       password_confirmation: 123456,
       intern_role: true
@@ -79,8 +79,8 @@ namespace :cad do
 
     UserProfile.create!(
      role: 2,
-     name: 'Aline',
-     lastname: "Cristina Hoffmann Pereira",
+     name: 'Estagiario ',
+     lastname: "Sobrenome",
      gender: 1,
      general_register: '124539242',
      oab: nil,
@@ -88,12 +88,12 @@ namespace :cad do
      citizenship: 'Brasileiro',
      civilstatus: 'Solteiro',
      birth: nil,
-     mothername: 'Rosane Hoffmann',
-     email: 'aline@pellizzetti.adv.br',
-     address: 'Rua Mato Grosso, 2539, Ap. 142',
+     mothername: '',
+     email: 'estagiarioaline@pellizzetti.adv.br',
+     address: 'Rua Blundosvaldo, 130',
      city: 'Cascavel',
      state: 'Paraná',
-     phone: '4598805-8852',
+     phone: '4598405-5504',
      zip: '85810-010',
      status: 0,
      origin: nil,
