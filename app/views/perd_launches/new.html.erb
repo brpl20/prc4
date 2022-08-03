@@ -12,9 +12,13 @@
         </div>
 
         <div class='col-md-12 no-padding'>
-          <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b>
-          <%= f.date_field :shipping_date, class:"form-control" %>
+          <b><label for='work_tributary_attributes_Valor da Perd/Comp'>Valor</label></b>
+          <%= f.text_field :value, class:"form-control" %>
+        </div>
 
+        <div class='col-md-12 no-padding'>
+          <b><label for='work_tributary_attributes_Data de envio de Perd/Comp'>Data de envio de perd/comp</label></b>
+          <%= f.date_field :shipping_date, value: Time.now.strftime('%m/%d/%Y'), class:"form-control" %>
         </div>
 
         <div class='col-md-12 no-padding'>
@@ -24,9 +28,22 @@
         </div>
 
         <div class='col-md-12 no-padding'>
+            <b><label for='work_Status'>Modelo da Perd/Comp</label></b>
+            <%= f.radio_button :perd_style, 'Ressarcimento' %> Ressarcimento
+            <%= f.radio_button :perd_style, 'Compensação de Ofício' %> Compensação de Ofício
+            <%= f.radio_button :perd_style, 'Restituição' %> Restituição
+        </div>
+
+
+        <div class='col-md-12 no-padding'>
             <b><label for='work_Status'>Status</label></b>
             <%= f.radio_button :status, '0' %> Pendende de Análise
             <%= f.radio_button :status, '1' %> Paga
+        </div>
+
+        <div class='col-md-12 no-padding'>
+          <b><label for='work_tributary_attributes_Responsavel da Perd/Comp'>Responsável</label></b>
+          <%= f.text_field :responsible, class:"form-control" %>
         </div>
 
         <%= f.number_field :tributary_id, class:"form-control hidden", value: params[:tributary_id] %>
