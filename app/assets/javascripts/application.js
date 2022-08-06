@@ -340,7 +340,6 @@ $('.rate').focus();
   });
 
   $(".subBtn-cep").on('click', function(){
-
     cep = $(".cep").val();
     cep = cep.replace(/\D/g, '');
     console.log(cep)
@@ -351,12 +350,6 @@ $('.rate').focus();
   $(".buttonNext").addClass('btn btn-outline-success');
   $(".buttonPrevious").addClass('btn btn-outline-primary');
 
-
-  // $("input[name='client[client_type]']").each(function(){
-  //   if($(this).val() == $('#rate-client-type').data('action-for-client-type')){
-  //     $(this).prop("checked", true);
-  //   };
-  // });
 
  checkAll()
 
