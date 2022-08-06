@@ -98,3 +98,35 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+
+  function leaveAStepCallback(obj, context){
+    return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
+  }
+
+  // Your Step validation logic
+  function validateSteps(stepnumber){
+    var isStepValid = true;
+    // validate step 1
+    if(stepnumber == 1){
+        if(document.getElementById("client_social_number").value == ""){
+          return isStepValid = false;
+        }
+        else {
+          return isStepValid = true;
+        }
+    }
+    if(stepnumber == 2){
+      if(document.getElementById("client_phones_attributes_0_phone").value == "" || document.getElementById("client_emails_attributes_0_email").value == ""  ){
+        return isStepValid = false;
+      }
+      else {
+        alert(document.getElementById("client_lastname").value);
+        return isStepValid = true;
+      }
+    }
+      // ...
+  }
+
+</script>
