@@ -6,11 +6,11 @@ class ClientsController < BackofficeController
   before_action :retrieve_type, only: %i[new create edit update]
 
   def index
-    @clients = ClientFilters.retrive_clients
+    @clients = ClientFilters.retrieve_clients
   end
 
   def search
-    @clients = ClientFilters.retrive_clients
+    @clients = ClientFilters.retrieve_clients
     respond_to do |format|
       format.js { render partial: 'clients/modal/recommendation_search' }
     end
@@ -52,15 +52,11 @@ class ClientsController < BackofficeController
   def edit; end
 
   def update
-    respond_to do |format|
       if @client.update(client_params)
-        format.html { redirect_to clients_path, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada' }
-        format.json { render :show, status: :ok, location: clients_path }
+        redirect_to clients_path, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada'
       else
-        format.html { render :edit }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
+        render :edit
       end
-    end
   end
 
   def destroy
