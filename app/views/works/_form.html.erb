@@ -10,276 +10,340 @@
 
       <%= form_with model:@work, local: true do |f| %>
 
-        <div class="col-md-12">
+      <div id="wizard" class="form_wizard wizard_horizontal">
+        <ul class="wizard_steps anchor">
+          <li>
+            <a href="#step-1" class="selected" isdone="1" rel="1">
+              <span class="step_no">1</span>
+              <span class="step_descr">
+                Procedimento / Assunto
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#step-2" class="disabled" isdone="0" rel="2">
+              <span class="step_no">2</span>
+              <span class="step_descr">
+                Honorários
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#step-3" class="disabled" isdone="0" rel="3">
+              <span class="step_no">3</span>
+              <span class="step_descr">
+                Poderes
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#step-4" class="disabled" isdone="0" rel="4">
+              <span class="step_no">4</span>
+              <span class="step_descr">
+                Informações internas
+              </span>
+            </a>
+          </li>
+          <li>
+            <a href="#step-5" class="disabled" isdone="0" rel="5">
+              <span class="step_no">5</span>
+              <span class="step_descr">
+                Informações Adicionais
+              </span>
+            </a>
+          </li>
+        </ul>
 
-          <div class="col-md-4 grid">
-            <b><%= f.label "Procedimento" %></b>
-            <%= f.collection_check_boxes :procedure_ids, options_for_procedure, :id, :description do |cb|
-              cb.label { cb.check_box + cb.text }
-            end %>
-          </div>
+        <div class="stepContainer">
+          <div id="step-1" class="content" style="display: block;">
 
-        </div>
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <%= f.fields_for :client_works do |cw| %>
 
-        <div class="col-md-12">
+                <b><%= cw.label "Cliente" %></b>
 
-          <fieldset class="col-md-4 radio_buttons optional work_subject grid">
-            <legend class="col-form-label pt-0"><b>Assunto</b></legend>
-
-            <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
-              b.label { b.radio_button(class:"subject") + b.text }
-            end %>
-
-            <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
-          </fieldset>
-
-          <%= f.fields_for :tributary do |ta| %>
-              <div class='subject-append-pis hidden' id='label-tributary-work' data-action-for-tributary-work="<%#= @work.tributary_attribute.compensation %>">
-
-                <div class='col-md-5'>
-
-                  <div class='col-md-12 no-padding'>
-                    <b>
-                      <label for='work_tributary_attributes_Compensações realizadas nos últimos 5 anos:'>Compensações realizadas nos últimos 5 anos:</label>
-                    </b>
-                    <%= ta.radio_button :compensation, '0' %> sim
-                    <%= ta.radio_button :compensation, '1' %> não
-                  </div>
-
-                  <div class='col-md-12 no-padding'>
-                    <b><label for='work_tributary_attributes_Compensações de ofício:'>Compensações de ofício:</label></b>
-                    <%= ta.radio_button :craft, '0' %> sim
-                    <%= ta.radio_button :craft, '1' %> não
-                  </div>
-
-                  <div class='col-md-12 no-padding'> <b>
-                    <label for='work_tributary_attributes_Possui ação judicial:'>Possui ação judicial:</label></b>
-                    <%= ta.radio_button :lawsuit, '0' %> sim
-                    <%= ta.radio_button :lawsuit, '1' %> não
-                  </div>
-
-                  <div class='col-md-6 no-padding'>
-                    <b><label for='work_tributary_attributes_Projeção de Ganho'>Projeção de ganho</label></b>
-                    <%= ta.number_field :projection, class:"form-control", placeholder:'10.000' %>
-                  </div>
-
-                  <div class='col-md-12 no-padding'>
-                    <div class='col-md-6'>
-                      <b><%= f.label "Upload de arquivos" %></b>
-                      <%= f.file_field :archive_file, multiple: true %>
-                      <small class="form-text text-muted">
-                        Formatos aceitos: JPEG, PNG e PDF.
-                      </small>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-          <% end %>
-
-          <div id="subject-fields" data-action-for-subject="<%= @work.action %>">
-
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Número do Requerimento ou Processo" %></b>
-            <%= f.number_field :number, class:"form-control", min: 0 %>
-            <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6 grid" id="conds-rates">
-
-            <label id="label-rate-work" for="work_Honorários De Trabalho ou Êxito" data-exfield="<%= @work.rate_fixed_exfield %>" data-percentage="<%= @work.rate_percentage_exfield %>" ><b>Honorários De Trabalho ou Êxito</b></label>
-
-            <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
-            b.label { b.radio_button(class:"rate-works ") + b.text }
-            end %>
-
-          </div>
-
-          <div id="rate-work-fields" data-action-for-rate-work="<%= @work.action %>">
-
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="grid col-md-6" id="rate_parceled">
-            <b><%= f.label "Parcelamento" %></b>
-            <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
-              b.label { b.radio_button + b.text }
-            end %>
-          </div>
-
-          <div class="grid col-md-6" id="rate_parceled">
-            <b><%= f.label "Parcelamento" %></b>
-            <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <%= render partial: 'powers', locals: { f: f} %>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-
-            <b><%= f.label "Escritório ou Escritórios Associados" %></b>
-            <%= f.fields_for :work_offices do |wo| %>
-              <%= wo.collection_select(:office_id, options_for_office, :id, :name, {}, {class:'form-control'}) %>
-            <% end %>
-
-          </div>
-
-          <div class="col-md-6">
-            <%= f.fields_for :client_works do |cw| %>
-
-              <b><%= cw.label "Cliente" %></b>
-
-              <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Atendimento Inicial" %></b>
-            <%= f.collection_select :initial_atendee, UserProfile.order(:email), :id, :email, {}, {class:'form-control'} %>
-          </div>
-
-          <div class="col-md-6">
-            <b><%= f.label "Advogado Responsável" %></b>
-            <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-          <div class="col-md-6">
-            <div class="col-md-6 no-padding">
-              <b><%= cw.label "Indicação" %></b>
-              <div class=" ind-name no-padding">
-                <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
-                <% if @work.client_works.last.recommendation %>
-
-                  <span class="indName"><%= has_recommendation(@work.client_works.last.recommendation) %></span>
-
-                <% else %>
-                  <span class="indName">Escolha uma indicação.</span>
-                <% end %>
-                <button type='button' class='btn btn-danger remove-ind' id='ind-btn-remove'>X</button>
-              </div>
-            </div>
-
-            <div class="col-md-6 no-padding">
-              <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/modal/recommendation_search' data-target='#modal-general' href='#'> <span>Adicionar Perd/Comp</span></a>
-            </div>
-          </div>
-
-            <div class="col-md-6">
-              <div class="col-md-6 no-padding">
-                <b><%= cw.label "Porcentagem da Comissão" %></b>
-                <%= cw.number_field :percentage, class:"form-control" %>
+                <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
               </div>
 
               <div class="col-md-6">
-                <b><%= cw.label "Valor da Comissão" %></b>
-                <%= cw.number_field :value, class:"form-control" %>
+                <b><%= f.label "Número do Requerimento ou Processo" %></b>
+                <%= f.number_field :number, class:"form-control", min: 0 %>
+                <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
               </div>
-            <% end %>
+
+            </div>
+
+            <div class="col-md-12">
+              <div class="col-md-4 grid">
+                <b><%= f.label "Procedimento" %></b>
+                <%= f.collection_check_boxes :procedure_ids, options_for_procedure, :id, :description do |cb|
+                  cb.label { cb.check_box + cb.text }
+                end %>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+
+              <fieldset class="col-md-4 radio_buttons optional work_subject grid">
+                <legend class="col-form-label pt-0"><b>Assunto</b></legend>
+
+                <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
+                  b.label { b.radio_button(class:"subject") + b.text }
+                end %>
+
+                <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
+              </fieldset>
+
+              <%= f.fields_for :tributary do |ta| %>
+                  <div class='subject-append-pis hidden' id='label-tributary-work' data-action-for-tributary-work="<%#= @work.tributary_attribute.compensation %>">
+
+                    <div class='col-md-5'>
+
+                      <div class='col-md-12 no-padding'>
+                        <b>
+                          <label for='work_tributary_attributes_Compensações realizadas nos últimos 5 anos:'>Compensações realizadas nos últimos 5 anos:</label>
+                        </b>
+                        <%= ta.radio_button :compensation, '0' %> sim
+                        <%= ta.radio_button :compensation, '1' %> não
+                      </div>
+
+                      <div class='col-md-12 no-padding'>
+                        <b><label for='work_tributary_attributes_Compensações de ofício:'>Compensações de ofício:</label></b>
+                        <%= ta.radio_button :craft, '0' %> sim
+                        <%= ta.radio_button :craft, '1' %> não
+                      </div>
+
+                      <div class='col-md-12 no-padding'> <b>
+                        <label for='work_tributary_attributes_Possui ação judicial:'>Possui ação judicial:</label></b>
+                        <%= ta.radio_button :lawsuit, '0' %> sim
+                        <%= ta.radio_button :lawsuit, '1' %> não
+                      </div>
+
+                      <div class='col-md-6 no-padding'>
+                        <b><label for='work_tributary_attributes_Projeção de Ganho'>Projeção de ganho</label></b>
+                        <%= ta.number_field :projection, class:"form-control", placeholder:'10.000' %>
+                      </div>
+
+                      <div class='col-md-12 no-padding'>
+                        <div class='col-md-6'>
+                          <b><%= f.label "Upload de arquivos" %></b>
+                          <%= f.file_field :archive_file, multiple: true %>
+                          <small class="form-text text-muted">
+                            Formatos aceitos: JPEG, PNG e PDF.
+                          </small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+              <% end %>
+
+              <div id="subject-fields" data-action-for-subject="<%= @work.action %>">
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <div id="step-2" class="content" style="display: none;">
+
+            <div class="col-md-12">
+
+              <div class="col-md-6 grid" id="conds-rates">
+
+                <label id="label-rate-work" for="work_Honorários De Trabalho ou Êxito" data-exfield="<%= @work.rate_fixed_exfield %>" data-percentage="<%= @work.rate_percentage_exfield %>" ><b>Honorários De Trabalho ou Êxito</b></label>
+
+                <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
+                b.label { b.radio_button(class:"rate-works ") + b.text }
+                end %>
+
+              </div>
+
+              <div id="rate-work-fields" data-action-for-rate-work="<%= @work.action %>">
+
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="grid col-md-6" id="rate_parceled">
+                <b><%= f.label "Parcelamento" %></b>
+                <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
+                  b.label { b.radio_button + b.text }
+                end %>
+              </div>
+
+              <div class="grid col-md-6" id="rate_parceled">
+                <b><%= f.label "Parcelamento" %></b>
+                <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div id="step-3" class="content" style="display: none;">
+
+            <div class="col-md-12">
+
+              <%= render partial: 'powers', locals: { f: f} %>
+
+            </div>
+
+          </div>
+
+          <div id="step-4" class="content" style="display: none;">
+
+            <div class="col-md-12">
+
+              <div class="col-md-6">
+
+                <b><%= f.label "Escritório ou Escritórios Associados" %></b>
+                <%= f.fields_for :work_offices do |wo| %>
+                  <%= wo.collection_select(:office_id, options_for_office, :id, :name, {}, {class:'form-control'}) %>
+                <% end %>
+
+              </div>
+
+              <div class="col-md-6">
+                <b><%= f.label "Atendimento Inicial" %></b>
+                <%= f.collection_select :initial_atendee, UserProfile.order(:email), :id, :email, {}, {class:'form-control'} %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="col-md-6">
+                <b><%= f.label "Advogado Responsável" %></b>
+                <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
+              </div>
+
+              <div class="col-md-6">
+                <div class="col-md-6 no-padding">
+                  <b><%= cw.label "Indicação" %></b>
+                  <div class=" ind-name no-padding">
+                    <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
+                    <% if @work.client_works.last.recommendation %>
+
+                      <span class="indName"><%= has_recommendation(@work.client_works.last.recommendation) %></span>
+
+                    <% else %>
+                      <span class="indName">Escolha uma indicação.</span>
+                    <% end %>
+                    <button type='button' class='btn btn-danger remove-ind' id='ind-btn-remove'>X</button>
+                  </div>
+                </div>
+
+                <div class="col-md-6 no-padding">
+                  <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/modal/recommendation_search' data-target='#modal-general' href='#'> <span>Adicionar Perd/Comp</span></a>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+                <div class="col-md-6">
+                  <b><%= cw.label "Porcentagem da Comissão" %></b>
+                  <%= cw.number_field :percentage, class:"form-control" %>
+                </div>
+
+                <div class="col-md-6">
+                  <b><%= cw.label "Valor da Comissão" %></b>
+                  <%= cw.number_field :value, class:"form-control" %>
+                </div>
+              <% end %>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="col-md-6">
+                <b><%= f.label "Estagiários da Procuração" %></b>
+                <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
+
+              </div>
+
+              <div class="col-md-6">
+                <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
+                <%= f.collection_select :procuration_paralegal, UserProfile.paralegal.order(:name), :id, :name, {}, {class:"form-control"} %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <b><%= f.label "Advogado Parceiro" %></b>
+                <%= f.text_field :partner_lawyer, class:"form-control" %>
+                <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
+              </div>
+            </div>
+
+
+
+          </div>
+
+          <div id="step-5" class="content" style="display: none;">
+
+            <div class="col-md-12">
+
+              <div class="col-md-6 grid">
+                <b><%= f.label "Documentos a serem produzidos" %></b>
+                <%= f.collection_check_boxes :checklist_ids, options_for_checklist, :id, :description do |cl|
+                  cl.label { cl.check_box + cl.text }
+                end %>
+              </div>
+
+              <div class="col-md-6 grid">
+                <b><%= f.label "Documentos Pendentes" %></b>
+                <%= f.collection_check_boxes :checklist_document_ids, options_for_checklist_document, :id, :description do |cl|
+                  cl.label { cl.check_box + cl.text }
+                end %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="col-md-6">
+                <b><%= f.label "Outros Documentos Pendentes ou Pendências." %></b>
+                <%= f.text_field :document_pendent, class:"form-control" %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+
+              <div class="col-md-6">
+                <b><%= f.label "Pasta" %></b>
+                <%= f.text_field :folder, class:"form-control" %>
+              </div>
+
+              <div class="col-md-6">
+                <%#= f.text_field :document_pendent, class:"form-control" %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+              <div class="col-md-12">
+                <b><%= f.label "Notas em geral sobre o caso" %></b>
+                <%= f.text_area(:note, rows: 5, class:"form-control") %>
+              </div>
+            </div>
+
           </div>
 
         </div>
 
-        <div class="col-md-12">
+      </div>
 
-          <div class="col-md-6 grid">
-            <b><%= f.label "Documentos a serem produzidos" %></b>
-            <%= f.collection_check_boxes :checklist_ids, options_for_checklist, :id, :description do |cl|
-              cl.label { cl.check_box + cl.text }
-            end %>
-          </div>
-
-          <div class="col-md-6 grid">
-            <b><%= f.label "Documentos Pendentes" %></b>
-            <%= f.collection_check_boxes :checklist_document_ids, options_for_checklist_document, :id, :description do |cl|
-              cl.label { cl.check_box + cl.text }
-            end %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Estagiários da Procuração" %></b>
-            <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
-
-          </div>
-
-          <div class="col-md-6">
-            <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
-            <%= f.collection_select :procuration_paralegal, UserProfile.paralegal.order(:name), :id, :name, {}, {class:"form-control"} %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Advogado Parceiro" %></b>
-            <%= f.text_field :partner_lawyer, class:"form-control" %>
-            <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
-          </div>
-
-          <div class="col-md-6">
-            <b><%= f.label "Outros Documentos Pendentes ou Pendências." %></b>
-            <%= f.text_field :document_pendent, class:"form-control" %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-
-          <div class="col-md-6">
-            <b><%= f.label "Pasta" %></b>
-            <%= f.text_field :folder, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <%#= f.text_field :document_pendent, class:"form-control" %>
-          </div>
-
-        </div>
-
-        <div class="col-md-12">
-          <div class="col-md-12">
-            <b><%= f.label "Notas em geral sobre o caso" %></b>
-            <%= f.text_area(:note, rows: 5, class:"form-control") %>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Salvar</button>
-          <%= link_to "Cancelar", works_path, class:"btn btn-danger pull-right" %>
-        </div>
-
-      <% end %>
     </div>
+    <% end %>
   </div>
 </div>
 
@@ -287,3 +351,32 @@
 
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" defer></script>
+
+<script src="https://code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="https://colorlib.com/polygon/vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js"></script>
+
+<script type="text/javascript">
+
+  $('#wizard').smartWizard({
+    selected: 0,  // Selected Step, 0 = first step
+    keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
+    enableAllSteps: true,  // Enable/Disable all steps on first load
+    transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
+    contentURL:null, // specifying content url enables ajax content loading
+    contentURLData:null, // override ajax query parameters
+    contentCache:true, // cache step contents, if false content is fetched always from ajax url
+    cycleSteps: false, // cycle step navigation
+    enableFinishButton: true, // makes finish button enabled always
+    hideButtonsOnDisabled: true, // when the previous/next/finish buttons are disabled, hide them instead
+    errorSteps:[],    // array of step numbers to highlighting as error steps
+    labelNext:'Próximo', // label for Next button
+    labelPrevious:'Anterior', // label for Previous button
+    labelFinish:'Salvar ',  // label for Finish button
+    noForwardJumping:false,
+    // Events
+    onLeaveStep: null, // triggers when leaving a step
+    onShowStep: null,  // triggers when showing a step
+    onFinish: null  // triggers when Finish button is clicked
+  });
+
+</script>
