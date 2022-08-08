@@ -61,13 +61,13 @@
               <div class="col-md-6">
                 <%= f.fields_for :client_works do |cw| %>
 
-                <b><%= cw.label "Cliente" %></b>
+                <label> Cliente </label>
 
                 <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
               </div>
 
               <div class="col-md-6">
-                <b><%= f.label "Número do Requerimento ou Processo" %></b>
+                <label> Número do Requerimento ou Processo </label>
                 <%= f.number_field :number, class:"form-control", min: 0 %>
                 <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
               </div>
@@ -76,9 +76,9 @@
 
             <div class="col-md-12">
               <div class="col-md-4 grid">
-                <b><%= f.label "Procedimento" %></b>
+                <label> Procedimento </label>
                 <%= f.collection_check_boxes :procedure_ids, options_for_procedure, :id, :description do |cb|
-                  cb.label { cb.check_box + cb.text }
+                  cb.label(class:"inline-radio") { cb.check_box + cb.text }
                 end %>
               </div>
             </div>
@@ -89,7 +89,7 @@
                 <legend class="col-form-label pt-0"><b>Assunto</b></legend>
 
                 <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
-                  b.label { b.radio_button(class:"subject") + b.text }
+                  b.label(class:"inline-radio") { b.radio_button(class:"subject") + b.text }
                 end %>
 
                 <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
@@ -127,7 +127,7 @@
 
                       <div class='col-md-12 no-padding'>
                         <div class='col-md-6'>
-                          <b><%= f.label "Upload de arquivos" %></b>
+                          <label> Upload de arquivos </label>
                           <%= f.file_field :archive_file, multiple: true %>
                           <small class="form-text text-muted">
                             Formatos aceitos: JPEG, PNG e PDF.
@@ -156,7 +156,7 @@
                 <label id="label-rate-work" for="work_Honorários De Trabalho ou Êxito" data-exfield="<%= @work.rate_fixed_exfield %>" data-percentage="<%= @work.rate_percentage_exfield %>" ><b>Honorários De Trabalho ou Êxito</b></label>
 
                 <%= f.collection_radio_buttons :rate_work, options_for_rate_work, :second, :first do |b|
-                b.label { b.radio_button(class:"rate-works ") + b.text }
+                b.label(class:"inline-radio") { b.radio_button(class:"rate-works ") + b.text }
                 end %>
 
               </div>
@@ -170,14 +170,14 @@
             <div class="col-md-12">
 
               <div class="grid col-md-6" id="rate_parceled">
-                <b><%= f.label "Parcelamento" %></b>
+                <label> Parcelamento </label>
                 <%= f.collection_radio_buttons :rate_parceled, options_for_rate_parceled, :second, :first do |b|
-                  b.label { b.radio_button + b.text }
+                  b.label(class:"inline-radio") { b.radio_button + b.text }
                 end %>
               </div>
 
               <div class="grid col-md-6" id="rate_parceled">
-                <b><%= f.label "Parcelamento" %></b>
+                <label> Parcelamento </label>
                 <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
               </div>
 
@@ -200,16 +200,14 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-
-                <b><%= f.label "Escritório ou Escritórios Associados" %></b>
+                <label> Escritório ou Escritórios Associados </label>
                 <%= f.fields_for :work_offices do |wo| %>
                   <%= wo.collection_select(:office_id, options_for_office, :id, :name, {}, {class:'form-control'}) %>
                 <% end %>
-
               </div>
 
               <div class="col-md-6">
-                <b><%= f.label "Atendimento Inicial" %></b>
+                <label> Atendimento Inicial </label>
                 <%= f.collection_select :initial_atendee, UserProfile.order(:email), :id, :email, {}, {class:'form-control'} %>
               </div>
 
@@ -218,13 +216,13 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <b><%= f.label "Advogado Responsável" %></b>
+                <label> Advogado Responsável </label>
                 <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
               </div>
 
               <div class="col-md-6">
                 <div class="col-md-6 no-padding">
-                  <b><%= cw.label "Indicação" %></b>
+                  <label> Indicação </label>
                   <div class=" ind-name no-padding">
                     <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
                     <% if @work.client_works.last.recommendation %>
@@ -248,12 +246,12 @@
             <div class="col-md-12">
 
                 <div class="col-md-6">
-                  <b><%= cw.label "Porcentagem da Comissão" %></b>
+                  <label> Porcentagem da Comissão </label>
                   <%= cw.number_field :percentage, class:"form-control" %>
                 </div>
 
                 <div class="col-md-6">
-                  <b><%= cw.label "Valor da Comissão" %></b>
+                  <label> Valor da Comissão </label>
                   <%= cw.number_field :value, class:"form-control" %>
                 </div>
               <% end %>
@@ -263,13 +261,13 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <b><%= f.label "Estagiários da Procuração" %></b>
+                <label> Estagiários da Procuração </label>
                 <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
 
               </div>
 
               <div class="col-md-6">
-                <b><%= f.label "Bacharéis/Paralegais da Procuracão" %></b>
+                <label> Bacharéis/Paralegais da Procuracão </label>
                 <%= f.collection_select :procuration_paralegal, UserProfile.paralegal.order(:name), :id, :name, {}, {class:"form-control"} %>
               </div>
 
@@ -277,7 +275,7 @@
 
             <div class="col-md-12">
               <div class="col-md-6">
-                <b><%= f.label "Advogado Parceiro" %></b>
+                <label> Advogado Parceiro </label>
                 <%= f.text_field :partner_lawyer, class:"form-control" %>
                 <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
               </div>
@@ -292,16 +290,16 @@
             <div class="col-md-12">
 
               <div class="col-md-6 grid">
-                <b><%= f.label "Documentos a serem produzidos" %></b>
+                <label> Documentos a serem produzidos </label>
                 <%= f.collection_check_boxes :checklist_ids, options_for_checklist, :id, :description do |cl|
-                  cl.label { cl.check_box + cl.text }
+                  cl.label(class:"inline-radio") { cl.check_box + cl.text }
                 end %>
               </div>
 
               <div class="col-md-6 grid">
-                <b><%= f.label "Documentos Pendentes" %></b>
+                <label> Documentos Pendentes </label>
                 <%= f.collection_check_boxes :checklist_document_ids, options_for_checklist_document, :id, :description do |cl|
-                  cl.label { cl.check_box + cl.text }
+                  cl.label(class:"inline-radio") { cl.check_box + cl.text }
                 end %>
               </div>
 
@@ -310,7 +308,7 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <b><%= f.label "Outros Documentos Pendentes ou Pendências." %></b>
+                <label> Outros Documentos Pendentes ou Pendências. </label>
                 <%= f.text_field :document_pendent, class:"form-control" %>
               </div>
 
@@ -319,7 +317,7 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <b><%= f.label "Pasta" %></b>
+                <label> Pasta </label>
                 <%= f.text_field :folder, class:"form-control" %>
               </div>
 
@@ -331,7 +329,7 @@
 
             <div class="col-md-12">
               <div class="col-md-12">
-                <b><%= f.label "Notas em geral sobre o caso" %></b>
+                <label> Notas em geral sobre o caso </label>
                 <%= f.text_area(:note, rows: 5, class:"form-control") %>
               </div>
             </div>
