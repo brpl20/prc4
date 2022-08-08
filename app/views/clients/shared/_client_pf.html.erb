@@ -1,4 +1,4 @@
-<%= form_with url: clients_path(type: @type), model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+<%= form_with url: clients_path(type: @type), model: @client, local: true, id:"customer_type", multipart: true, validate: true do |f| %>
 
   <div id="wizard" class="form_wizard wizard_horizontal">
     <ul class="wizard_steps anchor">
@@ -57,7 +57,7 @@
         <div class="col-md-12 col-sm-12 no-padding">
           <div class="col-md-6 col-sm-6">
             <label>Nome*</label>
-            <%= f.text_field :name, id:'name', class:"form-control", required: true %>
+            <%= f.text_field :name, validate: true , id:'name', class:"form-control ", required: true %>
             <small class="form-text text-muted">
               Nome do cliente.
             </small>
@@ -65,7 +65,7 @@
 
           <div class="col-md-6 col-sm-6">
             <label>Sobrenome*</label>
-            <%= f.text_field :lastname, class:"form-control" %>
+            <%= f.text_field :lastname, validate: true, class:"form-control required" %>
             <small class="form-text text-muted">
               Sobrenome do cliente.
             </small>
@@ -76,7 +76,7 @@
 
           <div class="col-md-6">
             <label>CPF*</label>
-            <%= f.text_field :social_number, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
+            <%= f.text_field :social_number, class:"form-control required", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
           </div>
 
           <div class="col-md-6">
@@ -110,17 +110,17 @@
 
             <div class="col-md-3">
               <label>Estado Civil*</label>
-              <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+              <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first, validate: true do |b| b.label(class:"inline-radio ") { b.radio_button + b.text } end %>
             </div>
 
             <div class="col-md-3">
               <label>Naturalidade*</label>
-              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+              <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio ") { b.radio_button + b.text } end %>
             </div>
 
             <div class="col-md-3">
               <label>Capacidade*</label>
-              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class:"btn-capacity") + b.text } end %>
+              <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio ") { b.radio_button(class:"btn-capacity") + b.text } end %>
             </div>
 
           <%= f.radio_button :client_type, '0', class:'hidden', checked: true %>
@@ -128,6 +128,7 @@
         </div>
 
       </div>
+
       <div id="step-2" class="content" style="display: none;">
         <div class="col-md-12">
           <div class="col-md-6">
@@ -137,22 +138,23 @@
 
           <div class="col-md-6">
             <label>Endereço*</label>
-            <%= f.text_field :address, class:"form-control address" %>
+            <%= f.text_field :address, class:"form-control address " %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
             <label>Cidade*</label>
-            <%= f.text_field :city, class:"form-control city" %>
+            <%= f.text_field :city, class:"form-control city " %>
           </div>
 
           <div class="col-md-6">
             <label>Estado*</label>
-            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state "} %>
           </div>
         </div>
       </div>
+
       <div id="step-3" class="content" style="display: none;">
         <div class="col-md-12">
           <div class="col-md-6 no-padding ordering-contact">
@@ -194,6 +196,7 @@
 
         </div>
       </div>
+
       <div id="step-4" class="content" style="display: none;">
 
         <div class="col-md-6 no-padding">
@@ -218,6 +221,7 @@
         </div>
 
       </div>
+
       <div id="step-5" class="content" style="display: none;">
 
         <div class="col-md-12">
@@ -235,12 +239,12 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <label>Profissão*</label>
-            <%= f.text_field :profession, class:"form-control" %>
+            <%= f.text_field :profession, class:"form-control " %>
           </div>
 
           <div class="col-md-6">
             <label>Empresa Atual</label>
-            <%= f.text_field :company, class:"form-control" %>
+            <%= f.text_field :company, class:"form-control " %>
           </div>
         </div>
 
@@ -259,6 +263,7 @@
         </div>
 
       </div>
+
       <div id="step-6" class="content" style="display: none;">
         <div class="col-md-12">
 
@@ -287,8 +292,10 @@
   </div>
 <% end %>
 <script type="text/javascript">
+
   function leaveAStepCallback(obj, context){
     alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
-    return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
+    return false;
+    // return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
   }
 </script>

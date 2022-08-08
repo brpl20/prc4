@@ -202,3 +202,10 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  function leaveAStepCallback(obj, context){
+    alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
+    return validateSteps(context.toStep); // return false to stay on step and true to continue navigation
+  }
+</script>

@@ -1,4 +1,5 @@
 //= require jquery
+//= require rails.validations
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
