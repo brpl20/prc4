@@ -56,4 +56,16 @@ module ClientsHelper
   def retrieve_represented(id)
     id ? Client.find(id).name : 'não informado'
   end
+
+  def retrieve_type_to_link(type)
+    if type == 0
+      return 'pf'
+    elsif type == 1
+      return 'pj'
+    elsif type == 2
+      return 'rep'
+    elsif type == 3
+      return 'cont'
+    end
+  end
 end

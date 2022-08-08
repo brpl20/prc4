@@ -60,7 +60,7 @@
                         <i class="fa fa-eye"></i>
                       <% end %>
 
-                      <%= link_to edit_client_path(c, type: 'pf'), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
+                      <%= link_to edit_client_path(c, type: retrieve_type_to_link(c.client_type)), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
 
