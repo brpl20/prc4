@@ -59,11 +59,13 @@
 
             <div class="col-md-12">
               <div class="col-md-6">
-                <%= f.fields_for :client_works do |cw| %>
-
-                <label> Cliente </label>
-
-                <%= cw.collection_select :client_id, options_for_client, :first, :second, {:selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
+                <div class="work-office">
+                  <label> Cliente </label>
+                  <%= f.fields_for :client_works do |cw| %>
+                    <%= render partial: "client_work_fields", locals: {f: cw} %>
+                  <% end %>
+                  <%= link_to_add_association "Adicionar Cliente", f, :client_works, class:"btn btn-success btn-add-cli" %>
+                </div>
               </div>
 
               <div class="col-md-6">
@@ -199,11 +201,15 @@
 
             <div class="col-md-12">
 
-              <div class="col-md-6">
-                <label> Escritório ou Escritórios Associados </label>
-                <%= f.fields_for :work_offices do |wo| %>
-                  <%= wo.collection_select(:office_id, options_for_office, :id, :name, {}, {class:'form-control'}) %>
-                <% end %>
+              <div class="col-md-6 form-group client ordering-btn-add">
+                <div class="work-office">
+                  <label> Escritório ou Escritórios Associados </label>
+                  <%= f.fields_for :work_offices do |wo| %>
+                    <%= render partial: "work_office_fields", locals: {f: wo} %>
+                  <% end %>
+
+                  <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli" %>
+                </div>
               </div>
 
               <div class="col-md-6">
@@ -224,6 +230,8 @@
                 <div class="col-md-6 no-padding">
                   <label> Indicação </label>
                   <div class=" ind-name no-padding">
+                    <%= f.fields_for :client_works do |cw| %>
+
                     <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
                     <% if @work.client_works.last.recommendation %>
 
