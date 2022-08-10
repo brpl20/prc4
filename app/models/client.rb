@@ -11,6 +11,7 @@ class Client < ApplicationRecord
   has_many :works, through: :client_works
   has_many :jobs
   has_many_attached :files
+  has_many :recommendation_works, dependent: :destroy
 
   accepts_nested_attributes_for :bank, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true

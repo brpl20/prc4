@@ -230,12 +230,12 @@
                 <div class="col-md-6 no-padding">
                   <label> Indicação </label>
                   <div class=" ind-name no-padding">
-                    <%= f.fields_for :client_works do |cw| %>
+                    <%= f.fields_for :recommendation_work do |rw| %>
 
-                    <%= cw.number_field :recommendation, class:"form-control indId hidden" %>
-                    <% if @work.client_works.last.recommendation %>
+                    <%= rw.number_field :client_id, class:"form-control indId hidden" %>
+                    <% if !@work.recommendation_work.new_record? %>
 
-                      <span class="indName"><%= has_recommendation(@work.client_works.last.recommendation) %></span>
+                      <span class="indName"><%= @work.recommendation_work.client.name %></span>
 
                     <% else %>
                       <span class="indName">Escolha uma indicação.</span>
@@ -255,12 +255,12 @@
 
                 <div class="col-md-6">
                   <label> Porcentagem da Comissão </label>
-                  <%= cw.number_field :percentage, class:"form-control" %>
+                  <%= rw.number_field :percentage, class:"form-control" %>
                 </div>
 
                 <div class="col-md-6">
                   <label> Valor da Comissão </label>
-                  <%= cw.number_field :value, class:"form-control" %>
+                  <%= rw.number_field :commission, class:"form-control" %>
                 </div>
               <% end %>
 
