@@ -11,6 +11,7 @@ class WorksController < BackofficeController
     @work = Work.new
     @work.client_works.build
     @work.work_offices.build
+    @work.build_recommendation_work
     @work.powers.build
     @work.build_tributary
     @client = Client.find(params[:client]) if params[:client]
@@ -444,8 +445,9 @@ class WorksController < BackofficeController
       procedure_ids: [],
       power_ids: [],
       archive_file: [],
-      client_works_attributes: %i[id client_id recommendation value percentage],
-      work_offices_attributes: %i[id office_id],
+      client_works_attributes: %i[id client_id _destroy],
+      recommendation_work_attributes: %i[id client_id work_id percentage commission _destroy],
+      work_offices_attributes: %i[id office_id _destroy],
       tributary_attributes: [:id,
                             :compensation,
                             :craft,

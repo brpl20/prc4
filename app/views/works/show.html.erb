@@ -21,8 +21,12 @@
             </h2>
 
             <span>
-              <b>Cliente:</b>
-              <%= @work.clients.first.name %>
+              <b>Cliente(s):</b>
+              <% @work.clients.each do |wc| %>
+              <span >
+                  <%= wc.name %>
+              </span>
+              <% end %>
             </span>
 
             <span>
@@ -202,6 +206,15 @@
           </h2>
 
           <span>
+            <b>Escritório ou Escritórios Associados:</b>
+            <% @work.offices.each do |wo| %>
+              <span>
+                <%= wo.name %>
+              </span>
+            <% end %>
+          </span>
+
+          <span>
             <b>Atendimento Inicial:</b>
             <%= initial_atendence(@work.initial_atendee) %>
           </span>
@@ -211,20 +224,20 @@
             <%= @work.partner_lawyer %>
           </span>
 
-          <% if @work.client_works.last.recommendation %>
+          <% if @work.recommendation_work %>
             <span>
               <b>Recomendação/Indicação/Origem:</b>
-              <%= has_recommendation(@work.client_works.last.recommendation) %>
+              <%= @work.recommendation_work.client.name %>
             </span>
 
             <span>
               <b>Comissão da Recomendação:</b>
-              <%= @work.client_works.last.percentage %>
+              <%= @work.recommendation_work.percentage %>
             </span>
 
             <span>
               <b>Valor da Recomendação:</b>
-              <%= @work.client_works.last.value %>
+              <%= @work.recommendation_work.commission %>
             </span>
 
           <% else %>
