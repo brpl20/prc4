@@ -9,7 +9,6 @@ gem 'autoprefixer-rails'
 gem 'aws-sdk-s3', require: false
 gem 'bootsnap', require: false
 gem 'cancancan'
-gem 'client_side_validations'
 gem 'cocoon'
 gem 'coffee-rails', '~> 5.0'
 gem 'devise'

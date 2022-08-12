@@ -1,11 +1,9 @@
 //= require jquery
-//= require rails.validations
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
 
 $(document).ready(function(){
-
 
 $('.rate').focus();
   function change_status_color(status) {

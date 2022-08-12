@@ -102,31 +102,53 @@
 <script type="text/javascript">
 
   function leaveAStepCallback(obj, context){
-    return validateSteps(context.fromStep); // return false to stay on step and true to continue navigation
+    return validateSteps(context.fromStep);
   }
 
-  // Your Step validation logic
   function validateSteps(stepnumber){
-    var isStepValid = true;
-    // validate step 1
     if(stepnumber == 1){
-        if(document.getElementById("client_social_number").value == ""){
+        if($("#client_social_number").val() == ""){
+          $("#client_social_number").addClass('field_with_errors');
+          $("#client_social_number").prev().addClass('label_with_errors');
           return isStepValid = false;
         }
         else {
+          $("#client_social_number").prev().removeClass('label_with_errors');
+          $("#client_social_number").removeClass('field_with_errors');
           return isStepValid = true;
         }
     }
     if(stepnumber == 2){
-      if(document.getElementById("client_phones_attributes_0_phone").value == "" || document.getElementById("client_emails_attributes_0_email").value == ""  ){
-        return isStepValid = false;
+      let flag = true
+
+      if ($("#client_phones_attributes_0_phone").val() == "") {
+
+        $("#client_phones_attributes_0_phone").addClass('field_with_errors');
+        $("#client_phones_attributes_0_phone").prev().addClass('label_with_errors');
+
+        flag = false
+
       }
-      else {
-        alert(document.getElementById("client_lastname").value);
-        return isStepValid = true;
+
+      if ($("#client_emails_attributes_0_email").val() == "") {
+
+        $("#client_emails_attributes_0_email").addClass('field_with_errors');
+        $("#client_emails_attributes_0_email").prev().addClass('label_with_errors');
+
+        flag = false
+
       }
+
+      if(flag){
+        $("#client_phones_attributes_0_phone").removeClass('field_with_errors');
+        $("#client_phones_attributes_0_phone").prev().removeClass('label_with_errors');
+        $("#client_emails_attributes_0_email").removeClass('field_with_errors');
+        $("#client_emails_attributes_0_email").prev().removeClass('label_with_errors');
+      }
+
+      return flag;
+
     }
-      // ...
   }
 
 </script>

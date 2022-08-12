@@ -146,5 +146,8 @@ label{
 }
 
 .field_with_errors{
-  color: red;
+  border: solid 1px red !important;
+}
+.label_with_errors{
+  color: red !important;
 }
