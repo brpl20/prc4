@@ -2,6 +2,7 @@
 
 # Controladora do cliente
 class ClientsController < BackofficeController
+  include ClientsHelper
   before_action :amazon_client, :set_client, only: %i[show edit update destroy]
   before_action :retrieve_type, only: %i[new create edit update]
 
@@ -52,11 +53,12 @@ class ClientsController < BackofficeController
   def edit; end
 
   def update
-      if @client.update(client_params)
-        redirect_to clients_path, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada'
-      else
-        render :edit
-      end
+    @type = retrieve_type_to_link(@client.client_type)
+    if @client.update(client_params)
+      redirect_to clients_path, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada'
+    else
+      render :edit
+    end
   end
 
   def destroy

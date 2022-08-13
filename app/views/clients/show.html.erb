@@ -13,7 +13,9 @@
 
         <li>
           <span>
-            <%= link_to '', edit_client_path(@client), {class:"btn fa fa-edit btncent btn-link"} %>
+            <%= link_to '',
+              edit_client_path(@client, type: retrieve_type_to_link(@client.client_type)),
+              {class:"btn fa fa-edit btncent btn-link"} %>
           </span>
         </li>
 
@@ -33,7 +35,7 @@
           <div class="alert alert-danger container-flex" role="alert">
             <p>Este cliente foi definido como incapaz ou parcialmente incapaz e não possui um representante</p>
 
-            <%= link_to 'Informar Representante Legal', edit_client_path(@client), class:'btn btn-outline btn-danger'%>
+            <%= link_to 'Informar Representante Legal', edit_client_path(@client, type: retrieve_type_to_link(@client.client_type)), class:'btn btn-outline btn-danger'%>
           </div>
         <% end %>
 

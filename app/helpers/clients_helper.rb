@@ -58,14 +58,15 @@ module ClientsHelper
   end
 
   def retrieve_type_to_link(type)
-    if type == 0
-      return 'pf'
-    elsif type == 1
-      return 'pj'
-    elsif type == 2
-      return 'rep'
-    elsif type == 3
-      return 'cont'
+    case type
+    when 0
+      'pf'
+    when 1
+      'pj'
+    when 2
+      'rep'
+    when 3
+      'cont'
     end
   end
 end

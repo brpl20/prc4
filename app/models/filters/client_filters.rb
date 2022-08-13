@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ClientFilters
 
   class << self
@@ -14,7 +16,5 @@ class ClientFilters
       types = [2, 3]
       retrieve_clients.where(client_type: types)
     end
-
   end
-
 end
