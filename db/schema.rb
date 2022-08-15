@@ -190,6 +190,9 @@ ActiveRecord::Schema.define(version: 2022_08_09_222825) do
     t.bigint "tributary_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "value"
+    t.string "responsible"
+    t.string "perd_style"
     t.index ["tributary_id"], name: "index_perd_launches_on_tributary_id"
   end
 

@@ -46,6 +46,7 @@ class ClientsController < BackofficeController
     if @client.save
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
+      templater(@client, "procuracao_simples")
     else
       render :new
     end
@@ -77,39 +78,36 @@ class ClientsController < BackofficeController
     @url_job = @client.jobs
   end
 
-   def genderize(field)
-     case field
-     when "Casado"
-       field.sub! 'Casado', 'Casada'
-     when "Solteiro"
-       field.sub! 'Solteiro', 'Solteira'
-     when "Divorciado"
-       field.sub! 'Divorciado', 'Divorciada'
-     when "Viúvo"
-       field.sub! 'Viúvo', 'Viúva'
-     when "Brasileiro"
-       field.sub! 'Brasileiro', 'Brasileira'
-     when "Estrangeiro"
-       field.sub! 'Estrangeiro', 'Estrangeira'
-     else
-      "em União Estável"
-     end
-   end
+  def aws_configurations
+    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
+        ENV['AWS_ID'],
+        ENV['AWS_SECRET_KEY']
+        )})
+    return @aws_client = Aws::S3::Client.new, @s3 = Aws::S3::Resource.new(region: 'us-west-2')
+  end
 
-   def get_civilstatus(status)
-     case status
-       when '1'
-         'Solteiro(a)'
-       when '2'
-         'Casado(a)'
-       when '3'
-         'Divorciado(a)'
-       when '4'
-         'Viúvo(a)'
-       when '5'
-         'em União Estável'
-       end
-   end
+  def office_check_and_select
+    offices = Office.all
+    if offices.size > 0.5
+      office_sel = Office.find_by_id(1)
+      office = ["Escritório: "].join("")
+      office_email = office_sel.email
+      office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
+      office << "#{office_sel.name}"
+    else
+      office = [""].join("")
+      office_address = "#{lawyers[1]}"
+      # nao vai funcionar pq nao tem o laywers
+    end
+    return @office
+  end
+
+  # FULL QUALIFICATION
+  # ....
+
+  #
+  # FULL QUALIFICATION
+
 
   def templater(client, document)
     require 'aws-sdk-s3'
@@ -118,17 +116,13 @@ class ClientsController < BackofficeController
     require 'time'
     require 'rails-i18n'
 
-    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
-        )})
-    @aws_client = Aws::S3::Client.new
-    @s3 = Aws::S3::Resource.new(region: 'us-west-2')
-
+    # AWS CONFIG AND DOC
+    aws_configurations
     aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
     aws_body = aws_doc.body
 
-    nome_completo = "#{@client[:name]} #{@client[:lastname]}".upcase
+    # FIELD
+    # office_check_and_select
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
     emails = [].join("")
@@ -136,25 +130,9 @@ class ClientsController < BackofficeController
       emails << "#{em.email}, "
     end
 
-    if @client[:number_benefit].nil? || @client[:number_benefit] == ""
-      nb_exist = ""
-    else
-      nb_exist = "número de benefício #{@client[:number_benefit]},"
-    end
+    client.full_qualify_person(client, :full)
+    client.full_qualify_representative(client)
 
-    if @client[:gender] == 2
-      civilstatus = client.civilstatus
-      nacionalita = genderize(@client[:citizenship])
-      porta = "portadora"
-      inscrito = "inscrita"
-      domiciliado = "domiciliada"
-    else
-      civilstatus = client.civilstatus
-      nacionalita = @client[:citizenship]
-      porta = "portador"
-      inscrito = "inscrito"
-      domiciliado = "domiciliado"
-    end
 
     if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
       capacity_treated = @client[:capacity]
@@ -226,49 +204,53 @@ class ClientsController < BackofficeController
     doc.paragraphs.each do |p|
       p.each_text_run do |tr|
         # CLIENT
-        tr.substitute('_:nome_', nome_cap)
-        tr.substitute('_:sobrenome_', sobrenome_cap)
-        tr.substitute('_:estado_civil_', civilstatus.downcase)
-        tr.substitute('_:profissao_', @client[:profession].downcase)
-        tr.substitute('_:capacidade_', capacity_treated.downcase)
-        tr.substitute('_:nacionalidade_', nacionalita.downcase)
-        tr.substitute('_:rg_', @client[:general_register])
-        tr.substitute('_:cpf_', (@client[:social_number]).to_s)
-        tr.substitute('_:nb_', nb_exist)
-        tr.substitute('_:email_', emails)
-        tr.substitute('_:endereco_', @client[:address])
-        tr.substitute('_:cidade_', @client[:city])
-        tr.substitute('_:state_', @client[:state])
-        tr.substitute('_:cep_', (@client[:zip]).to_s)
-        tr.substitute('_:empresa_atual_', @client[:company])
+        tr.substitute('_:c_nome_', client.full_name(client))
+        #tr.substitute('_:c_estado_civil_', client.genderize(client.civilstatus))
 
-        tr.substitute('_:lawyers_', laws)
-        tr.substitute('_:sociedade_', office)
-        tr.substitute('_$parl_', parals)
-        tr.substitute('$es', inters)
-        tr.substitute('_:addressoficial_', office_address)
-        # tr.substitute('_:emailoficial_', office_email)
+        tr.substitute('_:c_profissao_', client.profession.downcase)
+        tr.substitute('_:c_capacidade_', capacity_treated.downcase)
+        #tr.substitute('_:c_nacionalidade_', client.genderize(client.citizenship).downcase)
 
-        tr.substitute('_:portador_', porta)
-        tr.substitute('_:inscrito_', inscrito)
-        tr.substitute('_:domiciliado_', domiciliado)
+        tr.substitute('_:c_rg_', @client[:general_register])
+        tr.substitute('_:c_cpf_', (@client[:social_number]).to_s)
+        #tr.substitute('_:c_nb_', nb_exist)
+        tr.substitute('_:c_email_', @client.emails[0].email)
+        tr.substitute('_:c_endereco_', @client[:address])
+        tr.substitute('_:c_cidade_', @client[:city])
+        tr.substitute('_:c_state_', @client[:state])
+        tr.substitute('_:c_cep_', (@client[:zip]).to_s)
+        tr.substitute('_:c_empresa_atual_', @client[:company])
+
+        tr.substitute('_:o_lawyers_', laws)
+        tr.substitute('_:o_sociedade_', office)
+        tr.substitute('_:o_parl_', parals)
+        # paralegais
+        tr.substitute('_:o_est', inters)
+        # interns estagiario
+        tr.substitute('_:o_addressoficial_', office_address)
+        tr.substitute('_:o_emailoficial_', office_email)
+
+        #tr.substitute('_:c_portador_', porta)
+        #tr.substitute('_:c_inscrito_', inscrito)
+        #tr.substitute('_:c_domiciliado_', domiciliado)
 
         tr.substitute('_:timestamp_', dia)
       end
     end
+    console
     bucket = 'prcstudio3herokubucket'
     nome_correto = client[:name].downcase.gsub(/\s+/, "")
 
-    #ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+    ch_save = doc.save(Rails.root.join("tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
 
     ch_file = "tmp/procuracao_simples-#{nome_correto}_#{client.id}.docx"
 
     obj = @s3.bucket(bucket).object(ch_file)
 
     #backup
-      #ch_save = doc.save(Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
-      #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
-      #obj = @s3.bucket(bucket).object(ch_file)
+    #ch_save = doc.save(Rails.root.join("public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx").to_s)
+    #ch_file = "public/files/procuracao_simples-#{nome_correto}_#{client.id}.docx"
+    #obj = @s3.bucket(bucket).object(ch_file)
     #backup
 
     metadata = {
@@ -280,9 +262,9 @@ class ClientsController < BackofficeController
                 :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
                 :user => "#{current_user.id}"
                  }
-    client.documents = metadata
-    client.save
-    #obj.upload_file(ch_file, metadata: metadata)
+  client.documents = metadata
+  client.save
+  obj.upload_file(ch_file, metadata: metadata)
   end
 
   def docx_upload(bucket='prcstudio3herokubucket', client, document)
@@ -327,16 +309,6 @@ class ClientsController < BackofficeController
 
   def set_client
     @client = Client.find(params[:id])
-  end
-
-  def amazon_client
-   require 'aws-sdk-s3'
-    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
-        )})
-    @aws_client = Aws::S3::Client.new
-    @s3 = Aws::S3::Resource.new(region: 'us-west-2')
   end
 
   def retrieve_type

@@ -26,6 +26,7 @@ class WorksController < BackofficeController
   def create
     @work = Work.new(work_params)
     if @work.save
+      #UpdateWorkMailer.notify_new_work(@work).deliver_later
       #work_templater(@work, 'wdocs')
       redirect_to @work
     else

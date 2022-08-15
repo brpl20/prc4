@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: ''
+  default from: 'noreply@procstudio.com.br'
   layout 'mailer'
 end
