@@ -6,9 +6,9 @@
         <h1 class="pull-left mg-left">Escolha um tipo de cliente</h1>
       </div>
 
-      <div class="container col-md-12">
+      <div class="container-modal col-md-12">
 
-        <div class=" col-md-3">
+        <div>
           <%= link_to new_client_path(type: 'pf'), class: 'btn btn-outline-primary color-btn' do %>
             <i class="fa fa-user fa-4x btn-icon"></i> <br>
             Pessoa Física
@@ -16,7 +16,7 @@
 
         </div>
 
-        <div class=" col-md-3">
+        <div>
           <%= link_to new_client_path(type: 'pj'), class: 'btn btn-outline-primary color-btn' do %>
             <i class="fa fa-building fa-4x btn-icon"></i> <br>
             Pessoa Jurídica
@@ -24,7 +24,7 @@
 
         </div>
 
-        <div class="col-md-3">
+        <div>
           <%= link_to new_client_path(type: 'cont'), class: 'btn btn-outline-primary color-btn' do %>
             <i class="fa fa-users fa-4x btn-icon"></i> <br>
             Contador
@@ -32,7 +32,7 @@
 
         </div>
 
-        <div class=" col-md-3">
+        <div>
           <%= link_to new_client_path(type: 'rep'), class: 'btn btn-outline-primary color-btn' do %>
             <i class="fa fa-calculator fa-4x btn-icon"></i> <br>
             Representante Legal
