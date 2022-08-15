@@ -1,4 +1,4 @@
-class FileUploadsController < ApplicationController
+class FileUploadsController < BackofficeController
   def new
     @client = Client.find(params[:client_id])
   end

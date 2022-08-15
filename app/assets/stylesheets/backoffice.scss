@@ -118,8 +118,11 @@ input[type='checkbox']{
 .panel_toolbox {
   min-width: 20px;
 }
-.phone-cli{
+.phone-cli:last-child{
   margin: 0;
+}
+.phone-cli{
+  margin-top: 3rem;
 }
 .btn-add-cli{
   width: 100%;
@@ -215,7 +218,22 @@ span.section{
   margin: 0 !important;
   font-size: 1.1rem;
 }
-
+.ordering-contact{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    justify-content: space-around;
+    gap: 1rem;
+}
+.ordering-btn-add{
+    margin: 0px;
+    display: flex;
+    flex-direction: column-reverse;
+}
+.add-button-rep{
+  display: flex;
+  flex-flow: row-reverse;
+}
 @media only screen and (max-width: 600px) {
   div.nav-item {
     display: none;

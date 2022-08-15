@@ -4722,9 +4722,14 @@ ul.verticle_bars li {
 
 .alert-danger,
 .alert-error {
-  color: #E9EDEF;
-  background-color: rgba(231, 76, 60, 0.88);
-  border-color: rgba(231, 76, 60, 0.88); }
+  width: 90%;
+  margin: 0 auto;
+  color: #7c7574;
+  background-color: rgb(255 137 125 / 12%);
+  border-color: rgba(231, 76, 60, 0.88);
+}
+
+
 
 .ui-pnotify.dark .ui-pnotify-container {
   color: #E9EDEF;

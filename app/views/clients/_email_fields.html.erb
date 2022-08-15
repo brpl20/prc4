@@ -1,7 +1,7 @@
-<div class='nested-fields col-md-6 clearfix phone-cli'>
+<div class='nested-fields col-md-5 no-padding clearfix phone-cli'>
   <div class="field">
-    <b><%= f.label "E-mail" %></b>
-    <%= f.email_field :email, class:"form-control" %>
+    <label>E-mail*</label>
+    <%= f.email_field :email, class:"form-control mail" %>
     <%= link_to_remove_association "Remover", f, class:"btn btn-anger btn-rmv-cli" %>
   </div>
 </div>

@@ -1,2 +1,2 @@
-class CustomerTypesController < ApplicationController
+class CustomerTypesController < BackofficeController
 end

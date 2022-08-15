@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_01_132543) do
+ActiveRecord::Schema.define(version: 2022_08_09_222825) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,9 +88,6 @@ ActiveRecord::Schema.define(version: 2022_08_01_132543) do
     t.bigint "work_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "recommendation"
-    t.decimal "value"
-    t.decimal "percentage"
     t.index ["client_id"], name: "index_client_works_on_client_id"
     t.index ["work_id"], name: "index_client_works_on_work_id"
   end
@@ -233,6 +230,17 @@ ActiveRecord::Schema.define(version: 2022_08_01_132543) do
     t.index ["work_id"], name: "index_procedures_works_on_work_id"
   end
 
+  create_table "recommendation_works", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "work_id", null: false
+    t.decimal "percentage"
+    t.decimal "commission"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_recommendation_works_on_client_id"
+    t.index ["work_id"], name: "index_recommendation_works_on_work_id"
+  end
+
   create_table "tributaries", force: :cascade do |t|
     t.integer "compensation"
     t.integer "craft"
@@ -342,6 +350,8 @@ ActiveRecord::Schema.define(version: 2022_08_01_132543) do
   add_foreign_key "offices", "users"
   add_foreign_key "perd_launches", "tributaries"
   add_foreign_key "phones", "clients"
+  add_foreign_key "recommendation_works", "clients"
+  add_foreign_key "recommendation_works", "works"
   add_foreign_key "tributaries", "works"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "work_offices", "offices"

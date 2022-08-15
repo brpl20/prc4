@@ -2,9 +2,9 @@
 
   <h1 class="pull-left mg-left">Clientes</h1>
 
-  <%= link_to new_client_path, class:"btn btn-success pull-right btn-new" do %>
+  <a class='btn btn-success btn-modal-ind pull-right btn-new' data-toggle='modal' data-target='#modal-client-type' href='#'>
     <i class="fa fa-plus"></i> Novo Cliente
-  <% end %>
+  </a>
 
   <div class="x_panel">
     <div class="x_content">
@@ -16,11 +16,10 @@
               <tr role="row">
                 <th>#</th>
                 <th>Nome</th>
+                <th>Tipo</th>
                 <th>CPF/CNPJ</th>
                 <th>E-mail</th>
                 <th>Cidade / Estado</th>
-                <th>Número Banefício</th>
-                <th>NIT</th>
                 <th>Telefone</th>
                 <th class="table-actions">Ações</th>
               </tr>
@@ -29,7 +28,10 @@
                 <% @clients.each do |c| %>
                   <tr role="row">
                     <td><%= c.id %></td>
-                    <td><%= link_to "#{c.name + ' ' + c.lastname}", client_path(c) %></td>
+                    <td><%= link_to "#{c.name + ' ' + c.lastname.to_s}", client_path(c) %></td>
+                    <td>
+                      <%= retrieve_value_from_array(options_for_client_type, c.client_type) %>
+                    </td>
                     <td><%= c.social_number %></td>
                     <td>
                       <% c.emails.each do |e| %>
@@ -37,8 +39,6 @@
                       <% end %>
                     </td>
                     <td><%= c.city %> / <%= c.state %></td>
-                    <td><%= c.number_benefit %></td>
-                    <td><%= c.nit %></td>
                     <td>
                       <% c.phones.each do |p| %>
                         <%= p.phone %>
@@ -60,7 +60,7 @@
                         <i class="fa fa-eye"></i>
                       <% end %>
 
-                      <%= link_to edit_client_path(c), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
+                      <%= link_to edit_client_path(c, type: retrieve_type_to_link(c.client_type)), class:"btn btn-primary", 'data-toggle':"tooltip", 'data-placement':'top', title:'editar' do %>
                         <i class="fa fa-edit"></i>
                       <% end %>
 

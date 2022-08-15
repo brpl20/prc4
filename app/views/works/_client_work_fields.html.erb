@@ -1,0 +1,6 @@
+<div class='nested-fields col-md-12 no-padding clearfix cli-work'>
+  <div class="field">
+    <%= f.collection_select(:client_id, options_for_client, :first, :second, {}, {class:'form-control'}) %>
+    <%= link_to_remove_association "Remover", f, class:"btn btn-anger btn-rmv-cli" %>
+  </div>
+</div>

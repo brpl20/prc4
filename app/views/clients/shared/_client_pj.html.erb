@@ -1,0 +1,213 @@
+<%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+
+  <div id="wizard" class="form_wizard wizard_horizontal">
+    <ul class="wizard_steps anchor">
+      <li>
+        <a href="#step-1" class="selected" isdone="1" rel="1">
+          <span class="step_no">1</span>
+          <span class="step_descr">
+            Dados da Empresa
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-2" class="disabled" isdone="0" rel="2">
+          <span class="step_no">2</span>
+          <span class="step_descr">
+            Endereço
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-3" class="disabled" isdone="0" rel="3">
+          <span class="step_no">3</span>
+          <span class="step_descr">
+            Contato e Representante
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-4" class="disabled" isdone="0" rel="4">
+          <span class="step_no">4</span>
+          <span class="step_descr">
+            Dados Bancários
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-5" class="disabled" isdone="0" rel="5">
+          <span class="step_no">5</span>
+          <span class="step_descr">
+            Arquivos
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="stepContainer">
+      <div id="step-1" class="content" style="display: block;">
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-6 col-sm-6">
+            <label>Nome</label>
+            <%= f.text_field :name, class:"form-control" %>
+            <small class="form-text text-muted">
+              Nome da Empresa.
+            </small>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <label>Número do CNPJ</label>
+            <%= f.text_field :social_number, class:"form-control", 'data-mask': "00.000.000/0000-00", placeholder: "00.000.000/0000-00"%>
+          </div>
+        </div>
+
+        <%= f.radio_button :client_type, '1',class:'hidden', checked: true %>
+        <%= f.radio_button :capacity, 'Capaz',class:'hidden', checked: true %>
+
+        <div class="col-md-6">
+          <div id="rate-client-type" data-action-for-client-type="<%= @client.client_type %>"></div>
+        </div>
+
+      </div>
+      <div id="step-2" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <label>CEP</label>
+            <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
+          </div>
+
+          <div class="col-md-6">
+            <label>Endereço*</label>
+            <%= f.text_field :address, class:"form-control address step-2-required" %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <label>Cidade*</label>
+            <%= f.text_field :city, class:"form-control city step-2-required" %>
+          </div>
+
+          <div class="col-md-6">
+            <label>Estado*</label>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state step-2-required"} %>
+          </div>
+        </div>
+      </div>
+      <div id="step-3" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client no-padding">
+              <div class="phones">
+                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar telefone", f, :phones, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client no-padding">
+              <div class="emails">
+                <%= f.fields_for :emails do |e| %>
+                  <%= render partial: "email_fields", locals: {f: e} %>
+                <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar e-mail", f, :emails, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 add-button-rep">
+          <div class="col-md-6">
+            <a
+              class="btn btn-outline btn-primary"
+              id="btn-add-reps"
+              data-toggle="modal"
+              data-url="/clients/modal/representative_accountant_search"
+              data-target="#modal-general"
+              href="#">
+              Pesquisar Representante
+            </a>
+          </div>
+
+          <div class="col-md-6 form-group rep-cli no-padding">
+            <div class="customer_types no-padding" id="customer_types_add">
+
+              <%= f.fields_for :customer_types do |io| %>
+                <%= render partial: "customer_type_fields", locals: {f: io} %>
+              <% end %>
+
+              <%= link_to_add_association "Adicionar", f, :customer_types, class:"btn btn-success hidden", id:"btn-add-rep" %>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+      <div id="step-4" class="content" style="display: none;">
+
+        <div class="col-md-12 no-padding">
+            <%= f.fields_for :bank do |b| %>
+            <div class="col-md-4">
+              <label>Banco</label>
+              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
+            </div>
+
+            <div class="col-md-4">
+              <label>Agência</label>
+              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+            </div>
+
+            <div class="col-md-4">
+              <label>Conta</label>
+              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+            </div>
+
+            <% end %>
+        </div>
+
+      </div>
+      <div id="step-5" class="content" style="display: none;">
+        <div class="col-md-12">
+
+          <div class="col-md-6">
+            <div class="col-md-6">
+              <label>Adicionar arquivos</label>
+              <%= f.file_field :files, multiple: true %>
+              <small class="form-text text-muted">
+                Formatos aceitos: JPEG, PNG e PDF.
+              </small>
+
+              <% if @client.errors.any? %>
+              <div id="error_explanation">
+                <ul>
+                  <% @client.errors.each do |error| %>
+                  <p><%= error.full_message %></p>
+                  <% end %>
+                </ul>
+              </div>
+              <% else %> <% if @client.files != nil %> <% @client.files.each do |file| %>
+              <li>
+                <%= link_to file.filename, url_for(file) %> <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+              </li>
+
+              <% end %> <% end %> <% end %>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  function leaveAStepCallback(_, context){
+    $('.mail').addClass('step-3-required')
+    $('.phone').addClass('step-3-required')
+
+    return validateSteps(context.fromStep);
+  }
+</script>

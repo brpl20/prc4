@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class JobsController < ApplicationController
+class JobsController < BackofficeController
   before_action :set_job, only: %i[show edit update destroy]
 
   def index

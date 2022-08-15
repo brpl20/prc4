@@ -1,14 +1,33 @@
-class ClientsController < ApplicationController
-  before_action :authenticate_user!, :set_client, only: %i[show edit update destroy]
+# frozen_string_literal: true
+
+# Controladora do cliente
+class ClientsController < BackofficeController
+  include ClientsHelper
+  before_action :set_client, only: %i[show edit update destroy]
+  before_action :retrieve_type, only: %i[new create edit update]
 
   def index
-    @clients = Client.includes(:phones, :emails).all
+    @clients = ClientFilters.retrieve_clients
   end
 
-  def hunt
-    @clients = Client.all
+  def search
+    @clients = ClientFilters.retrieve_clients
     respond_to do |format|
-      format.js { render 'clients/hunt' }
+      format.js { render partial: 'clients/modal/recommendation_search' }
+    end
+  end
+
+  def representative_search
+    @clients = ClientFilters.retrive_representative_search
+    respond_to do |format|
+      format.js { render partial: 'clients/modal/representative_search' }
+    end
+  end
+
+  def representative_accountant_search
+    @clients = ClientFilters.retrive_representative_accountant_search
+    respond_to do |format|
+      format.js { render partial: 'clients/modal/representative_accountant_search' }
     end
   end
 
@@ -22,6 +41,8 @@ class ClientsController < ApplicationController
 
   def create
     @client = Client.new(client_params)
+    @type = retrieve_type_to_link(@client.client_type)
+
     if @client.save
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
@@ -34,14 +55,11 @@ class ClientsController < ApplicationController
   def edit; end
 
   def update
-    respond_to do |format|
-      if @client.update(client_params)
-        format.html { redirect_to @client, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada' }
-        format.json { render :show, status: :ok, location: @client }
-      else
-        format.html { render :edit }
-        format.json { render json: @client.errors, status: :unprocessable_entity }
-      end
+    @type = retrieve_type_to_link(@client.client_type)
+    if @client.update(client_params)
+      redirect_to clients_path, notice: 'Client Atualizado. Cuidado * Procuracão não Atualizada'
+    else
+      render :edit
     end
   end
 
@@ -290,7 +308,10 @@ class ClientsController < ApplicationController
   end
 
   def set_client
-    @client  = Client.find(params[:id])
+    @client = Client.find(params[:id])
   end
 
+  def retrieve_type
+    @type = params[:type]
+  end
 end

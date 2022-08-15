@@ -1,0 +1,83 @@
+<%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+
+  <div id="wizard" class="form_wizard wizard_horizontal">
+    <ul class="wizard_steps anchor">
+      <li>
+        <a href="#step-1" class="selected" isdone="1" rel="1">
+          <span class="step_no">1</span>
+          <span class="step_descr">
+            Dados do contador
+          </span>
+        </a>
+      </li>
+      <li>
+        <a href="#step-2" class="disabled" isdone="0" rel="2">
+          <span class="step_no">2</span>
+          <span class="step_descr">
+            Contatos do contador
+          </span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="stepContainer">
+      <div id="step-1" class="content" style="display: block;">
+        <div class="col-md-12 col-sm-12">
+          <div class="col-md-6 col-sm-6">
+            <label>Nome*</label>
+            <%= f.text_field :name, class:"form-control step-1-required" %>
+            <small class="form-text text-muted">
+              Nome do cliente.
+            </small>
+          </div>
+
+          <div class="col-md-6 col-sm-6">
+            <label>Sobrenome*</label>
+            <%= f.text_field :lastname, class:"form-control step-1-required" %>
+            <small class="form-text text-muted">
+              Sobrenome do cliente.
+            </small>
+          </div>
+        </div>
+
+        <%= f.radio_button :client_type, '3', class:'hidden', checked: true %>
+        <%= f.radio_button :capacity, 'Capaz', class:'hidden', checked: true %>
+
+      </div>
+
+      <div id="step-2" class="content" style="display: none;">
+        <div class="col-md-12">
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="phones">
+                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :phones, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 no-padding">
+            <div class="col-md-4 form-group client">
+              <div class="emails">
+                <%= f.fields_for :emails do |e| %> <%= render partial: "email_fields", locals: {f: e} %> <% end %>
+              </div>
+
+              <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  function leaveAStepCallback(_, context){
+    $('.mail').addClass('step-2-required')
+    $('.phone').addClass('step-2-required')
+
+    return validateSteps(context.fromStep);
+  }
+</script>

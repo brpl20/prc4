@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class PagesController < ApplicationController
+class PagesController < BackofficeController
 
-  before_action :amazon_client, :authenticate_user!, except: %w[help clt_covid clt_covid_s3]
+  before_action :amazon_client, except: %w[help clt_covid clt_covid_s3]
 
   def index; end
 

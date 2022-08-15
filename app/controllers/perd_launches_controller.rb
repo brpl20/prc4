@@ -1,4 +1,4 @@
-class PerdLaunchesController < ApplicationController
+class PerdLaunchesController < BackofficeController
   before_action :set_perd_launch, only: %i[show edit update destroy]
 
   def new

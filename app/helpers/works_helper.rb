@@ -46,7 +46,7 @@ module WorksHelper
   end
 
   def options_for_rate_work
-    rate_work = [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"]]
+    rate_work = [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"], ["Pro-bono", "Pro-bono"]]
   end
 
   def options_for_rate_parceled
@@ -81,10 +81,6 @@ module WorksHelper
     if tributary != nil
       @perdlaunches = PerdLaunch.where(tributary_id: tributary.id)
     end
-  end
-
-  def has_recommendation(id)
-    Client.find(id).name
   end
 
   def options_for_radio_yes(op)
