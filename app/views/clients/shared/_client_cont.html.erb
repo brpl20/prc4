@@ -24,16 +24,16 @@
       <div id="step-1" class="content" style="display: block;">
         <div class="col-md-12 col-sm-12">
           <div class="col-md-6 col-sm-6">
-            <label>Nome</label>
-            <%= f.text_field :name, class:"form-control" %>
+            <label>Nome*</label>
+            <%= f.text_field :name, class:"form-control step-1-required" %>
             <small class="form-text text-muted">
               Nome do cliente.
             </small>
           </div>
 
           <div class="col-md-6 col-sm-6">
-            <label>Sobrenome</label>
-            <%= f.text_field :lastname, class:"form-control" %>
+            <label>Sobrenome*</label>
+            <%= f.text_field :lastname, class:"form-control step-1-required" %>
             <small class="form-text text-muted">
               Sobrenome do cliente.
             </small>
@@ -72,3 +72,12 @@
     </div>
   </div>
 <% end %>
+
+<script type="text/javascript">
+  function leaveAStepCallback(_, context){
+    $('.mail').addClass('step-2-required')
+    $('.phone').addClass('step-2-required')
+
+    return validateSteps(context.fromStep);
+  }
+</script>

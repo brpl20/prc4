@@ -30,6 +30,26 @@
 
 <script type="text/javascript">
 
+  function validateSteps(stepnumber){
+    let flag = 3;
+
+      $('.step-' + stepnumber + '-required').each(function(){
+
+        if ($(this).val() == '') {
+          $(this).addClass('field_with_error');
+          $(this).prev().addClass('label_with_error');
+          flag -= 1;
+        } else {
+          if ($(this).hasClass('field_with_error') || $(this).hasClass('label_with_error')) {
+            $(this).removeClass('field_with_error');
+            $(this).prev().removeClass('label_with_error');
+          }
+        }
+
+      })
+    return flag == 3 ? true : false;
+  }
+
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
@@ -41,11 +61,11 @@
     cycleSteps: false, // cycle step navigation
     enableFinishButton: true, // makes finish button enabled always
     hideButtonsOnDisabled: true, // when the previous/next/finish buttons are disabled, hide them instead
-    errorSteps:[],    // array of step numbers to highlighting as error steps
-    labelNext:'Próximo', // label for Next button
-    labelPrevious:'Anterior', // label for Previous button
-    labelFinish:'Salvar ',  // label for Finish button
-    noForwardJumping:false,
+    errorSteps: [],    // array of step numbers to highlighting as error steps
+    labelNext: 'Próximo', // label for Next button
+    labelPrevious: 'Anterior', // label for Previous button
+    labelFinish: 'Salvar ',  // label for Finish button
+    noForwardJumping: false,
     // Events
     onLeaveStep: leaveAStepCallback, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step

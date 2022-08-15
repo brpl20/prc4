@@ -41,6 +41,7 @@ class ClientsController < BackofficeController
 
   def create
     @client = Client.new(client_params)
+    @type = retrieve_type_to_link(@client.client_type)
 
     if @client.save
       flash[:notice] = 'Cliente criado com sucesso'

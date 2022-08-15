@@ -12,6 +12,12 @@
         state: Estado
         profession: Profissão
         files: Arquivos
+        social_number: CPF
+        gender: Gênero
+        capacity: Capacidade
+        birth: Data de nascimento
+        citizenship: Naturalidade
+        civilstatus: Estado civil
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

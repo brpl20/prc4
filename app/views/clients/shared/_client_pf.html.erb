@@ -57,7 +57,7 @@
         <div class="col-md-12 col-sm-12 no-padding">
           <div class="col-md-6 col-sm-6">
             <label>Nome*</label>
-            <%= f.text_field :name, id:'name', class:"form-control required", required: true %>
+            <%= f.text_field :name, id:'name', class:"form-control step-1-required", required: true %>
             <small class="form-text text-muted">
               Nome do cliente.
             </small>
@@ -65,7 +65,7 @@
 
           <div class="col-md-6 col-sm-6">
             <label>Sobrenome*</label>
-            <%= f.text_field :lastname, class:"form-control required" %>
+            <%= f.text_field :lastname, class:"form-control step-1-required" %>
             <small class="form-text text-muted">
               Sobrenome do cliente.
             </small>
@@ -76,7 +76,7 @@
 
           <div class="col-md-6">
             <label>CPF*</label>
-            <%= f.text_field :social_number, class:"form-control required", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
+            <%= f.text_field :social_number, class:"form-control step-1-required", 'autocomplete':'off', 'data-mask':'000.000.000-00', placeholder:'000.000.000-00' %>
           </div>
 
           <div class="col-md-6">
@@ -97,7 +97,7 @@
 
           <div class="col-md-6">
             <label>Data de Nascimento*</label>
-            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%d/%m/%Y"), class:"form-control", min: Date.new(1902, 01, 01), max: Time.zone.today %>
+            <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%d/%m/%Y"), class:"form-control step-1-required", min: Date.new(1902, 01, 01), max: Time.zone.today %>
           </div>
         </div>
 
@@ -105,7 +105,7 @@
 
             <div class="col-md-3">
               <label>Gênero*</label>
-              <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
+              <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class: 'step-2-required') + b.text } end %>
             </div>
 
             <div class="col-md-3">
@@ -138,19 +138,19 @@
 
           <div class="col-md-6">
             <label>Endereço*</label>
-            <%= f.text_field :address, validate: { presence: true }, class:"form-control address" %>
+            <%= f.text_field :address, class:"form-control address step-2-required" %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
             <label>Cidade*</label>
-            <%= f.text_field :city, class:"form-control city " %>
+            <%= f.text_field :city, class:"form-control city step-2-required" %>
           </div>
 
           <div class="col-md-6">
             <label>Estado*</label>
-            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state "}  %>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state step-2-required"}  %>
           </div>
         </div>
       </div>
@@ -201,22 +201,20 @@
 
         <div class="col-md-6 no-padding">
             <%= f.fields_for :bank do |b| %>
-            <div class="col-md-12">
-              <label>Banco</label>
-              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
-            </div>
+              <div class="col-md-12">
+                <label>Banco</label>
+                <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
+              </div>
 
-            <div class="col-md-6">
-              <label>Agência</label>
-              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
-            </div>
+              <div class="col-md-6">
+                <label>Agência</label>
+                <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
+              </div>
 
-            <div class="col-md-6">
-              <label>Conta</label>
-              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
-            </div>
-
-
+              <div class="col-md-6">
+                <label>Conta</label>
+                <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
+              </div>
             <% end %>
         </div>
 
@@ -239,7 +237,7 @@
         <div class="col-md-12">
           <div class="col-md-6">
             <label>Profissão*</label>
-            <%= f.text_field :profession, 'data-validate':'true', class:"form-control " %>
+            <%= f.text_field :profession, class:"form-control step-5-required" %>
           </div>
 
           <div class="col-md-6">
@@ -292,25 +290,10 @@
   </div>
 <% end %>
 <script type="text/javascript">
+  function leaveAStepCallback(_, context){
+    $('.mail').addClass('step-3-required')
+    $('.phone').addClass('step-3-required')
 
-  function leaveAStepCallback(obj, context){
-
-    let response = true;
-
-    let r = $('.required').val();
-    r.each(function(index){
-      alert(index);
-    })
-
-
-    if (!response) {
-      alert('true');
-      return true;
-    } else {
-      alert('false');
-      return false;
-    }
-
-
+    return validateSteps(context.fromStep);
   }
 </script>

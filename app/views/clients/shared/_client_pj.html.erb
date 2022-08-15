@@ -77,20 +77,20 @@
           </div>
 
           <div class="col-md-6">
-            <label>Endereço</label>
-            <%= f.text_field :address, class:"form-control address" %>
+            <label>Endereço*</label>
+            <%= f.text_field :address, class:"form-control address step-2-required" %>
           </div>
         </div>
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <label>Cidade</label>
-            <%= f.text_field :city, class:"form-control city" %>
+            <label>Cidade*</label>
+            <%= f.text_field :city, class:"form-control city step-2-required" %>
           </div>
 
           <div class="col-md-6">
-            <label>Estado</label>
-            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
+            <label>Estado*</label>
+            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state step-2-required"} %>
           </div>
         </div>
       </div>
@@ -204,8 +204,10 @@
 <% end %>
 
 <script type="text/javascript">
-  function leaveAStepCallback(obj, context){
-    alert("Leaving step " + context.fromStep + " to go to step " + context.toStep);
-    return validateSteps(context.toStep); // return false to stay on step and true to continue navigation
+  function leaveAStepCallback(_, context){
+    $('.mail').addClass('step-3-required')
+    $('.phone').addClass('step-3-required')
+
+    return validateSteps(context.fromStep);
   }
 </script>

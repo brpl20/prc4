@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Client < ApplicationRecord
-
   has_one :bank, dependent: :destroy
   has_many :phones, inverse_of: :client, dependent: :destroy
   has_many :emails, inverse_of: :client, dependent: :destroy
@@ -25,7 +24,7 @@ class Client < ApplicationRecord
 
   validates :name, :lastname, :phones, :emails, :social_number, presence: true, if: proc { |c| c.client_type == 2 }
 
-  # validates :emails, format: { with: /\A[^@\s]+@[^@\s]+\z/ }, presence: true
+  validates :name, :lastname, :phones, :emails, presence: true, if: proc { |c| c.client_type == 3 }
 
   validate :file_type
 

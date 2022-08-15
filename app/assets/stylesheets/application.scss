@@ -145,10 +145,11 @@ label{
   padding: 0.75rem;
 }
 
-.field_with_errors{
+.invalid,
+.field_with_error{
   border: solid 1px red !important;
 }
-.label_with_errors{
+.label_with_error{
   color: red !important;
 }
 
