@@ -3,7 +3,7 @@
 # Controladora do cliente
 class ClientsController < BackofficeController
   include ClientsHelper
-  before_action :amazon_client, :set_client, only: %i[show edit update destroy]
+  before_action :set_client, only: %i[show edit update destroy]
   before_action :retrieve_type, only: %i[new create edit update]
 
   def index

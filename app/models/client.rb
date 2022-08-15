@@ -50,30 +50,24 @@ class Client < ApplicationRecord
     [client.name,client.lastname].join(' ')
   end
 
-  def zero?
-    self == 0
-  end
-
-
-  def full_qualify_person(client, full_contract=nil)
+  def full_qualify_person(client, full_contract = nil)
     gender = gender_check(client.gender)
     full = []
     full << full_name(client).upcase
     full << genderize(gender, client.civilstatus).downcase
     full << genderize(gender, client.citizenship).downcase
-    full << client.capacity.downcase if client.capacity_check === false
+    full << client.capacity.downcase if client.capacity_check == false
     full << client.profession.downcase
     full << general_register_check(gender, client)
     full << social_number_check(gender, client)
     full << number_benefit_check(client)
     full << nit_check(gender, client)
     full << email_check(client)
-    full << mothername_check(client) if full_contract === :full
-    full << bank_check(client) if full_contract === :full
+    full << mothername_check(client) if full_contract == :full
+    full << bank_check(client) if full_contract == :full
     full << client_address(gender, client)
-    full << full_qualify_representative(client) if client.capacity_check === false
-    full.reject(&:blank?).join(", ")
-    raise
+    full << full_qualify_representative(client) if client.capacity_check == false
+    full.reject(&:blank?).join(', ')
   end
 
   # criar método para qualificar compania
@@ -82,7 +76,7 @@ class Client < ApplicationRecord
   # :full contract methods
 
   def email_check(client)
-    email_details = "endereço eletrônico: " + emails.map(&:email)[0]
+    email_details = "endereço eletrônico: #{emails.map(&:email)[0]}"
     # deixar email obrigatório para não dar problema com nil
   end
 
@@ -92,13 +86,13 @@ class Client < ApplicationRecord
 
   def bank_check(client)
     banks_helper = ApplicationController.helpers.options_for_banks
-    bank_details = "Dados Bancários: Banco #{banks_helper.select {|item| item.include?("#{client.bank.name}")}[0][1]} (#{client.bank.name}), Agência: #{client.bank.agency}, Conta: #{client.bank.account}"
+    bank_details = "Dados Bancários: Banco #{banks_helper.select { |item| item.include?("#{client.bank.name}")}[0][1]} (#{client.bank.name}), Agência: #{client.bank.agency}, Conta: #{client.bank.account}"
   end
 
   # representative methods
 
   def full_qualify_representative(client)
-    full_rep = [].reject(&:blank?).join(", ")
+    full_rep = [].reject(&:blank?).join(', ')
     unless client.customer_types.nil?
       full_rep = ["Representado por"]
       client.customer_types.each do |ct|
@@ -125,7 +119,7 @@ class Client < ApplicationRecord
 
   def number_benefit_check(client)
     if client.number_benefit.nil? || client.number_benefit == ""
-      nb_not_exist = ""
+      nb_not_exist = ''
     else
       nb_exist = "nº de benefício #{client.number_benefit}"
     end
@@ -133,7 +127,7 @@ class Client < ApplicationRecord
 
   def general_register_check(gender, client)
     if client.general_register.nil? || client.general_register == ""
-      general_register_not_exist = ""
+      general_register_not_exist = ''
     else
       if gender == :female
         general_register_exist = "portadora do RG nº #{client.general_register}"
@@ -156,8 +150,8 @@ class Client < ApplicationRecord
   end
 
   def nit_check(gender, client)
-    if client.nit.nil? || client.nit == ""
-      nit_not_exist = ""
+    if client.nit.nil? || client.nit == ''
+      nit_not_exist = ''
     else
       if gender == :female
         nit_exist = "nº de inscrição da trabalhadora - NIT: #{client.nit}"
@@ -193,7 +187,7 @@ class Client < ApplicationRecord
   end
 
   def genderize(gender, civilstatus)
-    if gender === :female
+    if gender == :female
       case civilstatus
         when "Casado"
           civilstatus.sub! 'Casado', 'Casada'
