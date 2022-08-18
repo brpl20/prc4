@@ -1,3 +1,5 @@
+<%= render partial: '/shared/errors', locals: {object: @work} %>
+
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
 
@@ -76,7 +78,7 @@
 
             </div>
 
-            <div class="col-md-12">
+            <div id="mark-box-step-1-check" class="col-md-12">
               <div class="col-md-4 grid">
                 <label> Procedimento </label>
                 <%= f.collection_check_boxes :procedure_ids, options_for_procedure, :id, :description do |cb|
@@ -85,7 +87,7 @@
               </div>
             </div>
 
-            <div class="col-md-12">
+            <div id="mark-box-step-1-radio" class="col-md-12">
 
               <fieldset class="col-md-4 radio_buttons optional work_subject grid">
                 <legend class="col-form-label pt-0"><b>Assunto</b></legend>
@@ -94,7 +96,7 @@
                   b.label(class:"inline-radio") { b.radio_button(class:"subject") + b.text }
                 end %>
 
-                <p><small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small></p>
+                <small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small>
               </fieldset>
 
               <%= f.fields_for :tributary do |ta| %>
@@ -180,7 +182,7 @@
 
               <div class="grid col-md-6" id="rate_parceled">
                 <label> Parcelamento </label>
-                <%= f.text_field :rate_parceled_exfield, class:"form-control" %>
+                <%= f.text_field :rate_parceled_exfield, class:"form-control step-2-required" %>
               </div>
 
             </div>
@@ -363,6 +365,68 @@
 
 <script type="text/javascript">
 
+  function leaveAStepCallback(_, context){
+
+    let flag = 3;
+
+    if (context.fromStep == 1) {
+      if (!$("input[name='work[procedure_ids][]']:checked").length > 0) {
+        $('#mark-box-step-' + context.fromStep + '-check').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#mark-box-step-' + context.fromStep + '-check').removeClass('error-mark-box');
+      }
+
+      if (!$("input[name='work[subject]']:checked").length > 0) {
+        $('#mark-box-step-' + context.fromStep + '-radio').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#mark-box-step-' + context.fromStep + '-radio').removeClass('error-mark-box');
+      }
+    }
+
+    if (context.fromStep == 2) {
+      if (!$("input[name='work[rate_work]']:checked").length > 0) {
+        $('#conds-rates').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#conds-rates').removeClass('error-mark-box');
+      }
+
+      if (!$("input[name='work[rate_parceled]']:checked").length > 0) {
+        $('#rate_parceled').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#rate_parceled').removeClass('error-mark-box');
+      }
+    }
+
+    if (context.fromStep == 3) {
+      if (!$("input[name='work[power_ids][]']:checked").length > 0) {
+        $('#powers').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#powers').removeClass('error-mark-box');
+      }
+    }
+
+    $('.step-' + context.fromStep + '-required').each(function(){
+
+      if ($(this).val() == '') {
+        $(this).addClass('field_with_error');
+        $(this).prev().addClass('label_with_error');
+        flag -= 1;
+      } else {
+        if ($(this).hasClass('field_with_error') || $(this).hasClass('label_with_error')) {
+          $(this).removeClass('field_with_error');
+          $(this).prev().removeClass('label_with_error');
+        }
+      }
+
+    })
+    return flag == 3 ? true : false;
+  }
+
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
@@ -380,7 +444,7 @@
     labelFinish:'Salvar ',  // label for Finish button
     noForwardJumping:false,
     // Events
-    onLeaveStep: null, // triggers when leaving a step
+    onLeaveStep: leaveAStepCallback, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step
     onFinish: null  // triggers when Finish button is clicked
   });

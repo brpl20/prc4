@@ -18,6 +18,13 @@
         birth: Data de nascimento
         citizenship: Naturalidade
         civilstatus: Estado civil
+      work:
+        procedure_ids: Procedimento
+        subject: Assunto
+        rate_work: Honorários De Trabalho ou Êxito
+        rate_parceled: Parcelamento
+        rate_parceled_exfield: Parcelamento
+        power_ids: Poderes
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'
