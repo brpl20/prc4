@@ -73,6 +73,7 @@ class ClientsController < BackofficeController
   end
 
   def show
+    @type = retrieve_type_to_link(@client.client_type)
     @client = Client.find(params[:id])
     @url_work = @client.client_works
     @url_job = @client.jobs
