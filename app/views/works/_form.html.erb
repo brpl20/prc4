@@ -60,13 +60,18 @@
           <div id="step-1" class="content" style="display: block;">
 
             <div class="col-md-12">
+
               <div class="col-md-6">
-                <div class="work-office">
-                  <label> Cliente </label>
-                  <%= f.fields_for :client_works do |cw| %>
+                <div class="container data-ordered">
+
+                  <div class="work-office">
+                    <%= f.fields_for :client_works do |cw| %>
                     <%= render partial: "client_work_fields", locals: {f: cw} %>
-                  <% end %>
-                  <%= link_to_add_association "Adicionar Cliente", f, :client_works, class:"btn btn-success btn-add-cli" %>
+                    <% end %>
+                    <label> Cliente </label>
+                    <%= link_to_add_association "Adicionar Cliente", f, :client_works, class:"btn btn-success btn-add-cli" %>
+                  </div>
+
                 </div>
               </div>
 
@@ -203,14 +208,18 @@
 
             <div class="col-md-12">
 
-              <div class="col-md-6 form-group client ordering-btn-add">
-                <div class="work-office">
-                  <label> Escritório ou Escritórios Associados </label>
-                  <%= f.fields_for :work_offices do |wo| %>
-                    <%= render partial: "work_office_fields", locals: {f: wo} %>
-                  <% end %>
+                <div class="col-md-6">
+                  <div class="container data-ordered">
 
-                  <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli" %>
+                    <div class="work-office">
+                      <%= f.fields_for :work_offices do |wo| %>
+                        <%= render partial: "work_office_fields", locals: {f: wo} %>
+                      <% end %>
+
+                      <label> Escritório ou Escritórios Associados </label>
+                      <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli" %>
+                    </div>
+
                 </div>
               </div>
 
@@ -228,10 +237,10 @@
                 <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
               </div>
 
-              <div class="col-md-6">
-                <div class="col-md-6 no-padding">
+              <div class="col-md-6 recommend-container">
+                <div class="container-row">
                   <label> Indicação </label>
-                  <div class=" ind-name no-padding">
+                  <div class="recommend-container-child">
                     <%= f.fields_for :recommendation_work do |rw| %>
 
                     <%= rw.number_field :client_id, class:"form-control indId hidden" %>
@@ -246,7 +255,7 @@
                   </div>
                 </div>
 
-                <div class="col-md-6 no-padding">
+                <div class="">
                   <a class='btn btn-outline btn-primary btn-modal-ind' data-toggle='modal' data-url='/clients/modal/recommendation_search' data-target='#modal-general' href='#'> <span>Adicionar Perd/Comp</span></a>
                 </div>
               </div>

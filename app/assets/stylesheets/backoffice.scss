@@ -125,7 +125,7 @@ input[type='checkbox']{
   margin-top: 3rem;
 }
 .btn-add-cli{
-  width: 100%;
+  width: 30%;
 }
 .btn-add-rep{
   width: 100%;
@@ -233,6 +233,24 @@ span.section{
 .add-button-rep{
   display: flex;
   flex-flow: row-reverse;
+}
+.fields-cli{
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.recommend-container{
+  display: flex;
+  justify-content: space-between;
+}
+.container-row{
+  width: 70%;
+}
+.recommend-container-child{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
 }
 @media only screen and (max-width: 600px) {
   div.nav-item {

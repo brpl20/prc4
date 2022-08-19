@@ -4,12 +4,12 @@
     <span class="repName"> <%= retrieve_represented(f.object.represented) %> </span>
   </div>
 
-<div class="col-md-4 rep-desc">
-  <%= f.text_field :description, class:"rep_desc adj100 hidden"%>
-      <span class="repdesc"> <%= f.object.description %> </span>
-</div>
+  <div class="col-md-4 rep-desc">
+    <%= f.text_field :description, class:"rep_desc adj100 hidden"%>
+        <span class="repdesc"> <%= f.object.description %> </span>
+  </div>
 
-<div class="col-md-4 rep-btn">
-    <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove btn-remove-rep") %>
+  <div class="col-md-4 rep-btn">
+      <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove btn-remove-rep") %>
   </div>
 </div>
