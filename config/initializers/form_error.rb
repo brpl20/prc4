@@ -2,7 +2,7 @@
 
 ActionView::Base.field_error_proc = proc do |html_tag, instance_tag|
   fragment = Nokogiri::HTML.fragment(html_tag)
-  field = fragment.at('input,select,textarea')
+  field = fragment.at('input,select,textarea,radiobutton')
 
   model = instance_tag.object
   error_message = model.errors.full_messages.join(', ')

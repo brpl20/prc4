@@ -1,3 +1,5 @@
+<%= render partial: '/shared/errors', locals: {object: @office} %>
+
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
 
@@ -13,12 +15,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Nome" %></b>
+            <b><%= f.label "Nome*" %></b>
             <%= f.text_field :name, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "OAB" %></b>
+            <b><%= f.label "OAB*" %></b>
             <%= f.text_field :oab, class:"form-control" %>
           </div>
 
@@ -27,12 +29,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "CNPJ" %></b>
+            <b><%= f.label "CNPJ*" %></b>
             <%= f.text_field :cnpj_number, class:"form-control",'data-mask': '00.000.000/0000-00', placeholder:"00.000.000/0000-00" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Tipo da Sociedade" %></b>
+            <b><%= f.label "Tipo da Sociedade*" %></b>
             <%= f.text_field :society, class:"form-control" %>
           </div>
 
@@ -41,12 +43,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Data de Fundação" %></b>
+            <b><%= f.label "Data de Fundação*" %></b>
             <%= f.text_field :foundation, class:"date-picker form-control", type:"text", required:"required", onfocus:"this.type='date'",onmouseover:"this.type='date'", onclick:"this.type='date'", onblur:"this.type='text'"%>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "CEP" %></b>
+            <b><%= f.label "CEP*" %></b>
             <%= f.text_field :zip, class:"form-control cep",'data-mask': '00000-000', placeholder:"00000-000" %>
           </div>
 
@@ -55,12 +57,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Endereço" %></b>
+            <b><%= f.label "Endereço*" %></b>
             <%= f.text_field :address, class:"form-control address" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Cidade" %></b>
+            <b><%= f.label "Cidade*" %></b>
             <%= f.text_field :city, class:"form-control city" %>
           </div>
 
@@ -69,7 +71,7 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Estado" %></b>
+            <b><%= f.label "Estado*" %></b>
             <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
           </div>
 
@@ -83,12 +85,12 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Telefone" %></b>
+            <b><%= f.label "Telefone*" %></b>
             <%= f.text_field :telephone, class:"form-control",'data-mask': '(00) 0 0000-0000', placeholder:"(00) 0 0000-0000" %>
           </div>
 
           <div class="col-md-6">
-            <b><%= f.label "Email Oficial" %></b>
+            <b><%= f.label "E-mail Oficial*" %></b>
             <%= f.text_field :email, class:"form-control" %>
           </div>
 
@@ -123,14 +125,14 @@
 
             <div class="col-md-6">
 
-              <b><%= f.label "Reponsável pelo escritório" %></b>
+              <b><%= f.label "Reponsável pelo escritório*" %></b>
               <%= f.collection_select :user_id,  options_for_responsible, :id, :name, {}, {class:'form-control'} %>
 
             </div>
 
             <div class="col-md-6">
 
-              <b><%= f.label "Tipo de escritório" %></b>
+              <b><%= f.label "Tipo de escritório*" %></b>
               <%= f.collection_select :office_type_id,  options_for_office_type, :id, :description, {}, {class:'form-control'} %>
 
             </div>
