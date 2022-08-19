@@ -29,6 +29,7 @@
         address: Endereço
         city: Cidade
         email: E-mail
+        foundation: Fundação
         name: Nome
         society: Tipo da sociedade
         state: Estado

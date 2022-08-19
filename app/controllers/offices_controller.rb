@@ -19,15 +19,13 @@ class OfficesController < BackofficeController
 
   def create
     @office = Office.new(office_params)
-
-    respond_to do |format|
-      if @office.save
-        format.html { redirect_to @office, notice: 'Escritório criado com sucesso!' }
-        format.json { render :show, status: :created, location: @office }
-      else
-        format.html { render :new }
-        format.json { render json: @office.errors, status: :unprocessable_entity }
-      end
+    # @office.bank.name = '' if @office.bank.name.nil?
+    # @office.bank.agency = 0 if @office.bank.agency.nil?
+    # @office.bank.account = 0 if @office.bank.account.nil?
+    if @office.save
+      redirect_to @office, notice: 'Escritório criado com sucesso!'
+    else
+      render :new
     end
   end
 
@@ -72,6 +70,6 @@ class OfficesController < BackofficeController
         :email,
         :user_id,
         :office_type_id,
-        bank_attributes:   [:id, :name, :agency, :account])
+        bank_attributes:   [:id, :name, :agency, :account, :_destroy])
     end
 end

@@ -12,7 +12,7 @@ class Client < ApplicationRecord
   has_many_attached :files
   has_many :recommendation_works, dependent: :destroy
 
-  accepts_nested_attributes_for :bank, reject_if: :all_blank, allow_destroy: true
+  accepts_nested_attributes_for :bank, allow_destroy: true
   accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
@@ -51,23 +51,23 @@ class Client < ApplicationRecord
   end
 
   def full_qualify_person(client, full_contract = nil)
-    gender = gender_check(client.gender)
-    full = []
-    full << full_name(client).upcase
-    full << genderize(gender, client.civilstatus).downcase
-    full << genderize(gender, client.citizenship).downcase
-    full << client.capacity.downcase if client.capacity_check == false
-    full << client.profession.downcase
-    full << general_register_check(gender, client)
-    full << social_number_check(gender, client)
-    full << number_benefit_check(client)
-    full << nit_check(gender, client)
-    full << email_check(client)
-    full << mothername_check(client) if full_contract == :full
-    full << bank_check(client) if full_contract == :full
-    full << client_address(gender, client)
-    full << full_qualify_representative(client) if client.capacity_check == false
-    full.reject(&:blank?).join(', ')
+    # gender = gender_check(client.gender)
+    # full = []
+    # full << full_name(client).upcase
+    # full << genderize(gender, client.civilstatus).downcase
+    # full << genderize(gender, client.citizenship).downcase
+    # full << client.capacity.downcase if client.capacity_check == false
+    # full << client.profession.downcase
+    # full << general_register_check(gender, client)
+    # full << social_number_check(gender, client)
+    # full << number_benefit_check(client)
+    # full << nit_check(gender, client)
+    # full << email_check(client)
+    # full << mothername_check(client) if full_contract == :full
+    # full << bank_check(client) if full_contract == :full
+    # full << client_address(gender, client)
+    # full << full_qualify_representative(client) if client.capacity_check == false
+    # full.reject(&:blank?).join(', ')
   end
 
   # criar método para qualificar compania

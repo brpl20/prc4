@@ -31,4 +31,6 @@ Rails.application.routes.draw do
   resources :client do
     resources :file_uploads, only: %i[new create destroy]
   end
+
+  delete '/work/:work_id/file_uploads/:id', to: 'file_uploads#destroy_file_work', as: :delete_archive_file_work
 end
