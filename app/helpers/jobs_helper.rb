@@ -10,6 +10,6 @@ module JobsHelper
   end
 
   def options_for_job_work
-    Work.order(:id).map{|c| [c.id, c.id] }
+    Work.order(:id).map{|c| [c.id, "#{c.number} - #{c.subject}"] }
   end
 end
