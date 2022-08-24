@@ -1,3 +1,5 @@
+<%= render partial: '/shared/errors', locals: {object: @job} %>
+
 <div class="col-md-12 col-sm-12">
   <div class="x_panel">
 
@@ -13,7 +15,7 @@
         <div class="col-md-12 col-sm-12">
 
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Descrição" %></b>
+            <b><%= f.label "Descrição*" %></b>
             <%= f.text_field :description, class:"form-control" %>
           </div>
 
@@ -28,7 +30,7 @@
 
           <div class="col-md-6 col-sm-6">
 
-            <b><%= f.label "Cliente" %></b>
+            <b><%= f.label "Cliente*" %></b>
 
             <%= f.collection_select :client_id, options_for_client, :first, :second, {prompt: 'Selecione um cliente', :selected => (@client.id unless @client.nil?)}, {class:'form-control'} %>
           </div>
@@ -41,15 +43,15 @@
           </div>
 
           <div class="col-md-6 col-sm-6">
-            <b><%= f.label "Responsável" %></b>
+            <b><%= f.label "Responsável*" %></b>
 
             <%= f.collection_select :responsable,  options_for_responsible, :name, :name, {prompt: 'Selecione um responsável'}, {class:'form-control'} %>
           </div>
 
           <div class="col-md-6 col-sm-6">
 
-            <div class="col-sm-6 no-padding">
-              <b><%= f.label "Status" %></b>
+            <div id="statuses-job" class="col-sm-6 no-padding">
+              <b><%= f.label "Status*" %></b>
 
               <%= f.collection_radio_buttons :status, options_for_job_status, :second, :first do |b|
                 b.label(class:"inline-radio") { b.radio_button + b.text }
@@ -57,7 +59,7 @@
             </div>
 
             <div class="col-sm-6">
-              <b><%= f.label "Prioridade" %></b>
+              <b><%= f.label "Prioridade*" %></b>
 
               <%= f.collection_radio_buttons :priority, options_for_job_priority, :second, :first do |b|
                 b.label(class:"inline-radio") { b.radio_button + b.text }
@@ -75,7 +77,7 @@
 
 
         <div class="col-md-12">
-          <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+          <button type="submit" id="save-job" class="btn btn-primary pull-right">Salvar</button>
           <%= link_to "Cancelar", jobs_path, class:"btn btn-danger pull-right" %>
         </div>
 
@@ -85,3 +87,16 @@
 
   </div>
 </div>
+
+<script type="text/javascript">
+  $('#save-job').on('click', function () {
+
+    if (!$("input[name='job[status]']:checked").length > 0) {
+      $('#statuses-job').addClass('invalid');
+      flag -= 1;
+    } else {
+      $('#statuses-job').removeClass('invalid');
+    }
+
+  })
+</script>

@@ -2,22 +2,46 @@
   activerecord:
     attributes:
       client:
-        name: Nome
-        lastname: Sobrenome
-        general_register: RG
-        phones: Telefone
+        address: Endereço
+        birth: Data de nascimento
+        capacity: Capacidade
+        citizenship: Naturalidade
+        city: Cidade
+        civilstatus: Estado civil
         emails: E-mail
+        files: Arquivos
+        gender: Gênero
+        general_register: RG
+        lastname: Sobrenome
+        name: Nome
+        phones: Telefone
+        profession: Profissão
+        social_number: CPF
+        state: Estado
+      job:
+        client: Cliente
+        deadline: Prazo limite
+        description: Descrição
+        priority: Prioridade
+        responsable: Responsável
+        status: Estágio
+      office:
         address: Endereço
         city: Cidade
+        email: E-mail
+        foundation: Fundação
+        name: Nome
+        society: Tipo da sociedade
         state: Estado
-        profession: Profissão
-        files: Arquivos
-        social_number: CPF
-        gender: Gênero
-        capacity: Capacidade
-        birth: Data de nascimento
-        citizenship: Naturalidade
-        civilstatus: Estado civil
+        telephone: Telefone
+        zip: CEP
+      work:
+        procedure_ids: Procedimento
+        subject: Assunto
+        rate_work: Honorários De Trabalho ou Êxito
+        rate_parceled: Parcelamento
+        rate_parceled_exfield: Parcelamento
+        power_ids: Poderes
     errors:
       messages:
         record_invalid: 'A validação falhou: %{errors}'

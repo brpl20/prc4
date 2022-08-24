@@ -1,0 +1,180 @@
+
+
+  <div class="col-md-12 no-padding">
+
+    <% if @client.capacity != 'Capaz' && !@client.customer_types.any? %>
+      <div class="alert alert-danger container-flex" role="alert">
+        <p>Este cliente foi definido como incapaz ou parcialmente incapaz e não possui um representante</p>
+
+        <%= link_to 'Informar Representante Legal', edit_client_path(@client, type: retrieve_type_to_link(@client.client_type)), class:'btn btn-outline btn-danger'%>
+      </div>
+    <% end %>
+
+    <section class="col-md-4">
+
+        <h2 class="pull-left col-md-12 h-line"> <i class="fa fa-user"></i> <b>Informações Pessoais</b></h2>
+
+        <span class="col-md-12">
+          <b>CNPJ:</b>
+          <%= @client.social_number %>
+        </span>
+
+    </section>
+
+    <section class="col-md-4">
+
+        <h2 class="pull-left h-line"> <i class="fa fa-home"></i> <b>Enderço</b></h2>
+
+        <span class="col-md-12">
+          <b>Endereco:</b>
+          <%= @client.address %>
+        </span>
+
+          <span class="col-md-12">
+            <b>Cidade:</b>
+            <%= @client.city %>
+          </span>
+
+          <span class="col-md-12">
+            <b>Estado:</b>
+            <%= @client.state %>
+          </span>
+
+          <span class="col-md-12">
+            <b>CEP:</b>
+            <%= @client.zip %>
+          </span>
+
+    </section>
+
+    <section class="col-md-4">
+      <h2 class="pull-left h-line"> <i class="fa fa-file"></i> <b>Documentos</b></h2>
+
+      <div class="col-md-12">
+        <% if @client.documents.nil? %>
+          <i class="fa fa-times"></i>
+          <p class="in-line">Não há documentos para download</p>
+        <% else %>
+          <%= link_to @client.documents["aws_link"], class: "btn btn-info col-md-6" do %>
+            <i class="fa fa-download"></i> Procuração Simples
+          <% end %>
+        <% end %>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="col-md-12">
+
+    <section class="col-md-4">
+
+      <h2 class="pull-left h-line"> <i class="fa fa-phone"></i> <b>Contato</b></h2>
+
+      <% @client.phones.each do |ph| %>
+        <span class="col-md-12">
+          <b>Telefone:</b>
+          <%= ph.phone %>
+        </span>
+      <% end %>
+
+      <% @client.emails.each do |em| %>
+        <span class="col-md-12">
+          <b>E-mail: </b>
+          <%= em.email %>
+        </span>
+      <% end %>
+
+    </section>
+
+    <section class="col-md-4">
+      <h2 class="pull-left h-line cem_percent">
+        <i class="fa fa-university"></i>
+        <b>Informações Bancárias</b>
+      </h2>
+
+      <% if @client.bank %>
+        <span class="col-md-12">
+          <b>Banco:</b>
+          <%= @client.bank&.name %>
+        </span>
+
+        <span class="col-md-12">
+          <b>Agência:</b>
+          <%= @client.bank&.agency %>
+        </span>
+
+        <span class="col-md-12">
+          <b>Conta:</b>
+          <%= @client.bank&.account %>
+        </span>
+      <% else %>
+        <i class="fa fa-times"></i>
+        <p class="in-line">Não há conta cadastrada</p>
+      <% end %>
+
+    </section>
+
+    <section class="col-md-4">
+      <h2 class="pull-left h-line">
+        <i class="fa fa-asterisk"></i>
+        <b>Representante</b>
+      </h2>
+
+      <span class="col-md-12">
+        <% unless @client.customer_types.nil? %>
+
+          <% @client.customer_types.each do |ct| %>
+              <p>
+                <%= retrieve_represented(ct.represented) %> -
+                <%= ct.description %>
+              </p>
+          <% end %>
+
+        <% else %>
+          <i class="fa fa-times"></i>
+          <p class="in-line">Não há representante/contador</p>
+        <% end %>
+
+      <span class="col-md-12">
+        <strong></strong>
+
+      </span>
+
+    </section>
+
+    <section class="col-md-4">
+      <h2 class="pull-left h-line cem_percent">
+        <i class="fa fa-file"></i>
+        <b>Arquivos</b>
+      </h2>
+
+      <%= form_with model: @client, local: true, id:"customer_type", multipart: true do |f| %>
+        <b><%= f.label "Adicionar de arquivos" %></b>
+        <div class="">
+          <%= f.file_field :files, multiple: true, class:"file-clss" %>
+          <small class="form-text text-muted">
+            Formatos aceitos: JPEG, PNG e PDF.
+          </small>
+        </div>
+          <button type="submit" name="button" class="btn btn-primary btn-file-show" disabled='true'>Enviar arquivos</button>
+
+      <% end %>
+
+      <% if @client.files.empty? %>
+        <i class="fa fa-times"></i>
+        <p class="in-line">Não há arquivos anexados.</p>
+      <% end %>
+
+      <% @client.files.each do |file| %>
+        <span class="col-md-12">
+          <li>
+            <%= link_to file.filename, url_for(file), target:'_blank' %>
+            <%= link_to ("X"), client_file_upload_path(@client, file), method: :delete, data: { confirm: "Tem certeza?" }, class:"adj100 btn btn-outline btn-danger btn-remove" %>
+          </li>
+        </span>
+      <% end %>
+
+    </section>
+
+  </div>

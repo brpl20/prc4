@@ -103,22 +103,22 @@
 
         <div class="col-md-12 no-padding">
 
-            <div class="col-md-3">
+            <div id="gender" class="col-md-3">
               <label>Gênero*</label>
               <%= f.collection_radio_buttons :gender, options_for_gender, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button(class: 'step-2-required') + b.text } end %>
             </div>
 
-            <div class="col-md-3">
+            <div id="civilstatus" class="col-md-3">
               <label>Estado Civil*</label>
               <%= f.collection_radio_buttons :civilstatus, options_for_civilstatus_client, :second, :first do |b| b.label(class:"inline-radio ") { b.radio_button + b.text } end %>
             </div>
 
-            <div class="col-md-3">
+            <div id="citizenship" class="col-md-3">
               <label>Naturalidade*</label>
               <%= f.collection_radio_buttons :citizenship, options_for_citizenship, :second, :first do |b| b.label(class:"inline-radio ") { b.radio_button + b.text } end %>
             </div>
 
-            <div class="col-md-3">
+            <div id="capacity" class="col-md-3">
               <label>Capacidade*</label>
               <%= f.collection_radio_buttons :capacity, options_for_capacity, :second, :first do |b| b.label(class:"inline-radio ") { b.radio_button(class:"btn-capacity") + b.text } end %>
             </div>
@@ -201,20 +201,7 @@
 
         <div class="col-md-6 no-padding">
             <%= f.fields_for :bank do |b| %>
-              <div class="col-md-12">
-                <label>Banco</label>
-                <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
-              </div>
-
-              <div class="col-md-6">
-                <label>Agência</label>
-                <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
-              </div>
-
-              <div class="col-md-6">
-                <label>Conta</label>
-                <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
-              </div>
+              <%= render partial: "bank_fields", locals: {f: b} %>
             <% end %>
         </div>
 
@@ -294,6 +281,46 @@
     $('.mail').addClass('step-3-required')
     $('.phone').addClass('step-3-required')
 
-    return validateSteps(context.fromStep);
+
+    let flag = 3;
+    let flag2 = validateSteps(context.fromStep)
+
+    if (context.fromStep == 1) {
+      if (!$("input[name='client[gender]']:checked").length > 0) {
+        $('#gender').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#gender').removeClass('error-mark-box');
+      }
+
+      if (!$("input[name='client[civilstatus]']:checked").length > 0) {
+        $('#civilstatus').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#civilstatus').removeClass('error-mark-box');
+      }
+
+      if (!$("input[name='client[citizenship]']:checked").length > 0) {
+        $('#citizenship').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#citizenship').removeClass('error-mark-box');
+      }
+
+      if (!$("input[name='client[capacity]']:checked").length > 0) {
+        $('#capacity').addClass('error-mark-box');
+        flag -= 1;
+      } else {
+        $('#capacity').removeClass('error-mark-box');
+      }
+    }
+
+    let response = flag == 3 ? true : false
+
+    if (response && flag2){
+      return true;
+    } else {
+      return false;
+    }
   }
 </script>

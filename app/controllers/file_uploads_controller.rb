@@ -8,4 +8,10 @@ class FileUploadsController < BackofficeController
     @client.files.find(params[:id]).purge
     redirect_to request.referrer
   end
+
+  def destroy_file_work
+    @work = Work.find(params[:work_id])
+    @work.archive_file.find(params[:id]).purge
+    redirect_to request.referrer
+  end
 end

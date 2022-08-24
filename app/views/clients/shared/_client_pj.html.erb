@@ -148,23 +148,9 @@
       </div>
       <div id="step-4" class="content" style="display: none;">
 
-        <div class="col-md-12 no-padding">
+        <div class="col-md-6 no-padding">
             <%= f.fields_for :bank do |b| %>
-            <div class="col-md-4">
-              <label>Banco</label>
-              <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
-            </div>
-
-            <div class="col-md-4">
-              <label>Agência</label>
-              <%= b.text_field :agency, placeholder:"Agência", class:"form-control" %>
-            </div>
-
-            <div class="col-md-4">
-              <label>Conta</label>
-              <%= b.text_field :account, placeholder:"Conta", class:"form-control" %>
-            </div>
-
+              <%= render partial: "bank_fields", locals: {f: b} %>
             <% end %>
         </div>
 

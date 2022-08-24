@@ -145,6 +145,7 @@ label{
   padding: 0.75rem;
 }
 .invalid,
+.error-mark-box,
 .field_with_error{
   border: solid 1px red !important;
 }
@@ -155,6 +156,7 @@ label{
 
 .cli-work{
   margin-top: 0em !important;
+  margin: 20px 0;
 }
 
 .container-modal{
@@ -162,4 +164,25 @@ label{
   justify-content: center;
   flex-wrap: wrap;
   gap: 3rem;
+}
+
+.data-ordered{
+  display: flex;
+  flex-wrap: wrap-reverse;
+}
+.work-office{
+  width: 100%;
+  display: flex;
+  flex-wrap: inherit;
+  justify-content: space-between;
+}
+.work-office select,
+.cli-work select{
+  width: 90%;
+}
+.work-office select,
+.cli-work select,
+.work-office a,
+.cli-work a{
+  display: inline;
 }

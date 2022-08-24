@@ -1,7 +1,7 @@
 class Bank < ApplicationRecord
-  has_one :client, dependent: :destroy
-  has_one :user, dependent: :destroy
-  has_one :office, dependent: :destroy
+  has_one :client
+  has_one :user
+  has_one :office
   #before_save :fill_if_nil
   #retirado fill_if_nill porque como faz referencia ele fica vazio por padrao
 
