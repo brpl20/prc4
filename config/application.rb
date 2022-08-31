@@ -16,7 +16,7 @@ module Prc4
     config.load_defaults 5.2
 
     config.autoload_paths << "#{config.root}/app/models/filters"
-    config.autoload_paths << "#{config.root}/app/models/services"
+    config.autoload_paths << "#{config.root}/app/services"
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers

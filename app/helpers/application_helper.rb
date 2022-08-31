@@ -1,21 +1,42 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+
+  def office_exist?
+    true if Office.all.size > 0.5
+  end
+
   def office_phone
-    Office.where(user_id: current_user.id).last.telephone
+    if office_exist?
+      Office.where(user_id: current_user.id).last.telephone
+    else
+      office_phone = "Telefone do Escritório Não cadastrado - Configure o Escritório"
+    end
   end
 
   def office_address
-    office = Office.where(user_id: current_user.id).last
-    "#{office.address}. #{office.city} - #{office.state}"
+    if office_exist?
+      office = Office.where(user_id: current_user.id).last
+      "#{office.address}. #{office.city} - #{office.state}"
+    else
+      office_address = "Endereço do Escritório Não cadastrado - Configure o Escritório"
+    end
   end
 
   def office_name
-    Office.where(user_id: current_user.id).last.name
+    if office_exist?
+      Office.where(user_id: current_user.id).last.name
+    else
+      office_name = "Nome do Escritório Não cadastrado - Configure o Escritório"
+    end
   end
 
   def office_site
-    Office.where(user_id: current_user.id).last.site
+    if office_exist?
+      Office.where(user_id: current_user.id).last.site
+    else
+      office_site =  "Side do Escritório Não cadastrado - Configure o Escritório"
+    end
   end
 
   def retrieve_value_from_array(object, value)
