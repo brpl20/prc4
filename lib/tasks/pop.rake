@@ -19,9 +19,9 @@ namespace :pop do
 
     p %x(rake pop:generate_procedures)
 
-    p %x(rake cad:user)
+    #p %x(rake cad:user)
 
-    p %x(rake cad:client)
+    #p %x(rake cad:client)
 
     p %x(rake cad:office_type)
 

@@ -17,9 +17,4 @@ class Office < ApplicationRecord
     "Banco: #{details.bank}, Agência: #{details.agency}, Conta: #{details.account}"
   end
 
-  scope :sksz, -> { where(bank: 'Sicredi (748)') && where(account: '7243-4') }
-
-  def full_name
-    "#{name} #{lastname}"
-  end
 end
