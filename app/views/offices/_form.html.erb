@@ -29,13 +29,15 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "CNPJ*" %></b>
-            <%= f.text_field :cnpj_number, class:"form-control",'data-mask': '00.000.000/0000-00', placeholder:"00.000.000/0000-00" %>
+            <b><%= f.label "CNPJ / CPF *" %></b>
+            <%= f.text_field :cnpj_number, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
             <b><%= f.label "Tipo da Sociedade*" %></b>
-            <%= f.text_field :society, class:"form-control" %>
+
+            <%= f.collection_select :society, options_for_society, :second, :first, {prompt: 'Selecione um tipo de sociedade', :selected => (@office.society unless @office.nil?)}, {class:'form-control no-padding'} %>
+
           </div>
 
         </div>
@@ -43,7 +45,7 @@
         <div class="col-md-12">
 
           <div class="col-md-6">
-            <b><%= f.label "Data de Fundação*" %></b>
+            <label for="">Data de Fundação / Exp. OAB*</label>
             <%= f.text_field :foundation, class:"date-picker form-control", type:"text", required:"required", onfocus:"this.type='date'",onmouseover:"this.type='date'", onclick:"this.type='date'", onblur:"this.type='text'"%>
           </div>
 

@@ -29,7 +29,7 @@
                       <%= u.user_profile.nil? ? '' : u.user_profile.full_name %>
                     </td>
                     <td>
-                      <%= retrieve_value_from_array(options_for_user_role, u.user_profile.role)%>
+                      <%= u.user_profile.nil? ? 'Não informado' : retrieve_value_from_array(options_for_user_role, u.user_profile.role)%>
                     </td>
                     <td><%= u.email %></td>
                     <td class="table-action-content">

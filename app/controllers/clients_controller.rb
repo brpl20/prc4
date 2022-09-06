@@ -137,36 +137,36 @@ class ClientsController < BackofficeController
     client.full_qualify_person(client, :full)
     client.full_qualify_representative(client)
 
-
     if @client[:capacity] = 'Capaz' || @client[:capacity] = nil
       capacity_treated = @client[:capacity]
     else
-      capacity_treated = "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal ----"
+      capacity_treated =
+        "#{@client[:capacity]}, representado por seu genitor(a): ------ Qualificar manualmente o representante legal --"
     end
 
-    lawyers = UserProfile.lawyer
-    paralegals = UserProfile.paralegal
-    interns = UserProfile.intern
+    lawyers = UserProfileFilters.by_role(0)
+    paralegals = UserProfileFilters.by_role(1)
+    interns = UserProfileFilters.by_role(2)
 
-    if lawyers.size > 0.5
-      laws = ["Advogados: "].join("")
+    laws = if lawyers.size > 0.5
+      ['Advogados: '].join('')
+     else
+        ' '
+     end
+
+    parals = if paralegals.size > 0.5
+      ['Paralegais: '].join('')
     else
-      laws = [""].join("")
+      ' '
     end
 
-    if paralegals.size > 0.5
-      parals = ["Paralegais: "].join("")
+    inters = if interns.size > 0.5
+      ['Estagiários: '].join('')
     else
-      parals = [""].join("")
+      ' '
     end
 
-    if interns.size > 0.5
-      inters = ["Estagiários: "].join("")
-    else
-      inters = [""].join("")
-    end
-
-    lawyers.each_with_index do | x, index |
+    lawyers.each_with_index do |x, index|
       if index == lawyers.size-1
         laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
       else
