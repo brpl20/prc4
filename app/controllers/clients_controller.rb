@@ -44,7 +44,6 @@ class ClientsController < BackofficeController
     @type = retrieve_type_to_link(@client.client_type)
 
     if @client.save
-      byebug
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
       templater(@client, "procuracao_simples")
@@ -127,14 +126,13 @@ class ClientsController < BackofficeController
     # office_check_and_select
     nome_cap = "#{@client[:name]}".upcase
     sobrenome_cap = "#{@client[:lastname]}".upcase
-    emails = [].join("")
+    emails = [].join('')
     client.emails.each do | em |
       emails << "#{em.email}, "
     end
 
 
-    Template::TemplaterService.full_qualify_person(client, :full)
-    byebug
+    # Template::TemplaterService.full_qualify_person(client, :full)
 
     client.full_qualify_person(client, :full)
     client.full_qualify_representative(client)

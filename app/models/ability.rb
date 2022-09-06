@@ -7,25 +7,25 @@ class Ability
     # Define abilities for the passed in user here. For example:
     if user ||= User.new # guest user (not logged in)
 
-    if user.lawyer_role?
+    if user.role == 0
       can :manage, :all
       can :read , :all
       can :create, :all
     end
 
-    if user.paralegal_role?
+    if user.role == 1
       can :manage, :all
       can :read , :all
       can :create, :all
     end
 
-    if user.secretary_role?
+    if user.role == 3
       can :manage, :all
       can :read , :all
       can :create, :all
     end
 
-    if user.intern_role?
+    if user.role == 2
       can :manage, :all
       can :read , :all
       can :create, :all
