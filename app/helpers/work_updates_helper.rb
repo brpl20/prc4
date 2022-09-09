@@ -1,0 +1,2 @@
+module WorkUpdatesHelper
+end

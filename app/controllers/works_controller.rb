@@ -18,6 +18,7 @@ class WorksController < BackofficeController
   end
 
   def show
+    @work_updates = WorkUpdate.all
     @work = Work.find(params[:id])
     @client = @work.clients.last
     @url = @work.document['aws_link'] if @work.document

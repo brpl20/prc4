@@ -125,7 +125,7 @@ input[type='checkbox']{
   margin-top: 3rem;
 }
 .btn-add-cli{
-  width: 30%;
+  width: 100%;
 }
 .btn-add-rep{
   width: 100%;
@@ -222,7 +222,7 @@ span.section{
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
-    justify-content: space-around;
+    justify-content: flex-end;
     gap: 1rem;
 }
 .ordering-btn-add{

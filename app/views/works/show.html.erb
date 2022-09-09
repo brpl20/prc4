@@ -319,6 +319,57 @@
     </div>
   </div>
 
+  <div class="x_panel">
+    <div class="x_title clearfix">
+      <div class="col-md-8">
+        <h1 class="">Atualizações</h1>
+      </div>
+
+      <div class="col-md-4">
+        <%= link_to "#", class: "btn btn-outline btn-primary btn-new-perd pull-right",
+            data: {
+              toggle: "modal",
+              url: new_work_update_path(work_id: @work.id),
+              target: "#modal-general"} do %>
+              <span class="btn-color">Nova atualização</span>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="x_content">
+      <div>
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Descrição</th>
+              <th class="table-actions">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @work_updates.each do |upd| %>
+              <tr>
+                <td scope="row"><%= upd.id %></td>
+
+                <td>
+                  <%= upd.description %>
+                </td>
+
+                <td class="table-action-content">
+
+                </td>
+
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+
   <% if @work.tributary %>
     <div class="x_panel">
 
@@ -397,14 +448,10 @@
           </div>
 
         <% else %>
-
           <p>Não foram encontradas Perd/Comp para este trabalho.</p>
-
         <% end %>
 
       </div>
-
-
     </div>
   <% end %>
 
@@ -464,4 +511,4 @@
 
   </div>
 
-    <%= render partial: "shared/modal" %>
+  <%= render partial: "shared/modal" %>
