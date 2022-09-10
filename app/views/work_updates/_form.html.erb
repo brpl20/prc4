@@ -1,0 +1,26 @@
+<div class="panel panel-default">
+
+  <%= form_with model: @work_update, local: true do |f| %>
+    <div class='col-md-12'>
+
+      <div class='col-md-12 no-padding'>
+        <p><b>Informe uma nova atualização do andamento processual</b></p>
+        <label>Descrição</label>
+        <%= f.text_field :description, class:"form-control" %>
+      </div>
+
+      <div class='col-md-12 no-padding'>
+        <label>Exibir atualização para</label>
+        <%= f.collection_select :show_to, options_for_work_updates, :first, :second, {prompt: 'Infome para quem essa atualização será visível'}, {class:'form-control'} %>
+      </div>
+
+      <%= f.number_field :work_id, class:"hidden", value: params[:work_id] %>
+
+    </div>
+
+    <div class="col-md-12">
+      <button type="submit" class="btn btn-primary pull-right">Salvar</button>
+      <button type="button" class="btn btn-danger pull-right" data-dismiss="modal">Cancelar</button>
+    </div>
+  <% end %>
+</div>

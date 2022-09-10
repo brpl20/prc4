@@ -252,14 +252,6 @@ ActiveRecord::Schema.define(version: 2022_09_09_033058) do
     t.index ["work_id"], name: "index_tributaries_on_work_id"
   end
 
-  create_table "updating_works", force: :cascade do |t|
-    t.string "description"
-    t.bigint "work_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["work_id"], name: "index_updating_works_on_work_id"
-  end
-
   create_table "user_profiles", force: :cascade do |t|
     t.integer "role"
     t.string "name"
@@ -310,6 +302,7 @@ ActiveRecord::Schema.define(version: 2022_09_09_033058) do
 
   create_table "work_updates", force: :cascade do |t|
     t.string "description"
+    t.string "show_to"
     t.bigint "work_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -363,7 +356,6 @@ ActiveRecord::Schema.define(version: 2022_09_09_033058) do
   add_foreign_key "recommendation_works", "clients"
   add_foreign_key "recommendation_works", "works"
   add_foreign_key "tributaries", "works"
-  add_foreign_key "updating_works", "works"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"
