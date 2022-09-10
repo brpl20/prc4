@@ -62,7 +62,7 @@
 	<div class="item form-group">
 		<%= f.label "Data de Nascimento", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%m/%d/%Y"), class:"form-control", required:"required" %>
+			<%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%d/%m/%Y"), class:"form-control", required:"required" %>
 		</div>
 	</div>
 
@@ -140,56 +140,25 @@
 		</div>
 	</div>
 
-<div class="item form-group">
+	<div class="item form-group">
 
-	<label
-		id="label-user-role"
-		for="user_Tipo de Usuario"
-		data-exfield="<%= @user.user_profile.oab %>"
-		class="col-form-label col-md-3 col-sm-3 label-align"
-	>
-		Tipo
-	</label>
+		<label
+			id="label-user-role"
+			for="user_Tipo de Usuario"
+			data-exfield="<%= @user.user_profile.oab %>"
+			class="col-form-label col-md-3 col-sm-3 label-align"
+		>
+			Tipo
+		</label>
 
-	<%#= form.label "Tipo", class:"col-form-label col-md-3 col-sm-3 label-align" %>
-
-	<div class="col-md-6 col-sm-6 ">
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :lawyer_role, checked_value: true, unchecked_value: false, class:"lawyer_role" %>
-			<%= form.label "Advogado", for:"user_lawyer_role" %>
-		</div>
-
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :paralegal_role, checked_value: true, unchecked_value: false %>
-			<%= form.label "Paralegal", for:"user_paralegal_role" %>
-		</div>
-
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :intern_role, checked_value: true, unchecked_value: false %>
-			<%= form.label "Estagiário", for:"user_intern_role" %>
-		</div>
-
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :secretary_role, checked_value: true, unchecked_value: false %>
-			<%= form.label "Secretária", for:"user_secretary_role" %>
-		</div>
-
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :accountant_role, checked_value: true, unchecked_value: false, class:"accountant_role" %>
-			<%= form.label "Contador", for:"user_accountant_role" %>
-		</div>
-
-		<div class="col-md-12 col-sm-12 ">
-			<%= form.check_box :outside_accountant_role, checked_value: true, unchecked_value: false, class:"outside_accountant_role" %>
-			<%= form.label "Contador externo", for:"user_outside_accountant_role" %>
+		<div class="col-md-6 col-sm-6 ">
+			<div class="col-md-12 col-sm-12 no-padding">
+				<%= f.collection_select :role, options_for_user_role, :second, :first, {prompt: 'Selecione uma atribuição', :selected => (@user.user_profile.role unless @user.user_profile.nil?)}, {class:'form-control no-padding'} %>
+			</div>
 		</div>
 
 	</div>
 
-</div>
-		<div class="item form-group" id="oba-crc">
-
-		</div>
 <% end %>
 
 <span class="section">Dados Bancários</span>

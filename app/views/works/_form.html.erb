@@ -234,7 +234,7 @@
 
               <div class="col-md-6">
                 <label> Advogado Responsável </label>
-                <%= f.collection_select :user_id, UserProfile.lawyer.order(:name), :user_id, :name, {}, {class:"form-control"} %>
+                <%= f.collection_select :user_id, options_user_by_role(0), :user_id, :name, {prompt: 'Selecione um Advogado'}, {class:"form-control"} %>
               </div>
 
               <div class="col-md-6 recommend-container">
@@ -281,13 +281,12 @@
 
               <div class="col-md-6">
                 <label> Estagiários da Procuração </label>
-                <%= f.collection_select :procuration_intern, UserProfile.intern.order(:name), :id, :name, {}, {class:"form-control"} %>
-
+                <%= f.collection_select :procuration_intern, options_user_by_role(2), :id, :name, {prompt: 'Selecione um Estagiário'}, {class:"form-control"} %>
               </div>
 
               <div class="col-md-6">
                 <label> Bacharéis/Paralegais da Procuracão </label>
-                <%= f.collection_select :procuration_paralegal, UserProfile.paralegal.order(:name), :id, :name, {}, {class:"form-control"} %>
+                <%= f.collection_select :procuration_paralegal, options_user_by_role(1), :id, :name, {prompt: 'Selecione um Paralegal'}, {class:"form-control"} %>
               </div>
 
             </div>

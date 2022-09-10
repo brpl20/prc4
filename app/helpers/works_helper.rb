@@ -13,7 +13,7 @@ module WorksHelper
   end
 
   def options_for_action_previdence
-    previdence = [
+    [
       ["Aposentadoria Por Tempo de Contribuição", "Aposentadoria Por Tempo de Contribuição"],
       ["Aposentadoria Por Idade", "Aposentadoria Por Idade"],
       ["Aposentadoria Rural", "Aposentadoria Rural"],
@@ -21,36 +21,37 @@ module WorksHelper
       ["Revisão de Benefício Previdenciário", "Revisão de Benefício Previdenciário"],
       ["Pensão Por Morte", "Pensão Por Morte"],
       ["Auxílio Reclusão", "Auxílio Reclusão"],
-      ["Reconhecimento de Tempo, Averbação, Serviços Administrativos", "Reconhecimento de Tempo, Averbação, Serviços Administrativos"]]
+      ["Reconhecimento de Tempo, Averbação, Serviços Administrativos", "Reconhecimento de Tempo, Averbação, Serviços Administrativos"]
+    ]
   end
 
   def options_for_action_civil
-    civil = [
-        ["Família", "Família"],
-        ["Consumidor", "Consumidor"],
-        ["Reparação Cível - Danos Materiais - Danos Morais", "Reparação Cível - Danos Materiais, Danos Morais"],
-        ]
+    [
+      ["Família", "Família"],
+      ["Consumidor", "Consumidor"],
+      ["Reparação Cível - Danos Materiais - Danos Morais", "Reparação Cível - Danos Materiais, Danos Morais"],
+    ]
   end
 
   def options_for_action_labor
-    labor = [["Reclamatória Trabalhista", "Reclamatória Trabalhista"]]
+    [["Reclamatória Trabalhista", "Reclamatória Trabalhista"]]
   end
 
   def options_for_action_tributary
-    tributary = [ ["Asfalto", "Asfalto"],
-                  ["Alvará", "Alvará"],
-                  ["Ressarcimento PIS/COFINS Insumos", "Ressarcimento PIS/COFINS Insumos"],
-                  ["Inss - Verbas Indenizatórias", "Inss - Verbas Indenizatórias"],
-                  ["Outros", "Outros"]
-                ]
+    [ ["Asfalto", "Asfalto"],
+      ["Alvará", "Alvará"],
+      ["Ressarcimento PIS/COFINS Insumos", "Ressarcimento PIS/COFINS Insumos"],
+      ["Inss - Verbas Indenizatórias", "Inss - Verbas Indenizatórias"],
+      ["Outros", "Outros"]
+    ]
   end
 
   def options_for_rate_work
-    rate_work = [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"], ["Pro-bono", "Pro-bono"]]
+    [["Trabalho", "Trabalho"], ["Êxito", "Êxito"], ["Ambos", "Ambos"], ["Pro-bono", "Pro-bono"]]
   end
 
   def options_for_rate_parceled
-    rate_parceled = [["Sim", "Sim"], ["Não", "Não"]]
+    [["Sim", "Sim"], ["Não", "Não"]]
   end
 
   def options_for_check_boxes
@@ -78,29 +79,26 @@ module WorksHelper
   end
 
   def perd_comp_to_this_work?(tributary)
-    if tributary != nil
-      @perdlaunches = PerdLaunch.where(tributary_id: tributary.id)
-    end
+    @perdlaunches = PerdLaunch.where(tributary_id: tributary.id) unless tributary.nil?
   end
 
-  def options_for_radio_yes(op)
-    if op == 1
+  def options_for_radio_yes(ors)
+    if ors == 1
       'Não'
-    else
-      if op == 0
-        'Sim'
-      end
+    elsif ors.zero?
+      'Sim'
     end
   end
 
-  def options_for_radio_status(op)
-    if op == 1
+  def options_for_radio_status(ors)
+    if ors == 1
       'Paga'
-    else
-      if op == 0
-        'Pendende de Análise'
-      end
+    elsif ors.zero?
+      'Pendende de Análise'
     end
   end
 
+  def options_user_by_role(role)
+    UserProfile.where(role: role).order(:name)
+  end
 end

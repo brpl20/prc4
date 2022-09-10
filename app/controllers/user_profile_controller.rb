@@ -12,8 +12,7 @@ class UserProfileController < UsersController
     @user.build_bank
   end
 
-  def save
-  end
+  def save; end
 
   def create
     up = params_user
@@ -32,12 +31,9 @@ class UserProfileController < UsersController
   end
 
   def update
-    up = params_user
-    up[:user_profile_attributes][:gender] = up[:user_profile_attributes][:gender].to_i
-    up[:user_profile_attributes][:status] = up[:user_profile_attributes][:status].to_i
-    if @user.update(up)
+    if @user.update(params_user)
       bypass_sign_in(@user) if @user.email == current_user.email
-      redirect_to profile_index_path, notice: "Usuário Atualizado com sucesso!"
+      redirect_to profile_index_path, notice: 'Usuário Atualizado com sucesso!'
     else
       render :edit
     end
@@ -53,48 +49,25 @@ class UserProfileController < UsersController
 
   private
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def verify_password
-      if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
-        params[:user].extract!(:password, :password_confirmation)
-      end
+  def verify_password
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].extract!(:password, :password_confirmation)
     end
+  end
 
-    def params_user
-      params.require(:user).permit(
-              :email,
-              :password,
-              :password_confirmation,
-              :lawyer_role,
-              :paralegal_role,
-              :intern_role,
-              :secretary_role,
-              :accountant_role,
-              :outside_accountant_role,
-              user_profile_attributes: [:id,
-                                        :role,
-                                        :name,
-                                        :lastname,
-                                        :gender,
-                                        :general_register,
-                                        :oab,
-                                        :social_number,
-                                        :citizenship,
-                                        :civilstatus,
-                                        :birth,
-                                        :mothername,
-                                        :email,
-                                        :address,
-                                        :city,
-                                        :state,
-                                        :phone,
-                                        :zip,
-                                        :status,
-                                        :origin],
-              bank_attributes:   [:id, :name, :agency, :account])
-    end
-
+  def params_user
+    params.require(:user).permit(
+      :email,
+      :password,
+      :password_confirmation,
+      user_profile_attributes: %i[id role name lastname gender general_register oab
+                                  social_number citizenship civilstatus birth mothername
+                                  email address city state phone zip status origin],
+      bank_attributes: %i[id name agency account]
+    )
+  end
 end

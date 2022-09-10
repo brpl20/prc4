@@ -12,6 +12,8 @@ class Work < ApplicationRecord
   has_many :work_offices, dependent: :destroy
   has_many :offices, through: :work_offices
 
+  has_many :work_updates
+
   has_many_attached :archive_file
 
   has_one :tributary, dependent: :destroy

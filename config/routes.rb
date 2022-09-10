@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :customer_types
   resources :office_types
   resources :perd_launches, except: %i[show]
+  resources :work_updates, except: %i[show]
 
   resources :client do
     resources :file_uploads, only: %i[new create destroy]

@@ -11,4 +11,12 @@ module OfficesHelper
   def options_for_office_type
     OfficeType.all
   end
+
+  def options_for_society
+    [
+      ['Unipessoal', 'Unipessoal'],
+      ['Sociedade', 'Sociedade'],
+      ['Pessoa física', 'Pessoa física']
+    ]
+  end
 end

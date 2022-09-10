@@ -125,7 +125,7 @@ input[type='checkbox']{
   margin-top: 3rem;
 }
 .btn-add-cli{
-  width: 30%;
+  width: 100%;
 }
 .btn-add-rep{
   width: 100%;
@@ -182,6 +182,7 @@ a.icon-footer{
 }
 .table-action-content{
   text-align: center;
+  text-align: left;
 }
 span.section{
   color: #73879C;
@@ -222,7 +223,7 @@ span.section{
     display: flex;
     flex-direction: row-reverse;
     flex-wrap: wrap-reverse;
-    justify-content: space-around;
+    justify-content: flex-end;
     gap: 1rem;
 }
 .ordering-btn-add{
