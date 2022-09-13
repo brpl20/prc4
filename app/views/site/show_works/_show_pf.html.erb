@@ -1,0 +1,41 @@
+<section>
+  <h2> Dados Pessoais: </h2>
+
+  <p> <b> Capacidade: </b> <%= @client.capacity %> </p>
+
+  <p> <b> Gênero: </b> <%= gender_name(@client.gender) %> </p>
+
+  <p> <b> Nacionalidade: </b> <%= @client.citizenship %></p>
+
+  <p> <b> Estado civil: </b> <%= @client.civilstatus %></p>
+
+  <p> <b> Nascimento: </b> <%= @client.birth %></p>
+
+  <p> <b> CPF: </b> <%= @client.social_number %></p>
+
+  <p> <b> RG: </b> <%= @client.general_register %></p>
+</section>
+
+<section>
+  <h2>Endereço: </h2>
+
+  <p> <b>Endereco:</b> <%= @client.address %> </p>
+
+  <p> <b>Cidade:</b> <%= @client.city %> </p>
+
+  <p> <b>Estado:</b> <%= @client.state %> </p>
+
+  <p> <b>CEP:</b> <%= @client.zip %> </p>
+</section>
+
+<section>
+  <h2>Contato: </h2>
+
+  <% @client.phones.each do |ph| %>
+    <p> <b> Telefone:</b> <%= ph.phone %> </p>
+  <% end %>
+
+  <% @client.emails.each do |em| %>
+    <p> <b> E-mail: </b> <%= em.email %> </p>
+  <% end %>
+</section>

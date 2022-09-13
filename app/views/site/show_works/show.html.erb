@@ -1,0 +1,93 @@
+<nav class="navbar navbar-light">
+  <%= image_tag('logo_nome.svg', id:'logo-nome')%>
+  <h1>Área do cliente</h1>
+</nav>
+
+<div class="main-container">
+
+  <div id="content-fluid">
+    <h2>Olá <%= @client.name %></h2>
+    <p>Abaixo você encontra suas informações pessoais e os seus processos</p>
+
+    <article class="personal-data">
+      <% if @client_type == 'pf' %>
+        <%= render partial: 'show_pf' %>
+      <% elsif @client_type == 'pj' %>
+        <%= render partial: 'show_pj' %>
+      <% elsif @client_type == 'cont' %>
+        <%= render partial: 'show_cont' %>
+      <% elsif @client_type == 'rep' %>
+        <%= render partial: 'show_rep' %>
+      <% end %>
+    </article>
+
+    <h3>Meus processos </h3>
+
+    <% @works.each do |work| %>
+
+      <div class="accordion">
+        <div class="card">
+          <div class="card-header" id="headingOne">
+            <h5 class="mb-0">
+              <button class="btn btn-link" data-toggle="collapse" data-target="#work-<%= work.id %>" aria-expanded="true" aria-controls="collapseOne">
+                <%=  work.number + ' - ' + work.subject + ' - ' + work.action %>
+              </button>
+            </h5>
+          </div>
+
+          <div id="work-<%= work.id %>" class="collapse updatings" aria-labelledby="headingOne" data-parent="#accordion">
+
+
+              <div class="card-body">
+                <p> <b>Envolvidos:</b> </p>
+                <% work.clients.each do |wc| %>
+                    <p><%= wc.name %></p>
+                <% end %>
+
+                <!-- colocar honorarios aqui -->
+
+                <table class="table table-striped">
+
+                  <thead>
+                    <tr>
+                      <th>Data da atualização</th>
+                      <th>Descrição</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    <% work.work_updates.each do |upd| %>
+                      <tr>
+
+                        <% if work.work_updates.nil? %>
+                          <td rowspan="2">Sem atualizações no momento.</td>
+                        <% else %>
+                          <% if upd.show_to == 'Cliente' || upd.show_to == 'Todos' %>
+                            <td scope="row"><%= upd.created_at.strftime("%A %d %B, %Y") %></td>
+                            <td> <%= upd.description %> </td>
+                          <% end %>
+                        <% end %>
+
+                      </tr>
+                    <% end %>
+                  </tbody>
+
+                </table>
+
+              </div>
+
+              <div id="documents">
+                <p>Meus documentos</p>
+              </div>
+
+
+          </div>
+        </div>
+
+
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

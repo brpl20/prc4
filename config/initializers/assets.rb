@@ -15,7 +15,7 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 
 # /app/assets
-Rails.application.config.assets.precompile += %w[backoffice.js backoffice.css]
+Rails.application.config.assets.precompile += %w[backoffice.js backoffice.css site/show_works.css site/site.js]
 
 # /lib/assets
 Rails.application.config.assets.precompile += %w[custom.js custom.css]
