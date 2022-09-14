@@ -6,6 +6,14 @@
 .navbar:after{
   content: none !important;
 }
+.h-line::after{
+  content: '';
+  display: block;
+  width: 65px;
+  height: 2px;
+  background: #AAAAAA;
+  margin-top: .3em;
+}
 nav{
   background-color: #2A3F54;
   border-radius: 0 !important;
@@ -13,6 +21,7 @@ nav{
 nav h1{
   color: #EEEEEE;
   margin-right: 30px;
+  margin-top: 10px;
 }
 h3{
   font-size: 2.8rem;
@@ -21,6 +30,10 @@ h3{
 h5{
   font-size: 1.8rem;
   margin: 0 !important;
+}
+table{
+  margin-top: 4rem;
+  float: left;
 }
 .btn-link{
   color: #333333 !important;
@@ -51,6 +64,7 @@ h5{
 #documents{
   width: 20%;
   float: left;
+  padding-top: 1rem;
 }
 .card-body{
   width: 80%;
@@ -74,4 +88,19 @@ h5{
 }
 .personal-data section h2{
   font-size: 2rem;
+}
+.personal-data section p{
+  color: #838383;
+}
+.card-header h5 button{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.sub-data{
+  width: 50%;
+  float: left;
+}
+.sub-data p{
+  display: block;
 }

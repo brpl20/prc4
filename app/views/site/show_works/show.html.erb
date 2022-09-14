@@ -7,7 +7,7 @@
 
   <div id="content-fluid">
     <h2>Olá <%= @client.name %></h2>
-    <p>Abaixo você encontra suas informações pessoais e os seus processos</p>
+    <p>Abaixo você encontra suas informações pessoais e as atualizações dos seus processos</p>
 
     <article class="personal-data">
       <% if @client_type == 'pf' %>
@@ -21,7 +21,7 @@
       <% end %>
     </article>
 
-    <h3>Meus processos </h3>
+    <h3 class="h-line">Meus processos </h3>
 
     <% @works.each do |work| %>
 
@@ -31,55 +31,76 @@
             <h5 class="mb-0">
               <button class="btn btn-link" data-toggle="collapse" data-target="#work-<%= work.id %>" aria-expanded="true" aria-controls="collapseOne">
                 <%=  work.number + ' - ' + work.subject + ' - ' + work.action %>
+                <i class="fa fa-eye"></i>
               </button>
             </h5>
           </div>
 
           <div id="work-<%= work.id %>" class="collapse updatings" aria-labelledby="headingOne" data-parent="#accordion">
 
+            <div class="card-body">
+              <div class="sub-data">
+                <p class="h-line"> <b>Envolvidos:</b> </p>
+                <% work.clients.each_with_index do |wc, index| %>
+                    <p><%= index+1 %> - <%= wc.name %></p>
+                <% end %>
+              </div>
 
-              <div class="card-body">
-                <p> <b>Envolvidos:</b> </p>
-                <% work.clients.each do |wc| %>
-                    <p><%= wc.name %></p>
+              <div class="sub-data">
+                <p class="h-line"> <b>Honorários</b> </p>
+
+                <% if work.rate_percentage_exfield != 'Campo Vazio'%>
+                  <p> <b>Percentual:</b> <%= work.rate_percentage_exfield %>%</p>
                 <% end %>
 
-                <!-- colocar honorarios aqui -->
+                <% if work.rate_fixed != 'Campo Vazio'%>
+                <p>   <b>Honorários Fixos:</b> <%= work.rate_fixed %></p>
+                <% end %>
 
-                <table class="table table-striped">
+                <% if work.rate_fixed_exfield != 'Campo Vazio'%>
+                  <p> <b>Valor Fixo:</b> R$<%= work.rate_fixed_exfield %></p>
+                <% end %>
 
-                  <thead>
+                <p> <b>Parcelamento:</b> <%= work.rate_parceled %></p>
+
+                <% if !work.rate_parceled_exfield.blank? %>
+                  <p> <b>Detalhes do parcelamento:</b> <%= work.rate_parceled_exfield %> </p>
+                <% end %>
+              </div>
+
+              <table class="table table-striped">
+                <tbody>
+                  <% if updatings(work.work_updates).blank? %>
+                  <tr>
+                    <td colspan="2">Sem atualizações no momento.</td>
+                  </tr>
+
+                  <% else %>
+
+                    <% updatings(work.work_updates).each do |upd| %>
                     <tr>
-                      <th>Data da atualização</th>
-                      <th>Descrição</th>
+                      <td scope="row"><%= l(upd.created_at, :format => :updating) %></td>
+                      <td> <%= upd.description %> </td>
                     </tr>
-                  </thead>
-
-                  <tbody>
-                    <% work.work_updates.each do |upd| %>
-                      <tr>
-
-                        <% if work.work_updates.nil? %>
-                          <td rowspan="2">Sem atualizações no momento.</td>
-                        <% else %>
-                          <% if upd.show_to == 'Cliente' || upd.show_to == 'Todos' %>
-                            <td scope="row"><%= upd.created_at.strftime("%A %d %B, %Y") %></td>
-                            <td> <%= upd.description %> </td>
-                          <% end %>
-                        <% end %>
-
-                      </tr>
                     <% end %>
-                  </tbody>
 
-                </table>
+                  <% end %>
+                </tbody>
 
-              </div>
+              </table>
 
-              <div id="documents">
-                <p>Meus documentos</p>
-              </div>
+            </div>
 
+            <div id="documents">
+              <p class="h-line"> <b> Meus documentos </b> </p>
+              <% if retrieve_doc_url(work).nil? %>
+                <p class="btn btn-info disabled">Não há documentos emitidos</p>
+              <% else %>
+                <%= link_to retrieve_doc_url(work), class: "btn btn-info" do %>
+                <i class="fa fa-download"></i> Documentos x
+                <% end %>
+              <% end %>
+            </div>
 
           </div>
         </div>

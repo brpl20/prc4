@@ -3,8 +3,8 @@ require_relative 'boot'
 require 'rails/all'
 
 # Formato Brasileiro
-Time::DATE_FORMATS[:default] = "%d/%m/%Y %H:%M"
-Date::DATE_FORMATS[:default] = "%d/%m/%Y"
+Time::DATE_FORMATS[:default] = '%d/%m/%Y %H:%M'
+Date::DATE_FORMATS[:default] = '%d/%m/%Y'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,6 +14,9 @@ module Prc4
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
+    config.i18n.default_locale = :'pt-BR'
+    config.time_zone = 'Brasilia'
+    config.active_record.default_timezone = :local
 
     config.autoload_paths << "#{config.root}/app/models/filters"
     config.autoload_paths << "#{config.root}/app/services"

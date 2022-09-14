@@ -1,14 +1,9 @@
 module Site::ShowWorksHelper
-  def retrieve_type_to_link(type)
-    case type
-    when 0
-      'pf'
-    when 1
-      'pj'
-    when 2
-      'rep'
-    when 3
-      'cont'
-    end
+  def updatings(work)
+    work.where.not(show_to: 'Equipe')
+  end
+
+  def retrieve_doc_url(work)
+    work.document['aws_link'] if work.document
   end
 end
