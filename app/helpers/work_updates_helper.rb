@@ -3,7 +3,6 @@ module WorkUpdatesHelper
     [
       ['Equipe', 'Equipe'],
       ['Cliente', 'Cliente'],
-      ['Todos', 'Todos'],
     ]
   end
 end
