@@ -1,0 +1,26 @@
+<section>
+  <h2 class="h-line"> Informações Gerais: </h2>
+
+  <p> <b> CNPJ: </b> <%= @client.social_number %></p>
+
+  <p> <b>Endereco:</b> <%= @client.address %> </p>
+
+  <p> <b>Cidade:</b> <%= @client.city %> </p>
+
+  <p> <b>Estado:</b> <%= @client.state %> </p>
+
+  <p> <b>CEP:</b> <%= @client.zip %> </p>
+
+</section>
+
+<section>
+  <h2 class="h-line">Contato: </h2>
+
+  <% @client.phones.each do |ph| %>
+    <p> <b> Telefone:</b> <%= ph.phone %> </p>
+  <% end %>
+
+  <% @client.emails.each do |em| %>
+    <p> <b> E-mail: </b> <%= em.email %> </p>
+  <% end %>
+</section>
