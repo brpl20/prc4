@@ -82,7 +82,7 @@ $('.rate').focus();
   };
 
   function add_button_rep(){
-    $(".add-button-rep").append("<div class='col-md-6'><a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/modal/representative_search' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div>")
+    $(".add-button-rep").append("<div class='col-md-6 capacity'><a class='btn btn-outline btn-primary' id='btn-add-reps' data-toggle='modal' data-url='/clients/modal/representative_search' data-target='#modal-general' href='#'> <span>Pesquisar Representante</span></a></div>")
   };
 
   function pessoa_fisica(){
@@ -306,8 +306,10 @@ $('.rate').focus();
     if($(this).val() == 'Capaz' && $("#client_client_type_0").is(':checked')){
       $("#btn-add-reps").remove();
       $(".parcial-rep").remove();
+      $(".capacity").remove();
     } else {
       $("#btn-add-reps").remove();
+      $(".capacity").remove();
       add_button_rep();
     }
   });
