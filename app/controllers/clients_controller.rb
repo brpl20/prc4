@@ -79,13 +79,18 @@ class ClientsController < BackofficeController
     @url_job = @client.jobs
   end
 
-  def aws_configurations
-    aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
-        ENV['AWS_ID'],
-        ENV['AWS_SECRET_KEY']
-        )})
-    return @aws_client = Aws::S3::Client.new, @s3 = Aws::S3::Resource.new(region: 'us-west-2')
-  end
+
+
+  # AWS_SERVICE
+  # def aws_configurations
+  #   aws_config = Aws.config.update({region: 'us-west-2', credentials: Aws::Credentials.new(
+  #       ENV['AWS_ID'],
+  #       ENV['AWS_SECRET_KEY']
+  #       )})
+  #   @aws_client = Aws::S3::Client.new
+  #   @s3 = Aws::S3::Resource.new(region: 'us-west-2')
+  # end
+  # AWS_SERVICE
 
   def office_check_and_select
     offices = Office.all
@@ -118,7 +123,9 @@ class ClientsController < BackofficeController
     require 'rails-i18n'
 
     # AWS CONFIG AND DOC
-    aws_configurations
+    AwsService::AwsService.aws_configurations
+    raise
+
     aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
     aws_body = aws_doc.body
 
