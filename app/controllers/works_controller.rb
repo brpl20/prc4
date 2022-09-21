@@ -23,12 +23,13 @@ class WorksController < BackofficeController
     @client = @work.clients.last
     @url = @work.document['aws_link'] if @work.document
   end
-
+  
   def create
     @work = Work.new(work_params)
     if @work.save
       #UpdateWorkMailer.notify_new_work(@work).deliver_later
       #work_templater(@work, 'wdocs')
+      TemplaterOffice::TemplaterOfficeService.full_qualify_office(@work)
       redirect_to @work
     else
       render :new,
@@ -36,6 +37,9 @@ class WorksController < BackofficeController
     end
   end
 
+  
+  
+ 
    def genderize(field)
      case field
      when "Casado"
@@ -171,9 +175,10 @@ class WorksController < BackofficeController
 
     rate_parceled_final = rate_parcel(work)
 
-    lawyers = UserProfile.lawyer
-    paralegals = UserProfile.paralegal
-    interns = UserProfile.intern
+    # nao se usa mais esse método de Users.laywer
+    #lawyers = UserProfile.lawyer
+    #paralegals = UserProfile.paralegal
+    #interns = UserProfile.intern
 
     if lawyers.size > 0.5
       laws = ["Advogados: "].join("")

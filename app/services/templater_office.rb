@@ -4,69 +4,43 @@ module TemplaterOffice
 
     class << self
 
-      def self.officesSelection
-      offices = Office.all
-        if offices.size > 0.5
-          office_sel = Office.find_by_id(1)
-          office = ["Escritório: "].join("")
-          office_email = office_sel.email
-          office_address = "#{office_sel.address}, #{office_sel.city}, #{office_sel.state}."
-          office << "#{office_sel.name}"
-          return office
+      def full_qualify_office(work)
+        if work.work_offices.count > 0.5
+          offices = [].join(', ')
+          work.work_offices.each do |wo|
+            @selected_office = Office.find_by_id(wo.office_id)
+            offices << office_templater(@selected_office).join(', ')
+            return offices
+          end
+        end
+      end        
+
+      def office_templater(office)
+        full_office = [].reject(&:blank?).join(', ')
+        full_office = ["Escritório: "]
+        full_office << office.name
+        full_office << "OAB: #{office.oab}"
+        full_office << "CNPJ: #{office.cnpj_number}"
+        full_office << "Tipo: #{office.society}"
+        full_office << "Tipo: #{office.email}"
+        full_office
+      end 
+
+      # OFFICE CHECK IF IS PES
+      def office_check(office_id)
+        if office_id.society = "Pessoa física"
+          office_pf(office_id)
         else
-          office = [""].join("")
-          office_address = "#{lawyers[1]}"
-          return office
+          office_pj(office_id)
         end
       end
 
+      def office_pf(office_id)
 
-
-    lawyers = UserProfile.lawyer
-    paralegals = UserProfile.paralegal
-    interns = UserProfile.intern
-
-    if lawyers.size > 0.5
-      laws = ["Advogados: "].join("")
-    else
-      laws = [""].join("")
-    end
-
-    if paralegals.size > 0.5
-      parals = ["Paralegais: "].join("")
-    else
-      parals = [""].join("")
-    end
-
-    if interns.size > 0.5
-      inters = ["Estagiários: "].join("")
-    else
-      inters = [""].join("")
-    end
-
-    lawyers.each_with_index do | x, index |
-      if index == lawyers.size-1
-        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}.".to_s
-      else
-        laws << "#{x.name} #{x.lastname}, #{x.civilstatus}, OAB/PR #{x.oab}, ".to_s
       end
-    end
 
-    paralegals.each_with_index do | x, index |
-      if index == paralegals.size-1
-        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
-      else
-        parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      def office_pf(office_id)
       end
-    end
-
-    interns.each_with_index do | x, index |
-      if index == interns.size-1
-        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
-      else
-        inters << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
-      end
-    end
 
 
 
