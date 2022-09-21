@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WorksController < BackofficeController
-  before_action :amazon_client, :set_work, only: [:show, :edit, :update, :destroy, :templater]
+  before_action :amazon_client, :set_work, only: %i[show edit update destroy templater]
 
   def index
     @works = Work.includes(:clients).all
@@ -18,8 +18,8 @@ class WorksController < BackofficeController
   end
 
   def show
-    @work_updates = WorkUpdate.order(id: :desc)
     @work = Work.find(params[:id])
+    @work_updates = @work.work_updates.order(updated_at: :desc)
     @client = @work.clients.last
     @url = @work.document['aws_link'] if @work.document
   end

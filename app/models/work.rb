@@ -19,7 +19,8 @@ class Work < ApplicationRecord
   has_one :tributary, dependent: :destroy
   has_one :recommendation_work, dependent: :destroy
 
-  validates :procedure_ids, :subject, :rate_work, :rate_parceled, :rate_parceled_exfield, :power_ids, presence: true
+  validates :procedure_ids, :subject, :rate_work, :rate_parceled, :power_ids, presence: true
+  validates :rate_parceled_exfield, presence: true, if: proc { |w| w.rate_parceled == 'Sim' }
 
   accepts_nested_attributes_for :tributary, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :client_works, :work_offices, reject_if: :all_blank, allow_destroy: true

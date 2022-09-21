@@ -11,7 +11,7 @@
 
       <div class='col-md-12 no-padding'>
         <label>Exibir atualização para</label>
-        <%= f.collection_select :show_to, options_for_work_updates, :first, :second, {prompt: 'Infome para quem essa atualização será visível'}, {class:'form-control'} %>
+        <%= f.collection_select :show_to, options_for_work_updates, :first, :second, {prompt: 'Infome para quem esta atualização será visível'}, {class:'form-control'} %>
       </div>
 
       <%= f.number_field :work_id, class:"hidden", value: params[:work_id] %>
