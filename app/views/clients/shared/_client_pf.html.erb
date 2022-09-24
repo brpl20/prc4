@@ -211,18 +211,6 @@
 
         <div class="col-md-12">
           <div class="col-md-6">
-            <label>Nome da Mãe</label>
-            <%= f.text_field :mothername, class:"form-control" %>
-          </div>
-
-          <div class="col-md-6">
-            <label>NIT</label>
-            <%= f.text_field :nit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.00000.00-0', placeholder:'000.00000.00-0' %>
-          </div>
-        </div>
-
-        <div class="col-md-12">
-          <div class="col-md-6">
             <label>Profissão*</label>
             <%= f.text_field :profession, class:"form-control step-5-required" %>
           </div>
@@ -237,6 +225,18 @@
           <div class="col-md-6">
             <label>Senha do meu Inss</label>
             <%= f.text_field :passwdInss, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+            <label>NIT</label>
+            <%= f.text_field :nit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.00000.00-0', placeholder:'000.00000.00-0' %>
+          </div>
+        </div>
+
+        <div class="col-md-12">
+          <div class="col-md-6">
+            <label>Nome da Mãe</label>
+            <%= f.text_field :mothername, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
