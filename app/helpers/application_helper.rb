@@ -2,12 +2,14 @@
 
 module ApplicationHelper
   def office_exist?
-    Office.exists?(user_id: current_user.id)
+    user = current_user ? current_user.id : 1
+    Office.exists?(user_id: user)
   end
 
   def office_phone
     if office_exist?
-      Office.where(user_id: current_user.id).last.telephone
+      user = current_user ? current_user.id : 1
+      Office.where(user_id: user).last.telephone
     else
       office_phone = 'Telefone do Escritório Não cadastrado - Configure o Escritório'
     end
@@ -15,7 +17,8 @@ module ApplicationHelper
 
   def office_address
     if office_exist?
-      office = Office.where(user_id: current_user.id).last
+      user = current_user ? current_user.id : 1
+      office = Office.where(user_id: user).last
       "#{office.address}. #{office.city} - #{office.state}"
     else
       office_address = 'Endereço do Escritório Não cadastrado - Configure o Escritório'
@@ -24,7 +27,8 @@ module ApplicationHelper
 
   def office_name
     if office_exist?
-      Office.where(user_id: current_user.id).last.name
+      user = current_user ? current_user.id : 1
+      Office.where(user_id: user).last.name
     else
       office_name = 'Nome do Escritório Não cadastrado - Configure o Escritório'
     end
@@ -32,9 +36,10 @@ module ApplicationHelper
 
   def office_site
     if office_exist?
-      Office.where(user_id: current_user.id).last.site
+      user = current_user ? current_user.id : 1
+      Office.where(user_id: user).last.site
     else
-      office_site =  'Side do Escritório Não cadastrado - Configure o Escritório'
+      office_site = 'Side do Escritório Não cadastrado - Configure o Escritório'
     end
   end
 

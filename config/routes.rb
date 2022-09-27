@@ -13,7 +13,13 @@ Rails.application.routes.draw do
 
   root to: 'pages#dashboard'
 
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
+
+  devise_for :customers, controllers: {
+    sessions: 'customers/sessions'
+  }
 
   resources :clients
   resources :jobs

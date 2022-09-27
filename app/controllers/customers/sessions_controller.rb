@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::SessionsController < Devise::SessionsController
+class Customers::SessionsController < Devise::SessionsController
   # before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -15,7 +15,7 @@ class Users::SessionsController < Devise::SessionsController
 
   # DELETE /resource/sign_out
   def destroy
-    p '************************************'
+    p '/////////////////////////////////////'
     super
   end
 

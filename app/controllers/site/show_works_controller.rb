@@ -3,6 +3,8 @@
 module Site
   # Class que controla as acoes de visualizacao do cliente
   class ShowWorksController < SiteController
+    before_action :authenticate_customer!
+
     include ClientsHelper
     def show
       @client = Client.find(params[:client_id])

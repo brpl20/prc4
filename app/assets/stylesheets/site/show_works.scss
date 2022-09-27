@@ -49,6 +49,17 @@ table{
   flex-wrap: wrap;
   justify-content: center;
 }
+.header-client-area,
+.button_to{
+  border: none;
+  background-color: rgba(0,0,0,0);
+  display: inline-block;
+  margin-right: 1.5rem;
+}
+.button_to > .header-client-area{
+  font-size: 1.7rem;
+  color: #0120ff;
+}
 #content-fluid{
   width: 80%;
   margin: 0 auto;
