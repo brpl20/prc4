@@ -53,13 +53,13 @@
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
-    enableAllSteps: true,  // Enable/Disable all steps on first load
+    enableAllSteps: false,  // Enable/Disable all steps on first load
     transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
     contentURL:null, // specifying content url enables ajax content loading
     contentURLData:null, // override ajax query parameters
     contentCache:true, // cache step contents, if false content is fetched always from ajax url
     cycleSteps: false, // cycle step navigation
-    enableFinishButton: true, // makes finish button enabled always
+    enableFinishButton: false, // makes finish button enabled always
     hideButtonsOnDisabled: true, // when the previous/next/finish buttons are disabled, hide them instead
     errorSteps: [],    // array of step numbers to highlighting as error steps
     labelNext: 'Próximo', // label for Next button
