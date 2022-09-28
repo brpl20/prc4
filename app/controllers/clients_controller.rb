@@ -44,9 +44,10 @@ class ClientsController < BackofficeController
     @type = retrieve_type_to_link(@client.client_type)
 
     if @client.save
+      CustomerService.create_customer(@client)
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
-      templater(@client, "procuracao_simples")
+      templater(@client, 'procuracao_simples')
     else
       render :new
     end

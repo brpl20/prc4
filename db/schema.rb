@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_27_022948) do
+ActiveRecord::Schema.define(version: 2022_09_28_155915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -121,6 +121,15 @@ ActiveRecord::Schema.define(version: 2022_09_27_022948) do
     t.integer "client_type"
     t.string "nit"
     t.string "passwdInss"
+  end
+
+  create_table "customer_clients", force: :cascade do |t|
+    t.bigint "client_id", null: false
+    t.bigint "customer_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["client_id"], name: "index_customer_clients_on_client_id"
+    t.index ["customer_id"], name: "index_customer_clients_on_customer_id"
   end
 
   create_table "customer_types", force: :cascade do |t|
@@ -357,6 +366,8 @@ ActiveRecord::Schema.define(version: 2022_09_27_022948) do
   add_foreign_key "banks", "users"
   add_foreign_key "client_works", "clients"
   add_foreign_key "client_works", "works"
+  add_foreign_key "customer_clients", "clients"
+  add_foreign_key "customer_clients", "customers"
   add_foreign_key "customer_types", "clients"
   add_foreign_key "emails", "clients"
   add_foreign_key "jobs", "clients"
