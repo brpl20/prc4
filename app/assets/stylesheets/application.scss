@@ -1,6 +1,12 @@
 @import "bootstrap/scss/bootstrap";
 @import "font-awesome";
 
+.container-body{
+  width: 50%;
+  background-color: #FFF;
+  padding: 50px;
+  margin: 3% auto;
+}
 #error_explanation{
   color: #FF0000;
 }

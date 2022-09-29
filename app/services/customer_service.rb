@@ -19,5 +19,13 @@ class CustomerService
         customer: customer
       )
     end
+
+    def data_for_home(customer)
+      p '-----------------------------------------------------------'
+      p customer
+
+      # criar tela principal para o customer acessar e escolher qual cliente ele vai ver os processos;
+      # ajustar tela de visualizacao dos processos para ela nao mostrar o nome do customer / cliente
+    end
   end
 end
