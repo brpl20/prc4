@@ -3,7 +3,6 @@
 # service para controle dos metodos de customers
 class CustomerService
   class << self
-
     def create_customer(client)
       customer = Customer.create!(
         email: client.emails.first.email,
@@ -21,11 +20,12 @@ class CustomerService
     end
 
     def data_for_home(customer)
-      p '-----------------------------------------------------------'
-      p customer
+      # Precisamos criar uma tela principal para o customer acessar e escolher qual cliente ele vai ver os processos;
 
-      # criar tela principal para o customer acessar e escolher qual cliente ele vai ver os processos;
-      # ajustar tela de visualizacao dos processos para ela nao mostrar o nome do customer / cliente
+      # Customer acessa dashboard via endpoint /cliente;
+      # Se customer PF visualiza cards de clientes e seleciona algum;
+        # Visulualiza /area_cliente/:client_id/trabalhos do cliente selecionado
+      # Se customer PF visulualiza /area_cliente/:client_id/trabalhos;
     end
   end
 end
