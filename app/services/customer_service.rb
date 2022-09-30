@@ -10,6 +10,8 @@ class CustomerService
         password_confirmation: 'Cliente123#'
       )
       create_customer_client(client, customer)
+
+      customer
     end
 
     def create_customer_client(client, customer)
