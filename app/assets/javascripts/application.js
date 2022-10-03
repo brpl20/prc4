@@ -349,7 +349,7 @@ $('.rate').focus();
 
   $(".buttonFinish").addClass('btn btn-primary');
   $(".buttonNext").addClass('btn btn-outline-success');
-  $(".buttonPrevious").addClass('btn btn-outline-primary');
+  $(".buttonPrevious").addClass('btn btn-outline-warning');
 
 
  checkAll()

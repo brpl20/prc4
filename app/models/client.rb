@@ -6,6 +6,9 @@ class Client < ApplicationRecord
   has_many :emails, inverse_of: :client, dependent: :destroy
   has_many :customer_types, inverse_of: :client, dependent: :destroy
 
+  has_many :customer_clients, dependent: :destroy
+  has_many :customers, through: :customer_clients
+
   has_many :client_works, dependent: :destroy
   has_many :works, through: :client_works
   has_many :jobs
@@ -33,21 +36,16 @@ class Client < ApplicationRecord
   NULL_ATTRS = %w[lastname bank email].freeze
   # before_save :fill_if_nil, :default_values
 
-
   def gender_check(client)
-    if client === 0
-      gender = :male
-    else
-      gender = :female
-    end
+    return if client.zero? ? :male : :female
   end
 
-  def self.can_be_destroyed id
+  def self.can_be_destroyed(id)
     ClientWork.exists?(client_id: id)
   end
 
   def full_name(client)
-    [client.name,client.lastname].join(' ')
+    [client.name, client.lastname].join(' ')
   end
 
   def full_qualify_person(client, full_contract = nil)
@@ -71,7 +69,7 @@ class Client < ApplicationRecord
   end
 
   # criar método para qualificar compania
-  def full_qualify_company(client);end
+  def full_qualify_company(client); end
 
   # :full contract methods
 

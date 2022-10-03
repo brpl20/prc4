@@ -57,3 +57,5 @@ yarn-debug.log*
 
 # Manual-Teste-Notes
 /manual-testes-notes
+
+package-lock.json

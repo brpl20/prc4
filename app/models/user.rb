@@ -1,6 +1,6 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   has_one :user_profile, dependent: :destroy
   has_one :bank, dependent: :destroy
 
@@ -11,7 +11,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def name
-    [self.user_profile.name,self.user_profile.lastname].join(' ')
+    [user_profile.name, user_profile.lastname].join(' ')
   end
-
 end
