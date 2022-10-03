@@ -173,8 +173,25 @@ module Templater
         full.reject(&:blank?).join(', ')
       end
 
-    end
+      def replacer(client, doc)
+        doc.paragraphs.each do |p|
+          p.each_text_run do |tr|
+            dia = I18n.l(Time.now, format: "%d de %B de %Y")
+            ql = full_qualify_person(client)
+            tr.substitute('_fn_', client.name.upcase) 
+            tr.substitute('_timestamp_', dia+".")
+            tr.substitute('_qualify_', ql)
+            tr.substitute('_lawyers_', "laywersnew")
+            #raise
+          end
+        end
+        doc
+      end
 
-  end
-
+# Module CLASS
 end
+end
+end 
+
+
+
