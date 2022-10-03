@@ -29,7 +29,8 @@ class WorksController < BackofficeController
     if @work.save
       #UpdateWorkMailer.notify_new_work(@work).deliver_later
       #work_templater(@work, 'wdocs')
-      TemplaterOffice::TemplaterOfficeService.full_qualify_office(@work)
+      #TemplaterOffice::TemplaterOfficeService.full_qualify_one_office_for_work(@work)
+      TemplaterOffice::TemplaterOfficeService.full_qualify_multiple_offices(@work)
       redirect_to @work
     else
       render :new,
