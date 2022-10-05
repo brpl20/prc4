@@ -88,14 +88,6 @@
         <div class="col-md-12 no-padding">
 
           <div class="col-md-6">
-            <label>Número de Benefício</label>
-            <%= f.text_field :number_benefit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-0', placeholder:'000.000.000-0'%>
-            <small class="form-text text-muted">
-              Número do Benefício Previdenciário, caso possua.
-            </small>
-          </div>
-
-          <div class="col-md-6">
             <label>Data de Nascimento*</label>
             <%= f.date_field :birth, as: :date, value: f.object.try(:strftime, "%d/%m/%Y"), class:"form-control step-1-required", min: Date.new(1902, 01, 01), max: Time.zone.today %>
           </div>
@@ -222,9 +214,13 @@
         </div>
 
         <div class="col-md-12">
+
           <div class="col-md-6">
-            <label>Senha do meu Inss</label>
-            <%= f.text_field :passwdInss, class:"form-control" %>
+            <label>Número de Benefício</label>
+            <%= f.text_field :number_benefit, class:"form-control", 'autocomplete':'off', 'data-mask':'000.000.000-0', placeholder:'000.000.000-0'%>
+            <small class="form-text text-muted">
+              Número do Benefício Previdenciário, caso possua.
+            </small>
           </div>
 
           <div class="col-md-6">
@@ -234,9 +230,16 @@
         </div>
 
         <div class="col-md-12">
+
           <div class="col-md-6">
             <label>Nome da Mãe</label>
             <%= f.text_field :mothername, class:"form-control" %>
+          </div>
+
+          <div class="col-md-6">
+
+            <label>Senha do meu Inss</label>
+            <%= f.text_field :passwdInss, class:"form-control" %>
           </div>
 
           <div class="col-md-6">
