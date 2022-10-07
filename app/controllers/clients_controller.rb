@@ -45,11 +45,13 @@ class ClientsController < BackofficeController
 
     if @client.save
       customer = CustomerService.create_customer(@client)
-      NewCustomerEmailMailer.notify_new_customer(customer).deliver
-
+      NewCustomerEmailMailer.notify_new_customer(customer).deliver_later
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
-      templater(@client, 'procuracao_simples')
+      AwsService::AwsService.aws_save(@client, document="procuracao_simples", bucket='prcstudio3herokubucket')
+      flash[:notice] = 'Cliente criado com sucesso'
+      redirect_to clients_path
+      #templater(@client, 'procuracao_simples')
     else
       render :new
     end
@@ -126,8 +128,7 @@ class ClientsController < BackofficeController
     require 'rails-i18n'
 
     # AWS CONFIG AND DOC
-    AwsService::AwsService.aws_configurations
-    raise
+    AwsService::AwsService.aws_configurations_client
 
     aws_doc = @aws_client.get_object(bucket:"prcstudio3herokubucket", key:"base/#{document}.docx")
     aws_body = aws_doc.body

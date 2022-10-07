@@ -4,16 +4,22 @@ module TemplaterOffice
 
     class << self
 
-      # Office check for pf or multi offices
+      # Office check for pf --- multi offices
+      # if work.work_offices.count > 0.5
       # 
-      def office_check(office_id)
-        #if work.work_offices.count > 0.5
-        if office_id.society = "Pessoa física"
+      def office_check(office)
+        if office.size > 1 
           office_pf(office_id)
         else
           office_pj(office_id)
         end
       end
+      
+      # def full_qualify_simple_office_for_client()
+      #   office = Office.all
+      #   if office.size > 1
+      #     offices << office_templater(selected_office).join(', ')
+      # end
 
       def full_qualify_one_office_for_work(work)
         offices = [].join(', ')
@@ -21,7 +27,7 @@ module TemplaterOffice
         offices
       end
 
-      def full_qualify_multiple_offices(work)
+      def full_qualify_multiple_offices_for_work(work)
         offices = [].join(', ')
         work.work_offices.map do |wo|
           selected_office = Office.find_by_id(wo.office_id)
@@ -30,7 +36,7 @@ module TemplaterOffice
         offices
       end
 
-      def full_qualify_office_pf(office_id)
+      def full_qualify_office_pf_for_work(office_id)
         UserProfileFilters.by_role(0)
       end
 
