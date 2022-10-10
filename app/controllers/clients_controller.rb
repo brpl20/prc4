@@ -48,10 +48,6 @@ class ClientsController < BackofficeController
       NewCustomerEmailMailer.notify_new_customer(customer).deliver_later
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
-      AwsService::AwsService.aws_save(@client, document="procuracao_simples", bucket='prcstudio3herokubucket')
-      flash[:notice] = 'Cliente criado com sucesso'
-      redirect_to clients_path
-      #templater(@client, 'procuracao_simples')
     else
       render :new
     end
@@ -82,8 +78,12 @@ class ClientsController < BackofficeController
     @client = Client.find(params[:id])
     @url_work = @client.client_works
     @url_job = @client.jobs
+    @generate_docs = generate_docs(@client)
   end
 
+  def generate_docs(client)
+    AwsService::AwsService.aws_save(client, document="procuracao_simples", bucket='prcstudio3herokubucket')
+  end
 
 
   # AWS_SERVICE

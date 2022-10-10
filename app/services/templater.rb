@@ -197,8 +197,8 @@ module Templater
             tr.substitute('_fn_', client.name.upcase) 
             tr.substitute('_timestamp_', dia+".")
             tr.substitute('_qualify_', ql)
-            tr.substitute('_lawyers_', lawyers)
-            raise 
+            tr.substitute('_lawyers_', lawyer)
+            #raise 
           end
         end
         doc
