@@ -100,6 +100,11 @@
                 <%= f.collection_radio_buttons :subject, options_for_subject, :second, :first do |b|
                   b.label(class:"inline-radio") { b.radio_button(class:"subject") + b.text }
                 end %>
+                <div class="hidden subject-append-outros">
+                  <label > Outros </label>
+                  <%= f.text_field :subject, class:"form-control" %>
+                </div>
+
 
                 <small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small>
               </fieldset>
