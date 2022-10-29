@@ -1,7 +1,16 @@
-<div class="nested-fields col-md-5 no-padding">
-  <div class="field">
-    <label>Opções de envio</label>
-    <input type="checkbox" id="puppy_gooddog" value="yes">
-
+<div class="col-md-12">
+  <div class="col-md-6">
+    <div class="opt-1">
+      <%= check_box_tag :flag_access_data, 1, true %>
+      <label> Enviar os dados de acesso </label>
+    </div>
+    <div class="opt-2">
+      <%= check_box_tag :flag_generate_documents, 1, false %>
+      <label> Emitir documentos </label>
+    </div>
+    <div class="opt-3">
+      <%= check_box_tag :flag_signature, 1, false %>
+      <label for="acess-data"> Enviar para assinatura </label>
+    </div>
   </div>
 </div>

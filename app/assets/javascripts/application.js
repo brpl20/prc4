@@ -126,8 +126,6 @@ $('.rate').focus();
   function outros(){
     $(".subject-append-outros").removeClass('hidden');
 
-    $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Outros-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio' for='work_action_outros'><input type='radio' value='Outros' name='work[action]' id='work_action_outros'>Outros</label></fieldset> </div>" );
-
     check_subject_area();
   };
 
@@ -356,10 +354,6 @@ $('.rate').focus();
   $(".buttonNext").addClass('btn btn-outline-success');
   $(".buttonPrevious").addClass('btn btn-outline-warning');
 
-
  checkAll()
-
- $("#acess-data-checkbox").prop("checked", true);
-
 
 });

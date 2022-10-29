@@ -15,6 +15,8 @@ class Client < ApplicationRecord
   has_many_attached :files
   has_many :recommendation_works, dependent: :destroy
 
+  attr_accessor :flag_access_data, :flag_generate_documents, :flag_signature
+
   accepts_nested_attributes_for :bank, allow_destroy: true
   accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true

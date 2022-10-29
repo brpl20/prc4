@@ -50,7 +50,6 @@
             <label>Número do RG</label>
             <%= f.text_field :general_register, class:"form-control" %>
           </div>
-          <% render partial: "option_fields" %>
         </div>
 
         <%= f.radio_button :client_type, '2', class:'hidden', checked: true %>
@@ -86,7 +85,7 @@
             <div class="col-md-4 form-group client">
               <div class="emails">
                 <%= f.fields_for :emails do |e| %>
-                  <% render partial: "email_fields", :locals => {:f => e, :step => '2'} %>
+                  <%= render partial: "email_fields", :locals => {:f => e, :step => '2'} %>
                 <% end %>
               </div>
 
@@ -96,22 +95,7 @@
 
           </div>
         </div>
-        <div class="col-md-12">
-          <div class="col-md-6">
-            <div class="opt-1">
-              <input type="checkbox" id="acess-data-checkbox" value="yes" name="acess-data">
-              <label> Enviar os dados de acesso </label>
-            </div>
-            <div class="opt-2">
-              <input type="checkbox" id="documents-checkbox" value="yes" name="documents-data">
-              <label> Emitir documentos </label>
-            </div>
-            <div class="opt-3">
-              <input type="checkbox" id="signature-checkbox" value="yes" name="signature-data">
-              <label for="acess-data"> Enviar para assinatura </label>
-            </div>
-          </div>
-        </div>
+        <%= render partial: "/clients/option_fields", locals: {f: f} %>
       </div>
 
     </div>
