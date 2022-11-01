@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class WorksController < BackofficeController
-  before_action :amazon_client, :set_work, only: %i[show edit update destroy templater]
+  before_action :set_work, only: %i[show edit update destroy templater]
 
   def index
     @works = Work.includes(:clients).all
@@ -23,14 +23,18 @@ class WorksController < BackofficeController
     @client = @work.clients.last
     @url = @work.document['aws_link'] if @work.document
   end
+
+  def generate_docs_work(work)
+    AwsService::AwsService.aws_save_work(work, document="procuracao_simples", bucket='prcstudio3herokubucket')
+    #AwsService::AwsService.aws_save_work(work, document="wdocs", bucket='prcstudio3herokubucket')
+  end
   
   def create
     @work = Work.new(work_params)
     if @work.save
       #UpdateWorkMailer.notify_new_work(@work).deliver_later
-      #work_templater(@work, 'wdocs')
-      #TemplaterOffice::TemplaterOfficeService.full_qualify_one_office_for_work(@work)
-      TemplaterOffice::TemplaterOfficeService.full_qualify_multiple_offices(@work)
+      AwsService::AwsService.aws_save_work(@work, 'wdocs', bucket='prcstudio3herokubucket')
+      raise
       redirect_to @work
     else
       render :new,

@@ -9,31 +9,35 @@ module TemplaterWork
         work.procedures.each do | des |
           proceds << des.description
         end
+        proceds 
       end
 
       def work_powers(work)
         powerxx = [].join("")
         work.powers.each do | pw |
           if pw.equal?(work.powers.last)
-            powerxx << "#{JSON.parse(pw.description)[1]}."
+            powerxx << pw.description
           else
-            powerxx << "#{JSON.parse(pw.description)[1]}, "
+            powerxx << pw.description
           end
         end
+        powerxx
       end
 
 
       def rater(work)
-        
         # extenso = "R$ #{trabalho},00 (#{Extenso.moeda(trabalho.to_f).downcase})"
         # limpar e transformar 
-
         if work.rate_work == "Trabalho"
           return "o cliente pagará ao advogado o valor de #{work.rate_fixed_exfield}"
         elsif work.rate_work == "Êxito"
-           return "o cliente pagará ao advogado o valor de #{work.rate_percentage_exfield}\% sobre os benefícios advindos do processo"
-         else
+          return "o cliente pagará ao advogado o valor de #{work.rate_percentage_exfield}\% sobre os benefícios advindos do processo"
+        elsif work.rate_work == "Ambos"
           return "o cliente pagará ao advogado o valor de #{work.rate_fixed_exfield} e o total de #{work.rate_percentage_exfield}\% dos benefícios advindos do processo"
+        elsif work.rate_work == "Pro-bono"
+          return "o contrato é realizado na modalidade 'Pro-Bono', ou seja, sem custo contratual para o contratante"
+        else
+          return "[erro ao selecionar o valor dos honorários]"
         end
       end
 
@@ -44,72 +48,133 @@ module TemplaterWork
           return "[configurar parcelamento]"
         end
       end
+
+      def paralegals;end
+      
+      def interns;end 
       
       # ???????????????
-
-      def client_bank
-        bank = ". Dados bancários: Banco: #{client.bank.name}, Agência #{client.bank.agency}, Conta: #{client.bank.account}"
+      # como combinar ? 
+      # >> @work.clients.ids
+      #   => [106]
+      # >> @work.clients.ids.class
+      #   => Array
+      # >>
+      # Templater::TemplaterService.full_qualify_person(client)
+      # def full_qualify_person(client, full_contract = nil)
+      #   gender = gender_check(client.gender)
+      #   full = []
+      #   full << full_name(client).upcase
+      #   full << genderize(gender, client.civilstatus).downcase
+      #   full << genderize(gender, client.citizenship).downcase
+      #   full << client.capacity.downcase if client.capacity_check == false
+      #   full << client.profession.downcase
+      #   full << general_register_check(gender, client)
+      #   full << social_number_check(gender, client)
+      #   full << number_benefit_check(client)
+      #   full << nit_check(gender, client)
+      #   full << email_check(client)
+      #   full << mothername_check(client) if full_contract == :full
+      #   full << bank_check(client) if full_contract == :full
+      #   full << client_address(gender, client)
+      #   full << full_qualify_representative(client) if client.capacity_check == false
+      #   full.reject(&:blank?).join(', ')
+      # end
+  
+      def work_client_finder(work)
+        client = [].reject(&:blank?).join(', ')
+        work.clients.each do | cli |
+          client << Templater::TemplaterService.full_qualify_person(Client.find_by_id(cli.id))
+        end
+        client
+      end
+      
+      def work_office_finder(work)
+        office = [].reject(&:blank?).join(', ')
+        work.offices.each do | off |
+          office << TemplaterOffice::TemplaterOfficeService.full_qualify_lawyer_of_office(Office.find_by_id(off.id))
+        end
+        office
       end
 
-      def client_data
+      # Ver com Jemison sobre SELF e esse método maluco 
+      class Array
+        def csj # clean string join 
+          self.reject(&:blank?).join(', ')
+        end
+      end
+      #end
+
+
+      def work_office_search(work)
+        offices = []
+        office_contract = [].csj
+        work.offices.each do | off |
+          offices << off.id
+        end
+        
+        if offices.size > 1 
+          offices.each do | off |
+            office_contract << TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first(Office.find_by_id(off), UserProfile.find_by_id(work.user_id))
+        end
+          office_contract
+          raise 
+        end
+
+
+      end
+
+
+      # FULL CONTRACT 
+
+      def client_data(work)
+        work.each 
       end
       
       # #############################
-
-
-      def replacer
-        doc = Docx::Document.open(aws_body)
+      
+      def replacer_work(work, doc)
+        qualify = work_client_finder(work)
+        office = TemplaterOffice::TemplaterOfficeService.office_grab
+        # Por enquanto esta funcionando no modo 
+        # Automatico, puxando apenas o Office.first
+        procedures = work_proceds(work)
+        powers = work_powers(work)
+        #lawyers_proc = "TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first"
+        
+        # TODO - REVER PASSAGENS NO FORMULÁRIO PARA SELECIONAR O ADVOGADO RESPONSÁVEL PELO CONTRATO ! 
+        offices = work_office_search(work)
+        
+        
+        qualify_contract = "Templater::Templater:: :full"
         doc.paragraphs.each do |p|
           p.each_text_run do |tr|
-            tr.substitute('_:nome_', nome_cap)
-            tr.substitute('_:sobrenome_', sobrenome_cap)
-            tr.substitute('_:estado_civil_', civilstatus.downcase)
-            tr.substitute('_:profissao_', client.profession.downcase)
-            tr.substitute('_:capacidade_', capacity_treated.downcase)
-            tr.substitute('_:nacionalidade_', nacionalita.downcase)
-            tr.substitute('_:rg_', client.general_register)
-            tr.substitute('_:cpf_', client.social_number.to_s)
-            tr.substitute('_:nb_', nb_exist)
-            tr.substitute('_:email_', emails)
-            tr.substitute('_:phone_', phones)
-            tr.substitute('_:endereco_', client.address)
-            tr.substitute('_:cidade_', client.city)
-            tr.substitute('_:state_', client.state)
-            tr.substitute('_:cep_', client.zip.to_s)
-            tr.substitute('_:empresa_atual_', client.company)
-            tr.substitute('_:banco_', bank)
-    
-            tr.substitute('_:lawyers_', laws)
-            tr.substitute('_:society_', office)
-            tr.substitute('_:lawyerresponsible_',  @work.user[:name].to_s)
-    
-            tr.substitute('_:portador_', porta)
-            tr.substitute('_:inscrito_', inscrito)
-            tr.substitute('_:domiciliado_', domiciliado)
-    
-             tr.substitute('_:procedure_', proceds)
-             tr.substitute('_:subject_', work.subject)
-             tr.substitute('_:action_', work.action)
-             tr.substitute('_:number_', work.number)
-             tr.substitute('_:powers_', powerxx)
-    
-             tr.substitute('_:lawyers_', laws)
-             tr.substitute('_:sociedade_', office)
-             tr.substitute('_$parl_', parals)
-             tr.substitute('$es', inters)
-             tr.substitute('_:addressoficial_', office_address)
-             # tr.substitute('_:emailoficial_', office_email)
-             #tr.substitute('_:prev-powers_', "")
-    
+            tr.substitute('_qualify_', qualify)
+            tr.substitute('_lawyers_', office)
+            tr.substitute('_:procedure_', procedures)
+            tr.substitute('_:subject_', work.subject)
+            tr.substitute('_:action_', work.action)
+            tr.substitute('_:number_', work.number)
+            tr.substitute('_:powers_', powers)
+
+            #tr.substitute('_lawyerscontract_', )
+            #tr.substitute('_qualifycontract_', )
+            tr.substitute('_$parl_', parals)
+            tr.substitute('$es', inters)
+            tr.substitute('_:addressoficial_', office_address)
+            # tr.substitute('_:emailoficial_', office_email)
+            #tr.substitute('_:prev-powers_', "")
             tr.substitute('_:rates_', rate_final)
             tr.substitute('_:parcel_', rate_parceled_final)
             tr.substitute('_:accountdetails_', office_bank)
-    
             tr.substitute('_:timestamp_', dia)
             tr.substitute('_:sname_', office_sel.name.upcase)
             tr.substitute('_:fullqual_', fullqual(client))
           end
-      end
+        end
+      end 
+
+    
       
       #rate_parceled_final = rate_parcel(work)
       #<Work id: 61, subject: "Trabalhista", action: "Reclamatória Trabalhista", number: "561", rate_percentage: "Campo Vazio", rate_percentage_exfield: "25", rate_fixed: "Campo Vazio", rate_fixed_exfield: "1", rate_work: "Ambos", rate_parceled: "Não", power: "Campo Vazio", folder: "Et at dolor vel mole", initial_atendee: "4", procuration_lawyer: "Campo Vazio", procuration_intern: "3", procuration_paralegal: "5", partner_lawyer: "Aut non exercitation", note: "Consequat Molestias", checklist: "Campo Vazio", checklist_document: "Campo Vazio", document_pendent: "Et et pariatur Veli", user_id: 2, created_at: "2022-10-10 21:17:53.886772000 -0300", updated_at: "2022-10-10 21:17:53.886772000 -0300", document: nil, rate_parceled_exfield: "Adipisci sit ad minu">

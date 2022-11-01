@@ -64,7 +64,7 @@ module AwsService
         end
 
 
-        # Aws Save
+        # Aws Save Client 
         def aws_save(client, document, bucket='prcstudio3herokubucket')
           aws_configurations_resources
           aws_doc(client, document)
@@ -78,6 +78,20 @@ module AwsService
           #obj.upload_file(ch_file, metadata: metadata)
         end
         
+        # Aws Save Work
+        def aws_save_work(work, document, bucket='prcstudio3herokubucket')
+          aws_configurations_resources
+          aws_doc(work, document)
+          doc = Docx::Document.open(@aws_body)              
+          doc_templated = TemplaterWork::TemplaterWorkService.replacer_work(work, doc)
+          #raise
+          ch_save = doc_templated.save(Rails.root.join("tmp/#{document}-#{client[:name].downcase.gsub(/\s+/, "")}_#{client.id}.docx").to_s)
+          ch_file = "tmp/#{document}-#{client[:name].downcase.gsub(/\s+/, "")}_#{client.id}.docx"
+          obj = @s3.bucket(bucket).object(ch_file)
+          # aws_metadata(ch_file, document_name )
+          obj.upload_file(ch_file)
+          #obj.upload_file(ch_file, metadata: metadata)
+        end 
 
 
         # Bucket 
