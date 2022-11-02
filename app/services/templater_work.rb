@@ -42,16 +42,31 @@ module TemplaterWork
       end
 
       def rate_parcel(work)
-        if work_parcel.rate_parceled == "Sim"
+        if work.rate_parceled == "Sim"
           return ". O valor fixo poderá ser parcelado em #{work.rate_parceled_exfield}, a critério do cliente."
         else
           return "[configurar parcelamento]"
         end
       end
 
-      def paralegals;end
+      def paralegals(work)
+        #full_qualify_person(client
+        Templater::TemplaterService.full_qualify_lawyer(UserProfile.find_by_id(work.procuration_paralegal))
+      end
       
-      def interns;end 
+      # Dot vs Coma for pluralize 
+      # paralegals.each_with_index do | x, index |
+      #   if index == paralegals.size-1
+      #     parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}.".to_s
+      #   else
+      #     parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
+      #   end
+      # end
+
+
+      def interns(work)
+        Templater::TemplaterService.full_qualify_lawyer(UserProfile.find_by_id(work.procuration_intern))
+      end 
       
       # ???????????????
       # como combinar ? 
@@ -97,7 +112,6 @@ module TemplaterWork
         office
       end
 
-      # Ver com Jemison sobre SELF e esse método maluco 
       class Array
         def csj # clean string join 
           self.reject(&:blank?).join(', ')
@@ -108,7 +122,7 @@ module TemplaterWork
 
       def work_office_search(work)
         offices = []
-        office_contract = [].csj
+        office_contract = [].reject(&:blank?).join(', ')
         work.offices.each do | off |
           offices << off.id
         end
@@ -136,6 +150,9 @@ module TemplaterWork
       def replacer_work(work, doc)
         qualify = work_client_finder(work)
         office = TemplaterOffice::TemplaterOfficeService.office_grab
+        dia = I18n.l(Time.now, format: "%d de %B de %Y")
+
+        #paralegals = TemplaterOffice::TemplaterOfficeService.pralegals_grab
         # Por enquanto esta funcionando no modo 
         # Automatico, puxando apenas o Office.first
         procedures = work_proceds(work)
@@ -144,9 +161,9 @@ module TemplaterWork
         
         # TODO - REVER PASSAGENS NO FORMULÁRIO PARA SELECIONAR O ADVOGADO RESPONSÁVEL PELO CONTRATO ! 
         offices = work_office_search(work)
+        #raise
         
-        
-        qualify_contract = "Templater::Templater:: :full"
+        #qualify_contract = "Templater::Templater:: :full"
         doc.paragraphs.each do |p|
           p.each_text_run do |tr|
             tr.substitute('_qualify_', qualify)
@@ -156,22 +173,16 @@ module TemplaterWork
             tr.substitute('_:action_', work.action)
             tr.substitute('_:number_', work.number)
             tr.substitute('_:powers_', powers)
-
-            #tr.substitute('_lawyerscontract_', )
-            #tr.substitute('_qualifycontract_', )
-            tr.substitute('_$parl_', parals)
-            tr.substitute('$es', inters)
-            tr.substitute('_:addressoficial_', office_address)
-            # tr.substitute('_:emailoficial_', office_email)
-            #tr.substitute('_:prev-powers_', "")
-            tr.substitute('_:rates_', rate_final)
-            tr.substitute('_:parcel_', rate_parceled_final)
-            tr.substitute('_:accountdetails_', office_bank)
+            tr.substitute('_lawyerscontract_', office)
+            tr.substitute('_qualifycontract_', qualify)
+            tr.substitute('_$parl_', paralegals(work))
+            tr.substitute('$es', interns(work))
+            tr.substitute('_:rates_', rater(work))
+            tr.substitute('_:parcel_', rate_parcel(work))
             tr.substitute('_:timestamp_', dia)
-            tr.substitute('_:sname_', office_sel.name.upcase)
-            tr.substitute('_:fullqual_', fullqual(client))
           end
         end
+        doc
       end 
 
     

@@ -34,7 +34,7 @@ class WorksController < BackofficeController
     if @work.save
       #UpdateWorkMailer.notify_new_work(@work).deliver_later
       AwsService::AwsService.aws_save_work(@work, 'wdocs', bucket='prcstudio3herokubucket')
-      raise
+      #raise
       redirect_to @work
     else
       render :new,

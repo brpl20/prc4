@@ -84,9 +84,10 @@ module AwsService
           aws_doc(work, document)
           doc = Docx::Document.open(@aws_body)              
           doc_templated = TemplaterWork::TemplaterWorkService.replacer_work(work, doc)
+          name = work.subject + " - " + work.action 
           #raise
-          ch_save = doc_templated.save(Rails.root.join("tmp/#{document}-#{client[:name].downcase.gsub(/\s+/, "")}_#{client.id}.docx").to_s)
-          ch_file = "tmp/#{document}-#{client[:name].downcase.gsub(/\s+/, "")}_#{client.id}.docx"
+          ch_save = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)
+          ch_file = "tmp/#{name}.docx"
           obj = @s3.bucket(bucket).object(ch_file)
           # aws_metadata(ch_file, document_name )
           obj.upload_file(ch_file)

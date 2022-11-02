@@ -191,14 +191,12 @@ module Templater
             dia = I18n.l(Time.now, format: "%d de %B de %Y")
             ql = full_qualify_person(client)
             lawyer = full_qualify_lawyer(UserProfile.first)
-            #raise
             office = office_check 
             # TemplaterOffice::TemplaterOfficeService.office_templater_procuration(Office.first).reject(&:blank?).join(', ')
             tr.substitute('_fn_', client.name.upcase) 
             tr.substitute('_timestamp_', dia+".")
             tr.substitute('_qualify_', ql)
             tr.substitute('_lawyers_', lawyer)
-            #raise 
           end
         end
         doc
