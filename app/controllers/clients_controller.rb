@@ -46,6 +46,7 @@ class ClientsController < BackofficeController
     if @client.save
       customer = CustomerService.create_customer(@client)
       NewCustomerEmailMailer.notify_new_customer(customer).deliver_later
+      generate_docs(@client)
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
     else
@@ -82,7 +83,7 @@ class ClientsController < BackofficeController
   end
 
   def generate_docs(client)
-    AwsService::AwsService.aws_save(client, document="procuracao_simples", bucket='prcstudio3herokubucket')
+    AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket')
   end
 
   private

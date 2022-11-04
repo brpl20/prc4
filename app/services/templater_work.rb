@@ -1,5 +1,14 @@
 module TemplaterWork
 
+# --------------------------------------
+# Intro
+# 
+# 
+# 
+# 
+# 
+# --------------------------------------
+
   class TemplaterWorkService
 
     class << self
@@ -23,6 +32,8 @@ module TemplaterWork
         end
         powerxx
       end
+
+      
 
 
       def rater(work)

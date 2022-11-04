@@ -35,6 +35,11 @@ module TemplaterOffice
         end
       end 
       
+      # --------------------------------------
+      # office_check
+      # check with office_grab
+      # --------------------------------------
+
       def office_grab
         check = office_check
         lawyer = UserProfileFilters.by_role(0).first
@@ -42,11 +47,10 @@ module TemplaterOffice
           office_selected = Office.first
           user_selected = UserProfile.find_by_id(office_selected.user_id)
           office = office_templater(office_selected, lawyer = user_selected)
-          #raise
         else
           user_lawyer = UserProfileFilters.by_role(0).first
           office = office_templater_as_lawyer(user_lawyer)
-          raise
+          raise # todo - check this else 
         end
         office
       end 
@@ -90,15 +94,13 @@ module TemplaterOffice
         full_office << "Tipo: #{office.society}, "
         full_office << "E-mail: #{office.email}. " 
         full_office
-        #raise
       end
 
       # --------------------------------------
       # office_templater_lawyer_first(office, lawyer = nil, full_contract = nil)
-      # 
-      # 
-      # 
-      # 
+      # this is used usually to procuration, where the lawyer comes first
+      # and the office later
+      # the reverse => office first, lawyer secondly, is for contracts 
       # --------------------------------------
 
       def office_templater_as_lawyer(lawyer)
