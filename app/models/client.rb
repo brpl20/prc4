@@ -50,30 +50,6 @@ class Client < ApplicationRecord
     [client.name, client.lastname].join(' ')
   end
 
-  def full_qualify_person(client, full_contract = nil)
-    # gender = gender_check(client.gender)
-    # full = []
-    # full << full_name(client).upcase
-    # full << genderize(gender, client.civilstatus).downcase
-    # full << genderize(gender, client.citizenship).downcase
-    # full << client.capacity.downcase if client.capacity_check == false
-    # full << client.profession.downcase
-    # full << general_register_check(gender, client)
-    # full << social_number_check(gender, client)
-    # full << number_benefit_check(client)
-    # full << nit_check(gender, client)
-    # full << email_check(client)
-    # full << mothername_check(client) if full_contract == :full
-    # full << bank_check(client) if full_contract == :full
-    # full << client_address(gender, client)
-    # full << full_qualify_representative(client) if client.capacity_check == false
-    # full.reject(&:blank?).join(', ')
-  end
-
-  # criar método para qualificar compania
-  def full_qualify_company(client); end
-
-  # :full contract methods
 
   def email_check(client)
     email_details = "endereço eletrônico: #{emails.map(&:email)[0]}"

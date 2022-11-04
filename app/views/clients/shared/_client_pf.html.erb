@@ -242,22 +242,23 @@
             <%= f.text_field :passwdInss, class:"form-control" %>
           </div>
 
-          <div class="col-md-6">
-            <div class="col-md-6">
-              <label>Consulta</label>
-              <%= f.collection_radio_buttons :choice, options_for_choice, :second, :first do |b| b.label(class:"inline-radio") { b.radio_button + b.text } end %>
-            </div>
-          </div>
+
         </div>
 
       </div>
 
       <div id="step-6" class="content" style="display: none;">
         <div class="col-md-12">
-
+          <div class="col-md-6">
+            <span>Gerar Procuração Simples</span>
+          </div>
+          <div class="col-md-6">
+            <span>Enviar Para Assinatura</span>
+          </div>
+          
           <div class="col-md-6">
             <div class="col-md-6">
-              <label>Adicionar arquivos</label>
+              <label>Arquivos</label>
               <%= f.file_field :files, multiple: true %>
               <small class="form-text text-muted">
                 Formatos aceitos: JPEG, PNG e PDF.
