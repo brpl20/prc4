@@ -15,19 +15,21 @@ class Client < ApplicationRecord
   has_many_attached :files
   has_many :recommendation_works, dependent: :destroy
 
+  attr_accessor :flag_access_data, :flag_generate_documents, :flag_signature
+
   accepts_nested_attributes_for :bank, allow_destroy: true
   accepts_nested_attributes_for :phones, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :lastname, :social_number, :gender, :civilstatus, :citizenship, :capacity, :birth, :phones, :emails,
-            :address, :city, :state, :profession, presence: true, if: proc { |c| c.client_type.zero? }
+  # validates :name, :lastname, :social_number, :gender, :civilstatus, :citizenship, :capacity, :birth, :phones, :emails,
+            # :address, :city, :state, :profession, presence: true, if: proc { |c| c.client_type.zero? }
 
-  validates :phones, :emails, :address, :city, :state, presence: true, if: proc { |c| c.client_type == 1 }
+  # validates :phones, :emails, :address, :city, :state, presence: true, if: proc { |c| c.client_type == 1 }
 
-  validates :name, :lastname, :phones, :emails, :social_number, presence: true, if: proc { |c| c.client_type == 2 }
+  # validates :name, :lastname, :phones, :emails, :social_number, presence: true, if: proc { |c| c.client_type == 2 }
 
-  validates :name, :lastname, :phones, :emails, presence: true, if: proc { |c| c.client_type == 3 }
+  # validates :name, :lastname, :phones, :emails, presence: true, if: proc { |c| c.client_type == 3 }
 
   validate :file_type
 

@@ -101,8 +101,17 @@
                   b.label(class:"inline-radio") { b.radio_button(class:"subject") + b.text }
                 end %>
 
+
                 <small class="rmk-text">* Escolha a área e depois a subárea de atuação.</small>
               </fieldset>
+
+              <div class="col-md-5">
+
+                <div class="col-md-12 no-padding subject-append-outros hidden">
+                  <label > Descreva a área </label>
+                  <%= f.text_field :action, class:"form-control" %>
+                </div>
+              </div>
 
               <%= f.fields_for :tributary do |ta| %>
                   <div class='subject-append-pis hidden' id='label-tributary-work' data-action-for-tributary-work="<%#= @work.tributary_attribute.compensation %>">

@@ -124,7 +124,7 @@ $('.rate').focus();
   };
 
   function outros(){
-    $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Outros-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio' for='work_action_outros'><input type='radio' value='Outros' name='work[action]' id='work_action_outros'>Outros</label></fieldset> </div>" );
+    $(".subject-append-outros").removeClass('hidden');
 
     check_subject_area();
   };
@@ -142,7 +142,7 @@ $('.rate').focus();
   };
 
   function ambos(){
-    $("#rate-work-fields").append("<div class='rate-works-append  col-md-6' data-cond-option='work[rate_work]' data-cond-value='Ambos' style='display: block;'> <div class='form-group'><b><label for='work_Valor de Honorários Fixos'>Valor de honorários fixos</label></b> <input class='form-control field-work' type='number' name='work[rate_fixed_exfield]' id='work_rate_fixed_exfield'><b><label for='work_Valor de Honorários Percentuais'>Valor de honorários percentuais</label></b><input class='form-control field-work' type='number' name='work[rate_percentage_exfield]' id='work_rate_percentage_exfield'></div> </div>");
+    $("#rate-work-fields").append("<div class='rate-works-append  col-md-6' data-cond-option='work[rate_work]' data-cond-value='Ambos' style='display: block;'> <div class='form-group'><b><label for='work_Valor de Honorários Fixos'>Valor de honorários fixos</label></b> <input class='form-control field-work' type='text' name='work[rate_fixed_exfield]' id='work_rate_fixed_exfield'><b><label for='work_Valor de Honorários Percentuais'>Valor de honorários percentuais</label></b><input class='form-control field-work' type='text' name='work[rate_percentage_exfield]' id='work_rate_percentage_exfield'></div> </div>");
 
     $("#work_rate_fixed_exfield").val($("#label-rate-work").data('exfield'));
     $("#work_rate_percentage_exfield").val($("#label-rate-work").data('percentage'));
@@ -189,6 +189,9 @@ $('.rate').focus();
     };
     if(value != 'Tributário Pis/Cofins insumos'){
       $(".subject-append-pis").addClass('hidden');
+    }
+    if(value != 'Outros'){
+      $(".subject-append-outros").addClass('hidden');
     }
   };
 
@@ -350,7 +353,6 @@ $('.rate').focus();
   $(".buttonFinish").addClass('btn btn-primary');
   $(".buttonNext").addClass('btn btn-outline-success');
   $(".buttonPrevious").addClass('btn btn-outline-warning');
-
 
  checkAll()
 

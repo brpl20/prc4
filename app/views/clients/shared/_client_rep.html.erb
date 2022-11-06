@@ -85,14 +85,17 @@
             <div class="col-md-4 form-group client">
               <div class="emails">
                 <%= f.fields_for :emails do |e| %>
-                  <% render partial: "email_fields", :locals => {:f => e, :step => '2'} %>
+                  <%= render partial: "email_fields", :locals => {:f => e, :step => '2'} %>
                 <% end %>
               </div>
 
               <%= link_to_add_association "Adicionar", f, :emails, class:"btn btn-success btn-add-cli" %>
             </div>
+
+
           </div>
         </div>
+        <%= render partial: "/clients/option_fields", locals: {f: f} %>
       </div>
 
     </div>

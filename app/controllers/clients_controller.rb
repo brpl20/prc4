@@ -45,7 +45,7 @@ class ClientsController < BackofficeController
 
     if @client.save
       customer = CustomerService.create_customer(@client)
-      NewCustomerEmailMailer.notify_new_customer(customer).deliver_later
+      NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
       generate_docs(@client)
       flash[:notice] = 'Cliente criado com sucesso'
       redirect_to clients_path
