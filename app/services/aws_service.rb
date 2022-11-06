@@ -56,7 +56,7 @@ module AwsService
           if client_or_work.class.name == "Client"
             save_name = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})"
           elsif client_or_work.class.name == "Work"
-            save_name = client_or_work.jubject + "_id(#{client_or_work.id})"
+            save_name = client_or_work.subject + "_id(#{client_or_work.id})"
           else
           end
         end
@@ -71,7 +71,7 @@ module AwsService
           if client_or_work.class.name == "Client"
             save_folder = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})"
           elsif client_or_work.class.name == "Work"
-            save_folder = client_or_work.jubject + "_id(#{client_or_work.id})"
+            save_folder = client_or_work.subject + "_id(#{client_or_work.id})"
           else
           end
         end
@@ -83,9 +83,9 @@ module AwsService
         # --------------------------------------
 
         def aws_metadata
-          metadata = {
-          :user_id => "#{current_user.id}"
-          }
+          #metadata = {
+          #:user_id => "#{current_user.id}"
+          #}
         end
 
         # --------------------------------------
@@ -104,6 +104,14 @@ module AwsService
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
           @s3.bucket(bucket).object("#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: aws_metadata) 
+          #rescue Aws::S3::Errors::ServiceError
+          rescue Aws::Errors::ServiceError => e
+            puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}"
+            false
+        
+
+
+
                                                                                           # Todo: Check if @s3 is really need
                                                                                           # .object => Place to be uploaded
                                                                                           # upload file => file to puload 
