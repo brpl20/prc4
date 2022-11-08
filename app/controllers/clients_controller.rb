@@ -86,6 +86,12 @@ class ClientsController < BackofficeController
     AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket')
   end
 
+  def filter_amazon(aws_file_key, client)
+    a = aws_file_key
+    b = client
+    #aws_file_key.include?(client.id.to_s)
+  end
+
   private
 
   def client_params

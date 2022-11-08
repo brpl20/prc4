@@ -76,7 +76,12 @@
           </thead>
           <tbody>
             <td>Proc Simples</td>
-            <td>aws.document.docx</td>
+            <td>SHOW BUCKET</td>
+            <% x = AwsService::AwsService.list_objects('prcstudio3herokubucket') %>
+              <% x.contents.each do |obj| %>
+                <td><%= if obj.key.include?(@client.id.to_s); obj.key else '' end  %></td>
+                
+              <% end %>
             <td>Edit Client Path</td>
           </tbody>
         </table>

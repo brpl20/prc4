@@ -11,6 +11,7 @@ module AwsService
     require 'docx'
     require 'json'
     require 'rails-i18n'
+    attr_reader :bucket
 
       class << self    
 
@@ -69,9 +70,11 @@ module AwsService
 
         def save_folder(client_or_work)
           if client_or_work.class.name == "Client"
-            save_folder = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})"
+            save_folder = "Client"
+            #save_folder = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})"
           elsif client_or_work.class.name == "Work"
-            save_folder = client_or_work.subject + "_id(#{client_or_work.id})"
+            save_folder = "Work"
+            #save_folder = client_or_work.subject + "_id(#{client_or_work.id})"
           else
           end
         end
@@ -103,7 +106,7 @@ module AwsService
           folder = save_folder(client)                                                    # Configures foldername
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
-          @s3.bucket(bucket).object("#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: aws_metadata) 
+          @s3.bucket(bucket).object("tmp/#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: aws_metadata) 
           #rescue Aws::S3::Errors::ServiceError
           rescue Aws::Errors::ServiceError => e
             puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}"
@@ -129,6 +132,29 @@ module AwsService
           @s3.bucket(bucket).object("#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: aws_metadata)
         end 
     
+        def aws_check_files
+
+
+        end
+
+
+        def list_objects(bucket)
+          aws_configurations_client
+          aws_configurations_resources
+          buck = @s3.bucket(bucket)
+          puts "NEWMETHOD"
+          @aws_client.list_objects({bucket:"prcstudio3herokubucket", prefix: "tmp/Client/"})
+        end
+      
+        
+        def run_demo
+          bucket_name = "doc-example-bucket"
+          wrapper = BucketListObjectsWrapper.new(Aws::S3::Bucket.new(bucket_name))
+          count = wrapper.list_objects(25)
+          puts "Listed #{count} objects."
+        end
+
+      
 
       # KEEP # 
     end
