@@ -1,15 +1,8 @@
-<nav class="navbar navbar-light">
-  <%= image_tag('logo_nome.svg', id:'logo-nome')%>
-  <div class="">
-    <h1>Área do cliente</h1>
-  </div>
-</nav>
-
 <div class="main-container">
 
   <div id="content-fluid">
 
-    <h2 class="header-client-area">Olá <%= @client.name %></h2>
+    <h2 class="header-client-area"><%= @client.name %></h2>
     <%= button_to destroy_customer_session_path, method: :delete, class:"header-client-area" do %>
       <i class="fa fa-sign-out"></i>
     <% end %>

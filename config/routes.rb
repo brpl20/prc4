@@ -41,4 +41,5 @@ Rails.application.routes.draw do
 
   delete '/work/:work_id/file_uploads/:id', to: 'file_uploads#destroy_file_work', as: :delete_archive_file_work
   get '/area_cliente/:client_id/trabalhos', to: 'site/show_works#show', as: :client_works_show
+  get '/area_cliente', to: 'site/show_works#index', as: :site_index
 end
