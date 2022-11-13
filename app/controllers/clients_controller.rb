@@ -38,17 +38,39 @@ class ClientsController < BackofficeController
     @client.emails.build
     @client.customer_types.build if @client.customer_types
   end
+  
+  def checkdocs(client)
+      if client.documents == nil
+        count = 1
+      else
+        client.documents.document_count + 1
+        raise 
+        # todo: Testar este método 
+      end
+  end 
+  
+  def metadata_create(client)
+    metadata = {
+        :aws_key => "#{AwsService::AwsService.save_name(client)}",
+        :document_count => "1",
+        :user_id => "#{current_user.id}",
+        :document_nickname => "Procuração Simples",
+        :aws_link => "https://prcstudio3herokubucket.s3-us-west-2.amazonaws.com/#{:aws_key}"
+      }
+    client.documents = metadata
+  end
 
   def create
     @client = Client.new(client_params)
     @type = retrieve_type_to_link(@client.client_type)
+    metadata_create(@client)
 
+    customer = CustomerService.create_customer(@client)
+    NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
+    generate_docs(@client)
+    flash[:notice] = 'Cliente criado com sucesso'
+    redirect_to clients_path
     if @client.save
-      customer = CustomerService.create_customer(@client)
-      NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
-      generate_docs(@client)
-      flash[:notice] = 'Cliente criado com sucesso'
-      redirect_to clients_path
     else
       render :new
     end
@@ -79,7 +101,7 @@ class ClientsController < BackofficeController
     @client = Client.find(params[:id])
     @url_work = @client.client_works
     @url_job = @client.jobs
-    @generate_docs = generate_docs(@client)
+    generate_docs = generate_docs(@client)
   end
 
   def generate_docs(client)

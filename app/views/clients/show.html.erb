@@ -75,12 +75,13 @@
             </tr>
           </thead>
           <tbody>
-            <td>Proc Simples</td>
-            <td>SHOW BUCKET</td>
             <% x = AwsService::AwsService.list_objects('prcstudio3herokubucket') %>
               <% x.contents.each do |obj| %>
+                <td>Proc Simples</td>
+                <td>SHOW BUCKET</td>
                 <td><%= if obj.key.include?(@client.id.to_s); obj.key else '' end  %></td>
-                
+                <td><% test= AwsService::AwsService.get_object_head('prcstudio3herokubucket', obj.key) %>    
+                <td><%= test.metadata['document_count'] %>
               <% end %>
             <td>Edit Client Path</td>
           </tbody>
