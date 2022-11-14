@@ -69,21 +69,26 @@
         <table class="table table-striped">
           <thead>
             <tr>
+              <th>Número</th>
               <th>Documento</th>
               <th>Link</th>
-              <th>Editar</th>
             </tr>
           </thead>
           <tbody>
-            <% x = AwsService::AwsService.list_objects('prcstudio3herokubucket') %>
-              <% x.contents.each do |obj| %>
-                <td>Proc Simples</td>
-                <td>SHOW BUCKET</td>
-                <td><%= if obj.key.include?(@client.id.to_s); obj.key else '' end  %></td>
-                <td><% test= AwsService::AwsService.get_object_head('prcstudio3herokubucket', obj.key) %>    
-                <td><%= test.metadata['document_count'] %>
-              <% end %>
-            <td>Edit Client Path</td>
+                    <%  x = AwsService::AwsService.list_objects('prcstudio3herokubucket') %>
+                    <% x.contents.each do |obj| %>
+                        <% if obj.key.include?(@client.id.to_s) %>
+                          <% test= AwsService::AwsService.get_object_head('prcstudio3herokubucket', obj.key) %>    
+                        <thead>
+                          <tr>
+                          <%#= obj.key #left here if needed in future %>
+                          <td><%= test.metadata['document_count'] %></td>
+                          <td><%= test.metadata['document_nickname'].force_encoding('UTF-8') %></td>
+                          <td><%= link_to "Download", "https://prcstudio3herokubucket.s3.us-west-2.amazonaws.com/#{obj.key}" %></td>
+                  </tr>
+                </thead>
+                        <% end %>
+                    <% end %>
           </tbody>
         </table>
 

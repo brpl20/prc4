@@ -55,7 +55,8 @@ module AwsService
         
         def save_name(client_or_work)
           if client_or_work.class.name == "Client"
-            save_name = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})"
+              documents_counter = client_or_work.documents["document_count"].to_i
+              save_name = client_or_work.name.downcase.gsub(/\s+/, "") + "_id(#{client_or_work.id})_doc#{documents_counter}"
           elsif client_or_work.class.name == "Work"
             save_name = client_or_work.subject + "_id(#{client_or_work.id})"
           else
@@ -93,7 +94,7 @@ module AwsService
         # to be attached to the document
         # --------------------------------------
         
-        def aws_save_client(client, document, bucket='prcstudio3herokubucket')
+        def aws_save_client(client, document, bucket='prcstudio3herokubucket', meta)
           aws_configurations_resources                                                    # Start AWS Resources 
           aws_doc(client, document)                                                       # Continue Resources and Gets a Template                                     
           doc = Docx::Document.open(@aws_body)                                            # Open and return a template to work with   
@@ -102,22 +103,8 @@ module AwsService
           folder = save_folder(client)                                                    # Configures foldername
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
-          meta = client.documents
-#           metadata = {
-#             :document_key => ch_file,
-#             :document_name => "procuracao_simples-#{nome_correto}_#{client.id}.docx",
-#             :client_id => "#{client.id}",
-#             :"user_id" => "#{current_user.id}",
-#             :document_type => document.to_s,
-#             :aws_link => "https://#{bucket}.s3-us-west-2.amazonaws.com/#{ch_file}",
-#             :user => "#{current_user.id}"
-#              }
-# client.documents = metadata
-# client.save
-#obj.upload_file(ch_file, metadata: metadata)
-          #raise
+          #meta = client.documents
           @s3.bucket(bucket).object("tmp/#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: meta) 
-          #rescue Aws::S3::Errors::ServiceError
           rescue Aws::Errors::ServiceError => e
             puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}"
             false

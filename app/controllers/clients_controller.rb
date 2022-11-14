@@ -39,34 +39,33 @@ class ClientsController < BackofficeController
     @client.customer_types.build if @client.customer_types
   end
   
-  def checkdocs(client)
-      if client.documents == nil
-        count = 1
-      else
-        client.documents.document_count + 1
-        raise 
-        # todo: Testar este método 
-      end
-  end 
-  
   def metadata_create(client)
-    metadata = {
-        :aws_key => "#{AwsService::AwsService.save_name(client)}",
-        :document_count => "1",
-        :user_id => "#{current_user.id}",
-        :document_nickname => "Procuração Simples",
-        :aws_link => "https://prcstudio3herokubucket.s3-us-west-2.amazonaws.com/#{:aws_key}"
+    if client.documents == nil
+      document_number = 1
+      metadata = {
+        :document_count => document_number.to_s,
+        :user_id => current_user.id.to_s,
+        :document_nickname => "Procuracao Simples",
       }
-    client.documents = metadata
+      client.documents = metadata
+    else
+      document_number = client.documents["document_count"].to_i+1
+      metadata = {
+        :document_count => document_number.to_s,
+        :user_id => current_user.id.to_s,
+        :document_nickname => "Procuracao Simples",
+      }
+      client.update(documents:metadata)
+      metadata
+    end 
   end
 
   def create
     @client = Client.new(client_params)
     @type = retrieve_type_to_link(@client.client_type)
-    metadata_create(@client)
-
     customer = CustomerService.create_customer(@client)
     NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
+    metadata_create(@client)
     generate_docs(@client)
     flash[:notice] = 'Cliente criado com sucesso'
     redirect_to clients_path
@@ -101,17 +100,15 @@ class ClientsController < BackofficeController
     @client = Client.find(params[:id])
     @url_work = @client.client_works
     @url_job = @client.jobs
-    generate_docs = generate_docs(@client)
+    @generate_docs = generate_docs_show(@client)
   end
 
   def generate_docs(client)
-    AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket')
+    AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket', meta=client.documents)
   end
 
-  def filter_amazon(aws_file_key, client)
-    a = aws_file_key
-    b = client
-    #aws_file_key.include?(client.id.to_s)
+  def generate_docs_show(client)
+    AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket', meta=metadata_create(client))
   end
 
   private
