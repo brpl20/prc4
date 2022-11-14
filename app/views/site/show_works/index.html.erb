@@ -1,0 +1,26 @@
+<div class="main-container">
+
+  <div id="content-fluid">
+
+    <h2 class="header-client-area">Olá <%= @customer.name%></h2>
+    <%= button_to destroy_customer_session_path, method: :delete, class:"header-client-area" do %>
+      <i class="fa fa-sign-out"></i>
+    <% end %>
+    <p>Clique em um cliente abaixo para visulizar os detalhes do processo.</p>
+
+    <div class=" data-card-client">
+      <% @clients.each do |client| %>
+
+        <div class="card data-list-card">
+          <div class="card-body">
+            <h3 class="card-title"><%= client.name %></h3>
+            <%= link_to 'Ver detalhes', client_works_show_path(client.id), class:'card-link' %>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+  </div>
+
+</div>
