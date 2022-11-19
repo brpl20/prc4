@@ -12,6 +12,13 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # gender_check 
+      # Check if client is male or female 
+      # use only with PF (persons) clients
+      # don't use with CNPJ (companies) clients 
+      # --------------------------------------
+
       def genderize(gender, civilstatus)
         if gender == :female
           case civilstatus
@@ -35,55 +42,59 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # genderize 
+      # after male/female checking 
+      # we will use the correct pronoums to the treatment 
+      # use only with PF (persons) clients
+      # don't use with CNPJ (companies) clients 
+      # --------------------------------------
+
       def self.can_be_destroyed id
         ClientWork.exists?(client_id: id)
       end
+
+      # --------------------------------------
+      # can_be_destroyed 
+      # 
+      # --------------------------------------
 
       def full_name(client)
         [client.name,client.lastname].join(' ')
       end
 
+      # --------------------------------------
+      # full_name 
+      # simple join first and last name 
+      # --------------------------------------
+
       def email_check(client)
         email_details = "endereço eletrônico: #{client.emails.map(&:email)[0]}"
-        # deixar email obrigatório para não dar problema com nil
       end
+
+      # --------------------------------------
+      # email_check 
+      # templater/filler
+      # --------------------------------------
 
       def mothername_check(client)
         "nome da mãe #{client.mothername}"
       end
+
+      # --------------------------------------
+      # mothername_check 
+      # templater/filler
+      # --------------------------------------
 
       def bank_check(client)
         banks_helper = ApplicationController.helpers.options_for_banks
         bank_details = "Dados Bancários: Banco #{banks_helper.select { |item| item.include?("#{client.bank.name}")}[0][1]} (#{client.bank.name}), Agência: #{client.bank.agency}, Conta: #{client.bank.account}"
       end
 
-      # representative methods
-      def full_qualify_representative(client)
-        full_rep = [].reject(&:blank?).join(', ')
-        unless client.customer_types.nil?
-          full_rep = ["Representado por"]
-          client.customer_types.each do |ct|
-            retrieve_represented(ct.represented)
-              rep = Client.find_by_id(ct.represented)
-              full_rep << full_name(rep).upcase
-              full_rep << genderize(gender, rep.civilstatus).downcase
-              full_rep << genderize(gender, rep.citizenship).downcase
-              full_rep << rep.profession.downcase
-              full_rep << general_register_check(gender, rep)
-              full_rep << social_number_check(gender, rep)
-              full_rep << number_benefit_check(rep)
-              full_rep << nit_check(gender, rep)
-              full_rep << client_address(gender, rep)
-              full_rep
-            end
-          full_rep
-        end
-      end
-
-      # Testar com 2 representantes
-      # Empresas
-      # Office
-
+      # --------------------------------------
+      # bank_check 
+      # templater/filler
+      # --------------------------------------
 
       def number_benefit_check(client)
         if client.number_benefit.nil? || client.number_benefit == ""
@@ -92,6 +103,11 @@ module Templater
           nb_exist = "nº de benefício #{client.number_benefit}"
         end
       end
+
+      # --------------------------------------
+      # number_benefit_chekc
+      # templater/filler
+      # --------------------------------------
 
       def general_register_check(gender, client)
         if client.general_register.nil? || client.general_register == ""
@@ -105,6 +121,11 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # general_register_check
+      # templater/filler
+      # --------------------------------------
+
       def social_number_check(gender,client)
         if client.social_number.nil? || client.social_number == ""
           social_number_not_exist = ""
@@ -117,6 +138,11 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # social_number_check
+      # templater/filler
+      # --------------------------------------
+  
       def nit_check(gender, client)
         if client.nit.nil? || client.nit == ''
           nit_not_exist = ''
@@ -129,6 +155,11 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # nit_check
+      # templater/filler
+      # --------------------------------------
+
       def capacity_check
         if self.capacity == "Capaz"
           true
@@ -136,6 +167,11 @@ module Templater
           false
         end
       end
+
+      # --------------------------------------
+      # capacity_check
+      # templater/filler
+      # --------------------------------------
 
       def client_address(gender, client)
         if client.zip.blank?
@@ -153,6 +189,11 @@ module Templater
         end
       end
 
+      # --------------------------------------
+      # client_address
+      # templater/filler
+      # --------------------------------------
+
       def full_qualify_person(client, full_contract = nil)
         gender = gender_check(client.gender)
         full = []
@@ -160,7 +201,7 @@ module Templater
         full << genderize(gender, client.civilstatus).downcase
         full << genderize(gender, client.citizenship).downcase
         full << client.capacity.downcase if client.capacity_check == false
-        full << client.profession.downcase
+        #full << client.profession.downcase
         full << general_register_check(gender, client)
         full << social_number_check(gender, client)
         full << number_benefit_check(client)
@@ -172,6 +213,11 @@ module Templater
         full << full_qualify_representative(client) if client.capacity_check == false
         full.reject(&:blank?).join(', ')
       end
+
+      # --------------------------------------
+      # full_qualify_person
+      # to full qualify one person (PF)
+      # --------------------------------------
 
       def full_qualify_lawyer(lawyer, full_contract = nil)
         gender = gender_check(lawyer.gender)
@@ -185,15 +231,75 @@ module Templater
         full.reject(&:blank?).join(', ')
       end
 
+      # --------------------------------------
+      # full_qualify_lawyer
+      # to full qualify one lawyer
+      # --------------------------------------
+
+      def full_qualify_representative(client)
+        full_rep = [].reject(&:blank?).join(', ')
+        unless client.customer_types.nil?
+          full_rep = ["Representado por"]
+          gender = gender_check(client.gender)
+          client.customer_types.each do |ct|
+              rep = Client.find_by_id(ct.represented)
+              full_rep << full_name(rep).upcase
+              #full_rep << genderize(gender, rep.civilstatus).downcase
+              #full_rep << genderize(gender, rep.citizenship).downcase
+              #full_rep << rep.profession.downcase
+              full_rep << general_register_check(gender, rep)
+              full_rep << social_number_check(gender, rep)
+              full_rep << number_benefit_check(rep)
+              full_rep << nit_check(gender, rep)
+              full_rep << client_address(gender, rep)
+              full_rep
+            end
+          full_rep
+        end
+      end
+
+      # --------------------------------------
+      # full_qualify_representative
+      # to full qualify representatives 
+      # todo fix civilstatus / citizenship / profession 
+      # --------------------------------------
+
+      def cnpj_check(client)
+        if client.social_number.nil? || client.social_number == ""
+          cnpj_number_not_exist = "[favor preencher o CNPJ da empresa]"
+        else
+          cnpj_number_exist = "pessoa jurídica de direito privado, inscrita sob o CNPJ nº #{client.social_number}"
+        end
+      end 
+
+      def full_qualify_company(client, full_contract: nil)
+        #raise
+        full = []
+        full << client.name
+        full << cnpj_check(client)
+        full << full_qualify_representative(client)
+        full << email_check(client)
+        full << "com sede à #{client.address}"
+        full << bank_check(client) if full_contract == :full
+        full.reject(&:blank?).join(', ')
+      end 
+
       def replacer(client, doc)
         doc.paragraphs.each do |p|
           p.each_text_run do |tr|
             dia = I18n.l(Time.now, format: "%d de %B de %Y")
-            ql = full_qualify_person(client)
+            if client.client_type == 1
+              ql = full_qualify_company(client) # qualification of clients as company (CNPJ)
+              #raise 
+            else 
+              #raise 
+              ql = full_qualify_person(client)                              # ql => qualify => to use all data do know who it is
+                                                                            # qualification of persons - clients (PF) 
+            end
             lawyer = full_qualify_lawyer(UserProfile.first)
             office = TemplaterOffice::TemplaterOfficeService.office_check 
             # TemplaterOffice::TemplaterOfficeService.office_templater_procuration(Office.first).reject(&:blank?).join(', ')
-            tr.substitute('_fn_', client.name.upcase) 
+            tr.substitute('_fn_', full_name(client).upcase) 
             tr.substitute('_timestamp_', dia+".")
             tr.substitute('_qualify_', ql)
             tr.substitute('_lawyers_', lawyer)
@@ -202,9 +308,15 @@ module Templater
         doc
       end
 
-# Module CLASS
-end
-end
+      # --------------------------------------
+      # replacer 
+      # to wrap all around and execute the 
+      # desired replacements 
+      # --------------------------------------
+
+# Module CLASS kEEEP ENDs # 
+    end
+  end
 end 
 
 

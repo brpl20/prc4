@@ -65,6 +65,12 @@ class ClientsController < BackofficeController
     @type = retrieve_type_to_link(@client.client_type)
     customer = CustomerService.create_customer(@client)
     NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
+    # TEST FLAGS
+    if @client[:flag_access_data] == 1 
+      puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+      puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- "
+    end 
+    # TEST FLAGS
     metadata_create(@client)
     generate_docs(@client)
     flash[:notice] = 'Cliente criado com sucesso'

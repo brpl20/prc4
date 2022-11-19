@@ -86,8 +86,6 @@ module AwsService
         # default: client first name - id: 
         # --------------------------------------
 
-        def aws_metadata(client);end
-
         # --------------------------------------
         # aws_metadata
         # create an object with important fields
@@ -103,15 +101,15 @@ module AwsService
           folder = save_folder(client)                                                    # Configures foldername
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
-          #meta = client.documents
-          @s3.bucket(bucket).object("tmp/#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: meta) 
+          @s3.bucket(bucket).object("tmp/#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: meta) do |response| # Upload document with metadata 
+            etag = response.etag                                                          # check response 
+            if etag = true                                                                # check if response exist    
+              puts "Documento Gerado com Sucesso"                                         # message 
+            end 
+          end 
           rescue Aws::Errors::ServiceError => e
-            puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}"
+            puts "Couldn't upload file #{file_path} to #{@object.key}. Here's why: #{e.message}" # error rescue
             false
-        
-
-
-
                                                                                           # Todo: Check if @s3 is really need
                                                                                           # .object => Place to be uploaded
                                                                                           # upload file => file to puload 
@@ -126,21 +124,29 @@ module AwsService
           folder = save_folder(work)
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)
           file_to_upload = "tmp/#{name}.docx"
-          @s3.bucket(bucket).object("#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: aws_metadata)
+          @s3.bucket(bucket).object("#{folder}/#{name}.docx").upload_file(file_to_upload)
         end 
+
+        # --------------------------------------
+        # aws_save_client is generator for client/procuration (procuracao simples)
+        # aws_save_work is the same, but for wdos work/wdocs (work documents)
+        # TODO: work metadata
+        # TODO: work rescue erro message
+        # TODO: work response
+        # --------------------------------------
+
     
-        def aws_check_files
-
-
-        end
-
-
         def list_objects(bucket)
           aws_configurations_client
           aws_configurations_resources
           buck = @s3.bucket(bucket)
           @aws_client.list_objects({bucket:"prcstudio3herokubucket", prefix: "tmp/Client/"})
         end
+
+        # --------------------------------------
+        # list_objects is for finding the objects inside a bucket 
+        # this will help in the show for listing the generated documents 
+        # --------------------------------------
 
         def get_object_head(bucket, key)
           params = {
@@ -149,18 +155,15 @@ module AwsService
           }
           @aws_client.head_object(options = params)
         end
-      
-        
-        def run_demo
-          bucket_name = "doc-example-bucket"
-          wrapper = BucketListObjectsWrapper.new(Aws::S3::Bucket.new(bucket_name))
-          count = wrapper.list_objects(25)
-          puts "Listed #{count} objects."
-        end
 
-      
+        # --------------------------------------
+        # get_object_head is for finding 
+        # especific objects into bucket 
+        # but to use only the metadata (head)
+        # this will help in the show for listing the generated documents 
+        # --------------------------------------
 
-      # KEEP # 
+      # KEEP ENDS # 
     end
   
   end
