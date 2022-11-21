@@ -2,12 +2,24 @@ module TemplaterWork
 
 # --------------------------------------
 # Intro
-# 
-# 
-# 
-# 
-# 
+# This is the place for dealing with Works
+# They will generate the documents acording to  
+# the desired work 
+# they are also related to the office, the lawyer, and the client 
+# work docs generally will create multiple docs 
+# procuration => to the specific work
+# contract => where we find the rules of the case between lawyer and client
+# poverty declaration (declaracao de pobreza) => if the client has no money to pay legal taxes
+# small cases declaration => to choose small cases litigation
 # --------------------------------------
+
+
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
+# FUTURE
+# We will have also, in the future 
+# Legal clains (petitions)
+# Apeals, and other forms of documents
+# -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
 
   class TemplaterWorkService
 
@@ -21,6 +33,14 @@ module TemplaterWork
         proceds 
       end
 
+      # --------------------------------------
+      # works_proceds
+      # proceds will work with `procedures` field 
+      # to find out what kind of procedures will be required 
+      # into the working doc
+      # --------------------------------------
+
+
       def work_powers(work)
         powerxx = [].join("")
         work.powers.each do | pw |
@@ -33,7 +53,15 @@ module TemplaterWork
         powerxx
       end
 
-      
+      # --------------------------------------
+      # work_powers 
+      # this is what kind of representation a lawyer 
+      # can get from his client 
+      # each kind of work requires a specific amount of powers to do
+      # a criminal case will require specific powers
+      # a social secutiry case others 
+      # this is also a form of protecting the client 
+      # --------------------------------------
 
 
       def rater(work)
@@ -52,6 +80,17 @@ module TemplaterWork
         end
       end
 
+      # --------------------------------------
+      # rater 
+      # will work around the form of payment to the lawyer 
+      # usually we have three forms 
+      # working (work) => lawyer receives R$ xxx for the job regardless of the result 
+      # success (exito) => lawyer receives % for the jog depending of the final result 
+      # both (mix between work and success)
+      # pro bono => Free 
+      # --------------------------------------
+
+      
       def rate_parcel(work)
         if work.rate_parceled == "Sim"
           return ". O valor fixo poderá ser parcelado em #{work.rate_parceled_exfield}, a critério do cliente."
@@ -60,11 +99,27 @@ module TemplaterWork
         end
       end
 
+      # --------------------------------------
+      # rate_parccel 
+      # lawyer can fix an easy form of payment 
+      # like, 10 times of 1.000,00 instead of 1 time of 10.000,00
+      # -------------------------------------- 
+
       def paralegals(work)
         #full_qualify_person(client
         Templater::TemplaterService.full_qualify_lawyer(UserProfile.find_by_id(work.procuration_paralegal))
       end
+
+      # --------------------------------------
+      # paralegals 
+      # in our system we have the possibility to create documents 
+      # including the paralegals 
+      # this is important because they already have the power to 
+      # assist the lawyer into non exclusive lawyer services 
+      # --------------------------------------
       
+      # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
+      # Todo - keep this method example until fixed totally
       # Dot vs Coma for pluralize 
       # paralegals.each_with_index do | x, index |
       #   if index == paralegals.size-1
@@ -73,40 +128,21 @@ module TemplaterWork
       #     parals << "#{x.name} #{x.lastname}, RG #{x.general_register}, CPF #{x. social_number}, #{x.civilstatus}, ".to_s
       #   end
       # end
-
+      # -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- 
 
       def interns(work)
         Templater::TemplaterService.full_qualify_lawyer(UserProfile.find_by_id(work.procuration_intern))
       end 
-      
-      # ???????????????
-      # como combinar ? 
-      # >> @work.clients.ids
-      #   => [106]
-      # >> @work.clients.ids.class
-      #   => Array
-      # >>
-      # Templater::TemplaterService.full_qualify_person(client)
-      # def full_qualify_person(client, full_contract = nil)
-      #   gender = gender_check(client.gender)
-      #   full = []
-      #   full << full_name(client).upcase
-      #   full << genderize(gender, client.civilstatus).downcase
-      #   full << genderize(gender, client.citizenship).downcase
-      #   full << client.capacity.downcase if client.capacity_check == false
-      #   full << client.profession.downcase
-      #   full << general_register_check(gender, client)
-      #   full << social_number_check(gender, client)
-      #   full << number_benefit_check(client)
-      #   full << nit_check(gender, client)
-      #   full << email_check(client)
-      #   full << mothername_check(client) if full_contract == :full
-      #   full << bank_check(client) if full_contract == :full
-      #   full << client_address(gender, client)
-      #   full << full_qualify_representative(client) if client.capacity_check == false
-      #   full.reject(&:blank?).join(', ')
-      # end
-  
+
+      # --------------------------------------
+      # interns 
+      # similar to paralegals 
+      # in our system we have the possibility to create documents 
+      # including the interns 
+      # this is important because they already have the power to 
+      # assist the lawyer into non exclusive lawyer services 
+      # --------------------------------------
+
       def work_client_finder(work)
         client = [].reject(&:blank?).join(', ')
         work.clients.each do | cli |
@@ -114,7 +150,13 @@ module TemplaterWork
         end
         client
       end
-      
+
+      # --------------------------------------
+      # work_client_finder 
+      # helper to find and qualify the client 
+      # that belongs to the selected work
+      # --------------------------------------
+
       def work_office_finder(work)
         office = [].reject(&:blank?).join(', ')
         work.offices.each do | off |
@@ -123,13 +165,21 @@ module TemplaterWork
         office
       end
 
-      class Array
-        def csj # clean string join 
-          self.reject(&:blank?).join(', ')
-        end
-      end
-      #end
+      # --------------------------------------
+      # work_office_finder  
+      # helper to find and qualify the client 
+      # that belongs to the selected work
+      # --------------------------------------
 
+      def csj # clean string join 
+          reject(&:blank?).join(', ')
+      end
+      
+      # --------------------------------------
+      # csj
+      # todo: pending method
+      # 
+      # --------------------------------------
 
       def work_office_search(work)
         offices = []
@@ -137,27 +187,21 @@ module TemplaterWork
         work.offices.each do | off |
           offices << off.id
         end
-        
         if offices.size > 1 
           offices.each do | off |
             office_contract << TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first(Office.find_by_id(off), UserProfile.find_by_id(work.user_id))
         end
           office_contract
-          raise 
+          raise # Todo: Test this method 
         end
-
-
       end
 
+      # --------------------------------------
+      # work_office_search 
+      # methodo to 
+      # helper to find the office related to specific work 
+      # --------------------------------------
 
-      # FULL CONTRACT 
-
-      def client_data(work)
-        work.each 
-      end
-      
-      # #############################
-      
       def replacer_work(work, doc)
         qualify = work_client_finder(work)
         office = TemplaterOffice::TemplaterOfficeService.office_grab
