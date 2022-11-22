@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   get 'clients/modal/recommendation_search', to: 'clients#search'
   get 'clients/modal/representative_search', to: 'clients#representative_search'
   get 'clients/modal/representative_accountant_search', to: 'clients#representative_accountant_search'
+  get 'clients/generate_doc/:id', to: 'clients#generate_docs_show', as: :generate_docs
 
   root to: 'pages#dashboard'
 

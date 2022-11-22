@@ -101,6 +101,7 @@ module AwsService
           folder = save_folder(client)                                                    # Configures foldername
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
+          begin
           @s3.bucket(bucket).object("tmp/#{folder}/#{name}.docx").upload_file(file_to_upload, metadata: meta) do |response| # Upload document with metadata 
             etag = response.etag                                                          # check response 
             if etag = true                                                                # check if response exist    

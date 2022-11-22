@@ -3,7 +3,7 @@
 # Controladora do cliente
 class ClientsController < BackofficeController
   include ClientsHelper
-  before_action :set_client, only: %i[show edit update destroy]
+  before_action :set_client, only: %i[show edit update destroy generate_docs_show]
   before_action :retrieve_type, only: %i[new create edit update]
 
   def index
@@ -39,6 +39,7 @@ class ClientsController < BackofficeController
     @client.customer_types.build if @client.customer_types
   end
   
+  # BEGIN & RESCUE
   def metadata_create(client)
     if client.documents == nil
       document_number = 1
@@ -65,11 +66,12 @@ class ClientsController < BackofficeController
     @type = retrieve_type_to_link(@client.client_type)
     customer = CustomerService.create_customer(@client)
     NewCustomerEmailMailer.notify_new_customer(customer).deliver_later if params[:flag_access_data]
-    # TEST FLAGS
-    if @client[:flag_access_data] == 1 
-      puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
-      puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- "
-    end 
+    # TEST FLAGS - TODO - ARRUMAR PARAMS 
+    # PARAMS 
+    # if @client[:flag_access_data] == 1 
+    #   puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-"
+    #   puts "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- "
+    # end 
     # TEST FLAGS
     metadata_create(@client)
     generate_docs(@client)
@@ -106,16 +108,16 @@ class ClientsController < BackofficeController
     @client = Client.find(params[:id])
     @url_work = @client.client_works
     @url_job = @client.jobs
-    @generate_docs = generate_docs_show(@client)
+    #@generate_docs = generate_docs_show(@client)
   end
 
   def generate_docs(client)
     AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket', meta=client.documents)
   end
 
-  def generate_docs_show(client)
-    AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket', meta=metadata_create(client))
-  end
+  # def generate_docs_show
+  #   AwsService::AwsService.aws_save_client(client, document="procuracao_simples", bucket='prcstudio3herokubucket', meta=metadata_create(client))
+  # end
 
   private
 

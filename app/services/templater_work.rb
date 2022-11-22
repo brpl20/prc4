@@ -172,7 +172,7 @@ module TemplaterWork
       # --------------------------------------
 
       def csj # clean string join 
-          reject(&:blank?).join(', ')
+        reject(&:blank?).join(', ')
       end
       
       # --------------------------------------
