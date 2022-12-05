@@ -4,7 +4,7 @@
 class UserProfileFilters
   class << self
     def by_role(role)
-      UserProfile.where(role: role).order(:name)UserProfileFilters.by_role(0)
+      UserProfile.where(role: role).order(:name)
     end
   end
 end

@@ -22,14 +22,14 @@ class Client < ApplicationRecord
   accepts_nested_attributes_for :emails, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :customer_types, reject_if: :all_blank, allow_destroy: true
 
-  validates :name, :lastname, :social_number, :gender, :civilstatus, :citizenship, :capacity, :birth, :phones, :emails,
-            :address, :city, :state, :profession, presence: true, if: proc { |c| c.client_type.zero? }
+  # validates :name, :lastname, :social_number, :gender, :civilstatus, :citizenship, :capacity, :birth, :phones, :emails,
+            # :address, :city, :state, :profession, presence: true, if: proc { |c| c.client_type.zero? }
 
-  validates :phones, :emails, :address, :city, :state, presence: true, if: proc { |c| c.client_type == 1 }
+  # validates :phones, :emails, :address, :city, :state, presence: true, if: proc { |c| c.client_type == 1 }
 
-  validates :name, :lastname, :phones, :emails, :social_number, presence: true, if: proc { |c| c.client_type == 2 }
+  # validates :name, :lastname, :phones, :emails, :social_number, presence: true, if: proc { |c| c.client_type == 2 }
 
-  validates :name, :lastname, :phones, :emails, presence: true, if: proc { |c| c.client_type == 3 }
+  # validates :name, :lastname, :phones, :emails, presence: true, if: proc { |c| c.client_type == 3 }
 
   validate :file_type
 
@@ -50,30 +50,6 @@ class Client < ApplicationRecord
     [client.name, client.lastname].join(' ')
   end
 
-  def full_qualify_person(client, full_contract = nil)
-    # gender = gender_check(client.gender)
-    # full = []
-    # full << full_name(client).upcase
-    # full << genderize(gender, client.civilstatus).downcase
-    # full << genderize(gender, client.citizenship).downcase
-    # full << client.capacity.downcase if client.capacity_check == false
-    # full << client.profession.downcase
-    # full << general_register_check(gender, client)
-    # full << social_number_check(gender, client)
-    # full << number_benefit_check(client)
-    # full << nit_check(gender, client)
-    # full << email_check(client)
-    # full << mothername_check(client) if full_contract == :full
-    # full << bank_check(client) if full_contract == :full
-    # full << client_address(gender, client)
-    # full << full_qualify_representative(client) if client.capacity_check == false
-    # full.reject(&:blank?).join(', ')
-  end
-
-  # criar método para qualificar compania
-  def full_qualify_company(client); end
-
-  # :full contract methods
 
   def email_check(client)
     email_details = "endereço eletrônico: #{emails.map(&:email)[0]}"

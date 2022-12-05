@@ -173,16 +173,30 @@ module Templater
         full.reject(&:blank?).join(', ')
       end
 
+      def full_qualify_lawyer(lawyer, full_contract = nil)
+        gender = gender_check(lawyer.gender)
+        full = []
+        full << full_name(lawyer).upcase
+        full << genderize(gender, lawyer.civilstatus).downcase
+        full << genderize(gender, lawyer.citizenship).downcase
+        full << general_register_check(gender, lawyer)
+        full << social_number_check(gender, lawyer)
+        full << client_address(gender, lawyer)
+        full.reject(&:blank?).join(', ')
+      end
+
       def replacer(client, doc)
         doc.paragraphs.each do |p|
           p.each_text_run do |tr|
             dia = I18n.l(Time.now, format: "%d de %B de %Y")
             ql = full_qualify_person(client)
+            lawyer = full_qualify_lawyer(UserProfile.first)
+            office = TemplaterOffice::TemplaterOfficeService.office_check 
+            # TemplaterOffice::TemplaterOfficeService.office_templater_procuration(Office.first).reject(&:blank?).join(', ')
             tr.substitute('_fn_', client.name.upcase) 
             tr.substitute('_timestamp_', dia+".")
             tr.substitute('_qualify_', ql)
-            tr.substitute('_lawyers_', "laywersnew")
-            #raise
+            tr.substitute('_lawyers_', lawyer)
           end
         end
         doc

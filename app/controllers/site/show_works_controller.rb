@@ -6,6 +6,15 @@ module Site
     before_action :authenticate_customer!
 
     include ClientsHelper
+
+    def index
+      @customer = Client.joins(:emails).find_by(emails: { email: current_customer.email })
+
+      redirect_to client_works_show_path(@customer) if @customer.client_type.zero?
+
+      @clients = Client.joins(:customer_types).where(customer_types: { represented: @customer.id })
+    end
+
     def show
       @customer = CustomerService.data_for_home(current_customer)
 
