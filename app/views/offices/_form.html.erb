@@ -74,7 +74,7 @@
 
           <div class="col-md-6">
             <b><%= f.label "Estado*" %></b>
-            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
+			      <%= f.select :state, options_for_states, {prompt: 'Escolha um Estado'}, {class: "state-select state form-control"} %>
           </div>
 
           <div class="col-md-6">
@@ -106,7 +106,8 @@
 
               <div class="col-md-4">
                 <b><%= f.label "Banco" %></b>
-                <%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control', placeholder:"Conta"}%>
+                <%= b.select :name, options_for_banks, {prompt: 'Escolha um banco'}, {class: "bank-select form-control"} %>
+
               </div>
 
               <div class="col-md-4">

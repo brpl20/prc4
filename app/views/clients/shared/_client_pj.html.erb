@@ -90,7 +90,7 @@
 
           <div class="col-md-6">
             <label>Estado*</label>
-            <%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state step-2-required"} %>
+            <%= f.select :state, options_for_states, {prompt: 'Escolha um Estado'}, {class: "state-select state step-2-required"} %>
           </div>
         </div>
       </div>
