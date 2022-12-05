@@ -125,6 +125,7 @@ input[type='checkbox']{
 }
 .phone-cli{
   margin-top: 3rem;
+  padding-top: 3rem;
 }
 .btn-add-cli{
   width: 100%;
@@ -136,7 +137,7 @@ input[type='checkbox']{
   width: 100%;
 }
 .btn-rmv-cli{
-  margin-top: .5em;
+  //margin-top: .5em;
   width: 100%;
   border: solid 1px #ff6b6b;
   color: #ff6b6b;
@@ -263,4 +264,15 @@ span.section{
     width: 100%;
     margin-bottom: 3rem;
   }
+}
+
+.div-btn-add-email{
+  position: absolute;
+  width: 100%;
+  padding-bottom: 1rem !important;
+}
+
+.new-classe{
+  margin-top: 5rem !important;
+
 }

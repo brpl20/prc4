@@ -96,26 +96,35 @@
       </div>
       <div id="step-3" class="content" style="display: none;">
         <div class="col-md-12">
-          <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client no-padding">
-              <div class="phones">
-                <%= f.fields_for :phones do |ph| %> <%= render partial: "phone_fields", locals: {f: ph} %> <% end %>
-              </div>
 
-              <%= link_to_add_association "Adicionar telefone", f, :phones, class:"btn btn-success btn-add-cli" %>
+          <div class="col-md-3">
+            <div class="col-md-12 no-padding">
+              <label>Telefone*</label>
+              <%= link_to_add_association "Adicionar", f, :phones, 'data-association-isertion-node' => "#phones-client ol", 'data-association-insertion-method' => "append", class:"btn btn-success btn-add-cli" %>
+            </div>
+
+            <div class="col-md-12 no-padding">
+              <fieldset id="phones-client">
+                <%= f.fields_for :phones do |ph| %>
+                  <%= render partial: "phone_fields", locals: {f: ph} %>
+                <% end %>
+              </fieldset>
             </div>
           </div>
 
-          <div class="col-md-6 no-padding">
-            <div class="col-md-4 form-group client no-padding">
-              <div class="emails">
-                <%= f.fields_for :emails do |e| %>
-                  <%= render partial: "email_fields", locals: {f: e} %>
-                <% end %>
+          <div class="col-md-3">
+              <div class="col-md-12 no-padding">
+                <label>E-mail*</label>
+                <%= link_to_add_association "Adicionar", f, :emails, 'data-association-isertion-node' => "#emails-client ol", 'data-association-insertion-method' => "append", class:"btn btn-success btn-add-cli" %>
               </div>
 
-              <%= link_to_add_association "Adicionar e-mail", f, :emails, class:"btn btn-success btn-add-cli" %>
-            </div>
+              <div class="col-md-12 no-padding">
+                <fieldset id="emails-client">
+                  <%= f.fields_for :emails do |e| %>
+                    <%= render partial: "email_fields", :locals => {:f => e, :step => '2'} %>
+                  <% end %>
+                </fieldset>
+              </div>
           </div>
         </div>
 
