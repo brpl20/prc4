@@ -6,3 +6,6 @@
 //= require malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar
 //= require custom
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
+//= require select2
+//= require select2-full
+//= require select2_locale_"pt-BR"

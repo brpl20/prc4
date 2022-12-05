@@ -34,6 +34,7 @@ gem 'similar_text', '~> 0.0.4'
 gem 'simple_form'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 5.x'
+gem "select2-rails"
 
 group :development, :test do
   gem 'better_errors'

@@ -1,4 +1,5 @@
 class UserProfileController < UsersController
+  layout "backoffice"
   before_action :verify_password, only: [:update]
   before_action :set_user, only: [:edit, :update, :destroy]
 

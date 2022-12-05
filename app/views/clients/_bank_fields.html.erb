@@ -1,6 +1,7 @@
   <div class="col-md-12">
     <label>Banco</label>
-    <%= f.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'}%>
+    <%= f.select :name, options_for_banks, {prompt: 'Escolha um banco'}, {class: "bank-select"} %>
+
   </div>
 
   <div class="col-md-6">
