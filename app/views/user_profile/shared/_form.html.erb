@@ -99,7 +99,7 @@
 	<div class="item form-group">
 		<%= f.label "Estado", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-			<%= f.collection_select :state, options_for_states, :second, :first, {prompt: 'Selecione um Estado'}, {class:"form-control state"} %>
+			<%= f.select :state, options_for_states, {prompt: 'Escolha um Estado'}, {class: "state-select state form-control"} %>
 		</div>
 	</div>
 
@@ -168,7 +168,7 @@
 	<div class="item form-group">
 		<%= b.label "Banco", class:"col-form-label col-md-3 col-sm-3 label-align" %>
 		<div class="col-md-6 col-sm-6 ">
-		<%= b.collection_select :name, options_for_banks_conc, :first, :second, {:include_blank => 'Escolha um banco'}, {class:'form-control'} %>
+    <%= b.select :name, options_for_banks, {prompt: 'Escolha um banco'}, {class: "bank-select form-control"} %>
 
 		</div>
 	</div>

@@ -350,6 +350,7 @@ GEM
       sprockets (> 3.0)
       sprockets-rails
       tilt
+    select2-rails (4.0.13)
     selenium-webdriver (4.0.3)
       childprocess (>= 0.5, < 5.0)
       rexml (~> 3.2, >= 3.2.5)
@@ -434,6 +435,7 @@ DEPENDENCIES
   rails_admin (~> 2.0)
   s3
   sass-rails (~> 5.0)
+  select2-rails
   selenium-webdriver
   similar_text (~> 0.0.4)
   simple_form

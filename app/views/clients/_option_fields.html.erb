@@ -1,15 +1,15 @@
 <div class="col-md-12">
   <div class="col-md-6">
     <div class="opt-1">
-      <%= check_box_tag :flag_access_data, 1, true %>
-      <label> Enviar os dados de acesso </label>
+      <%= check_box_tag :flag_access_data, 1, true, id: 'acess-email' %>
+      <label for="acess-email"> Enviar os dados de acesso </label>
     </div>
     <div class="opt-2">
-      <%= check_box_tag :flag_generate_documents, 1, false %>
-      <label> Emitir documentos </label>
+      <%= check_box_tag :flag_generate_documents, 1, false, id: 'acess-docs' %>
+      <label for="acess-docs"> Emitir documentos </label>
     </div>
     <div class="opt-3">
-      <%= check_box_tag :flag_signature, 1, false %>
+      <%= check_box_tag :flag_signature, 1, false, id: 'acess-data' %>
       <label for="acess-data"> Enviar para assinatura </label>
     </div>
   </div>

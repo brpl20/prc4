@@ -2,6 +2,8 @@
 //= require rails-ujs
 //= require activestorage
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl
+//= require select2
+//= require select2-full
 
 $(document).ready(function(){
 
@@ -334,14 +336,23 @@ $('.rate').focus();
   });
 
   $(".cep").focusout(function(){
+    $(".cep").removeClass('error-mark-box');
+    $(".cep-label").removeClass('label_with_error');
     $.ajax({
       url: 'https://viacep.com.br/ws/'+$(this).val().replace(/\D/g, '')+'/json/',
       dataType: 'json',
       success: function(resposta){
         $(".address").val(resposta.logradouro);
         $(".city").val(resposta.localidade);
-        $(".state").val(resposta.uf);
+        $(".state").val(resposta.uf).trigger('change');
         $(".address").focus();
+        if (resposta.erro == true)
+          {
+            $(".cep").addClass('error-mark-box');
+            $(".cep-label").addClass('label_with_error');
+            $(".cep-label").addClass('label_with_error');
+            $(".add-error-cep").append('<small> CEP inválido ou não encontrado. </small>').css('color', 'red');
+          }
       }
     });
   });
@@ -358,5 +369,21 @@ $('.rate').focus();
   $(".buttonPrevious").addClass('btn btn-outline-warning');
 
  checkAll()
+
+ $(".state-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Escolha um Estado",
+   closeOnSelect: true
+ });
+
+ $(".bank-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Escolha um banco",
+   closeOnSelect: true
+ });
 
 });
