@@ -62,25 +62,29 @@
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <div class="container data-ordered">
 
-                  <div class="work-office">
-                    <%= f.fields_for :client_works do |cw| %>
-                    <%= render partial: "client_work_fields", locals: {f: cw} %>
-                    <% end %>
-                    <label> Cliente </label>
-                    <%= link_to_add_association "Adicionar Cliente", f, :client_works, class:"btn btn-success btn-add-cli" %>
-                  </div>
-
-                </div>
+              <div class="col-md-12 no-padding">
+                <fieldset id="work-office">
+                  <%= f.fields_for :client_works do |cw| %>
+                  <%= render partial: "client_work_fields", locals: {f: cw} %>
+                  <% end %>
+                </fieldset>
               </div>
 
+              <div class="col-md-10">
+                <%= link_to_add_association "Adicionar mais clientes", f, :client_works, class:"btn btn-success btn-add-cli", id: "add-cli-work" %>
+              </div>
+
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
               <div class="col-md-6">
                 <label> Número do Requerimento ou Processo </label>
                 <%= f.text_field :number, class:"form-control", min: 0 %>
                 <p><small class="rmk-text">* Apenas para casos em que já existe o processo.</small></p>
               </div>
-
             </div>
 
             <div id="mark-box-step-1-check" class="col-md-12">
@@ -464,6 +468,16 @@
     onLeaveStep: leaveAStepCallback, // triggers when leaving a step
     onShowStep: null,  // triggers when showing a step
     onFinish: null  // triggers when Finish button is clicked
+  });
+
+  $(".client-select").select2({
+    language: "pt-BR",
+    theme: "bootstrap",
+    allowClear: true,
+    placeholder: "Selecione ou digite um nome de um cliente",
+    closeOnSelect: true,
+    tags: "true",
+    allowClear: true
   });
 
 </script>
