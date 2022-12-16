@@ -222,14 +222,13 @@
             <div class="col-md-12">
 
                 <div class="col-md-6">
-                  <div class="container data-ordered">
+                  <div class="container">
 
                     <div class="work-office">
                       <%= f.fields_for :work_offices do |wo| %>
                         <%= render partial: "work_office_fields", locals: {f: wo} %>
                       <% end %>
 
-                      <label> Escritório ou Escritórios Associados </label>
                       <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli" %>
                     </div>
 
@@ -451,7 +450,7 @@
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
-    enableAllSteps: false,  // Enable/Disable all steps on first load
+    enableAllSteps: true,  // Enable/Disable all steps on first load
     transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
     contentURL:null, // specifying content url enables ajax content loading
     contentURLData:null, // override ajax query parameters
