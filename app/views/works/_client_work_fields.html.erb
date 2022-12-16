@@ -1,10 +1,10 @@
-<div class='control-group nested-fields'>
-  <div class="controls">
-    <div class="col-md-10 no-padding">
+<div class='control-group nested-fields clearfix col-md-12 no-padding'>
+  <div class="controls clearfix col-md-12 no-padding">
+    <div class="col-md-11 no-padding">
       <%= f.select :client_id, options_for_client, {prompt: 'Selecione ou digite um nome de um cliente'}, {class: "client-select form-control"} %>
     </div>
-    <div class="col-md-2 no-padding">
-      <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove") %>
+    <div class="col-md-1 no-padding btn-remove-right">
+      <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove btn-remove-right-a") %>
     </div>
   </div>
 </div>
