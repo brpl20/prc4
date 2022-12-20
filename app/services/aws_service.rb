@@ -99,6 +99,7 @@ module AwsService
           doc_templated = Templater::TemplaterService.replacer(client, doc)               # Runs the Templater/Replacer Service
           name = save_name(client)                                                        # Configures filename              
           folder = save_folder(client)                                                    # Configures foldername
+          #raise
           save_to_rails = doc_templated.save(Rails.root.join("tmp/#{name}.docx").to_s)    # Save file to Rails tmp file 
           file_to_upload = "tmp/#{name}.docx"                                             # Find file into rails tmp
           begin
@@ -113,7 +114,7 @@ module AwsService
             false
                                                                                           # Todo: Check if @s3 is really need
                                                                                           # .object => Place to be uploaded
-                                                                                          # upload file => file to puload 
+          end                                                                             # upload file => file to puload 
         end
 
         def aws_save_work(work, document, bucket='prcstudio3herokubucket')

@@ -88,6 +88,9 @@ module TemplaterOffice
       def office_templater_lawyer_first(office, lawyer = nil, full_contract = nil)
         full_office = [].reject(&:blank?).join(', ')
         full_office << "#{Templater::TemplaterService.full_qualify_lawyer(lawyer)}" 
+        # TODO ARRUMAR O QUE ESTÁ SENDO PASSADO AQUI 
+        # LEMBRAR QUE É USER ID - NEM SEMPRE O USER ESTÁ COMPLETO 
+        # SUBSTITUIR ENDEREÇO RESIDENCIAL PARA O ENDEREÇO DA SOCIEDADE
         full_office << "Integrante do Escritório: #{office.name.upcase}, "
         full_office << "OAB: #{office.oab}, "
         full_office << "CNPJ: #{office.cnpj_number}, "

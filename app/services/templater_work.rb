@@ -1,5 +1,6 @@
 module TemplaterWork
 
+  
 # --------------------------------------
 # Intro
 # This is the place for dealing with Works
@@ -25,13 +26,29 @@ module TemplaterWork
 
     class << self
 
-      def work_proceds(work)
-        proceds = [].join("")
-        work.procedures.each do | des |
-          proceds << des.description
-        end
-        proceds 
+      def full_name(client)
+        [client.name, client.lastname].join(' ')
       end
+
+      def work_clients(work)
+        clients = []
+        work.clients.each do | cli |
+          clients << full_name(cli)
+          #raise
+        end
+        clients.join(", ")
+        #raise
+      end
+
+      # --------------------------------------
+      # just to return the fullname "fn"
+      # --------------------------------------
+
+
+      
+      def work_proceds(work)
+        work.procedures.map(&:description).reject(&:blank?).join(', ') + "."
+      end    
 
       # --------------------------------------
       # works_proceds
@@ -42,15 +59,7 @@ module TemplaterWork
 
 
       def work_powers(work)
-        powerxx = [].join("")
-        work.powers.each do | pw |
-          if pw.equal?(work.powers.last)
-            powerxx << pw.description
-          else
-            powerxx << pw.description
-          end
-        end
-        powerxx
+        work.powers.map(&:description).reject(&:blank?).join(', ') + "."
       end
 
       # --------------------------------------
@@ -68,9 +77,12 @@ module TemplaterWork
         # extenso = "R$ #{trabalho},00 (#{Extenso.moeda(trabalho.to_f).downcase})"
         # limpar e transformar 
         if work.rate_work == "Trabalho"
+          #text = work.rate_fixed_exfield
+          #sentences = Extenso.moeda(text.to_f)
+          #raise
           return "o cliente pagará ao advogado o valor de #{work.rate_fixed_exfield}"
         elsif work.rate_work == "Êxito"
-          return "o cliente pagará ao advogado o valor de #{work.rate_percentage_exfield}\% sobre os benefícios advindos do processo"
+          return "o cliente pagará ao advogado o valor de #{work.rate_percentage_exfield} sobre os benefícios advindos do processo"
         elsif work.rate_work == "Ambos"
           return "o cliente pagará ao advogado o valor de #{work.rate_fixed_exfield} e o total de #{work.rate_percentage_exfield}\% dos benefícios advindos do processo"
         elsif work.rate_work == "Pro-bono"
@@ -80,6 +92,23 @@ module TemplaterWork
         end
       end
 
+      # # INPUTS 
+      # R$ 2.000,00
+      # 2.000
+      # 2000
+      # 4 benefícios previdenciários 
+
+
+      # # REAL DEAL 
+      # rate_work: "Ambos"
+      # rate_percentage: nil, 
+      # rate_percentage_exfield: "30% ",
+      # rate_fixed: nil,
+      # rate_fixed_exfield: "4 benefícios ", 
+      # rate_work: "Ambos", 
+      # rate_parceled: "Sim", 
+
+
       # --------------------------------------
       # rater 
       # will work around the form of payment to the lawyer 
@@ -87,6 +116,8 @@ module TemplaterWork
       # working (work) => lawyer receives R$ xxx for the job regardless of the result 
       # success (exito) => lawyer receives % for the jog depending of the final result 
       # both (mix between work and success)
+      # ** keep in mind that rate_percentage and rate_fixed are not useful, all the logic is **
+      # ** done with rate_work **
       # pro bono => Free 
       # --------------------------------------
 
@@ -165,6 +196,10 @@ module TemplaterWork
         office
       end
 
+      def work_office_finder_new(work)
+        work.offices.map(&:id)
+      end
+
       # --------------------------------------
       # work_office_finder  
       # helper to find and qualify the client 
@@ -181,18 +216,21 @@ module TemplaterWork
       # 
       # --------------------------------------
 
-      def work_office_search(work)
+      def work_office_search_for_procuration(work)
         offices = []
         office_contract = [].reject(&:blank?).join(', ')
         work.offices.each do | off |
           offices << off.id
+          #raise
         end
         if offices.size > 1 
           offices.each do | off |
             office_contract << TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first(Office.find_by_id(off), UserProfile.find_by_id(work.user_id))
+            #raise
         end
-          office_contract
-          raise # Todo: Test this method 
+        else 
+          office_contract << TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first(Office.find_by_id(offices[0]), UserProfile.find_by_id(work.user_id))
+            #raise
         end
       end
 
@@ -212,10 +250,11 @@ module TemplaterWork
         # Automatico, puxando apenas o Office.first
         procedures = work_proceds(work)
         powers = work_powers(work)
-        #lawyers_proc = "TemplaterOffice::TemplaterOfficeService.office_templater_lawyer_first"
-        
+        lawyers_proc = work_office_search_for_procuration(work)
+        #raise
+        full_names = work_clients(work)
         # TODO - REVER PASSAGENS NO FORMULÁRIO PARA SELECIONAR O ADVOGADO RESPONSÁVEL PELO CONTRATO ! 
-        offices = work_office_search(work)
+        #offices = work_office_search(work)
         #raise
         
         #qualify_contract = "Templater::Templater:: :full"
@@ -225,10 +264,13 @@ module TemplaterWork
             tr.substitute('_lawyers_', office)
             tr.substitute('_:procedure_', procedures)
             tr.substitute('_:subject_', work.subject)
+            tr.substitute('_fn:_', full_names)
             tr.substitute('_:action_', work.action)
             tr.substitute('_:number_', work.number)
             tr.substitute('_:powers_', powers)
+            tr.substitute('_:lbs:_', lawyers_proc)
             tr.substitute('_lawyerscontract_', office)
+            #raise
             tr.substitute('_qualifycontract_', qualify)
             tr.substitute('_$parl_', paralegals(work))
             tr.substitute('$es', interns(work))
