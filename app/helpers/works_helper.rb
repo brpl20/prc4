@@ -1,6 +1,6 @@
 module WorksHelper
   def options_for_client
-    Client.order(:name).map{|c| [c.id, "#{c.name} #{c.lastname}"] }
+    Client.order(:name).map{|c| ["#{c.name} #{c.lastname}", c.id] }
   end
 
   def options_for_subject

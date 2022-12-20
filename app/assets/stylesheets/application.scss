@@ -174,11 +174,10 @@ label{
 
 .data-ordered{
   display: flex;
-  flex-wrap: wrap-reverse;
+  //flex-wrap: wrap-reverse;
 }
 .work-office{
   width: 100%;
-  display: flex;
   flex-wrap: inherit;
   justify-content: space-between;
 }
@@ -199,4 +198,10 @@ label{
 
 .icones-h1{
     font-size: 20px;
+}
+.btn-remove-right-a{
+  margin-right: 0 !important;
+}
+.btn-remove-right{
+  text-align: right;
 }

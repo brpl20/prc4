@@ -370,20 +370,48 @@ $('.rate').focus();
 
  checkAll()
 
- $(".state-select").select2({
+  $(".state-select").select2({
    language: "pt-BR",
    theme: "bootstrap",
    allowClear: true,
    placeholder: "Escolha um Estado",
    closeOnSelect: true
- });
+  });
 
- $(".bank-select").select2({
+  $(".bank-select").select2({
    language: "pt-BR",
    theme: "bootstrap",
    allowClear: true,
    placeholder: "Escolha um banco",
    closeOnSelect: true
- });
+  });
+
+  $(".client-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione ou digite um nome de um cliente",
+   closeOnSelect: true,
+   tags: "true",
+   allowClear: true
+  });
+
+  $(document).on('click', '#add-cli-work', function() {
+    $(".client-select").select2({
+      language: "pt-BR",
+      theme: "bootstrap",
+      allowClear: true,
+      placeholder: "Selecione ou digite um nome de um cliente",
+      closeOnSelect: true,
+      tags: "true",
+      allowClear: true
+    });
+  });
+
+  $("#add-cli-work").addClass('hidden');
+
+  $(".client-select").change(function() {
+    $("#add-cli-work").removeClass('hidden');
+  });
 
 });
