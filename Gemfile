@@ -20,6 +20,7 @@ gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
+gem 'jsbundling-rails'
 gem 'omniauth-google-oauth2'
 gem 'pdf-forms'
 gem 'pg', '>= 0.18', '< 2.0'
@@ -33,7 +34,6 @@ gem 'sass-rails', '~> 5.0'
 gem 'similar_text', '~> 0.0.4'
 gem 'simple_form'
 gem 'uglifier', '>= 1.3.0'
-gem 'webpacker', '~> 5.x'
 gem "select2-rails"
 
 group :development, :test do
