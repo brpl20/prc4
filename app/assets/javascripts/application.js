@@ -257,6 +257,7 @@ $('.rate').focus();
   }
 
   $('.remove-ind').on("click", function(){
+    $("#label-comissao").addClass('hidden');
     $('.indId').val("");
     $('.indName').text("Escolha uma indicação.");
     document.getElementById('ind-btn-remove').style.visibility = 'hidden';
@@ -392,8 +393,52 @@ $('.rate').focus();
    allowClear: true,
    placeholder: "Selecione ou digite um nome de um cliente",
    closeOnSelect: true,
-   tags: "true",
-   allowClear: true
+   tags: "true"
+  });
+
+  $(".office-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione ou digite um nome de um escritório",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".adv-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Advogado",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".email-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um e-mail",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".intern-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Estagiário",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".paralegal-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Paralegal",
+   closeOnSelect: true,
+   tags: "true"
   });
 
   $(document).on('click', '#add-cli-work', function() {
@@ -403,15 +448,30 @@ $('.rate').focus();
       allowClear: true,
       placeholder: "Selecione ou digite um nome de um cliente",
       closeOnSelect: true,
-      tags: "true",
-      allowClear: true
+      tags: "true"
+    });
+  });
+
+  $(document).on('click', '#add-office-work', function() {
+    $(".office-select").select2({
+      language: "pt-BR",
+      theme: "bootstrap",
+      allowClear: true,
+      placeholder: "Selecione um escritório",
+      closeOnSelect: true,
+      tags: "true"
     });
   });
 
   $("#add-cli-work").addClass('hidden');
+  $("#add-office-work").addClass('hidden');
 
   $(".client-select").change(function() {
     $("#add-cli-work").removeClass('hidden');
+  });
+
+  $(".office-select").change(function() {
+    $("#add-office-work").removeClass('hidden');
   });
 
 });

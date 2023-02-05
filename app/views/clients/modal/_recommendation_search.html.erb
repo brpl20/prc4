@@ -81,6 +81,7 @@
   });
 
   $('#set-client').on("click", function(){
+    $("#label-comissao").removeClass('hidden');
 
     let data = define_rep();
     let representedIids = document.querySelectorAll('.represented_iid');

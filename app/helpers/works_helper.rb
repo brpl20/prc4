@@ -99,6 +99,6 @@ module WorksHelper
   end
 
   def options_user_by_role(role)
-    UserProfile.where(role: role).order(:name)
+    UserProfile.where(role: role).order(:name).map{|c| ["#{c.name} #{c.lastname}", c.id] }
   end
 end

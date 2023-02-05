@@ -1,6 +1,6 @@
 module OfficesHelper
   def options_for_office
-    Office.all
+    Office.order(:name).map{|c| ["#{c.name}", c.id] }
   end
 
   def options_for_responsible

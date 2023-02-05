@@ -1,6 +1,10 @@
-<div class='nested-fields col-md-12 no-padding cli-work'>
-  <div class="field fields-cli">
-      <%= f.collection_select(:office_id, options_for_office, :id, :name, {include_blank: 'Selecione um escritório'}, {class:'form-control'}) %>
-    <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove") %>
+<div class='control-group nested-fields'>
+  <div class="controls">
+    <div class="col-md-11 no-padding">
+      <%= f.select :office_id, options_for_office, {prompt: 'Selecione um escritório'}, {class:'office-select form-control'} %>
+    </div>
+    <div class="col-md-1 no-padding btn-remove-right">
+      <%= link_to_remove_association("X", f, class:"adj100 btn btn-outline btn-danger btn-remove btn-remove-right-a") %>
+    </div>
   </div>
 </div>

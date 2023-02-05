@@ -60,23 +60,19 @@
           <div id="step-1" class="content" style="display: block;">
 
             <div class="col-md-12">
-
               <div class="col-md-6">
-
-              <div class="col-md-12 no-padding">
-                <fieldset id="work-office">
-                  <%= f.fields_for :client_works do |cw| %>
-                  <%= render partial: "client_work_fields", locals: {f: cw} %>
-                  <% end %>
-                </fieldset>
+                <div class="col-md-12 no-padding">
+                  <label>Cliente*</label>
+                  <fieldset id="work-office">
+                    <%= f.fields_for :client_works do |cw| %>
+                    <%= render partial: "client_work_fields", locals: {f: cw} %>
+                    <% end %>
+                  </fieldset>
+                </div>
+                <div class="col-md-10">
+                  <%= link_to_add_association "Adicionar mais clientes", f, :client_works, class:"btn btn-success btn-add-cli", id: "add-cli-work" %>
+                </div>
               </div>
-
-              <div class="col-md-10">
-                <%= link_to_add_association "Adicionar mais clientes", f, :client_works, class:"btn btn-success btn-add-cli", id: "add-cli-work" %>
-              </div>
-
-              </div>
-
             </div>
 
             <div class="col-md-12">
@@ -220,34 +216,58 @@
           <div id="step-4" class="content" style="display: none;">
 
             <div class="col-md-12">
-
-                <div class="col-md-6">
-                  <div class="container">
-
-                    <div class="work-office">
-                      <%= f.fields_for :work_offices do |wo| %>
-                        <%= render partial: "work_office_fields", locals: {f: wo} %>
-                      <% end %>
-
-                      <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli" %>
-                    </div>
-
+              <div class="col-md-6">
+                <div class="col-md-12 no-padding">
+                  <label>Escritório*</label>
+                  <fieldset id="work-office">
+                    <%= f.fields_for :work_offices do |wo| %>
+                      <%= render partial: "work_office_fields", locals: {f: wo} %>
+                    <% end %>
+                  </fieldset>
                 </div>
+                  <div class="col-md-10">
+                    <%= link_to_add_association "Adicionar Escritório", f, :work_offices, class:"btn btn-success btn-add-cli", id:"add-office-work" %>
+                  </div>
               </div>
+            </div>
 
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <label> Advogado Responsável </label>
+                <%= f.select :user_id, options_user_by_role(0), {prompt: 'Selecione um Advogado'}, {class:"adv-select"} %>
+              </div>
+            </div>
+
+            <div class="col-md-12">
               <div class="col-md-6">
                 <label> Atendimento Inicial </label>
-                <%= f.collection_select :initial_atendee, UserProfile.order(:email), :id, :email, {}, {class:'form-control'} %>
+                <%= f.select :initial_atendee, UserProfile.order(:email).map{|c| ["#{c.email}", c.id] }, {prompt: 'Selecione um e-mail'}, {class:'email-select'} %>
               </div>
-
             </div>
 
             <div class="col-md-12">
 
               <div class="col-md-6">
-                <label> Advogado Responsável </label>
-                <%= f.collection_select :user_id, options_user_by_role(0), :user_id, :name, {prompt: 'Selecione um Advogado'}, {class:"form-control"} %>
+                <label> Estagiários da Procuração </label>
+                <%= f.select :procuration_intern, options_user_by_role(2), {prompt: 'Selecione um Estagiário'}, {class:"intern-select"} %>
               </div>
+
+              <div class="col-md-6">
+                <label> Bacharéis/Paralegais da Procuracão </label>
+                <%= f.select :procuration_paralegal, options_user_by_role(1), {prompt: 'Selecione um Paralegal'}, {class:"paralegal-select"} %>
+              </div>
+
+            </div>
+
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <label> Advogado Parceiro </label>
+                <%= f.text_field :partner_lawyer, class:"form-control" %>
+                <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
+              </div>
+            </div>
+
+            <div class="col-md-12">
 
               <div class="col-md-6 recommend-container">
                 <div class="container-row">
@@ -274,44 +294,18 @@
 
             </div>
 
-            <div class="col-md-12">
+            <div class="col-md-12 hidden" id="label-comissao">
+              <div class="col-md-6">
+                <label> Porcentagem da Comissão </label>
+                <%= rw.text_field :percentage, class:"form-control" %>
+              </div>
 
-                <div class="col-md-6">
-                  <label> Porcentagem da Comissão </label>
-                  <%= rw.text_field :percentage, class:"form-control" %>
-                </div>
-
-                <div class="col-md-6">
-                  <label> Valor da Comissão </label>
-                  <%= rw.number_field :commission, class:"form-control" %>
-                </div>
+              <div class="col-md-6">
+                <label> Valor da Comissão </label>
+                <%= rw.number_field :commission, class:"form-control" %>
+              </div>
               <% end %>
-
             </div>
-
-            <div class="col-md-12">
-
-              <div class="col-md-6">
-                <label> Estagiários da Procuração </label>
-                <%= f.collection_select :procuration_intern, options_user_by_role(2), :id, :name, {prompt: 'Selecione um Estagiário'}, {class:"form-control"} %>
-              </div>
-
-              <div class="col-md-6">
-                <label> Bacharéis/Paralegais da Procuracão </label>
-                <%= f.collection_select :procuration_paralegal, options_user_by_role(1), :id, :name, {prompt: 'Selecione um Paralegal'}, {class:"form-control"} %>
-              </div>
-
-            </div>
-
-            <div class="col-md-12">
-              <div class="col-md-6">
-                <label> Advogado Parceiro </label>
-                <%= f.text_field :partner_lawyer, class:"form-control" %>
-                <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
-              </div>
-            </div>
-
-
 
           </div>
 
@@ -385,72 +379,72 @@
 
 <script type="text/javascript">
 
-  function leaveAStepCallback(_, context){
-
-    let flag = 3;
-
-    if (context.fromStep == 1) {
-      if (!$("input[name='work[procedure_ids][]']:checked").length > 0) {
-        $('#mark-box-step-' + context.fromStep + '-check').addClass('error-mark-box');
-        flag -= 1;
-      } else {
-        $('#mark-box-step-' + context.fromStep + '-check').removeClass('error-mark-box');
-      }
-
-      if (!$("input[name='work[subject]']:checked").length > 0) {
-        $('#mark-box-step-' + context.fromStep + '-radio').addClass('error-mark-box');
-        flag -= 1;
-      } else {
-        $('#mark-box-step-' + context.fromStep + '-radio').removeClass('error-mark-box');
-      }
-    }
-
-    if (context.fromStep == 2) {
-      if (!$("input[name='work[rate_work]']:checked").length > 0) {
-        $('#conds-rates').addClass('error-mark-box');
-        flag -= 1;
-      } else {
-        $('#conds-rates').removeClass('error-mark-box');
-      }
-
-      if (!$("input[name='work[rate_parceled]']:checked").length > 0) {
-        $('#rate_parceled').addClass('error-mark-box');
-        flag -= 1;
-      } else {
-        $('#rate_parceled').removeClass('error-mark-box');
-      }
-    }
-
-    if (context.fromStep == 3) {
-      if (!$("input[name='work[power_ids][]']:checked").length > 0) {
-        $('#powers').addClass('error-mark-box');
-        flag -= 1;
-      } else {
-        $('#powers').removeClass('error-mark-box');
-      }
-    }
-
-    $('.step-' + context.fromStep + '-required').each(function(){
-
-      if ($(this).val() == '') {
-        $(this).addClass('field_with_error');
-        $(this).prev().addClass('label_with_error');
-        flag -= 1;
-      } else {
-        if ($(this).hasClass('field_with_error') || $(this).hasClass('label_with_error')) {
-          $(this).removeClass('field_with_error');
-          $(this).prev().removeClass('label_with_error');
-        }
-      }
-
-    })
-    return flag == 3 ? true : false;
-  }
+  // function leaveAStepCallback(_, context){
+  //
+  //   let flag = 3;
+  //
+  //   if (context.fromStep == 1) {
+  //     if (!$("input[name='work[procedure_ids][]']:checked").length > 0) {
+  //       $('#mark-box-step-' + context.fromStep + '-check').addClass('error-mark-box');
+  //       flag -= 1;
+  //     } else {
+  //       $('#mark-box-step-' + context.fromStep + '-check').removeClass('error-mark-box');
+  //     }
+  //
+  //     if (!$("input[name='work[subject]']:checked").length > 0) {
+  //       $('#mark-box-step-' + context.fromStep + '-radio').addClass('error-mark-box');
+  //       flag -= 1;
+  //     } else {
+  //       $('#mark-box-step-' + context.fromStep + '-radio').removeClass('error-mark-box');
+  //     }
+  //   }
+  //
+  //   if (context.fromStep == 2) {
+  //     if (!$("input[name='work[rate_work]']:checked").length > 0) {
+  //       $('#conds-rates').addClass('error-mark-box');
+  //       flag -= 1;
+  //     } else {
+  //       $('#conds-rates').removeClass('error-mark-box');
+  //     }
+  //
+  //     if (!$("input[name='work[rate_parceled]']:checked").length > 0) {
+  //       $('#rate_parceled').addClass('error-mark-box');
+  //       flag -= 1;
+  //     } else {
+  //       $('#rate_parceled').removeClass('error-mark-box');
+  //     }
+  //   }
+  //
+  //   if (context.fromStep == 3) {
+  //     if (!$("input[name='work[power_ids][]']:checked").length > 0) {
+  //       $('#powers').addClass('error-mark-box');
+  //       flag -= 1;
+  //     } else {
+  //       $('#powers').removeClass('error-mark-box');
+  //     }
+  //   }
+  //
+  //   $('.step-' + context.fromStep + '-required').each(function(){
+  //
+  //     if ($(this).val() == '') {
+  //       $(this).addClass('field_with_error');
+  //       $(this).prev().addClass('label_with_error');
+  //       flag -= 1;
+  //     } else {
+  //       if ($(this).hasClass('field_with_error') || $(this).hasClass('label_with_error')) {
+  //         $(this).removeClass('field_with_error');
+  //         $(this).prev().removeClass('label_with_error');
+  //       }
+  //     }
+  //
+  //   })
+  //   return flag == 3 ? true : false;
+  // }
 
   $('#wizard').smartWizard({
     selected: 0,  // Selected Step, 0 = first step
     keyNavigation: false, // Enable/Disable key navigation(left and right keys are used if enabled)
-    enableAllSteps: false,  // Enable/Disable all steps on first load
+    enableAllSteps: true,  // Enable/Disable all steps on first load
     transitionEffect: 'fade', // Effect on navigation, none/fade/slide/slideleft
     contentURL:null, // specifying content url enables ajax content loading
     contentURLData:null, // override ajax query parameters
@@ -475,8 +469,7 @@
     allowClear: true,
     placeholder: "Selecione ou digite um nome de um cliente",
     closeOnSelect: true,
-    tags: "true",
-    allowClear: true
+    tags: "true"
   });
 
 </script>
