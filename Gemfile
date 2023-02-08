@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.7.4'
+ruby '3.0.0'
 
 gem 'autoprefixer-rails'
 gem 'aws-sdk-s3', require: false
@@ -16,7 +16,7 @@ gem 'devise-bootstrap-views', '~> 1.0'
 gem 'docx', require: ['docx']
 gem 'dotenv-rails', groups: %w[development test]
 gem 'extensobr'
-gem 'faker', git: 'https://github.com/faker-ruby/faker.git', branch: 'master'
+gem 'faker', '~> 3.1', '>= 3.1.1'
 gem 'font-awesome-rails'
 gem 'jbuilder', '~> 2.5'
 gem 'jquery-rails'
