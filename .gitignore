@@ -59,6 +59,3 @@ yarn-debug.log*
 /manual-testes-notes
 
 package-lock.json
-
-/app/assets/builds/*
-!/app/assets/builds/.keep

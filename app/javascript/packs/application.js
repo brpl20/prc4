@@ -1,7 +1,16 @@
+// const images = require.context('../images', true)
+// const imagePath = (name) => images(name, true)
 // import cocoon
 
-import "./src/jquery"
-//= require jquery_ujs
+require ("jquery")
+require ("@nathanvda/cocoon")
+
+require('datatables.net-bs4')
+require('jquery-mask-plugin')
+
+import $ from 'jquery';
+global.$ = jQuery;
+$.jMaskGlobals.watchDataMask = true;
 
 $(document).ready(function(){
 
@@ -34,6 +43,7 @@ $(document).ready(function(){
                       "sSortDescending": ": Ordenar colunas de forma descendente"
                   }
                 }});
+
 
   $('#datatable-list').DataTable({
     order: [[0, "desc"]],
