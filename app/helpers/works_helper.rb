@@ -4,8 +4,10 @@ module WorksHelper
   end
 
   def options_for_subject
-    work = ["Previdenciário", "Previdenciário"],
+    work = ["Administrativo", "Administrativo"],
             ["Cível", "Cível"],
+            ["Criminal", "Criminal"],
+            ["Previdenciário", "Previdenciário"],
             ["Trabalhista", "Trabalhista"],
             ["Tributário", "Tributário"],
             ["Tributário Pis/Cofins insumos", "Tributário Pis/Cofins insumos"],
@@ -100,5 +102,9 @@ module WorksHelper
 
   def options_user_by_role(role)
     UserProfile.where(role: role).order(:name).map{|c| ["#{c.name} #{c.lastname}", c.id] }
+  end
+
+  def test(role, office_id)
+    UserProfile.where(role: role, office_id: office_id).order(:name).map{|c| ["#{c.name} #{c.lastname}", c.id] }
   end
 end

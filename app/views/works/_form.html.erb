@@ -234,7 +234,7 @@
             <div class="col-md-12">
               <div class="col-md-6">
                 <label> Advogado Responsável </label>
-                <%= f.select :user_id, options_user_by_role(0), {prompt: 'Selecione um Advogado'}, {class:"adv-select"} %>
+                <%= f.select :user_id, options_for_adv_office, {prompt: 'Selecione um Advogado'}, {class:"adv-select"} %>
               </div>
             </div>
 
@@ -246,23 +246,23 @@
             </div>
 
             <div class="col-md-12">
-
               <div class="col-md-6">
                 <label> Estagiários da Procuração </label>
                 <%= f.select :procuration_intern, options_user_by_role(2), {prompt: 'Selecione um Estagiário'}, {class:"intern-select"} %>
               </div>
-
-              <div class="col-md-6">
-                <label> Bacharéis/Paralegais da Procuracão </label>
-                <%= f.select :procuration_paralegal, options_user_by_role(1), {prompt: 'Selecione um Paralegal'}, {class:"paralegal-select"} %>
-              </div>
-
             </div>
 
             <div class="col-md-12">
               <div class="col-md-6">
-                <label> Advogado Parceiro </label>
-                <%= f.text_field :partner_lawyer, class:"form-control" %>
+                <label> Bacharéis/Paralegais da Procuracão </label>
+                <%= f.select :procuration_paralegal, options_user_by_role(1), {prompt: 'Selecione um Paralegal'}, {class:"paralegal-select"} %>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="col-md-6">
+                <label> Advogado Externo </label>
+                <%= f.select :partner_lawyer, options_user_by_role(0), {prompt: 'Selecione um Advogado Externo'}, {class:"externo-select"} %>
                 <p><small class="rmk-text">Caso a procuração seja outorgada também a um advogado parceiro do escritório.</small></p>
               </div>
             </div>

@@ -11,57 +11,87 @@
     <spam><%= @input_html_options %></spam>
   </div>
 
+  <div class="all-powers">
     <h2>Poderes Gerais e Substabelecimento</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 1 
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 1
     end %>
 
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 2 
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 2
     end %>
 
     <h2>Poderes Especiais Customizados</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 3 
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 3
     end %>
 
+    <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 4 #add luis
+    end %>
+  </div>
+
+  <div class="prev-powers">
     <h2>Poderes Previdenciários</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 6
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 6
     end %>
+  </div>
 
+  <div class="trib-powers">
     <h2>Poderes Tributário</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 7
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 7
     end %>
 
+    <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 12 #add luis
+    end %>
+  </div>
 
+  <div class="adm-proc">
+    <h2>Processo Administrativo</h2>
+    <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 5 #add luis
+    end %>
+  </div>
+
+  <div class="adm-powers">
     <h2>Poderes Administrativo</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 8
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 8
     end %>
+  </div>
 
+  <div class="civil-powers">
     <h2>Poderes Cível</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 9
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 9
+    end %>
+
+    <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 11 #add luis
     end %>
 
     <h2>Poderes Cível Família</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 10
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 10
     end %>
+  </div>
 
+  <div class="trab-powers">
     <h2>Poderes Trabalhista</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 13
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 13
     end %>
+  </div>
 
+  <div class="crim-powers">
     <h2>Poderes Criminal</h2>
     <%= f.collection_check_boxes :power_ids, options_for_check_boxes, :id, :description do |cb|
-      cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 14
+    cb.label(class:"inline-radio") { cb.check_box(class:'power') + cb.text } unless cb.object.category != 14
     end %>
-
-    
+  </div>
 
   <%#@input_html_options%>
 

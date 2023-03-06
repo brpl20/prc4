@@ -159,6 +159,14 @@
 
 	</div>
 
+	<div class="item form-group">
+		<label class="col-form-label col-md-3 col-sm-3 label-align">Escritório</label>
+
+		<div class="col-md-6 col-sm-6 ">
+			<%= f.select :office_id, options_for_office.map{|c| ["#{c[:office_name]}", c[:office_id]]}, {prompt: 'Selecione ou digite um nome de um escritório'}, {class: "office-select form-control"} %>
+		</div>
+	</div>
+
 <% end %>
 
 <span class="section">Dados Bancários</span>
