@@ -102,30 +102,106 @@ $('.rate').focus();
     $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Previdenciário-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio'  for='work_action_aposentadoria_por_tempo_de_contribuição'><input type='radio' value='Aposentadoria Por Tempo de Contribuição' name='work[action]' id='work_action_aposentadoria_por_tempo_de_contribuição'>Aposentadoria Por Tempo de Contribuição</label><label class='inline-radio'  for='work_action_aposentadoria_por_idade'><input type='radio' value='Aposentadoria Por Idade' name='work[action]' id='work_action_aposentadoria_por_idade'>Aposentadoria Por Idade</label><label class='inline-radio' for='work_action_aposentadoria_rural'><input type='radio' value='Aposentadoria Rural' name='work[action]' id='work_action_aposentadoria_rural'>Aposentadoria Rural</label><label class='inline-radio' for='work_action_benefícios_por_incapacidade_-_auxílio_doença_ou_acidente_-_invalidez_-_loas'><input type='radio' value='Benefícios Por Incapacidade - Auxílio Doença ou Acidente - Invalidez - LOAS' name='work[action]' id='work_action_benefícios_por_incapacidade_-_auxílio_doença_ou_acidente_-_invalidez_-_loas'>Benefícios Por Incapacidade - Auxílio Doença ou Acidente - Invalidez - LOAS</label><label class='inline-radio' for='work_action_revisão_de_benefício_previdenciário'><input type='radio' value='Revisão de Benefício Previdenciário' name='work[action]' id='work_action_revisão_de_benefício_previdenciário'>Revisão de Benefício Previdenciário</label> <label class='inline-radio' for='work_action_reconhecimento_de_tempo_averbação_serviços_administrativos'> <input type='radio' value='Reconhecimento de Tempo, Averbação, Serviços Administrativos' name='work[action]' id='work_action_reconhecimento_de_tempo_averbação_serviços_administrativos'>Reconhecimento de Tempo, Averbação, Serviços Administrativos</label> </fieldset> </div>" );
 
     check_subject_area();
+
+    $(".prev-powers").removeClass('hidden');
+    $(".adm-proc").addClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").addClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").addClass('hidden');
+    $(".crim-powers").addClass('hidden');
   };
 
   function civel(){
       $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Cível-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio' for='work_action_família'><input type='radio' value='Família' name='work[action]' id='work_action_família'>Família</label><label class='inline-radio' for='work_action_consumidor'><input type='radio' value='Consumidor' name='work[action]' id='work_action_consumidor'>Consumidor</label><label class='inline-radio' for='work_action_reparacao_cível'><input type='radio' value='Reparação Cível - Danos Materiais - Danos Morais' name='work[action]' id='work_action_reparacao_cível'>Reparação Cível - Danos Materiais - Danos Morais</label></fieldset> </div>" );
 
       check_subject_area();
+
+      $(".prev-powers").addClass('hidden');
+      $(".adm-proc").addClass('hidden');
+      $(".all-powers").removeClass('hidden');
+      $(".trib-powers").addClass('hidden');
+      $(".adm-powers").addClass('hidden');
+      $(".civil-powers").removeClass('hidden');
+      $(".trab-powers").addClass('hidden');
+      $(".crim-powers").addClass('hidden');
+
+  };
+
+  function administrativo(){
+
+    check_subject_area();
+
+    $(".prev-powers").addClass('hidden');
+    $(".adm-proc").removeClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").addClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").addClass('hidden');
+    $(".crim-powers").addClass('hidden');
+
+  };
+
+  function criminal(){
+
+    check_subject_area();
+
+    $(".prev-powers").addClass('hidden');
+    $(".adm-proc").addClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").addClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").addClass('hidden');
+    $(".crim-powers").addClass('hidden');
+
   };
 
   function trabalhista(){
     $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Trabalhista-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio' for='work_action_trabalhista'><input type='radio' value='Reclamatória Trabalhista' name='work[action]' id='work_action_trabalhista'>Reclamatória Trabalhista</label></fieldset> </div>" );
 
     check_subject_area();
+
+    $(".prev-powers").addClass('hidden');
+    $(".adm-proc").addClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").addClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").removeClass('hidden');
+    $(".crim-powers").addClass('hidden');
   };
 
   function tributario(){
     $('#subject-fields').append("<div class='subject-append col-md-8'> <fieldset class='radio_buttons grid'> <legend class='col-form-label pt-0'><b>Tributário-Áreas</b></legend><input type='hidden' name='work[action]' value=''><label class='inline-radio' for='work_action_asfalto'><input type='radio' value='Asfalto' name='work[action]' id='work_action_asfalto'>Asfalto</label><label class='inline-radio' for='work_action_alvara'><input type='radio' value='Alvará' name='work[action]' id='work_action_alvara'>Alvará</label><label class='inline-radio' for='work_action_outros'><input type='radio' value='Outros' name='work[action]' id='work_action_outros'>Outros</label></fieldset> </div>" );
 
     check_subject_area();
+
+    $(".prev-powers").addClass('hidden');
+    $(".adm-proc").addClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").removeClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").addClass('hidden');
+    $(".crim-powers").addClass('hidden');
   };
 
   function tributarioPisCofins(){
     $(".subject-append-pis").removeClass('hidden');
 
     check_subject_area();
+
+    $(".prev-powers").addClass('hidden');
+    $(".adm-proc").addClass('hidden');
+    $(".all-powers").removeClass('hidden');
+    $(".trib-powers").removeClass('hidden');
+    $(".adm-powers").addClass('hidden');
+    $(".civil-powers").addClass('hidden');
+    $(".trab-powers").addClass('hidden');
+    $(".crim-powers").addClass('hidden');
   };
 
   function outros(){
@@ -191,6 +267,8 @@ $('.rate').focus();
       case 'Tributário':                      tributario();             break;
       case 'Tributário Pis/Cofins insumos':     tributarioPisCofins();  break;
       case 'Outros':                          outros();                 break;
+      case 'Criminal':                        criminal();               break;
+      case 'Administrativo':                  administrativo ();        break;
     };
     if(value != 'Tributário Pis/Cofins insumos'){
       $(".subject-append-pis").addClass('hidden');
@@ -257,6 +335,7 @@ $('.rate').focus();
   }
 
   $('.remove-ind').on("click", function(){
+    $("#label-comissao").addClass('hidden');
     $('.indId').val("");
     $('.indName').text("Escolha uma indicação.");
     document.getElementById('ind-btn-remove').style.visibility = 'hidden';
@@ -392,8 +471,60 @@ $('.rate').focus();
    allowClear: true,
    placeholder: "Selecione ou digite um nome de um cliente",
    closeOnSelect: true,
-   tags: "true",
-   allowClear: true
+   tags: "true"
+  });
+
+  $(".office-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   placeholder: "Selecione ou digite um nome de um escritório",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".adv-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Advogado",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".externo-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Advogado Externo",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".email-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um e-mail",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".intern-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Estagiário",
+   closeOnSelect: true,
+   tags: "true"
+  });
+
+  $(".paralegal-select").select2({
+   language: "pt-BR",
+   theme: "bootstrap",
+   allowClear: true,
+   placeholder: "Selecione um Paralegal",
+   closeOnSelect: true,
+   tags: "true"
   });
 
   $(document).on('click', '#add-cli-work', function() {
@@ -403,15 +534,63 @@ $('.rate').focus();
       allowClear: true,
       placeholder: "Selecione ou digite um nome de um cliente",
       closeOnSelect: true,
-      tags: "true",
-      allowClear: true
+      tags: "true"
+    });
+  });
+
+  $(document).on('click', '#add-office-work', function() {
+    $(".office-select").select2({
+      language: "pt-BR",
+      theme: "bootstrap",
+      allowClear: true,
+      placeholder: "Selecione um escritório",
+      closeOnSelect: true,
+      tags: "true"
     });
   });
 
   $("#add-cli-work").addClass('hidden');
+  $("#add-office-work").addClass('hidden');
 
   $(".client-select").change(function() {
     $("#add-cli-work").removeClass('hidden');
+  });
+
+  $(".office-select").change(function() {
+    $("#add-office-work").removeClass('hidden');
+  });
+
+  $("#work_procedure_ids_1").on('click', function(){
+    if($('#work_procedure_ids_1').is(":checked")){
+      $(".adm-powers").removeClass('hidden');
+
+    } else {
+      $(".adm-powers").addClass('hidden');
+
+    }
+
+  });
+
+  function set_user(offices){
+
+
+  }
+
+  $(".selection").focusout(function(){
+
+    var t2 = $(this).parent().siblings('.office-select');
+    if (t2.length > 0){
+      console.log(t2.length);
+      office_name = $(this).text();
+      office_html = $(this).getAttribute;
+
+      console.log(office_name);
+      console.log($(this).value);
+
+    };
+
+
+
   });
 
 });

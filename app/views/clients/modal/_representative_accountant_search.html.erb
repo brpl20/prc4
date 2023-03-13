@@ -86,15 +86,31 @@
     }
   });
 
-  $('#customer_type').on('cocoon:before-insert', function(e, inserted) {
+  $('#set-client').on("click", function(){
 
     let data = define_rep();
+    let representedIids = document.querySelectorAll('.represented_iid');
+    let descriptionRep = document.querySelectorAll('.rep_desc');
 
-    inserted[0].querySelector('.represented_iid').value = data.id;
-    inserted[0].querySelector('.repName').textContent = data.name;
-    inserted[0].querySelector('.rep_desc').value = data.type;
-    inserted[0].querySelector('.repdesc').textContent = data.type;
+    representedIids.forEach(function(element) {
+      if (!element.value) {
+        element.value = data.id;
+        let nextElement = element.nextElementSibling;
+        if (nextElement) {
+          nextElement.textContent = data.name;
+        }
+      }
+    });
 
+    descriptionRep.forEach(function(element) {
+      if (!element.value) {
+        element.value = data.type;
+        let nextElement = element.nextElementSibling;
+        if (nextElement) {
+          nextElement.textContent = data.type;
+        }
+      }
+    });
   });
 
   $("#registers").DataTable({

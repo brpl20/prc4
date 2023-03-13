@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_12_10_230857) do
+ActiveRecord::Schema.define(version: 2023_02_12_143009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -297,6 +297,8 @@ ActiveRecord::Schema.define(version: 2022_12_10_230857) do
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "office_id"
+    t.index ["office_id"], name: "index_user_profiles_on_office_id"
     t.index ["user_id"], name: "index_user_profiles_on_user_id"
   end
 
@@ -380,6 +382,7 @@ ActiveRecord::Schema.define(version: 2022_12_10_230857) do
   add_foreign_key "recommendation_works", "clients"
   add_foreign_key "recommendation_works", "works"
   add_foreign_key "tributaries", "works"
+  add_foreign_key "user_profiles", "offices"
   add_foreign_key "user_profiles", "users"
   add_foreign_key "work_offices", "offices"
   add_foreign_key "work_offices", "works"

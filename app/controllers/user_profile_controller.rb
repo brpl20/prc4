@@ -67,7 +67,7 @@ class UserProfileController < UsersController
       :password_confirmation,
       user_profile_attributes: %i[id role name lastname gender general_register oab
                                   social_number citizenship civilstatus birth mothername
-                                  email address city state phone zip status origin],
+                                  email address city state phone zip status origin office_id],
       bank_attributes: %i[id name agency account]
     )
   end

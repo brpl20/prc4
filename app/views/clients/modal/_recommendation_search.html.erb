@@ -80,13 +80,21 @@
     }
   });
 
-  $('#customer_type').on('cocoon:before-insert', function(e, inserted) {
+  $('#set-client').on("click", function(){
+    $("#label-comissao").removeClass('hidden');
 
     let data = define_rep();
+    let representedIids = document.querySelectorAll('.represented_iid');
 
-    inserted[0].querySelector('.represented_iid').value = data.id;
-    inserted[0].querySelector('.repName').textContent = data.name;
-
+    representedIids.forEach(function(element) {
+      if (!element.value) {
+        element.value = data.id;
+        let nextElement = element.nextElementSibling;
+        if (nextElement) {
+          nextElement.textContent = data.name;
+        }
+      }
+    });
   });
 
 
