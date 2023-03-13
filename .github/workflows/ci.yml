@@ -17,4 +17,4 @@ jobs:
         gem install bundler
         bundle install
     - name: Run RSpec
-      run: bundle exec rspec
+      run: RAILS_ENV=test bundle exec rspec
