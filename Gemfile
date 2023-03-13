@@ -30,16 +30,19 @@ gem 'rails_admin', '~> 2.0'
 gem 'rails-i18n', '~> 6.0.0'
 gem 's3'
 gem 'sass-rails', '~> 5.0'
+gem 'select2-rails'
 gem 'similar_text', '~> 0.0.4'
 gem 'simple_form'
 gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 5.x'
-gem "select2-rails"
 
 group :development, :test do
   gem 'better_errors'
   gem 'byebug', platforms: %w[mri mingw x64_mingw]
+  gem 'database_cleaner'
+  gem 'factory_bot_rails'
   gem 'pry-rails'
+  gem 'rspec-rails', '~> 6.0.0'
 end
 
 group :development do
