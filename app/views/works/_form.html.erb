@@ -241,7 +241,7 @@
             <div class="col-md-12">
               <div class="col-md-6">
                 <label> Atendimento Inicial </label>
-                <%= f.select :initial_atendee, UserProfile.order(:email).map{|c| ["#{c.email}", c.id] }, {prompt: 'Selecione um e-mail'}, {class:'email-select'} %>
+                <%= f.select :initial_atendee, UserProfile.order(:name).map{|c| ["#{c.name} #{c.lastname}", c.id] }, {prompt: 'Selecione um e-mail'}, {class:'email-select'} %>
               </div>
             </div>
 

@@ -28,13 +28,13 @@ class WorksController < BackofficeController
     AwsService::AwsService.aws_save_work(work, document="procuracao_simples", bucket='prcstudio3herokubucket')
     #AwsService::AwsService.aws_save_work(work, document="wdocs", bucket='prcstudio3herokubucket')
   end
-  
+
   def create
     @work = Work.new(work_params)
     if @work.save
       #UpdateWorkMailer.notify_new_work(@work).deliver_later
       #raise
-      AwsService::AwsService.aws_save_work(@work, 'wdocs', bucket='prcstudio3herokubucket')
+      #AwsService::AwsService.aws_save_work(@work, 'wdocs', bucket='prcstudio3herokubucket')
       redirect_to @work
     else
       render :new,

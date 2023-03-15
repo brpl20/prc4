@@ -13,10 +13,10 @@ module Templater
       end
 
       # --------------------------------------
-      # gender_check 
-      # Check if client is male or female 
+      # gender_check
+      # Check if client is male or female
       # use only with PF (persons) clients
-      # don't use with CNPJ (companies) clients 
+      # don't use with CNPJ (companies) clients
       # --------------------------------------
 
       def genderize(gender, civilstatus)
@@ -34,8 +34,10 @@ module Templater
               civilstatus.sub! 'Brasileiro', 'Brasileira'
             when "Estrangeiro"
               civilstatus.sub! 'Estrangeiro', 'Estrangeira'
+            when "em União Estável"
+              "em União Estável"
             else
-            "em União Estável"
+              " --- erro ---"
           end
         else
           civilstatus
@@ -43,11 +45,11 @@ module Templater
       end
 
       # --------------------------------------
-      # genderize 
-      # after male/female checking 
-      # we will use the correct pronoums to the treatment 
+      # genderize
+      # after male/female checking
+      # we will use the correct pronoums to the treatment
       # use only with PF (persons) clients
-      # don't use with CNPJ (companies) clients 
+      # don't use with CNPJ (companies) clients
       # --------------------------------------
 
       def self.can_be_destroyed id
@@ -55,8 +57,8 @@ module Templater
       end
 
       # --------------------------------------
-      # can_be_destroyed 
-      # 
+      # can_be_destroyed
+      #
       # --------------------------------------
 
       def full_name(client)
@@ -64,8 +66,8 @@ module Templater
       end
 
       # --------------------------------------
-      # full_name 
-      # simple join first and last name 
+      # full_name
+      # simple join first and last name
       # --------------------------------------
 
       def email_check(client)
@@ -73,7 +75,7 @@ module Templater
       end
 
       # --------------------------------------
-      # email_check 
+      # email_check
       # templater/filler
       # --------------------------------------
 
@@ -82,7 +84,7 @@ module Templater
       end
 
       # --------------------------------------
-      # mothername_check 
+      # mothername_check
       # templater/filler
       # --------------------------------------
 
@@ -92,7 +94,7 @@ module Templater
       end
 
       # --------------------------------------
-      # bank_check 
+      # bank_check
       # templater/filler
       # --------------------------------------
 
@@ -142,7 +144,7 @@ module Templater
       # social_number_check
       # templater/filler
       # --------------------------------------
-  
+
       def nit_check(gender, client)
         if client.nit.nil? || client.nit == ''
           nit_not_exist = ''
@@ -200,6 +202,8 @@ module Templater
         full << full_name(client).upcase
         full << genderize(gender, client.civilstatus).downcase
         full << genderize(gender, client.citizenship).downcase
+        #raise
+
         full << client.capacity.downcase if client.capacity_check == false
         #full << client.profession.downcase
         full << general_register_check(gender, client)
@@ -212,6 +216,7 @@ module Templater
         full << client_address(gender, client)
         full << full_qualify_representative(client) if client.capacity_check == false
         full.reject(&:blank?).join(', ')
+        raise
       end
 
       # --------------------------------------
@@ -260,8 +265,8 @@ module Templater
 
       # --------------------------------------
       # full_qualify_representative
-      # to full qualify representatives 
-      # todo fix civilstatus / citizenship / profession 
+      # to full qualify representatives
+      # todo fix civilstatus / citizenship / profession
       # --------------------------------------
 
       def cnpj_check(client)
@@ -270,7 +275,7 @@ module Templater
         else
           cnpj_number_exist = "pessoa jurídica de direito privado, inscrita sob o CNPJ nº #{client.social_number}"
         end
-      end 
+      end
 
       def full_qualify_company(client, full_contract: nil)
         #raise
@@ -282,24 +287,24 @@ module Templater
         full << "com sede à #{client.address}"
         full << bank_check(client) if full_contract == :full
         full.reject(&:blank?).join(', ')
-      end 
+      end
 
       def replacer(client, doc)
+        ql = full_qualify_person(client)                              # ql => qualify => to use all data do know who it is
         doc.paragraphs.each do |p|
           p.each_text_run do |tr|
             dia = I18n.l(Time.now, format: "%d de %B de %Y")
             if client.client_type == 1
               ql = full_qualify_company(client) # qualification of clients as company (CNPJ)
-              #raise 
-            else 
-              #raise 
-              ql = full_qualify_person(client)                              # ql => qualify => to use all data do know who it is
-                                                                            # qualification of persons - clients (PF) 
+              #raise
+            else
+              #raise
+                                                                            # qualification of persons - clients (PF)
             end
             lawyer = full_qualify_lawyer(UserProfile.first)
-            office = TemplaterOffice::TemplaterOfficeService.office_check 
+            office = TemplaterOffice::TemplaterOfficeService.office_check
             # TemplaterOffice::TemplaterOfficeService.office_templater_procuration(Office.first).reject(&:blank?).join(', ')
-            tr.substitute('_fn_', full_name(client).upcase) 
+            tr.substitute('_fn_', full_name(client).upcase)
             tr.substitute('_timestamp_', dia+".")
             tr.substitute('_qualify_', ql)
             tr.substitute('_lawyers_', lawyer)
@@ -309,15 +314,15 @@ module Templater
       end
 
       # --------------------------------------
-      # replacer 
-      # to wrap all around and execute the 
-      # desired replacements 
+      # replacer
+      # to wrap all around and execute the
+      # desired replacements
       # --------------------------------------
 
-# Module CLASS kEEEP ENDs # 
+# Module CLASS kEEEP ENDs #
     end
   end
-end 
+end
 
 
 
