@@ -216,7 +216,7 @@ module Templater
         full << client_address(gender, client)
         full << full_qualify_representative(client) if client.capacity_check == false
         full.reject(&:blank?).join(', ')
-        raise
+        #raise
       end
 
       # --------------------------------------
