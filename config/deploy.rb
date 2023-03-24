@@ -9,7 +9,7 @@ require 'mina/rvm'
 # Repository project
 set :user, 'production'
 set :deploy_to, '/home/production/www'
-set :repository, 'https://github.com/brpl20/prc4.git'
+set :repository, 'git@github.com:brpl20/prc4.git'
 set :domain, '34.214.81.221'
 set :forward_agent, true
 
