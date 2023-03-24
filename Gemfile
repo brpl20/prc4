@@ -41,6 +41,7 @@ group :development, :test do
   gem 'byebug', platforms: %w[mri mingw x64_mingw]
   gem 'database_cleaner'
   gem 'factory_bot_rails'
+  gem 'mina', '0.3.8'
   gem 'pry-rails'
   gem 'rspec-rails', '~> 6.0.0'
 end
@@ -56,8 +57,8 @@ end
 
 group :test do
   gem 'capybara', '>= 2.15'
-  gem 'chromedriver-helper'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 gem 'tzinfo-data', platforms: %w[mingw mswin x64_mingw jruby]

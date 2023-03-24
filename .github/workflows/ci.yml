@@ -1,8 +1,5 @@
 name: Testes
-on:
-  push:
-    branches:
-      - jemisson
+on: push
 jobs:
   rspec:
     runs-on: ubuntu-latest
