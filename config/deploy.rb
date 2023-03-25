@@ -100,6 +100,7 @@ task deploy: :remote_environment do
     invoke :'bundle:install'
     invoke :'rails:db_migrate'
     invoke :'rails:assets_precompile'
+    invoke :'webpacker:compile'
 
     to :launch do
       queue %(echo -n '-----> Creating new restart.txt: ')
