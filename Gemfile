@@ -37,7 +37,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'webpacker', '~> 5.x'
 
 group :development, :test do
-  gem 'better_errors'
   gem 'byebug', platforms: %w[mri mingw x64_mingw]
   gem 'database_cleaner'
   gem 'factory_bot_rails'
