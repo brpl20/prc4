@@ -3,7 +3,7 @@ require 'mina/rails'
 require 'mina/git'
 require 'mina/rvm'
 
-#set :rvm_path, '/usr/james/.rvm/scripts/rvm'
+# set :rvm_path, '/usr/james/.rvm/scripts/rvm'
 # set :ruby_version, '2.7.4'
 
 # Repository project
@@ -45,7 +45,7 @@ task :remote_environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  # invoke :"rvm:use[ruby-2.7.4@production]"
+  invoke :"rvm:use[ruby-2.7.4@production]"
 end
 
 # Put any custom mkdir's in here for when `mina setup` is ran.
@@ -92,8 +92,8 @@ task :'logs:nginx' => :remote_environment do
   queue "tail -f /opt/nginx/logs/error.log"
 end
 
-desc "Deploys the current version to the server."
-task :deploy => :remote_environment do
+desc 'Deploys the current version to the server.'
+task deploy: :remote_environment do
   deploy do
     invoke :'git:clone'
     invoke :'deploy:link_shared_paths'
@@ -102,7 +102,7 @@ task :deploy => :remote_environment do
     invoke :'rails:assets_precompile'
 
     to :launch do
-      queue %[echo -n "-----> Creating new restart.txt: "]
+      queue %(echo -n '-----> Creating new restart.txt: ')
       queue "touch #{deploy_to}/shared/tmp/restart.txt"
     end
   end
