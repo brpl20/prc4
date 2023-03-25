@@ -4725,7 +4725,7 @@ ul.verticle_bars li {
   width: 90%;
   margin: 0 auto;
   color: #7c7574;
-  background-color: rgb(255 137 125 / 12%);
+  background-color: rgba(255, 137, 125, 0.4);
   border-color: rgba(231, 76, 60, 0.88);
 }
 
